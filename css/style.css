@@ -15,17 +15,19 @@ body {
 
 /*navbar*/
 
-.grid-container {
+/* .grid-container {
   height: 100vh;
   background: rgb(29, 29, 29);
-}
+} */
 
 .battle-panel {
   background: lightgreen;
   height: 50vh;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  /* padding: 0 20%; */
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  padding: 0;
 }
 
 .sky-panel {
@@ -35,19 +37,17 @@ body {
 }
 
 .opponent {
-  margin-right: 20px;
   height: 100px;
   width: 100px;
-  justify-self: end;
-  position: relative;
+  position: absolute;
+  top: 0px;
+  right: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .opponent__image {
   z-index: 100;
-  overflow: hidden;
 }
 
 .opponent__circle {
@@ -60,6 +60,47 @@ body {
   border: 5px solid yellow;
 }
 
+.opponent-panel {
+  background: rgb(232, 241, 190);
+  border: 5px solid rgb(104, 103, 103);
+  height: 80px;
+  width: 130px;
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  left: 5px;
+}
+
+.opponent-health__panel {
+  background: gray;
+  display: inline-block;
+  text-align: right;
+  padding: 3px;
+}
+
+.opponent-health__title {
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: 800;
+  color: orange;
+  text-shadow: 1px 1px 0 rgb(78, 78, 78);
+}
+
+.opponent-health__bar {
+  display: inline-block;
+  background: rgb(155, 253, 155);
+  height: 10px;
+  width: 85px;
+  border-radius: 5px;
+  border: 2px solid rgb(104, 103, 103);
+}
+
+.opponent-health__point {
+  font-weight: 800;
+  color: white;
+  font-size: .8rem;
+}
+
 /* modifier when lost
  */
 /* .opponent__circle--lost {
@@ -69,19 +110,22 @@ body {
 
 /* --player-- */
 .player {
-  /* background: red; */
+  /* background: lightblue; */
   height: 150px;
   width: 250px;
-  justify-self: start;
-  display: flex;
-  align-items: end;
-  position: relative; 
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
   overflow: hidden;
 }
 
 .player__img {
   height: 110px;
   z-index: 100;
+  position: absolute;
+  bottom: -7px;
+
+  
 }
 
 .player__circle{
@@ -97,34 +141,42 @@ body {
 
 .player-panel {
   background: rgb(232, 241, 190);
-  height: 100px;
   border: 5px solid rgb(104, 103, 103);
-  width: 220px;
-
-  /* display: flex; */
-  /* align-items: center; */
+  height: 90px;
+  width: 150px;
+  padding: 5px;
+  position: absolute;
+  right: 10px;
+  bottom: 30px;
 }
-.health__panel {
+
+.player-health__panel {
   background: gray;
   display: inline-block;
   text-align: right;
+  padding: 3px;
 }
 
-.health__title {
+.player-health__title {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
   color: orange;
   text-shadow: 1px 1px 0 rgb(78, 78, 78);
 }
 
-.health__bar {
+.player-health__bar {
   display: inline-block;
   background: rgb(155, 253, 155);
-  height: 20px;
-  width: 160px;
+  height: 10px;
+  width: 100px;
   border-radius: 5px;
   border: 2px solid rgb(104, 103, 103);
+}
+
+.player-health__point {
+  font-weight: 800;
+  color: white;
 }
 
 /* dialogue panel */
