@@ -186,7 +186,8 @@ body {
   height: 96%;
   margin: 5px;
   border-radius: 20px;
-  background: rgb(2, 92, 122);
+  /* background: rgb(2, 92, 122); */
+  background: rgb(6, 137, 180);
   border: 5px solid gold;
   display: grid;
   grid-template-columns: 50% 1fr;
