@@ -8,21 +8,24 @@ html,
 body {
   box-sizing: border-box;
   font-family: "Alumni Sans", sans-serif;
-
   font-family: "Rajdhani", sans-serif;
+  overflow: hidden;
   /* font-family: 'Alumni Sans', sans-serif; */
 }
 
 /*navbar*/
 
-/* .grid-container {
+.grid-container {
   height: 100vh;
-  background: rgb(29, 29, 29);
-} */
+  background: rgb(31, 30, 30);
+  border: 2px red solid;
+  display: grid;
+  grid-template-rows: 80px 5% 1fr 90px 160px;
+}
 
 .battle-panel {
-  background: lightgreen;
-  height: 50vh;
+  background: #90ee90;
+  height: 100%;
   position: relative;
   left: 0px;
   top: 0px;
@@ -33,7 +36,7 @@ body {
 .sky-panel {
   background: turquoise;
   /* background: linear-gradient(rgb(35, 202, 186) 60%, rgb(72, 250, 232)); */
-  height: 15vh;
+  height: 100%;
 }
 
 .opponent {
@@ -60,15 +63,14 @@ body {
   border: 5px solid yellow;
 }
 
-.opponent-panel {
+.opponent-health {
   background: rgb(232, 241, 190);
   border: 5px solid rgb(104, 103, 103);
-  height: 80px;
-  width: 130px;
   padding: 4px;
-  position: absolute;
-  top: 0;
-  left: 5px;
+  z-index: 100;
+  /* height: 80px; */
+  height: 100%;
+  width: 100%;
 }
 
 .opponent-health__panel {
@@ -76,6 +78,7 @@ body {
   display: inline-block;
   text-align: right;
   padding: 3px;
+  width: 100%;
 }
 
 .opponent-health__title {
@@ -89,10 +92,11 @@ body {
 .opponent-health__bar {
   display: inline-block;
   background: rgb(155, 253, 155);
-  height: 10px;
+  height: 8px;
   width: 85px;
   border-radius: 5px;
   border: 2px solid rgb(104, 103, 103);
+  width: 90%;
 }
 
 .opponent-health__point {
@@ -110,7 +114,6 @@ body {
 
 /* --player-- */
 .player {
-  /* background: lightblue; */
   height: 150px;
   width: 250px;
   position: absolute;
@@ -124,8 +127,6 @@ body {
   z-index: 100;
   position: absolute;
   bottom: -7px;
-
-  
 }
 
 .player__circle{
@@ -139,15 +140,14 @@ body {
   border: 5px solid yellow;
 }
 
-.player-panel {
+.player-health {
   background: rgb(232, 241, 190);
   border: 5px solid rgb(104, 103, 103);
-  height: 90px;
+  /* height: 90px; */
+  height: 100%;
   width: 150px;
   padding: 5px;
-  position: absolute;
-  right: 10px;
-  bottom: 30px;
+  width: 100%;
 }
 
 .player-health__panel {
@@ -155,6 +155,7 @@ body {
   display: inline-block;
   text-align: right;
   padding: 3px;
+  width: inherit;
 }
 
 .player-health__title {
@@ -169,9 +170,10 @@ body {
   display: inline-block;
   background: rgb(155, 253, 155);
   height: 10px;
-  width: 100px;
+  width: 89%;
   border-radius: 5px;
   border: 2px solid rgb(104, 103, 103);
+
 }
 
 .player-health__point {
@@ -181,15 +183,15 @@ body {
 
 /* dialogue panel */
 .dialogue {
-  height: 25vh;
-  margin: 5px 2%;
+  height: 96%;
+  margin: 5px;
   border-radius: 20px;
   background: rgb(2, 92, 122);
-  border: 10px solid gold;
+  border: 5px solid gold;
   display: grid;
   grid-template-columns: 50% 1fr;
   grid-gap: 5px;
-  padding: 1%;
+  padding: 5px;
 }
 
 .dialogue__story {
@@ -218,9 +220,6 @@ body {
   font-weight: 800;
   text-shadow: 1px 2px 2px black;
   color: white;
-  /* height: 50%;
-  padding: 10px;
-  border-radius: 5px; */
   border-radius: 5px;
 }
 
