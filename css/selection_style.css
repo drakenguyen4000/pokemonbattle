@@ -62,7 +62,8 @@ grid-template-rows: 70% 30%;
 
 .pokedex-details {
   height: 100%;
-  background: rgb(77, 182, 247);
+  /* background: rgb(77, 182, 247); */
+  background: rgb(238, 238, 238);
   padding: 5px;
   display: grid;
   grid-template-columns: 100px 1fr;
@@ -81,6 +82,7 @@ grid-template-rows: 70% 30%;
   /* color: white; */
   /* text-shadow: 1px 1px black; */
   background: rgb(180, 233, 250);
+  background: rgb(91, 205, 243);
   border-radius: 5px;
   text-align: center;
 }
