@@ -1,0 +1,253 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-family: "Alumni Sans", sans-serif;
+  font-family: "Rajdhani", sans-serif;
+  overflow: hidden;
+  /* font-family: 'Alumni Sans', sans-serif; */
+}
+
+/*navbar*/
+
+.grid-container {
+  height: 100vh;
+  background: rgb(31, 30, 30);
+  border: 2px red solid;
+  display: grid;
+  grid-template-rows: 80px 5% 1fr 90px 160px;
+}
+
+.battle-panel {
+  background: #90ee90;
+  height: 100%;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  padding: 0;
+}
+
+.sky-panel {
+  background: turquoise;
+  /* background: linear-gradient(rgb(35, 202, 186) 60%, rgb(72, 250, 232)); */
+  height: 100%;
+}
+
+.opponent {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.opponent__image {
+  z-index: 100;
+}
+
+.opponent__circle {
+  background: greenyellow;
+  height: 60px;
+  width: 200px;
+  position: absolute;
+  top: 50px;
+  border-radius: 50%;
+  border: 5px solid yellow;
+}
+
+.opponent-health {
+  background: rgb(232, 241, 190);
+  border: 5px solid rgb(104, 103, 103);
+  padding: 4px;
+  z-index: 100;
+  /* height: 80px; */
+  height: 100%;
+  width: 100%;
+}
+
+.opponent-health__panel {
+  background: gray;
+  display: inline-block;
+  text-align: right;
+  padding: 3px;
+  width: 100%;
+}
+
+.opponent-health__title {
+  display: inline-block;
+  font-size: .9rem;
+  font-weight: 800;
+  color: orange;
+  text-shadow: 1px 1px 0 rgb(78, 78, 78);
+}
+
+.opponent-health__bar {
+  display: inline-block;
+  background: rgb(155, 253, 155);
+  height: 8px;
+  width: 85px;
+  border-radius: 5px;
+  border: 2px solid rgb(104, 103, 103);
+  width: 90%;
+}
+
+.opponent-health__point {
+  font-weight: 800;
+  color: white;
+  font-size: .8rem;
+}
+
+/* modifier when lost
+ */
+/* .opponent__circle--lost {
+  background: coral;
+  border: 5px solid red;
+} */
+
+/* --player-- */
+.player {
+  height: 150px;
+  width: 250px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+
+.player__img {
+  height: 110px;
+  z-index: 100;
+  position: absolute;
+  bottom: -7px;
+}
+
+.player__circle{
+  background: greenyellow;
+  height: 90px;
+  width: 300px;
+  position: absolute;
+  bottom: -50px;
+  left: -100px;
+  border-radius: 50%;
+  border: 5px solid yellow;
+}
+
+.player-health {
+  background: rgb(232, 241, 190);
+  border: 5px solid rgb(104, 103, 103);
+  /* height: 90px; */
+  height: 100%;
+  width: 150px;
+  padding: 5px;
+  width: 100%;
+}
+
+.player-health__panel {
+  background: gray;
+  display: inline-block;
+  text-align: right;
+  padding: 3px;
+  width: inherit;
+}
+
+.player-health__title {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 800;
+  color: orange;
+  text-shadow: 1px 1px 0 rgb(78, 78, 78);
+}
+
+.player-health__bar {
+  display: inline-block;
+  background: rgb(155, 253, 155);
+  height: 10px;
+  width: 89%;
+  border-radius: 5px;
+  border: 2px solid rgb(104, 103, 103);
+
+}
+
+.player-health__point {
+  font-weight: 800;
+  color: white;
+}
+
+/* dialogue panel */
+.dialogue {
+  height: 96%;
+  margin: 5px;
+  border-radius: 20px;
+  /* background: rgb(2, 92, 122); */
+  background: rgb(6, 137, 180);
+  border: 5px solid gold;
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-gap: 5px;
+  padding: 5px;
+}
+
+.dialogue__story {
+  font-size: 1.1rem;
+  color: white;
+  text-shadow: 1px 2px 2px black;
+}
+
+.dialogue__command {
+  background: white;
+  border-radius: 10px;
+  border: 5px rgb(32, 32, 32) solid;
+  color: black;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 47% 1fr;
+  grid-gap: 2px;
+  padding: 2px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-shadow: 1px 2px 2px black;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn--attack {
+  /* background: coral; */
+  background:linear-gradient(coral, rgb(245, 28, 28));
+}
+
+.btn--bag {
+  /* background: orange; */
+  background: linear-gradient(orange,rgb(211, 138, 3));
+}
+
+.btn--pokemon {
+  /* background: green; */
+  background: linear-gradient(green,rgb(0, 71, 0));
+  
+}
+
+.btn--run {
+  background: rgb(0, 110, 255);
+  background: linear-gradient(rgb(0, 110, 255), rgb(1, 58, 133));
+
+}
+
+/* Media Query */
+/* For media query as screen increases */
+/* .opponent__image {
+  height: 300%;
+} */
