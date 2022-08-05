@@ -29,14 +29,77 @@
         </div>
         <div class="screen">
           <div class="display">
-            <h1 class="display__intro-title">POKEMON BATTLE REALM</h1>
-            <div class="display__intro-pokeball"></div>
-            <div class="display__intro-grass">
-              <div class="display__intro-arena-circle"></div>
+            <!-- <div class="display__intro">
+              <h1 class="display__intro-title">POKEMON BATTLE REALM</h1>
+              <div class="display__intro-pokeball"></div>
+              <div class="display__intro-grass">
+                <div class="display__intro-arena-circle"></div>
+              </div>
+            </div> -->
+            <div class="display-selection grid-container">
+              <!-- <div class="grid-container"> -->
+                <div class="selection">
+                  <!-- <h2 class="title">Select Your Pokemon</h2> -->
+                  <ul class="selection__list">
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/scyther.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/charizard.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/blastoise.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/gyarados.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/sandslash.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/magmar.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/golem.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/rhydon.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                    <li class="selection__card">
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/kadabra.png" class="player__img" alt="Charizard">
+                      <p class="selection__name">Scyther</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="pokedex-control">
+                  <div class="pokedex-details">
+                    <div class="pokedex-details__img">
+                      <p class="pokedex-details__desc__name">
+                        Rhydon</p>
+                      <img src="https://img.pokemondb.net/sprites/emerald/normal/rhydon.png" class="player__img" alt="Charizard">
+                     <button class="select-pokemon">Select</button>
+                    </div>
+                    <div class="pokedex-details__desc">
+                      <p>
+                        Pokémon is a series of video games developed by Game Freak and published by Nintendo and The Pokémon Company
+                        under the Pokémon media franchise.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <!-- </div> -->
             </div>
           </div>
         </div>
-         <div class="screen-panel-bottom">
+        <div class="screen-panel-bottom">
           <span class="screen-panel-bottom__light"></span>
           <ul class="speaker">
             <li class="speaker__port"></li>
@@ -44,6 +107,19 @@
             <li class="speaker__port"></li>
             <li class="speaker__port"></li>
           </ul>
+        </div>
+      </div>
+      <div class="console-bottom">
+        <button class="btn-sp btn-sp--red"></button>
+        <button class="btn-sp btn-sp--blue"></button>
+        <button class="btn btn-select"></button>
+        <div class="green-display"></div>
+        <div class="d-pad">
+          <button class="d-pad__btn d-pad__btn--up">&#9650;</button>
+          <button class="d-pad__btn d-pad__btn--down">&#9660;</button>
+          <div class="d-pad__btn d-pad__center"></div>
+          <button class="d-pad__btn d-pad__btn--left">&#9668;</button>
+          <button class="d-pad__btn d-pad__btn--right">&#9658;</button>
         </div>
       </div>
     </main>

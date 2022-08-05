@@ -142,7 +142,7 @@ main {
   bottom: 0;
 }
 
-screen panel bottom .screen-panel-bottom {
+.screen-panel-bottom {
   position: absolute;
   height: 51px;
   width: 100%;
@@ -175,4 +175,179 @@ screen panel bottom .screen-panel-bottom {
   margin: 2px;
   border-radius: 5px;
   background-color: #6e6e6e;
+}
+
+.btn-select {
+  height: 48px;
+  width: 48px;
+  border-radius: 200px;
+  background-color: #705a5a;
+  position: absolute;
+  bottom: 35px;
+  left: 36px;
+}
+
+.btn-sp {
+  border: 1px solid rgb(55, 54, 54);
+  width: 44px;
+  height: 9px;
+  border-radius: 5px;
+}
+
+.btn-sp--red {
+  position: absolute;
+  bottom: 82px;
+  left: 84px;
+  background-color: #fc2458;
+}
+
+.btn-sp--blue {
+  position: absolute;
+  bottom: 82px;
+  left: 132px;
+  background-color: #0482cb;
+}
+
+.green-display {
+  position: absolute;
+  bottom: 20px;
+  left: 103px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px #566f5a inset;
+  background-color: #afe4b6;
+  height: 40px;
+  width: 68px;
+}
+
+.d-pad {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  height: 80px;
+  width: 80px;
+}
+
+.d-pad__btn {
+  background: #705a5a;
+  height: 24px;
+  width: 24px;
+  border: none;
+  border-radius: 4px;
+  color: #473b3b;
+  font-size: 1rem;
+}
+
+.d-pad__btn--up {
+  position: relative;
+  left: 28px;
+}
+
+.d-pad__btn--down {
+  position: relative;
+  top: 56px;
+}
+
+.d-pad__btn--right {
+  position: relative;
+  top: -20px;
+  left: 28px;
+}
+
+.d-pad__btn--left {
+  position: relative;
+  top: -20px;
+  left: 0px;
+}
+
+.d-pad__center {
+  position: relative;
+  left: 28px;
+  top: 4px;
+  border-radius: 200px;
+}
+
+.grid-container {
+  padding: 5px;
+  display: grid;
+  grid-template-rows: 70% 30%;
+  background: #48C0C8;
+}
+
+.selection__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2%;
+  list-style: none;
+}
+
+.selection__card {
+  background: #a8e8f8;
+  border: 2px solid #5198ab;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.selection__name {
+  background: #f8f8f8;
+  border: 2px solid #706880;
+  border-radius: 3px;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-align: center;
+}
+
+/*pokedex-control*/
+.pokedex-control {
+  background: red;
+  padding: 5px 0;
+}
+
+.pokedex-details {
+  height: 100%;
+  /* background: rgb(77, 182, 247); */
+  background: rgb(238, 238, 238);
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+
+.pokedex-details__img {
+  padding: 10px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pokedex-details__desc__name {
+  font-weight: 600;
+  /* color: white; */
+  /* text-shadow: 1px 1px black; */
+  background: rgb(180, 233, 250);
+  background: rgb(91, 205, 243);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.pokedex-details__desc {
+  /* background: red; */
+  padding: 10px;
+  /* height: 80%; */
+  height: 130px;
+  overflow: scroll;
+}
+
+.pokedex-details button {
+  margin: 5px;
+  background: orange;
+  border-radius: 200px;
+}
+
+@media (min-width: 801px) {
+  main {
+    max-height: 1000px;
+    max-width: 800px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }/*# sourceMappingURL=style.css.map */
