@@ -272,6 +272,10 @@ main {
   left: 28px;
   top: 4px;
   border-radius: 200px;
+  background-color: #F12F4F;
+  box-shadow: none;
+  border: 1px solid #ac1e36;
+  box-shadow: 1px 1px 1px #ac1e36 inset;
 }
 
 .grid-container {
@@ -293,6 +297,30 @@ main {
   border: 2px solid #5198ab;
   border-radius: 3px;
   text-align: center;
+}
+
+.selection__card--hide {
+  font-size: 5rem;
+  color: #FFCB05;
+  font-weight: 800;
+  -webkit-text-stroke: 2px #3367B0;
+  border-radius: 3px;
+  border: 2px solid #FFCB05;
+  background: #3367B0;
+  text-align: center;
+  font-family: "Black Ops One";
+}
+
+.selection__name--hide, .player__img--hide {
+  display: none;
+}
+
+.player__card-mystery {
+  display: none;
+}
+
+.player__card-mystery--show {
+  display: block;
 }
 
 .selection__name {
