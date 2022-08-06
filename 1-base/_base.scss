@@ -97,6 +97,7 @@ main {
   width: 18px;
   margin-top: 8px;
   margin-left: 16px;
+  box-shadow: 2px 2px 4px #566f5a inset;
 }
 
 .light--skyblue {
@@ -125,6 +126,7 @@ main {
   width: 308px;
   height: 418px;
   background-color: #dbdbdb;
+  box-shadow: 1px 2px 1px #797979;
   margin: auto;
   border-radius: 0 0 0 25px;
 }
@@ -145,17 +147,18 @@ main {
 
 .screen {
   background-color: #000000;
+  border-radius: 0 0 10px 10px;
   height: 367px;
   width: 292px;
-  border-radius: 0 0 10px 10px;
   margin: auto;
+  border: 3px solid rgb(160, 159, 159);
 }
 
 //Display
 .display {
   background-color: #99d4ff;
   height: 367px;
-  width: 292px;
+  width: 289px;
   border-radius: 0 0 10px 10px;
   position: absolute;
 }
@@ -217,7 +220,7 @@ main {
 
 .speaker {
   position: absolute;
-  top: 1px;
+  top: 2px;
   right: 42px;
   display: inline-block;
   list-style: none;
@@ -229,6 +232,7 @@ main {
   margin: 2px;
   border-radius: 5px;
   background-color: #6e6e6e;
+  border: 1px rgb(79, 78, 78) solid;
 }
 
 //console bottom
@@ -240,13 +244,15 @@ main {
   position: absolute;
   bottom: 35px;
   left: 36px;
+  box-shadow: 1px 2px 2px #000000;
 }
 
 .btn-sp {
-  border: 1px solid rgb(55, 54, 54);
+  
   width: 44px;
   height: 9px;
   border-radius: 5px;
+  box-shadow: 1px 2px 2px #000000;
 }
 
 .btn-sp--red {
@@ -254,6 +260,7 @@ main {
   bottom: 82px;
   left: 84px;
   background-color: #fc2458;
+  border: 1px solid #6d0d23;
 }
 
 .btn-sp--blue {
@@ -261,6 +268,7 @@ main {
   bottom: 82px;
   left: 132px;
   background-color: #0482cb;
+  border: 1px solid #053957;
 }
 
 .green-display {
@@ -290,6 +298,7 @@ main {
   border-radius: 4px;
   color: #473b3b;
   font-size: 1rem;
+  box-shadow: 1px 2px 2px #000000;
 }
 
 .d-pad__btn--up {
@@ -356,8 +365,8 @@ main {
 
 /*selection-infobox*/
 .infobox {
-  background: #48A8A0;
-  border: 2px solid #7B7979;
+  background: rgb(82, 183, 175);
+  border: 2px solid rgb(62, 144, 137);
   border-radius: 0 0 10px 10px;
   padding: 3px;
   margin-top: 15px;
@@ -375,6 +384,7 @@ main {
   width: 50%;
   padding: 1%;
   margin: 0 1% 0 1%;
+  outline: 1px solid #645C5C;
 }
 
 .infobox__container--yellow {
@@ -390,7 +400,7 @@ main {
 }
 
 .infobox__details {
-  padding: 2%;
+  // padding: 2%;
   list-style: none;
 }
 
