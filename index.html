@@ -14,8 +14,14 @@
       href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Orbitron:wght@800&family=Righteous&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bungee&family=Orbitron:wght@800&family=Righteous&display=swap" rel="stylesheet"> 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Orbitron:wght@800&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Bungee&family=Orbitron:wght@800&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Pokemon Battles</title>
   </head>
@@ -43,7 +49,7 @@
               </div>
             </div> -->
             <!---Selection Screen-->
-            <div class="display-selection grid-container">
+            <!-- <div class="display-selection grid-container">
               <div class="selection">
                 <ul class="selection__list">
                   <li class="selection__card">
@@ -133,7 +139,81 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+            <!--Battle Page-->
+            <div class="battle-container">
+              <div class="item1">
+                <div class="opponent-health">
+                  <p class="opponent-health__name">Gyarados</p>
+                  <div class="opponent-health__panel">
+                    <div class="opponent-health__wrapper">
+                      <span class="opponent-health__title">HP</span>
+                      <span class="opponent-health__bar"></span>
+                    </div>
+                    <span class="opponent-health__point">43/43</span>
+                  </div>
+                </div>
+              </div>
+                <div class="item2 opponent-group">
+                  <div class="opponent">
+                    <img
+                      src="https://img.pokemondb.net/sprites/x-y/normal/gyarados-f.png"
+                      class="opponent__image"
+                      alt="Gyarados"
+                    />
+                    <div class="opponent__circle"></div>
+                  </div>
+                </div>
+                <div class="item3 player-group">
+                  <div class="player">
+                    <img
+                      src="https://img.pokemondb.net/sprites/emerald/back-normal/charizard.png"
+                      class="player__img"
+                      alt="Charizard"
+                    />
+                    <div class="player__circle"></div>
+                  </div>
+                    <div class="player-health">
+                      <p class="player-health__name">Charizard</p>
+                      <div class="player-health__panel">
+                        <div class="player-health__wrapper">
+                          <span class="player-health__title">HP</span>
+                          <span class="player-health__bar"></span>
+                        </div>
+                        <span class="player-health__point">43/43</span>
+                      </div>
+                </div>  
+                
+                </div>
+                <div class="item4">
+                  <div class="infobox">
+                    <div class="infobox__container infobox__container--yellow">
+                      <p class="infobox__text">Choose your Pokemon!</p>
+                    </div>
+                    <div class="infobox__container infobox__container--red">
+                      <ul class="infobox__details">
+                        <li>Type: Grass</li>
+                        <li>Health: 87/100</li>
+                        <li>Level: 12</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <!--
+              <div class="dialogue">
+                <p class="dialogue__story">
+                  Your foe SQUIRTLE is paralyzed! It maybe be unable to move!
+                </p>
+                <div class="dialogue__command">
+                  <button id="btn--attack" class="btn btn--attack">
+                    Attack
+                  </button>
+                  <button class="btn btn--bag">Bag</button>
+                  <button class="btn btn--pokemon">Pokemon</button>
+                  <button class="btn btn--run">Run</button>
+                </div>
+              </div>-->
+            </div> 
           </div>
         </div>
         <div class="screen-panel-bottom">
