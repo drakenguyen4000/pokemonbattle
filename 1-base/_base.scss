@@ -157,9 +157,9 @@ main {
 //Display
 .display {
   background-color: #99d4ff;
-  height: 367px;
-  width: 289px;
-  border-radius: 0 0 10px 10px;
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
   position: absolute;
 }
 
@@ -461,7 +461,7 @@ main {
     "opponent"
     "player"
     "infobox";
-  background-color: lightgreen;
+  background-color: $battle-ground;
   border-radius: 10px;
 }
 
@@ -640,76 +640,36 @@ main {
   border: 2px solid #1279A6;
 }
 
-// /* dialogue panel */
-// .dialogue {
-//   height: 96%;
-//   margin: 5px;
-//   border-radius: 20px;
-//   /* background: rgb(2, 92, 122); */
-//   background: rgb(6, 137, 180);
-//   border: 5px solid gold;
-//   display: grid;
-//   grid-template-columns: 50% 1fr;
-//   grid-gap: 5px;
-//   padding: 5px;
-// }
+.display__gameover{
+  background:$battle-ground;
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+  font-family: "Goldman";
+  font-size: 2.5rem;
+  color: #F7FB36;
+  -webkit-text-stroke: 2px #0229B7;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-// .dialogue__story {
-//   font-size: 1.1rem;
-//   color: white;
-//   text-shadow: 1px 2px 2px black;
-// }
+.gameover-gameover{
+  text-transform: uppercase;
+}
 
-// .dialogue__command {
-//   background: white;
-//   border-radius: 10px;
-//   border: 5px rgb(32, 32, 32) solid;
-//   color: black;
-//   list-style: none;
-//   display: grid;
-//   grid-template-columns: 47% 1fr;
-//   grid-gap: 2px;
-//   padding: 2px;
-// }
+.gameover-playagain{
+  margin-top: 20%;
+  font-size: 2rem;
+}
 
-// .btn {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 0.7rem;
-//   font-weight: 800;
-//   text-shadow: 1px 2px 2px black;
-//   color: white;
-//   border-radius: 5px;
-// }
+.playgain-arrow {
+  display: inline-block;
+  font-size: 20px;
+}
 
-// .btn--attack {
-//   /* background: coral; */
-//   background:linear-gradient(coral, rgb(245, 28, 28));
-// }
 
-// .btn--bag {
-//   /* background: orange; */
-//   background: linear-gradient(orange,rgb(211, 138, 3));
-// }
-
-// .btn--pokemon {
-//   /* background: green; */
-//   background: linear-gradient(green,rgb(0, 71, 0));
-
-// }
-
-// .btn--run {
-//   background: rgb(0, 110, 255);
-//   background: linear-gradient(rgb(0, 110, 255), rgb(1, 58, 133));
-
-// }
-
-// .d-pad__center {
-//   height: 40px;
-//   width: 40px;
-//   background-color: black;
-// }
 
 // @media (min-width: 320px) {
 //   main {
