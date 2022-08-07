@@ -8,7 +8,7 @@ html,
 body {
   height: auto;
   background-color: #ffffff;
-  color: #666666;
+  color: rgb(64, 64, 64);
   font-family: "Poppins", "Raleway", "Muli", "Lato", "sans-serif";
   font-weight: 300;
   font-size: 100%;
@@ -338,7 +338,7 @@ main {
   background: rgb(82, 183, 175);
   border: 2px solid rgb(62, 144, 137);
   border-radius: 0 0 10px 10px;
-  padding: 3px;
+  padding: 2px;
   height: 69px;
   width: 100%;
   display: flex;
@@ -351,8 +351,7 @@ main {
   border-radius: 5px;
   display: inline-block;
   width: 50%;
-  padding: 1%;
-  margin: 0 1% 0 1%;
+  padding: 1px;
   outline: 1px solid #645c5c;
 }
 
@@ -394,10 +393,11 @@ main {
 }
 
 .battle-container {
-  height: 100%;
+  height: 365px;
   display: grid;
   grid-template-areas: "opponentHP " "opponent" "player" "infobox";
   background-color: lightgreen;
+  border-radius: 10px;
 }
 
 .opponent-group {
@@ -413,7 +413,7 @@ main {
 }
 
 .opponent__circle {
-  background: greenyellow;
+  background-color: greenyellow;
   height: 50px;
   width: 120px;
   position: absolute;
@@ -426,10 +426,9 @@ main {
 
 .opponent-health {
   background: rgb(232, 241, 190);
-  border: 5px solid rgb(104, 103, 103);
+  border: 5px solid gray;
   padding: 4px;
   z-index: 100;
-  /* height: 80px; */
   width: 50%;
 }
 
@@ -472,6 +471,7 @@ main {
   font-size: 0.7rem;
 }
 
+/* --player-- */
 .player-group {
   position: relative;
 }
@@ -505,13 +505,13 @@ main {
 
 .player-health {
   background: rgb(232, 241, 190);
-  border: 5px solid rgb(104, 103, 103);
+  border: 5px solid gray;
   padding: 5px;
   z-index: 100;
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
-  width: 50%;
+  width: 46%;
 }
 
 .player-health__wrapper {
@@ -549,11 +549,32 @@ main {
   color: white;
 }
 
-@media (min-width: 801px) {
-  main {
-    max-height: 1000px;
-    max-width: 800px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
+.option {
+  display: inline-block;
+  width: 62px;
+  height: 25px;
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
+  margin: 1px;
+}
+
+.option--red {
+  background: #FECBCB;
+  border: 2px solid #FF4343;
+}
+
+.option--yellow {
+  background: #FFD978;
+  border: 2px solid #B48204;
+}
+
+.option--green {
+  background: #64F961;
+  border: 2px solid #098707;
+}
+
+.option--blue {
+  background: #56CCFF;
+  border: 2px solid #1279A6;
 }/*# sourceMappingURL=style.css.map */
