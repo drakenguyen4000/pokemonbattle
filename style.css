@@ -11,16 +11,7 @@ body {
   color: rgb(64, 64, 64);
   font-family: "Poppins", "Raleway", "Muli", "Lato", "sans-serif";
   font-weight: 300;
-  font-size: 100%;
   text-rendering: optimizeLegibility;
-}
-html a:hover,
-body a:hover {
-  text-decoration: none;
-  color: #ffffff;
-  transition: all 0.4s ease-in-out;
-  font-weight: bold;
-  text-decoration: underline;
 }
 
 main {
@@ -32,7 +23,7 @@ main {
 
 .console-top {
   background-color: rgb(218, 19, 19);
-  height: 46px;
+  height: 8%;
   display: flex;
 }
 
@@ -67,8 +58,8 @@ main {
 }
 
 .screen-panel {
-  width: 308px;
-  height: 418px;
+  width: 96%;
+  height: 74%;
   background-color: #dbdbdb;
   box-shadow: 1px 2px 1px #797979;
   margin: auto;
@@ -92,16 +83,16 @@ main {
 .screen {
   background-color: #000000;
   border-radius: 0 0 10px 10px;
-  height: 367px;
-  width: 292px;
+  width: 95%;
+  height: 88%;
   margin: auto;
   border: 3px solid rgb(160, 159, 159);
 }
 
 .display {
   background-color: #99d4ff;
-  height: inherit;
-  width: inherit;
+  width: 90%;
+  height: 64.5%;
   border-radius: inherit;
   position: absolute;
 }
@@ -393,7 +384,7 @@ main {
 }
 
 .battle-container {
-  height: 365px;
+  height: 100%;
   display: grid;
   grid-template-areas: "opponentHP " "opponent" "player" "infobox";
   background-color: #AFE4B6;
