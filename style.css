@@ -303,7 +303,7 @@ main {
 }
 
 .selection__name--hide,
-.player__img--hide {
+.selection__img--hide {
   display: none;
 }
 
@@ -352,6 +352,8 @@ main {
 
 .infobox__container--red {
   border: 3px solid #d04028;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .infobox__text {
@@ -370,7 +372,6 @@ main {
 .item2 {
   grid-area: opponent;
   position: relative;
-  height: 120px;
 }
 
 .item3 {
@@ -380,7 +381,6 @@ main {
 
 .item4 {
   grid-area: infobox;
-  height: 69px;
 }
 
 .battle-container {
@@ -389,30 +389,6 @@ main {
   grid-template-areas: "opponentHP " "opponent" "player" "infobox";
   background-color: #AFE4B6;
   border-radius: 10px;
-}
-
-.opponent-group {
-  position: relative;
-}
-
-.opponent__image {
-  height: 110px;
-  z-index: 100;
-  position: absolute;
-  top: -60px;
-  right: 0;
-}
-
-.opponent__circle {
-  background-color: greenyellow;
-  height: 50px;
-  width: 120px;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-radius: 50%;
-  border: 5px solid yellow;
-  overflow: hidden;
 }
 
 .opponent-health {
@@ -460,6 +436,34 @@ main {
   font-weight: 800;
   color: white;
   font-size: 0.7rem;
+}
+
+.opponent-group {
+  position: relative;
+}
+
+.opponent {
+  height: 120px;
+}
+
+.opponent__image {
+  height: 110px;
+  z-index: 100;
+  position: absolute;
+  top: -60px;
+  right: 0;
+}
+
+.opponent__circle {
+  background-color: greenyellow;
+  height: 50px;
+  width: 120px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 50%;
+  border: 5px solid yellow;
+  overflow: hidden;
 }
 
 /* --player-- */
@@ -542,8 +546,6 @@ main {
 
 .option {
   display: inline-block;
-  width: 62px;
-  height: 25px;
   border-radius: 10px;
   padding: 2px;
   text-align: center;
@@ -597,4 +599,19 @@ main {
 .playgain-arrow {
   display: inline-block;
   font-size: 20px;
+}
+
+@media screen and (min-height: 845px) {
+  .sky-background {
+    height: 192px;
+  }
+  .opponent {
+    height: 195px;
+  }
+  .infobox {
+    height: 112px;
+  }
+  .infobox {
+    font-size: 1.2rem;
+  }
 }/*# sourceMappingURL=style.css.map */
