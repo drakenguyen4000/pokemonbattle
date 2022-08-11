@@ -15,19 +15,20 @@
 
   <body>
     <main class="console">
-      <div class="console-top">
+      <div id="section1" class="console-top">
         <div class="light light--skyblue"></div>
         <div class="light light--red"></div>
         <div class="light light--yellow"></div>
         <div class="light light--green"></div>
       </div>
-      <div class="screen-panel">
+      <div id="section2" class="screen-panel">
         <div class="screen-panel-top">
           <div class="screen-panel-top__light"></div>
           <div class="screen-panel-top__light"></div>
         </div>
         <div class="screen">
           <div class="display">
+            <!---Intro Screen-->
             <!-- <div class="display__intro">
               <h1 class="display__intro-title">POKEMON BATTLE REALM</h1>
               <div class="display__intro-pokeball"></div>
@@ -129,7 +130,7 @@
             </div> -->
             <!--Battle Page-->
             <div class="battle-container">
-              <div class="item1 sky-background">
+              <div class="sky-background">
                 <div class="opponent-health">
                   <p class="opponent-health__name">Gyarados</p>
                   <div class="opponent-health__panel">
@@ -141,7 +142,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item2 opponent-group">
+              <div class="grass-background">
                 <div class="opponent">
                   <img
                     src="https://img.pokemondb.net/sprites/x-y/normal/gyarados-f.png"
@@ -151,7 +152,7 @@
                   <div class="opponent__circle"></div>
                 </div>
               </div>
-              <div class="item3 player-group">
+              <div class="player-wrapper">
                 <div class="player">
                   <img
                     src="https://img.pokemondb.net/sprites/emerald/back-normal/charizard.png"
@@ -171,20 +172,17 @@
                   </div>
                 </div>
               </div>
-              <div class="item4">
-                <div class="infobox">
-                  <div class="infobox__container infobox__container--yellow">
-                    <p class="infobox__text">
-                      Your foe SQUIRTLE is paralyzed! It maybe be unable to
-                      move!
-                    </p>
-                  </div>
-                  <div class="infobox__container infobox__container--red">
-                    <span class="option option--red">Attack</span>
-                    <span class="option option--yellow">Bag</span>
-                    <span class="option option--green">Pokemon</span>
-                    <span class="option option--blue">Run</span>
-                  </div>
+              <div class="infobox">
+                <div class="infobox__container infobox__container--yellow">
+                  <p class="infobox__text">
+                    Your foe SQUIRTLE is paralyzed! It maybe be unable to move!
+                  </p>
+                </div>
+                <div class="infobox__container infobox__container--red">
+                  <span class="option option--red">Attack</span>
+                  <span class="option option--yellow">Bag</span>
+                  <span class="option option--green">Pokemon</span>
+                  <span class="option option--blue">Run</span>
                 </div>
               </div>
             </div>
@@ -197,30 +195,38 @@
                   <span class="playgain-arrow">&#9658;</span>Yes
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
-        </div> -->
+        </div>
         <div class="screen-panel-bottom">
           <span class="screen-panel-bottom__light"></span>
-          <ul class="speaker">
-            <li class="speaker__port"></li>
-            <li class="speaker__port"></li>
-            <li class="speaker__port"></li>
-            <li class="speaker__port"></li>
-          </ul>
+          <div class="speaker">
+            <div class="speaker__port"></div>
+            <div class="speaker__port"></div>
+            <div class="speaker__port"></div>
+            <div class="speaker__port"></div>
+          </div>
         </div>
       </div>
-      <div class="console-bottom">
-        <button class="btn-sp btn-sp--red"></button>
-        <button class="btn-sp btn-sp--blue"></button>
-        <button class="btn btn-select"></button>
-        <div class="green-display"></div>
-        <div class="d-pad">
-          <button class="d-pad__btn d-pad__btn--up">&#9650;</button>
-          <button class="d-pad__btn d-pad__btn--down">&#9660;</button>
-          <div class="d-pad__btn d-pad__center"></div>
-          <button class="d-pad__btn d-pad__btn--left">&#9668;</button>
-          <button class="d-pad__btn d-pad__btn--right">&#9658;</button>
+      <div id="section3" class="console-bottom">
+        <div class="console-bottom__left">
+          <button class="btn btn-select"></button>
+        </div>
+        <div class="console-bottom__center">
+          <div class="btn-sp-wrapper">
+            <button class="btn-sp btn-sp--red"></button>
+            <button class="btn-sp btn-sp--blue"></button>
+          </div>
+          <div class="green-display"></div>
+        </div>
+        <div class="console-bottom__right">
+          <div class="d-pad">
+            <button class="d-pad__btn d-pad__btn--up">&#9650;</button>
+            <button class="d-pad__btn d-pad__btn--down">&#9660;</button>
+            <div class="d-pad__btn d-pad__center"></div>
+            <button class="d-pad__btn d-pad__btn--left">&#9668;</button>
+            <button class="d-pad__btn d-pad__btn--right">&#9658;</button>
+          </div>
         </div>
       </div>
     </main>
