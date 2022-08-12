@@ -1,0 +1,95 @@
+//====Selection====//
+.grid-container {
+  height: 367px;
+  padding: 10px 5px 0 5px;
+  background: #48c0c8;
+  border-radius: 0 0 10px 10px;
+}
+
+//selection list
+.selection__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1%;
+  list-style: none;
+}
+
+.selection__card {
+  text-align: center;
+  background: #a8e8f8;
+  border: 2px solid #5198ab;
+  border-radius: 3px;
+}
+
+.selection__card--hide {
+  font-family: "Black Ops One";
+  font-size: 5rem;
+  font-weight: 800;
+  color: #ffcb05;
+  -webkit-text-stroke: 2px #3367b0;
+  text-align: center;
+  background: #3367b0;
+  border: 2px solid #ffcb05;
+  border-radius: 3px;
+}
+
+.selection__name--hide,
+.selection__img--hide {
+  display: none;
+}
+
+.player__card-mystery {
+  display: none;
+}
+
+.player__card-mystery--show {
+  display: block;
+}
+
+.selection__name {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-align: center;
+  background: #f8f8f8;
+  border: 2px solid #706880;
+  border-radius: 3px;
+}
+
+/*selection-infobox*/
+.infobox {
+  display: flex;
+  padding: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgb(82, 183, 175);
+  border: 2px solid rgb(62, 144, 137);
+  border-radius: 0 0 10px 10px;
+}
+
+.infobox__container {
+  display: inline-block;
+  width: 50%;
+  padding: 1px;
+  background: #ffffff;
+  border-radius: 5px;
+  outline: 1px solid #645c5c;
+}
+
+.infobox__container--yellow {
+  border: 3px solid #ffe03a;
+}
+
+.infobox__container--red {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 3px solid #d04028;
+}
+
+.infobox__text {
+  padding: 2%;
+}
+
+.infobox__details {
+  // padding: 2%;
+  list-style: none;
+}

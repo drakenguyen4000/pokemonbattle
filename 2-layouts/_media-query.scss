@@ -1,0 +1,34 @@
+
+@media screen and (min-height: 812px) {
+    .infobox {
+      height: 100%;
+      font-size: 1.2rem;
+    }
+    .speaker {
+      display: grid;
+      height: 80%;
+    }
+    .speaker__port {
+      height: 6px;
+    }
+    .btn-sp{
+      width: 58px;
+      height: 12px;
+    }
+  }
+  
+  //Safari support
+  @media (aspect-ratio: 1/1) {
+    .console-bottom__left {
+      height: 46%;
+    }
+    .console-bottom__right {
+      height: 70%;
+    }
+  }
+  
+  @media (aspect-ratio: 1.7/1) {
+    .green-display {
+      height: 64%;
+    }
+  }

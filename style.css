@@ -197,23 +197,23 @@ body {
   box-shadow: 1px 2px 2px #000000;
 }
 
-.btn-sp-wrapper {
+.btn-start-pause-wrapper {
   align-self: start;
 }
 
-.btn-sp {
+.btn-start-pause {
   width: 44px;
   height: 9px;
   border-radius: 5px;
   box-shadow: 1px 2px 2px #000000;
 }
 
-.btn-sp--red {
+.btn-start-pause--red {
   background-color: #fc2458;
   border: 1px solid #6d0d23;
 }
 
-.btn-sp--blue {
+.btn-start-pause--blue {
   background-color: #0482cb;
   border: 1px solid #053957;
 }

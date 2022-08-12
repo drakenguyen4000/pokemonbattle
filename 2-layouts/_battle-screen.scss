@@ -1,0 +1,200 @@
+//===Battle Screen===//
+.battle-container {
+  display: grid;
+  grid-template-rows: 18% 1fr 22%;
+  height: 100%;
+  background-color: $battle-ground;
+  border-radius: 10px;
+}
+
+.sky-background {
+  background: linear-gradient(rgb(173, 216, 230) 60%, rgb(238, 244, 243));
+}
+
+.grass-background {
+  position: relative;
+}
+
+.player-wrapper {
+  position: relative;
+  align-self: end;
+}
+
+//Health Panel
+.opponent-health {
+  width: 50%;
+  padding: 4px;
+  background: $health-panel-bg;
+  border: 5px solid $health-panel-border;
+  z-index: 100;
+}
+
+.opponent-health__name {
+  font-size: 0.75rem;
+}
+
+.opponent-health__panel {
+  width: 100%;
+  padding: 3px;
+  text-align: right;
+  background: $health-panel-border;
+}
+
+.opponent-health__wrapper {
+  display: flex;
+}
+
+.opponent-health__title {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: orange;
+  text-shadow: 1px 1px 0 rgb(78, 78, 78);
+}
+
+.opponent-health__bar {
+  display: inline-block;
+  height: 8px;
+  width: 90%;
+  margin: auto;
+  background: $health-bar;
+  border: 2px solid $health-bar-border;
+  border-radius: 5px;
+}
+
+.opponent-health__point {
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+//Opponent Pokemon
+.opponent-group {
+  position: relative;
+}
+
+// .opponent {
+//   height: 120px;
+// }
+
+.opponent__image {
+  position: absolute;
+  top: -60px;
+  right: 0;
+  height: 110px;
+  z-index: 100;
+}
+
+.opponent__circle {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 50px;
+  width: 120px;
+  background-color: $arena-circle-bg;
+  border-radius: 50%;
+  border: 5px solid $arena-circle-border;
+  overflow: hidden;
+}
+
+//Player Pokemon
+.player {
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  height: 100px;
+  width: 250px;
+  overflow: hidden;
+}
+
+.player__img {
+  position: relative;
+  bottom: 0px;
+  height: 110px;
+  z-index: 100;
+}
+
+.player__circle {
+  position: relative;
+  bottom: 50px;
+  right: 100px;
+  height: 90px;
+  width: 300px;
+  background: $arena-circle-bg;
+  border: 5px solid $arena-circle-border;
+  border-radius: 50%;
+}
+
+.player-health {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 46%;
+  padding: 5px;
+  background: $health-panel-bg;
+  border: 5px solid $health-panel-border;
+  z-index: 100;
+}
+
+.player-health__wrapper {
+  display: flex;
+}
+
+.player-health__panel {
+  display: inline-block;
+  width: 100%;
+  padding: 3px;
+  text-align: right;
+  background: $health-panel-border;
+}
+
+.player-health__title {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 800;
+  color: orange;
+  text-shadow: 1px 1px 0 rgb(78, 78, 78);
+}
+
+.player-health__bar {
+  display: inline-block;
+  height: 10px;
+  width: 89%;
+  margin: auto;
+  background: $health-bar;
+  border-radius: 5px;
+  border: 2px solid $health-bar-border;
+}
+
+.player-health__point {
+  color: white;
+  font-weight: 800;
+}
+
+.option {
+  display: inline-block;
+  border-radius: 10px;
+  margin: 1px;
+  padding: 2px;
+  text-align: center;
+}
+
+.option--red {
+  background: #fecbcb;
+  border: 2px solid #ff4343;
+}
+
+.option--yellow {
+  background: #ffd978;
+  border: 2px solid #b48204;
+}
+
+.option--green {
+  background: #64f961;
+  border: 2px solid #098707;
+}
+
+.option--blue {
+  background: #56ccff;
+  border: 2px solid #1279a6;
+}
