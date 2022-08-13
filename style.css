@@ -609,7 +609,7 @@ body {
 
 .playgain-arrow {
   display: inline-block;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 @media screen and (min-height: 812px) {
@@ -632,12 +632,21 @@ body {
     height: 12px;
   }
 }
-@media screen and (min-height: 1180px) {
+@media screen and (min-height: 1024px) {
   .selection__name {
     font-size: 1.5rem;
   }
   .infobox__container {
     font-size: 1.5rem;
+  }
+  .display__gameover {
+    font-size: 4.5rem;
+  }
+  .gameover-playagain {
+    font-size: 4rem;
+  }
+  .playgain-arrow {
+    font-size: 2rem;
   }
 }
 @media (aspect-ratio: 1/1) {
