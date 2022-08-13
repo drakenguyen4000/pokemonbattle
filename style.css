@@ -273,10 +273,16 @@ body {
   box-shadow: 1px 1px 1px #ac1e36 inset;
 }
 
-.grid-container {
-  height: 367px;
-  padding: 10px 5px 0 5px;
+.display-selection {
+  height: 100%;
   background: #48c0c8;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: 80% 20%;
+  height: 100%;
+  padding: 4% 2% 0 2%;
   border-radius: 0 0 10px 10px;
 }
 
@@ -288,7 +294,10 @@ body {
 }
 
 .selection__card {
-  text-align: center;
+  display: grid;
+  grid-template-rows: 75% 25%;
+  height: 100%;
+  width: 100%;
   background: #a8e8f8;
   border: 2px solid #5198ab;
   border-radius: 3px;
@@ -319,9 +328,17 @@ body {
   display: block;
 }
 
+.selection__img {
+  align-self: center;
+  justify-self: center;
+  height: 90%;
+  aspect-ratio: 1/1;
+}
+
 .selection__name {
   font-size: 0.75em;
   font-weight: 600;
+  align-self: end;
   text-align: center;
   background: #f8f8f8;
   border: 2px solid #706880;
@@ -357,12 +374,19 @@ body {
   grid-template-columns: 1fr 1fr;
   border: 3px solid #d04028;
 }
+.infobox__container--red ul {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  margin-left: 2%;
+}
 
 .infobox__text {
   padding: 2%;
 }
 
 .infobox__details {
+  padding: 2%;
   list-style: none;
 }
 
@@ -589,6 +613,9 @@ body {
 }
 
 @media screen and (min-height: 812px) {
+  .selection__name {
+    font-size: 1.1rem;
+  }
   .infobox {
     height: 100%;
     font-size: 1.2rem;
@@ -605,12 +632,23 @@ body {
     height: 12px;
   }
 }
+@media screen and (min-height: 1180px) {
+  .selection__name {
+    font-size: 1.5rem;
+  }
+  .infobox__container {
+    font-size: 1.5rem;
+  }
+}
 @media (aspect-ratio: 1/1) {
   .console-bottom__left {
     height: 46%;
   }
   .console-bottom__right {
     height: 70%;
+  }
+  .selection__img {
+    height: 90%;
   }
 }
 @media (aspect-ratio: 1.7/1) {
