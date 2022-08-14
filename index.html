@@ -29,15 +29,16 @@
         <div class="screen">
           <div class="display">
             <!---Intro Screen-->
-            <!-- <div class="display__intro">
+            <div class="display__intro">
               <h1 class="display__intro-title">POKEMON BATTLE REALM</h1>
-              <div class="display__intro-pokeball"></div>
-              <div class="display__intro-grass">
+              <div class="display-images">
+                <div class="display__intro-pokeball"></div>
                 <div class="display__intro-arena-circle"></div>
               </div>
-            </div> -->
+              <div class="display__intro-grass"></div>
+            </div>
             <!---Selection Screen-->
-            <div class="display-selection ">
+            <!-- <div class="display-selection ">
               <div class="selection grid-container">
                 <ul class="selection__list">
                   <li class="selection__card">
@@ -132,7 +133,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!--Battle Page-->
             <!-- <div class="battle-container">
               <div class="sky-background">
@@ -216,11 +217,18 @@
       <div id="section3" class="console-bottom">
         <div class="console-bottom__left">
           <button class="btn btn-select"></button>
+          <div class="btn-text">select</div>
         </div>
         <div class="console-bottom__center">
           <div class="btn-start-pause-wrapper">
-            <button class="btn-start-pause btn-start-pause--red"></button>
-            <button class="btn-start-pause btn-start-pause--blue"></button>
+            <div class="btn-wrapper">
+              <button class="btn-start-pause btn-start-pause--red"></button>
+              <div class="btn-text">pause</div>
+            </div>
+            <div class="btn-wrapper">
+              <button class="btn-start-pause btn-start-pause--blue"></button>
+              <div class="btn-text">start</div>
+            </div>
           </div>
           <div class="green-display"></div>
         </div>

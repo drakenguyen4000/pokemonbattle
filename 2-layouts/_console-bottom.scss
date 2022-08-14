@@ -14,11 +14,12 @@
     aspect-ratio: 1 / 1;
   }
   
+  //start button, pause button, green screen display 
   .console-bottom__center {
     height: 80%;
+    width: 100%;
     display: grid;
-    grid-template-rows: 25% 75%;
-    justify-self: start;
+    grid-template-rows: 30% 70%;
   }
   
   .console-bottom__right {
@@ -37,11 +38,24 @@
     background-color: #705a5a;
     box-shadow: 1px 2px 2px #000000;
   }
-  
-  .btn-start-pause-wrapper {
-    align-self: start;
+
+  .btn-text{
+    margin-top: 5%;
+    color: #2e2626;
+    text-transform: uppercase;
+    font-size: .65rem;
+    font-family: "Goldman";
+    text-align: center;
   }
   
+  .btn-start-pause-wrapper {
+    display: flex;
+  }
+
+  .btn-wrapper {
+    margin-right: 2%;
+  }
+
   .btn-start-pause {
     width: 44px;
     height: 9px;
@@ -61,7 +75,7 @@
   
   .green-display {
     align-self: end;
-    justify-self: end;
+    justify-self: start;
     // height: 40px;
     // width: 68px;
     height: 64%;

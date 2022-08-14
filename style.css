@@ -139,9 +139,9 @@ body {
 
 .console-bottom__center {
   height: 80%;
+  width: 100%;
   display: grid;
-  grid-template-rows: 25% 75%;
-  justify-self: start;
+  grid-template-rows: 30% 70%;
 }
 
 .console-bottom__right {
@@ -158,8 +158,21 @@ body {
   box-shadow: 1px 2px 2px #000000;
 }
 
+.btn-text {
+  margin-top: 5%;
+  color: #2e2626;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  font-family: "Goldman";
+  text-align: center;
+}
+
 .btn-start-pause-wrapper {
-  align-self: start;
+  display: flex;
+}
+
+.btn-wrapper {
+  margin-right: 2%;
 }
 
 .btn-start-pause {
@@ -181,7 +194,7 @@ body {
 
 .green-display {
   align-self: end;
-  justify-self: end;
+  justify-self: start;
   height: 64%;
   aspect-ratio: 1.7/1;
   border-radius: 5px;
@@ -636,6 +649,9 @@ body {
     width: 58px;
     height: 12px;
   }
+  .btn-text {
+    font-size: 0.8rem;
+  }
   .display__intro-title {
     font-size: 2.2rem;
   }
@@ -658,6 +674,9 @@ body {
   }
   .display__intro-title {
     font-size: 4rem;
+  }
+  .btn-text {
+    font-size: 0.9rem;
   }
 }
 @media (aspect-ratio: 1/1) {
