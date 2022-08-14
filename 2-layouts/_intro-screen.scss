@@ -1,0 +1,44 @@
+//Intro
+.display__intro {
+  display: grid;
+  grid-template-rows: 30% 30% 40%;
+  height: 100%;
+}
+
+.display-images {
+  position: relative;
+}
+
+.display__intro-title {
+  padding-top: 10%;
+  font-family: "Goldman";
+  color: yellow;
+  font-size: 1.8rem;
+  border-radius: 20px;
+  text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+  -webkit-text-stroke: 2px rgb(5, 5, 151);
+  text-align: center;
+}
+
+.display__intro-pokeball {
+  z-index: 10;
+  height: 140%;
+  aspect-ratio: 1/1;
+  margin: auto;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg");
+  background-repeat: no-repeat
+}
+
+.display__intro-arena-circle {
+  height: 40%;
+  aspect-ratio: 4.6/1;
+  margin: auto;
+  margin-top: 8px;
+  background-color: #61f31c;
+  border-radius: 50%;
+  border: 5px solid #fcff73;
+}
+
+.display__intro-grass {
+  background-color: #a7ff99;
+}

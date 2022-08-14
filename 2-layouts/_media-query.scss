@@ -13,14 +13,17 @@
   .speaker__port {
     height: 6px;
   }
-  .btn-sp {
+  .btn-start-pause {
     width: 58px;
     height: 12px;
+  }
+  .display__intro-title {
+    font-size: 2.2rem;
   }
 }
 
 @media screen and (min-height: 1024px) {
-  .selection__name{
+  .selection__name {
     font-size: 1.5rem;
   }
   .infobox__container {
@@ -29,14 +32,17 @@
   .display__gameover {
     font-size: 4.5rem;
   }
-  
   .gameover-playagain {
     font-size: 4rem;
   }
   .playgain-arrow {
     font-size: 2rem;
   }
+  .display__intro-title {
+    font-size: 4rem;
+  }
 }
+
 //Safari support
 @media (aspect-ratio: 1/1) {
   .console-bottom__left {
@@ -48,6 +54,9 @@
   .selection__img {
     height: 90%;
   }
+  .display__intro-pokeball {
+    height: 140%;
+  }
 }
 
 @media (aspect-ratio: 1.7/1) {
@@ -56,4 +65,8 @@
   }
 }
 
-
+@media (aspect-ratio: 4.6/1) {
+  .display__intro-arena-circle {
+    height: 40%;
+  }
+}

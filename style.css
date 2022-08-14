@@ -98,45 +98,6 @@ body {
   border-radius: inherit;
 }
 
-.display__intro-title {
-  margin-top: 30px;
-  font-family: "Open Sans";
-  color: yellow;
-  font-size: 2rem;
-  text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
-  -webkit-text-stroke: 2px rgb(5, 5, 151);
-  text-align: center;
-}
-
-.display__intro-pokeball {
-  position: absolute;
-  top: 128px;
-  left: 79px;
-  z-index: 10;
-  height: 134px;
-  width: 134px;
-  margin: auto;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg");
-}
-
-.display__intro-arena-circle {
-  height: 42px;
-  width: 194px;
-  margin: auto;
-  margin-top: 8px;
-  background-color: #61f31c;
-  border-radius: 50%;
-  border: 5px solid #fcff73;
-}
-
-.display__intro-grass {
-  position: absolute;
-  bottom: 0;
-  height: 139px;
-  width: 292px;
-  background-color: #a7ff99;
-}
-
 .screen-panel-bottom {
   display: flex;
   justify-content: space-between;
@@ -271,6 +232,50 @@ body {
   border: 1px solid #ac1e36;
   border-radius: 200px;
   box-shadow: 1px 1px 1px #ac1e36 inset;
+}
+
+.display__intro {
+  display: grid;
+  grid-template-rows: 30% 30% 40%;
+  height: 100%;
+}
+
+.display-images {
+  position: relative;
+}
+
+.display__intro-title {
+  padding-top: 10%;
+  font-family: "Goldman";
+  color: yellow;
+  font-size: 1.8rem;
+  border-radius: 20px;
+  text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+  -webkit-text-stroke: 2px rgb(5, 5, 151);
+  text-align: center;
+}
+
+.display__intro-pokeball {
+  z-index: 10;
+  height: 140%;
+  aspect-ratio: 1/1;
+  margin: auto;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg");
+  background-repeat: no-repeat;
+}
+
+.display__intro-arena-circle {
+  height: 40%;
+  aspect-ratio: 4.6/1;
+  margin: auto;
+  margin-top: 8px;
+  background-color: #61f31c;
+  border-radius: 50%;
+  border: 5px solid #fcff73;
+}
+
+.display__intro-grass {
+  background-color: #a7ff99;
 }
 
 .display-selection {
@@ -627,9 +632,12 @@ body {
   .speaker__port {
     height: 6px;
   }
-  .btn-sp {
+  .btn-start-pause {
     width: 58px;
     height: 12px;
+  }
+  .display__intro-title {
+    font-size: 2.2rem;
   }
 }
 @media screen and (min-height: 1024px) {
@@ -648,6 +656,9 @@ body {
   .playgain-arrow {
     font-size: 2rem;
   }
+  .display__intro-title {
+    font-size: 4rem;
+  }
 }
 @media (aspect-ratio: 1/1) {
   .console-bottom__left {
@@ -659,9 +670,17 @@ body {
   .selection__img {
     height: 90%;
   }
+  .display__intro-pokeball {
+    height: 140%;
+  }
 }
 @media (aspect-ratio: 1.7/1) {
   .green-display {
     height: 64%;
+  }
+}
+@media (aspect-ratio: 4.6/1) {
+  .display__intro-arena-circle {
+    height: 40%;
   }
 }/*# sourceMappingURL=style.css.map */
