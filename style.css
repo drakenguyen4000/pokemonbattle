@@ -6,10 +6,9 @@
 
 html,
 body {
-  height: auto;
   background-color: #ffffff;
   color: rgb(64, 64, 64);
-  font-family: "Poppins", "Raleway", "Muli", "Lato", "sans-serif";
+  font-family: "Goldman";
   font-weight: 300;
   text-rendering: optimizeLegibility;
 }
@@ -175,19 +174,19 @@ body {
   margin-right: 2%;
 }
 
-.btn-start-pause {
-  width: 44px;
+.btn-start, .btn-pause {
+  width: 100%;
   height: 9px;
   border-radius: 5px;
   box-shadow: 1px 2px 2px #000000;
 }
 
-.btn-start-pause--red {
+.btn-pause--red {
   background-color: #fc2458;
   border: 1px solid #6d0d23;
 }
 
-.btn-start-pause--blue {
+.btn-start--blue {
   background-color: #0482cb;
   border: 1px solid #053957;
 }
@@ -251,6 +250,7 @@ body {
   display: grid;
   grid-template-rows: 30% 30% 40%;
   height: 100%;
+  grid-gap: 1px;
 }
 
 .display-images {
@@ -259,7 +259,6 @@ body {
 
 .display__intro-title {
   padding-top: 10%;
-  font-family: "Goldman";
   color: yellow;
   font-size: 1.8rem;
   border-radius: 20px;
@@ -289,6 +288,12 @@ body {
 
 .display__intro-grass {
   background-color: #a7ff99;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  color: white;
+  text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6), 0 -1px rgb(6, 6, 6);
+  text-transform: uppercase;
 }
 
 .display-selection {
@@ -655,6 +660,9 @@ body {
   .display__intro-title {
     font-size: 2.2rem;
   }
+  .display__intro-grass {
+    font-size: 1.4rem;
+  }
 }
 @media screen and (min-height: 1024px) {
   .selection__name {
@@ -677,6 +685,9 @@ body {
   }
   .btn-text {
     font-size: 0.9rem;
+  }
+  .display__intro-grass {
+    font-size: 2rem;
   }
 }
 @media (aspect-ratio: 1/1) {
