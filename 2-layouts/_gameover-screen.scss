@@ -1,29 +1,32 @@
 
 .display__gameover {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: inherit;
-    width: inherit;
-    font-family: "Goldman";
-    font-size: 2.5rem;
-    color: #f7fb36;
-    -webkit-text-stroke: 2px #0229b7;
-    text-align: center;
-    background: $battle-ground;
-    border-radius: inherit;
-  }
-  
-  .gameover-gameover {
-    text-transform: uppercase;
-  }
-  
-  .gameover-playagain {
-    margin-top: 20%;
-    font-size: 2rem;
-  }
-  
-  .playgain-arrow {
-    display: inline-block;
-    font-size: 1.2rem;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-family: "Goldman";
+  font-size: 2.5rem;
+  color: #f7fb36;
+  -webkit-text-stroke: 2px #0229b7;
+  text-align: center;
+  background: $battle-ground;
+  border-radius: 0 0 5px 5px;
+}
+
+.gameover-gameover {
+  text-transform: uppercase;
+}
+
+.gameover-playagain {
+  margin-top: 20%;
+  font-size: 2rem;
+}
+
+.playgain-arrow {
+  display: inline-block;
+  font-size: 1.2rem;
+}
