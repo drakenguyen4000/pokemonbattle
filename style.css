@@ -13,6 +13,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/*Main*/
 .console {
   display: grid;
   grid-template-columns: 1fr;
@@ -23,6 +24,7 @@ body {
   box-shadow: 30px 0px 40px rgba(0, 0, 0, 0.1), -30px 0px 40px rgba(0, 0, 0, 0.1);
 }
 
+/*======CONSOLE TOP (SECTION 1)======*/
 .console-top {
   display: flex;
   background-color: rgb(218, 19, 19);
@@ -58,6 +60,7 @@ body {
   background-color: #6fe380;
 }
 
+/*======CONSOLE CENTER (SECTION 2)======*/
 .screen-panel {
   height: 100%;
   width: 96%;
@@ -92,9 +95,16 @@ body {
 
 .display {
   height: 100%;
+  width: 100%;
   z-index: 200;
+  font-size: inherit;
   background-color: #99d4ff;
   border-radius: inherit;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
 }
 
 .screen-panel-bottom {
@@ -123,6 +133,7 @@ body {
   border: 1px rgb(79, 78, 78) solid;
 }
 
+/*======CONSOLE BOTTOM - Controller (SECTION 3)======*/
 .console-bottom {
   display: grid;
   grid-template-columns: 33% 33% 33%;
@@ -201,6 +212,7 @@ body {
   background-color: #afe4b6;
 }
 
+/*Direction Pad*/
 .d-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -246,11 +258,16 @@ body {
   box-shadow: 1px 1px 1px #ac1e36 inset;
 }
 
+/*Intro Screen*/
 .display__intro {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   grid-template-rows: 30% 30% 40%;
   height: 100%;
-  grid-gap: 1px;
+  width: 100%;
+  background-color: #99d4ff;
 }
 
 .display-images {
@@ -260,7 +277,8 @@ body {
 .display__intro-title {
   padding-top: 10%;
   color: yellow;
-  font-size: 1.8rem;
+  /* font-size: 30px; */
+  font-size: 1.5rem;
   border-radius: 20px;
   text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
   -webkit-text-stroke: 2px rgb(5, 5, 151);
@@ -278,6 +296,7 @@ body {
 
 .display__intro-arena-circle {
   height: 40%;
+  /* // height: 10%; //test w */
   aspect-ratio: 4.6/1;
   margin: auto;
   margin-top: 8px;
@@ -291,13 +310,21 @@ body {
   display: flex;
   align-items: end;
   justify-content: center;
+}
+
+.intro-pressstart-text {
   color: white;
   text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6), 0 -1px rgb(6, 6, 6);
   text-transform: uppercase;
 }
 
+/*======Selection Screen======*/
 .display-selection {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 100%;
   background: #48c0c8;
 }
 
@@ -413,12 +440,19 @@ body {
   list-style: none;
 }
 
+/*======Battle Screen======*/
 .battle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   grid-template-rows: 18% 1fr 22%;
   height: 100%;
+  width: 100%;
   background-color: #AFE4B6;
   border-radius: 10px;
+  text-shadow: 1px 1px rgb(154, 154, 154);
+  font-family: "Orbitron", sans-serif;
 }
 
 .sky-background {
@@ -434,6 +468,7 @@ body {
   align-self: end;
 }
 
+/*Health Panel*/
 .opponent-health {
   width: 50%;
   padding: 4px;
@@ -481,6 +516,7 @@ body {
   font-weight: 800;
 }
 
+/*Opponent Pokemon*/
 .opponent-group {
   position: relative;
 }
@@ -505,6 +541,7 @@ body {
   overflow: hidden;
 }
 
+/*Player Pokemon*/
 .player {
   position: relative;
   bottom: 0px;
@@ -584,6 +621,7 @@ body {
   margin: 1px;
   padding: 2px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .option--red {
@@ -635,14 +673,8 @@ body {
   font-size: 1.2rem;
 }
 
+/*media query console*/
 @media screen and (min-height: 812px) {
-  .selection__name {
-    font-size: 1.1rem;
-  }
-  .infobox {
-    height: 100%;
-    font-size: 1.2rem;
-  }
   .speaker {
     display: grid;
     height: 80%;
@@ -657,16 +689,75 @@ body {
   .btn-text {
     font-size: 0.8rem;
   }
+}
+@media screen and (min-height: 1024px) {
+  .btn-text {
+    font-size: 0.9rem;
+  }
+}
+/*Safari support*/
+@media (aspect-ratio: 1/1) {
+  .console-bottom__left {
+    height: 46%;
+  }
+  .console-bottom__right {
+    height: 70%;
+  }
+}
+@media (aspect-ratio: 1.7/1) {
+  .green-display {
+    height: 64%;
+  }
+}
+/*media query for the iframe (console's screen)*/
+/*Actual screen height 667px*/
+@media screen and (min-height: 425px) {
+  .infobox {
+    font-size: 0.9rem;
+  }
+}
+/*Actual screen height 926px*/
+@media screen and (min-height: 592px) {
   .display__intro-title {
     font-size: 2.2rem;
   }
-  .display__intro-grass {
+  .intro-pressstart-text {
     font-size: 1.4rem;
   }
+  .infobox {
+    font-size: 1.1rem;
+  }
 }
-@media screen and (min-height: 1024px) {
+/*Actual screen height 1024px*/
+@media screen and (min-height: 656px) {
+  .display__intro-title {
+    font-size: 3rem;
+  }
+  .intro-pressstart-text {
+    font-size: 2rem;
+  }
+  .selection__name {
+    font-size: 1.1rem;
+  }
+  .infobox {
+    height: 100%;
+    font-size: 1.2rem;
+  }
+}
+/*Actual screen height 1280px*/
+@media screen and (min-height: 821px) {
+  .display__intro-title {
+    font-size: 4rem;
+  }
+  .intro-pressstart-text {
+    font-size: 2.5rem;
+  }
   .selection__name {
     font-size: 1.5rem;
+  }
+  .infobox {
+    height: 100%;
+    font-size: 1.2rem;
   }
   .infobox__container {
     font-size: 1.5rem;
@@ -677,36 +768,13 @@ body {
   .gameover-playagain {
     font-size: 4rem;
   }
-  .playgain-arrow {
-    font-size: 2rem;
-  }
-  .display__intro-title {
-    font-size: 4rem;
-  }
-  .btn-text {
-    font-size: 0.9rem;
-  }
-  .display__intro-grass {
-    font-size: 2rem;
-  }
 }
 @media (aspect-ratio: 1/1) {
-  .console-bottom__left {
-    height: 46%;
-  }
-  .console-bottom__right {
-    height: 70%;
-  }
   .selection__img {
     height: 90%;
   }
   .display__intro-pokeball {
     height: 140%;
-  }
-}
-@media (aspect-ratio: 1.7/1) {
-  .green-display {
-    height: 64%;
   }
 }
 @media (aspect-ratio: 4.6/1) {

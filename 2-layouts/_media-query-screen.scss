@@ -1,0 +1,86 @@
+/*media query for the iframe (console's screen)*/
+
+/*Actual screen height 667px*/
+@media screen and (min-height: 425px) { 
+// @media screen and (min-height: 470px) { 
+  .infobox {
+    font-size: .9rem;
+    // color: purple;
+  }
+}
+
+/*Actual screen height 926px*/
+// @media screen and (min-height: 519px) {
+@media screen and (min-height: 592px) {
+  .display__intro-title {
+    font-size: 2.2rem;
+  }
+  .intro-pressstart-text {
+    font-size: 1.4rem;
+  }
+  .infobox {
+    font-size: 1.1rem;
+    // color: yellow;
+  }
+}
+
+/*Actual screen height 1024px*/
+@media screen and (min-height: 656px) {
+  .display__intro-title {
+    font-size: 3rem;
+  }
+  .intro-pressstart-text {
+    font-size: 2rem;
+  }
+   .selection__name {
+    font-size: 1.1rem;
+  }
+  .infobox {
+    height: 100%;
+    font-size: 1.2rem;
+    // color: red;
+  }
+}
+
+/*Actual screen height 1280px*/
+@media screen and (min-height: 821px) {
+  .display__intro-title {
+    font-size: 4rem;
+  }
+  .intro-pressstart-text {
+    font-size: 2.5rem;
+  }
+  .selection__name {
+    font-size: 1.5rem;
+  }
+  .infobox {
+    height: 100%;
+    font-size: 1.2rem;
+  }
+  .infobox__container {
+    font-size: 1.5rem;
+    // color: green;
+  }
+  .display__gameover {
+    font-size: 4.5rem;
+  }
+  .gameover-playagain {
+    font-size: 4rem;
+  }
+}
+
+//Safari support
+@media (aspect-ratio: 1/1) {
+  .selection__img {
+    height: 90%;
+  }
+  .display__intro-pokeball {
+    height: 140%;
+  }
+}
+
+@media (aspect-ratio: 4.6/1) {
+  .display__intro-arena-circle {
+    height: 40%;
+  }
+}

@@ -1,9 +1,13 @@
-//Intro
+/*Intro Screen*/
 .display__intro {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   grid-template-rows: 30% 30% 40%;
   height: 100%;
-  grid-gap: 1px;
+  width: 100%;
+  background-color: #99d4ff;
 }
 
 .display-images {
@@ -13,7 +17,8 @@
 .display__intro-title {
   padding-top: 10%;
   color: yellow;
-  font-size: 1.8rem;
+  /* font-size: 30px; */
+  font-size: 1.5rem;
   border-radius: 20px;
   text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
   -webkit-text-stroke: 2px rgb(5, 5, 151);
@@ -26,11 +31,12 @@
   aspect-ratio: 1/1;
   margin: auto;
   background-image: url("https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg");
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
 }
 
 .display__intro-arena-circle {
   height: 40%;
+  /* // height: 10%; //test w */
   aspect-ratio: 4.6/1;
   margin: auto;
   margin-top: 8px;
@@ -44,8 +50,11 @@
   display: flex;
   align-items: end;
   justify-content: center;
-  color: white;
-  text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6), 0 -1px rgb(6, 6, 6);
-  text-transform: uppercase;
+}
 
+.intro-pressstart-text {
+  color: white;
+  text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6),
+    0 -1px rgb(6, 6, 6);
+  text-transform: uppercase;
 }

@@ -1,10 +1,17 @@
-//===Battle Screen===//
+/*======Battle Screen======*/
 .battle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   grid-template-rows: 18% 1fr 22%;
   height: 100%;
+  width: 100%;
   background-color: $battle-ground;
   border-radius: 10px;
+  // font-family: 'Goldman', cursive;
+  text-shadow: 1px 1px rgb(154, 154, 154);
+  font-family: 'Orbitron', sans-serif;
 }
 
 .sky-background {
@@ -20,7 +27,7 @@
   align-self: end;
 }
 
-//Health Panel
+/*Health Panel*/
 .opponent-health {
   width: 50%;
   padding: 4px;
@@ -68,7 +75,7 @@
   font-weight: 800;
 }
 
-//Opponent Pokemon
+/*Opponent Pokemon*/
 .opponent-group {
   position: relative;
 }
@@ -97,7 +104,7 @@
   overflow: hidden;
 }
 
-//Player Pokemon
+/*Player Pokemon*/
 .player {
   position: relative;
   bottom: 0px;
@@ -177,6 +184,7 @@
   margin: 1px;
   padding: 2px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .option--red {

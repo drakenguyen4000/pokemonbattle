@@ -1,11 +1,5 @@
+/*media query console*/
 @media screen and (min-height: 812px) {
-  .selection__name {
-    font-size: 1.1rem;
-  }
-  .infobox {
-    height: 100%;
-    font-size: 1.2rem;
-  }
   .speaker {
     display: grid;
     height: 80%;
@@ -17,51 +11,24 @@
     width: 58px;
     height: 12px;
   }
-  .btn-text{
-    font-size: .8rem;
-  }
-  .display__intro-title {
-    font-size: 2.2rem;
+  .btn-text {
+    font-size: 0.8rem;
   }
 }
 
 @media screen and (min-height: 1024px) {
-  .selection__name {
-    font-size: 1.5rem;
-  }
-  .infobox__container {
-    font-size: 1.5rem;
-  }
-  .display__gameover {
-    font-size: 4.5rem;
-  }
-  .gameover-playagain {
-    font-size: 4rem;
-  }
-  .playgain-arrow {
-    font-size: 2rem;
-  }
-  .display__intro-title {
-    font-size: 4rem;
-  }
-  .btn-text{
-    font-size: .9rem;
+  .btn-text {
+    font-size: 0.9rem;
   }
 }
 
-//Safari support
+/*Safari support*/
 @media (aspect-ratio: 1/1) {
   .console-bottom__left {
     height: 46%;
   }
   .console-bottom__right {
     height: 70%;
-  }
-  .selection__img {
-    height: 90%;
-  }
-  .display__intro-pokeball {
-    height: 140%;
   }
 }
 
@@ -71,8 +38,3 @@
   }
 }
 
-@media (aspect-ratio: 4.6/1) {
-  .display__intro-arena-circle {
-    height: 40%;
-  }
-}
