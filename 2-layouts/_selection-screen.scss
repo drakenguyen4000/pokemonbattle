@@ -13,7 +13,7 @@
   display: grid;
   grid-template-rows: 80% 20%;
   height: 100%;
-  padding: 4% 2% 0 2%;
+  padding: 4% 1% 0 1%;
   border-radius: 0 0 10px 10px;
 }
 
@@ -32,7 +32,7 @@
   background: #a8e8f8;
   border: 2px solid #5198ab;
   border-radius: 3px;
-  filter: grayscale(60%);
+  filter: grayscale(70%);
 }
 
 .selection__card--hide {
@@ -87,9 +87,8 @@
 /*selection-infobox*/
 .infobox {
   display: grid;
-  grid-template-columns: 45% 55%;
-  // display: flex;
-  // padding: 2px;
+  grid-template-columns: 48% 52%;
+  padding: 2px;
   font-size: .75rem;
   font-weight: 600;
   background: rgb(82, 183, 175);
@@ -98,8 +97,6 @@
 }
 
 .infobox__container {
-  display: inline-block;
-  // width: 50%;
   padding: 1px;
   background: #ffffff;
   border-radius: 5px;
@@ -127,9 +124,8 @@
 }
 
 .infobox__details {
-  // padding: 2%;
+  padding: 2%;
   list-style: none;
   line-height: 80%;
-  font-size: .7rem;
-
+  font-size: .52rem;
 }

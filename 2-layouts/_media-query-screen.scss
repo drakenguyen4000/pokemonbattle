@@ -1,15 +1,18 @@
 /*media query for the iframe (console's screen)*/
 
-/*Actual screen height 667px*/
+/*Actual screen height 667px -- iPhone SE 2nd Gen*/
 @media screen and (min-height: 425px) { 
 // @media screen and (min-height: 470px) { 
   .infobox {
     font-size: .9rem;
     // color: purple;
   }
+  .infobox__details {
+    font-size: .68rem;
+  }
 }
 
-/*Actual screen height 926px*/
+/*Actual screen height 926px -- iphone 13 Max Pro*/
 // @media screen and (min-height: 519px) {
 @media screen and (min-height: 592px) {
   .display__intro-title {
@@ -22,9 +25,12 @@
     font-size: 1.1rem;
     // color: yellow;
   }
+  .infobox__details {
+    font-size: .72rem;
+  }
 }
 
-/*Actual screen height 1024px*/
+/*Actual screen height 1024px -- iPad Mini*/
 @media screen and (min-height: 656px) {
   .display__intro-title {
     font-size: 3rem;
@@ -38,7 +44,9 @@
   .infobox {
     height: 100%;
     font-size: 1.3rem;
-    // color: red;
+  }
+  .infobox__details {
+    font-size: 1.1rem;
   }
   .display__gameover {
     font-size: 4rem;
@@ -48,7 +56,7 @@
   }
 }
 
-/*Actual screen height 1280px*/
+/*Actual screen height 1280px -- Kindle Fire HD*/
 @media screen and (min-height: 821px) {
   .display__intro-title {
     font-size: 4rem;
@@ -62,6 +70,9 @@
   .infobox {
     height: 100%;
     font-size: 1.2rem;
+  }
+  .infobox__details {
+    font-size: 1.3rem;
   }
   .infobox__container {
     font-size: 1.5rem;
