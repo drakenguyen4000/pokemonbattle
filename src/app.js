@@ -4,8 +4,8 @@ const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
 let iframe;
-let parent;
-let children;
+let selectionList;
+let selectionListItems;
 let numItems; //Number of Pokemon available to select
 let count = 0;
 
@@ -20,68 +20,70 @@ startButton.addEventListener("click", () => {
 });
 
 //Load iFrame Nodes
-async function getIframe() {
+const getIframe = () => {
   iframe = document.getElementById("iframe");
-  parent = iframe.contentWindow.document.querySelector(".selection__list");
-  numItems =
-    iframe.contentWindow.document.querySelector(".selection__list").children
-      .length - 1;
-  children = parent.children;
-}
+  selectionList =
+    iframe.contentWindow.document.querySelector(".selection__list");
+  selectionListItems = selectionList.children;
+  numItems = selectionListItems.length - 1;
+};
 
 //--------Console Control - Selection Screen--------//
 //Right button moves selection border one over to the right
 rightButton.addEventListener("click", () => {
-  count = count + 1;
+  console.log(numItems);
+  count += 1;
   //Set equal to # of selections available, if count exceeds it, before changing direction
   count > numItems ? (count = numItems) : switchDirection("right");
 });
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
-  count = count - 1;
+  count -= 1;
   //Set count equal to zero, if count goes below zero, before changing direction
   count < 0 ? (count = 0) : switchDirection("left");
 });
 
 //Down button moves selection border one below
 downButton.addEventListener("click", () => {
-  count = count + 3;
+  count += 3;
   //Reverse count by -3, if count exceeds # of selections available, before changing direction
-  count > numItems ? (count = count - 3) : switchDirection("down");
+  count > numItems ? (count -= 3) : switchDirection("down");
 });
 
 //Up button moves selection border one above
 upButton.addEventListener("click", () => {
-  count = count - 3;
+  count -= 3;
   //Reverse count by +3, if count goes below zero, before changing direction
-  count < 0 ? (count = count + 3) : switchDirection("up");
+  count < 0 ? (count += 3) : switchDirection("up");
 });
 
 const switchDirection = (direction) => {
   switch (direction) {
     case "right":
       //removes selection border from previous selection
-      children[count - 1].classList.remove("selection__card--selected");
+      selectionListItems[count - 1].classList.remove(
+        "selection__card--selected"
+      );
       //adds selection border to current selection
-      children[count].classList.add("selection__card--selected");
+      selectionListItems[count].classList.add("selection__card--selected");
       break;
     case "left":
-      //removes selection border from previous selection
-      children[count + 1].classList.remove("selection__card--selected");
-      //adds selection border to current selection
-      children[count].classList.add("selection__card--selected");
+      selectionListItems[count + 1].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
       break;
     case "down":
-      //removes selection border from previous selection
-      children[count - 3].classList.remove("selection__card--selected");
-      //adds selection border to current selection
-      children[count].classList.add("selection__card--selected");
+      selectionListItems[count - 3].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
       break;
     case "up":
-      //removes selection border from previous selection
-      children[count + 3].classList.remove("selection__card--selected");
-      //adds selection border to current selection
-      children[count].classList.add("selection__card--selected");
+      selectionListItems[count + 3].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
   }
 };
