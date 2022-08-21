@@ -1,36 +1,82 @@
-// const introPage = "intro-screen.html";
-// const selectionPage = "selection-screen.html";
-// const battlePage = "battle-screen.html";
-// const gameoverPage = "gameover-screen.html";
 const startButton = document.querySelector(".btn-start");
+const rightButton = document.querySelector(".d-pad__btn--right");
+const leftButton = document.querySelector(".d-pad__btn--left");
+const downButton = document.querySelector(".d-pad__btn--down");
+const upButton = document.querySelector(".d-pad__btn--up");
+let iframe;
+let parent;
+let children;
+let numItems; //Number of Pokemon available to select
+var count = 0;
 
-// // //Intro start game button
-startButton.addEventListener("click", function () {
+//Start Game
+startButton.addEventListener("click", () => {
   const selectionPage = "selection-screen.html";
-  //Take Intro Screen
+  //Display Selection Screen
   document.getElementsByName("screen-display")[0].src = selectionPage;
+  setTimeout(() => {
+    getIframe();
+  }, 2000);
 });
 
-// async function getPokemon() {
-//   const response = await fetch("./src/pokemonList.json");
-//   const data = await response.json();
-//   console.log(data);
-//   // return data;
+//Load iFrame Nodes
+async function getIframe() {
+  iframe = document.getElementById("iframe");
+  parent = iframe.contentWindow.document.querySelector(".selection__list");
+  numItems =
+    iframe.contentWindow.document.querySelector(".selection__list").children.length - 1;
+  children = parent.children;
+}
 
-//   let list = "";
-//   data.forEach(function (item) {
-//     list += `<li class="selection__card">
-//   <img
-//     src="${item.image}"
-//     class="selection__img"
-//     alt="${item.name}"
-//   />
-//   <p class="selection__name">${item.name}</p>
-//   <p class="player__card-mystery">?</p>
-// </li>`;
-//   });
+//--------Console Control - Selection Screen--------//
+//Right button moves selection border one over to the right
+rightButton.addEventListener("click", () => {
+  count = count + 1;
+  if (count > numItems) {
+    count = 8;
+  } else {
+    //removes selection border from previous selection
+    children[count -1].classList.remove("selection__card--border");
+    //adds selection border to current selection
+    children[count].classList.add("selection__card--border");
+  }
+});
 
-//   var iframe = document.getElementById("iframe");
-//   var elmnt = iframe.contentWindow.document.querySelector("#output");
-//   elmnt.innerHTML = list;
-// }
+//Left button moves selection border one over to the left
+leftButton.addEventListener("click", () => {
+  count = count - 1;
+  if (count < 0) {
+    count = 0;
+  } else {
+    //removes selection border from previous selection
+    children[count +1].classList.remove("selection__card--border");
+    //adds selection border to current selection
+    children[count].classList.add("selection__card--border");
+  }
+});
+
+//Down button moves selection border one below
+downButton.addEventListener("click", () => {
+  count = count + 3;
+  if (count > numItems) {
+    count = count - 3;
+  } else {
+    // //removes selection border from previous selection
+    children[count - 3].classList.remove("selection__card--border");
+    //adds selection border to current selection
+    children[count].classList.add("selection__card--border");
+  }
+});
+
+//Up button moves selection border one above
+upButton.addEventListener("click", () => {
+  count = count - 3;
+  if (count < 0) {
+    count = count + 3;
+  } else {
+    //removes selection border from previous selection
+    children[count + 3].classList.remove("selection__card--border");
+    //adds selection border to current selection
+    children[count].classList.add("selection__card--border");
+  }
+});
