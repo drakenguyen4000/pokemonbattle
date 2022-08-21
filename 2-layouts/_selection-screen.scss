@@ -86,8 +86,10 @@
 
 /*selection-infobox*/
 .infobox {
-  display: flex;
-  padding: 2px;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  // display: flex;
+  // padding: 2px;
   font-size: .75rem;
   font-weight: 600;
   background: rgb(82, 183, 175);
@@ -97,7 +99,7 @@
 
 .infobox__container {
   display: inline-block;
-  width: 50%;
+  // width: 50%;
   padding: 1px;
   background: #ffffff;
   border-radius: 5px;
@@ -110,21 +112,24 @@
 
 .infobox__container--red {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 45% 55%;
   border: 3px solid #d04028;
   ul {
     display: grid; 
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     margin-left: 2%;
   }
 }
 
 .infobox__text {
-  padding: 2%;
+  padding: 1%;
 }
 
 .infobox__details {
-  padding: 2%;
+  // padding: 2%;
   list-style: none;
+  line-height: 80%;
+  font-size: .7rem;
+
 }

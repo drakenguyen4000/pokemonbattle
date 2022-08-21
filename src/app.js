@@ -4,6 +4,7 @@ const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
 let iframe;
+let iframeDocument;
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
@@ -22,10 +23,12 @@ startButton.addEventListener("click", () => {
 //Load iFrame Nodes
 const getIframe = () => {
   iframe = document.getElementById("iframe");
-  selectionList =
-    iframe.contentWindow.document.querySelector(".selection__list");
+  iframeDocument = iframe.contentWindow.document;
+  selectionList = iframeDocument.querySelector(".selection__list");
   selectionListItems = selectionList.children;
   numItems = selectionListItems.length - 1;
+  console.log(selectionListItems);
+  // iframe.contentWindow.document.getElementById("card_0").classList.add("selection__card--selected");
 };
 
 //--------Console Control - Selection Screen--------//
@@ -58,6 +61,14 @@ upButton.addEventListener("click", () => {
   count < 0 ? (count += 3) : switchDirection("up");
 });
 
+const getDataSet = (count) => {
+  return `<li>${selectionListItems[count].dataset.type}</li>
+      <li>${selectionListItems[count].dataset.health}</li>
+      <li>${selectionListItems[count].dataset.attack}</li>
+      <li>${selectionListItems[count].dataset.defense}</li>
+      <li>${selectionListItems[count].dataset.weakness}</li>`;
+};
+
 const switchDirection = (direction) => {
   switch (direction) {
     case "right":
@@ -67,23 +78,28 @@ const switchDirection = (direction) => {
       );
       //adds selection border to current selection
       selectionListItems[count].classList.add("selection__card--selected");
+      //Switches infobox details based on pokemon selection
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
       break;
     case "left":
       selectionListItems[count + 1].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
       break;
     case "down":
       selectionListItems[count - 3].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
       break;
     case "up":
       selectionListItems[count + 3].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
   }
 };
