@@ -21,7 +21,11 @@ async function getPokemon() {
   });
   document.querySelector(".selection__list").innerHTML = list;
   //Highlights first card with orange border
-  document.getElementById("card_0").classList.add("selection__card--border");
+  document.getElementById("card_0").classList.add("selection__card--selected");
 }
 
 window.onload = getPokemon;
+
+
+//Side Scrolling effect 
+//info box displaying/loading info of pokemon

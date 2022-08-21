@@ -62,26 +62,26 @@ const switchDirection = (direction) => {
   switch (direction) {
     case "right":
       //removes selection border from previous selection
-      children[count - 1].classList.remove("selection__card--border");
+      children[count - 1].classList.remove("selection__card--selected");
       //adds selection border to current selection
-      children[count].classList.add("selection__card--border");
+      children[count].classList.add("selection__card--selected");
       break;
     case "left":
       //removes selection border from previous selection
-      children[count + 1].classList.remove("selection__card--border");
+      children[count + 1].classList.remove("selection__card--selected");
       //adds selection border to current selection
-      children[count].classList.add("selection__card--border");
+      children[count].classList.add("selection__card--selected");
       break;
     case "down":
       //removes selection border from previous selection
-      children[count - 3].classList.remove("selection__card--border");
+      children[count - 3].classList.remove("selection__card--selected");
       //adds selection border to current selection
-      children[count].classList.add("selection__card--border");
+      children[count].classList.add("selection__card--selected");
       break;
     case "up":
       //removes selection border from previous selection
-      children[count + 3].classList.remove("selection__card--border");
+      children[count + 3].classList.remove("selection__card--selected");
       //adds selection border to current selection
-      children[count].classList.add("selection__card--border");
+      children[count].classList.add("selection__card--selected");
   }
 };

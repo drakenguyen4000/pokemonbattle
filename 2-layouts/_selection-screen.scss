@@ -32,6 +32,7 @@
   background: #a8e8f8;
   border: 2px solid #5198ab;
   border-radius: 3px;
+  filter: grayscale(60%);
 }
 
 .selection__card--hide {
@@ -75,6 +76,12 @@
   background: #f8f8f8;
   border: 2px solid #706880;
   border-radius: 3px;
+}
+
+/*Selection control effects*/
+.selection__card--selected {
+  border: 3px solid #F87030;
+  filter: grayscale(0);
 }
 
 /*selection-infobox*/
