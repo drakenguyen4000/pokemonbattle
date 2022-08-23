@@ -14,12 +14,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-// img {
-//   width: 100%;
-//   height: 100%;
-//   object-fit: contain;
-// }
-
 /*Main*/
 .console {
   display: grid;
@@ -27,8 +21,7 @@ body {
   grid-template-rows: 8% 73.5% 18.5%;
   grid-column-gap: 0px;
   height: 100vh;
-  background: #f12f4f;
-  box-shadow: 30px 0px 40px rgba(0, 0, 0, 0.1),
-    -30px 0px 40px rgba(0, 0, 0, 0.1);
+  background-color: #f12f4f;
+  -webkit-box-shadow: 0 0 20px rgb(103, 1, 1) inset;
+  box-shadow: 0 0 20px rgb(103, 1, 1) inset;
 }
-

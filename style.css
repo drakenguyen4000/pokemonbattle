@@ -20,14 +20,15 @@ body {
   grid-template-rows: 8% 73.5% 18.5%;
   grid-column-gap: 0px;
   height: 100vh;
-  background: #f12f4f;
-  box-shadow: 30px 0px 40px rgba(0, 0, 0, 0.1), -30px 0px 40px rgba(0, 0, 0, 0.1);
+  background-color: #f12f4f;
+  box-shadow: 0 0 20px rgb(103, 1, 1) inset;
 }
 
 /*======CONSOLE TOP (SECTION 1)======*/
 .console-top {
   display: flex;
-  background-color: rgb(218, 19, 19);
+  background-color: #f33a59;
+  box-shadow: 0 0 6px rgb(131, 2, 2) inset;
 }
 
 .light {
@@ -67,7 +68,7 @@ body {
   margin: auto;
   background-color: #dbdbdb;
   border-radius: 0 0 0 25px;
-  box-shadow: 1px 2px 1px #797979;
+  box-shadow: 0px 2px 1px #797979;
 }
 
 .screen-panel-top {
@@ -333,7 +334,7 @@ iframe {
   display: grid;
   grid-template-rows: 80% 20%;
   height: 100%;
-  padding: 4% 2% 0 2%;
+  padding: 4% 1% 0 1%;
   border-radius: 0 0 10px 10px;
 }
 
@@ -352,7 +353,7 @@ iframe {
   background: #a8e8f8;
   border: 2px solid #5198ab;
   border-radius: 3px;
-  filter: grayscale(60%);
+  filter: grayscale(70%);
 }
 
 .selection__card--hide {
@@ -405,7 +406,8 @@ iframe {
 
 /*selection-infobox*/
 .infobox {
-  display: flex;
+  display: grid;
+  grid-template-columns: 48% 52%;
   padding: 2px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -415,8 +417,6 @@ iframe {
 }
 
 .infobox__container {
-  display: inline-block;
-  width: 50%;
   padding: 1px;
   background: #ffffff;
   border-radius: 5px;
@@ -429,23 +429,25 @@ iframe {
 
 .infobox__container--red {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 45% 55%;
   border: 3px solid #d04028;
 }
 .infobox__container--red ul {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   margin-left: 2%;
 }
 
 .infobox__text {
-  padding: 2%;
+  padding: 1%;
 }
 
 .infobox__details {
   padding: 2%;
   list-style: none;
+  line-height: 80%;
+  font-size: 0.52rem;
 }
 
 /*======Battle Screen======*/
@@ -721,13 +723,16 @@ iframe {
   }
 }
 /*media query for the iframe (console's screen)*/
-/*Actual screen height 667px*/
+/*Actual screen height 667px -- iPhone SE 2nd Gen*/
 @media screen and (min-height: 425px) {
   .infobox {
     font-size: 0.9rem;
   }
+  .infobox__details {
+    font-size: 0.68rem;
+  }
 }
-/*Actual screen height 926px*/
+/*Actual screen height 926px -- iphone 13 Max Pro*/
 @media screen and (min-height: 592px) {
   .display__intro-title {
     font-size: 2.2rem;
@@ -738,8 +743,11 @@ iframe {
   .infobox {
     font-size: 1.1rem;
   }
+  .infobox__details {
+    font-size: 0.72rem;
+  }
 }
-/*Actual screen height 1024px*/
+/*Actual screen height 1024px -- iPad Mini*/
 @media screen and (min-height: 656px) {
   .display__intro-title {
     font-size: 3rem;
@@ -754,6 +762,9 @@ iframe {
     height: 100%;
     font-size: 1.3rem;
   }
+  .infobox__details {
+    font-size: 1.1rem;
+  }
   .display__gameover {
     font-size: 4rem;
   }
@@ -761,7 +772,7 @@ iframe {
     font-size: 3.5rem;
   }
 }
-/*Actual screen height 1280px*/
+/*Actual screen height 1280px -- Kindle Fire HD*/
 @media screen and (min-height: 821px) {
   .display__intro-title {
     font-size: 4rem;
@@ -775,6 +786,9 @@ iframe {
   .infobox {
     height: 100%;
     font-size: 1.2rem;
+  }
+  .infobox__details {
+    font-size: 1.3rem;
   }
   .infobox__container {
     font-size: 1.5rem;
