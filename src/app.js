@@ -3,8 +3,7 @@ const rightButton = document.querySelector(".d-pad__btn--right");
 const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
-let iframe;
-let iframeDocument;
+let iframe = document.getElementById("iframe");
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
@@ -12,22 +11,25 @@ let count = 0;
 
 //Start Game
 startButton.addEventListener("click", () => {
-  const selectionPage = "selection-screen.html";
-  //Display Selection Screen
-  document.getElementsByName("screen-display")[0].src = selectionPage;
-  setTimeout(() => {
-    getIframe();
-  }, 2000);
+  //Only enable start selection screen page if is not the current page loaded
+  let currentLoadedPage = document.getElementById("iframe").attributes[1].nodeValue;
+  if (currentLoadedPage !== "selection-screen.html") {
+    const selectionPage = "selection-screen.html";
+      //Display Selection Screen
+      document.getElementsByName("screen-display")[0].src = selectionPage;
+      setTimeout(() => {
+        startSelectionScreen();
+      }, 2000);
+  }
 });
 
 //Load iFrame Nodes
-const getIframe = () => {
-  iframe = document.getElementById("iframe");
-  iframeDocument = iframe.contentWindow.document;
+const startSelectionScreen = () => {
+  let iframeDocument = iframe.contentWindow.document;
   selectionList = iframeDocument.querySelector(".selection__list");
   selectionListItems = selectionList.children;
   numItems = selectionListItems.length - 1;
-   //Checks if selection page is loaded before control buttons are active
+  //Checks if selection page is loaded before control buttons are active
   if (selectionListItems !== null) {
     selectionsActive();
   }
