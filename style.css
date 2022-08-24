@@ -135,6 +135,27 @@ iframe {
   border: 1px rgb(79, 78, 78) solid;
 }
 
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #99d4ff;
+  height: 100%;
+  width: 100%;
+  padding-top: 20%;
+  text-align: center;
+}
+
+.loading-screen__image-wrapper {
+  background: white;
+  width: 100%;
+}
+
+.loading-screen--hide {
+  display: none;
+}
+
 /*======CONSOLE BOTTOM - Controller (SECTION 3)======*/
 .console-bottom {
   display: grid;
@@ -400,7 +421,7 @@ iframe {
 
 /*Selection control effects*/
 .selection__card--selected {
-  border: 3px solid #F87030;
+  border: 3px solid #f87030;
   filter: grayscale(0);
 }
 

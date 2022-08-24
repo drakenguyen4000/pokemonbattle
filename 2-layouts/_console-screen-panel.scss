@@ -7,7 +7,7 @@
   margin: auto;
   background-color: #dbdbdb;
   border-radius: 0 0 0 25px;
-  box-shadow: 1px 2px 1px #797979;
+  box-shadow: 0px 2px 1px #797979;
 }
 
 .screen-panel-top {
@@ -76,4 +76,26 @@ iframe{
   border-radius: 5px;
   background-color: #6e6e6e;
   border: 1px rgb(79, 78, 78) solid;
+}
+
+//Loading screen
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #99d4ff;
+  height: 100%;
+  width: 100%;
+  padding-top: 20%;
+  text-align: center;
+}
+
+.loading-screen__image-wrapper {
+  background: white;
+  width: 100%;
+}
+
+.loading-screen--hide {
+  display: none;
 }

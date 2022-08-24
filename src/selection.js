@@ -1,5 +1,3 @@
-
-
 //Displays List of Pokemons
 async function getPokemon() {
   //Fetches Pokemon JSON file
@@ -7,10 +5,8 @@ async function getPokemon() {
     console.log(err)
   );
   const data = await response.json().catch((err) => console.log(err));
-
   //Takes JSON data and displays on selection screen
   let selectionList = "";
-  let infoDetails = "";
   data.forEach((item, i) => {
     selectionList += `<li id="card_${i}" class="selection__card"
     data-abilities=${item.abilities}
@@ -31,21 +27,15 @@ async function getPokemon() {
   <p class="player__card-mystery">?</p>
 </li>`;
   });
+  //Load list
   document.querySelector(".selection__list").innerHTML = selectionList;
+  //Load screen for 2 seconds
+  setTimeout(()=>{
+    //Hide loading screen
+    document.querySelector(".loading-screen").classList.add("loading-screen--hide");
+  }, 2000);
   //Highlights first card with orange border
   document.getElementById("card_0").classList.add("selection__card--selected");
-  // const infoObject = {
-  //   type: document.getElementById("card_0").dataset.type,
-  //   health: document.getElementById("card_0").dataset.health,
-  //   attack: document.getElementById("card_0").dataset.attack,
-  //   defense: document.getElementById("card_0").dataset.defense,
-  // };
-
-
-
-  // console.log(document.getElementById("card_0").dataset);
-  // console.log(infoObject);
-  // document.querySelector(".selection__list").innerHTML = infoDetails;
 }
 
 window.onload = getPokemon;
