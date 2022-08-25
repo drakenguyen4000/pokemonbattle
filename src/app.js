@@ -4,6 +4,7 @@ const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
 let iframe = document.getElementById("iframe");
+let iframeDocument;
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
@@ -25,7 +26,7 @@ startButton.addEventListener("click", () => {
 
 //Load iFrame Nodes
 const startSelectionScreen = () => {
-  let iframeDocument = iframe.contentWindow.document;
+  iframeDocument = iframe.contentWindow.document;
   selectionList = iframeDocument.querySelector(".selection__list");
   selectionListItems = selectionList.children;
   numItems = selectionListItems.length - 1;

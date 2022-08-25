@@ -1,12 +1,9 @@
 /*Intro Screen*/
 .display__intro {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include absolute-position;
   display: grid;
   grid-template-rows: 30% 30% 40%;
-  height: 100%;
-  width: 100%;
+  @include fullscreen;
   background-color: #99d4ff;
 }
 

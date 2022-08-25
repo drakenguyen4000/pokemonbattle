@@ -1,13 +1,10 @@
 
 .display__gameover {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include absolute-position;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+  @include fullscreen;
   font-family: "Goldman";
   font-size: 2.5rem;
   color: #f7fb36;

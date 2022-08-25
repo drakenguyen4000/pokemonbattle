@@ -36,9 +36,7 @@
 }
 
 .display {
-  // position: absolute;
-  height: 100%;
-  width: 100%;
+  @include fullscreen;
   z-index: 200;
   font-size: inherit;
   background-color: #99d4ff;
@@ -46,8 +44,7 @@
 }
 
 iframe{
-  height: 100%;
-  width: 100%;
+  @include fullscreen;
   border-radius: 0 0 5px 5px;
 }
 
@@ -80,13 +77,10 @@ iframe{
 
 //Loading screen
 .loading-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include absolute-position;
   z-index: 100;
   background-color: #99d4ff;
-  height: 100%;
-  width: 100%;
+  @include fullscreen;
   padding-top: 20%;
   text-align: center;
 }

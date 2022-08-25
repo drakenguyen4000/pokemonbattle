@@ -1,10 +1,7 @@
 /*======Selection Screen======*/
-.display-selection{
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+.display-selection {
+  @include absolute-position;
+  @include fullscreen;
   background: #48c0c8;
 }
 
@@ -47,7 +44,6 @@
   border-radius: 3px;
 }
 
-
 .selection__name--hide,
 .selection__img--hide {
   display: none;
@@ -80,7 +76,7 @@
 
 /*Selection control effects*/
 .selection__card--selected {
-  border: 3px solid #F87030;
+  border: 3px solid #f87030;
   filter: grayscale(0);
 }
 
@@ -89,7 +85,7 @@
   display: grid;
   grid-template-columns: 48% 52%;
   padding: 2px;
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 600;
   background: rgb(82, 183, 175);
   border: 2px solid rgb(62, 144, 137);
@@ -112,7 +108,7 @@
   grid-template-columns: 45% 55%;
   border: 3px solid #d04028;
   ul {
-    display: grid; 
+    display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     margin-left: 2%;
@@ -127,5 +123,7 @@
   padding: 2%;
   list-style: none;
   line-height: 80%;
-  font-size: .52rem;
+  font-size: 0.52rem;
 }
+
+
