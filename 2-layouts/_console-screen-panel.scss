@@ -1,9 +1,6 @@
 /*======CONSOLE CENTER (SECTION 2)======*/
 .screen-panel {
-  // width: 308px;
-  // height: 418px;
-  height: 100%;
-  width: 96%;
+  @include dimension(100%, 96%);
   margin: auto;
   background-color: #dbdbdb;
   border-radius: 0 0 0 25px;
@@ -17,18 +14,14 @@
 }
 
 .screen-panel-top__light {
-  height: 10px;
-  width: 10px;
+  @include dimension(10px, 10px);
   margin: 10px;
   border-radius: 200px;
   background-color: #e11133;
 }
 
 .screen {
-  // height:367px;
-  height: 88%;
-  // width: 292px;
-  width: 95%;
+  @include dimension(88%, 95%);
   margin: auto;
   background-color: #000000;
   border: 3px solid rgb(160, 159, 159);
@@ -36,15 +29,15 @@
 }
 
 .display {
-  @include fullscreen;
+  @include dimension(100%, 100%);
   z-index: 200;
   font-size: inherit;
   background-color: #99d4ff;
   border-radius: inherit;
 }
 
-iframe{
-  @include fullscreen;
+iframe {
+  @include dimension(100%, 100%);
   border-radius: 0 0 5px 5px;
 }
 
@@ -53,22 +46,19 @@ iframe{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 8%;
-  width: 100%;
+  @include dimension(8%, 100%);
   padding: 0 10%;
   padding-bottom: 3%;
 }
 
 .screen-panel-bottom__light {
-  height: 20px;
-  width: 20px;
+  @include dimension(20px, 20px);
   background-color: red;
   border-radius: 200px;
 }
 
 .speaker__port {
-  height: 4px;
-  width: 48px;
+  @include dimension(4px, 48px);
   margin: 2px;
   border-radius: 5px;
   background-color: #6e6e6e;
@@ -77,10 +67,10 @@ iframe{
 
 //Loading screen
 .loading-screen {
-  @include absolute-position;
+  @include position(absolute, 0, 0);
   z-index: 100;
   background-color: #99d4ff;
-  @include fullscreen;
+  @include dimension(100%, 100%);
   padding-top: 20%;
   text-align: center;
 }

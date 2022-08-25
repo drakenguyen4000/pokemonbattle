@@ -1,9 +1,9 @@
 /*======Battle Screen======*/
 .battle-container {
-  @include absolute-position;
+  @include position(absolute, 0, 0);
   display: grid;
   grid-template-rows: 18% 1fr 22%;
-  @include fullscreen;
+  @include dimension(100%, 100%);
   background-color: $battle-ground;
   border-radius: 10px;
   // font-family: 'Goldman', cursive;
@@ -58,8 +58,7 @@
 
 .opponent-health__bar {
   display: inline-block;
-  height: 8px;
-  width: 90%;
+  @include dimension(8px, 90%);
   margin: auto;
   background: $health-bar;
   border: 2px solid $health-bar-border;
@@ -77,10 +76,6 @@
   position: relative;
 }
 
-// .opponent {
-//   height: 120px;
-// }
-
 .opponent__image {
   position: absolute;
   top: -60px;
@@ -93,8 +88,7 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  height: 50px;
-  width: 120px;
+  @include dimension(50px, 120px);
   background-color: $arena-circle-bg;
   border-radius: 50%;
   border: 5px solid $arena-circle-border;
@@ -106,8 +100,7 @@
   position: relative;
   bottom: 0px;
   left: 0px;
-  height: 100px;
-  width: 250px;
+  @include dimension(100px, 250px);
   overflow: hidden;
 }
 
@@ -122,8 +115,7 @@
   position: relative;
   bottom: 50px;
   right: 100px;
-  height: 90px;
-  width: 300px;
+  @include dimension(90px, 300px);
   background: $arena-circle-bg;
   border: 5px solid $arena-circle-border;
   border-radius: 50%;
@@ -162,8 +154,7 @@
 
 .player-health__bar {
   display: inline-block;
-  height: 10px;
-  width: 89%;
+  @include dimension(10px, 89%);
   margin: auto;
   background: $health-bar;
   border-radius: 5px;

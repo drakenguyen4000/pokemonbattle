@@ -8,8 +8,7 @@
     height: 6px;
   }
   .btn-start-pause {
-    width: 58px;
-    height: 12px;
+    @include dimension(58px, 12px);
   }
   .btn-text {
     font-size: 0.8rem;
@@ -37,4 +36,3 @@
     height: 64%;
   }
 }
-

@@ -1,9 +1,9 @@
 /*Intro Screen*/
 .display__intro {
-  @include absolute-position;
+  @include position(absolute, 0, 0);
   display: grid;
   grid-template-rows: 30% 30% 40%;
-  @include fullscreen;
+  @include dimension(100%, 100%);
   background-color: #99d4ff;
 }
 
@@ -33,7 +33,6 @@
 
 .display__intro-arena-circle {
   height: 40%;
-  /* // height: 10%; //test w */
   aspect-ratio: 4.6/1;
   margin: auto;
   margin-top: 8px;

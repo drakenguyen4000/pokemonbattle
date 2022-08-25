@@ -1,7 +1,7 @@
 /*======Selection Screen======*/
 .display-selection {
-  @include absolute-position;
-  @include fullscreen;
+  @include position(absolute, 0, 0);
+  @include dimension(100%, 100%);
   background: #48c0c8;
 }
 
@@ -24,8 +24,7 @@
 .selection__card {
   display: grid;
   grid-template-rows: 75% 25%;
-  height: 100%;
-  width: 100%;
+  @include dimension(100%, 100%);
   background: #a8e8f8;
   border: 2px solid #5198ab;
   border-radius: 3px;
