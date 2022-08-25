@@ -1,6 +1,6 @@
 /*======Selection Screen======*/
 .display-selection {
-  @include position(absolute, 0, 0);
+  @include absolute-position;
   @include dimension(100%, 100%);
   background: #48c0c8;
 }

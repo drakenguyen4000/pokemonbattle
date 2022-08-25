@@ -1,6 +1,6 @@
 /*Intro Screen*/
 .display__intro {
-  @include position(absolute, 0, 0);
+  @include absolute-position;
   display: grid;
   grid-template-rows: 30% 30% 40%;
   @include dimension(100%, 100%);

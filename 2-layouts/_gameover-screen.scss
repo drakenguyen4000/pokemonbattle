@@ -1,6 +1,6 @@
 
 .display__gameover {
-  @include position(absolute, 0, 0);
+  @include absolute-position;
   display: flex;
   flex-direction: column;
   justify-content: center;
