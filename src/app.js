@@ -3,24 +3,49 @@ const rightButton = document.querySelector(".d-pad__btn--right");
 const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
+const selectButton = document.querySelector(".btn-select");
+const pauseButton = document.querySelector(".btn-pause");
 let iframe = document.getElementById("iframe");
 let iframeDocument;
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
 let count = 0;
+let selectedAnswer = "yes";
+
+//Pick Pokemon
+selectButton.addEventListener("click", () => {
+  iframeDocument = iframe.contentWindow.document;
+  
+  //Switch text to: Select this Pokemon?
+  iframeDocument.querySelector(".infobox__text-choose").classList.add("hide");
+  iframeDocument.querySelector(".infobox__text-selected").classList.remove("hide");
+  //Switch to no with down button
+  downButton.addEventListener("click", () => {
+    iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
+    iframeDocument.querySelector(".option__no-arrow").classList.remove("hide");
+    selectedAnswer = "no";
+  });
+  //Switch to yes with up button
+  upButton.addEventListener("click", () => {
+    iframeDocument.querySelector(".option__yes-arrow").classList.remove("hide");
+    iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
+    selectedAnswer = "yes";
+  });
+});
 
 //Start Game
 startButton.addEventListener("click", () => {
   //Only enable start selection screen page if is not the current page loaded
-  let currentLoadedPage = document.getElementById("iframe").attributes[1].nodeValue;
+  let currentLoadedPage =
+    document.getElementById("iframe").attributes[1].nodeValue;
   if (currentLoadedPage !== "selection-screen.html") {
     const selectionPage = "selection-screen.html";
-      //Display Selection Screen
-      document.getElementsByName("screen-display")[0].src = selectionPage;
-      setTimeout(() => {
-        startSelectionScreen();
-      }, 2000);
+    //Display Selection Screen
+    document.getElementsByName("screen-display")[0].src = selectionPage;
+    setTimeout(() => {
+      startSelectionScreen();
+    }, 2000);
   }
 });
 

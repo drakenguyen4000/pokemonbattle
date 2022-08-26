@@ -209,8 +209,8 @@ iframe {
 }
 
 .btn-start, .btn-pause {
-  width: 100%;
   height: 9px;
+  width: 100%;
   border-radius: 5px;
   box-shadow: 1px 2px 2px #000000;
 }
@@ -319,7 +319,6 @@ iframe {
 
 .display__intro-arena-circle {
   height: 40%;
-  /* // height: 10%; //test w */
   aspect-ratio: 4.6/1;
   margin: auto;
   margin-top: 8px;
@@ -462,6 +461,22 @@ iframe {
 
 .infobox__text {
   padding: 1%;
+  position: relative;
+}
+
+.infobox__text-choose, .infobox__text-selected {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/*Use to hide elements*/
+.hide {
+  visibility: hidden;
+}
+
+.selection-option {
+  list-style: none;
 }
 
 .infobox__details {
@@ -717,8 +732,8 @@ iframe {
     height: 6px;
   }
   .btn-start-pause {
-    width: 58px;
-    height: 12px;
+    height: 58px;
+    width: 12px;
   }
   .btn-text {
     font-size: 0.8rem;
