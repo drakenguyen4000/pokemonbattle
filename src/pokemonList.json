@@ -6,9 +6,9 @@
     "summary": "Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy.",
     "type": "Electric",
     "weakness": "Ground",
-    "health": "35",
-    "attack": "55",
-    "defense": "40",
+    "health": 35,
+    "attack": 55,
+    "defense": 40,
     "evolve": "Raichu"
   },
   {
@@ -18,9 +18,9 @@
     "summary": "For some time after its birth, it grows by gaining nourishment from the seed on its back.",
     "type": "Grass/Poison",
     "weakness": "Fire/Ice",
-    "health": "45",
-    "attack": "49",
-    "defense": "65",
+    "health": 45,
+    "attack": 49,
+    "defense": 65,
     "evolve": "Ivysaur"
   },
   {
@@ -30,9 +30,9 @@
     "summary": "The fire on the tip of its tail is a measure of its life. If healthy, its tail burns intensely.",
     "type": "Fire",
     "weakness": "Ground/Water/Rock",
-    "health": "39",
-    "attack": "52",
-    "defense": "43",
+    "health": 39,
+    "attack": 52,
+    "defense": 43,
     "evolve": "Charmeleon"
   },
   {
@@ -42,9 +42,9 @@
     "summary": "It shelters itself in its shell, then strikes back with spouts of water at every opportunity.",
     "type": "Water",
     "weakness": "Grass/Electric",
-    "health": "44",
-    "attack": "48",
-    "defense": "65",
+    "health": 44,
+    "attack": 48,
+    "defense": 65,
     "evolve": "Wartortle"
   },
   {
@@ -54,9 +54,9 @@
     "summary": "To protect itself from attackers, it curls up into a ball. It lives in arid regions with minimal rainfall.",
     "type": "Ground",
     "weakness": "Water/Grass/Ice",
-    "health": "50",
-    "attack": "75",
-    "defense": "85",
+    "health": 50,
+    "attack": 75,
+    "defense": 85,
     "evolve": "Sandslash"
   },
   {
@@ -66,9 +66,9 @@
     "summary": "Once it appears, its rage never settles until it has razed the fields and mountains around it.",
     "type": "Water/Flying",
     "weakness": "Electric/Rock",
-    "health": "95",
-    "attack": "125",
-    "defense": "79",
+    "health": 95,
+    "attack": 125,
+    "defense": 79,
     "evolve": ""
   },
   {
@@ -78,9 +78,9 @@
     "summary": "It is nearly impossible to parry its attacking scythes. Its movements are like a ninja’s.",
     "type": "Bug/Flying",
     "weakness": "Fire/Electric/Ice/Rock",
-    "health": "70",
-    "attack": "110",
-    "defense": "80",
+    "health": 70,
+    "attack": 110,
+    "defense": 80,
     "evolve": "Scizor"
   },
   {
@@ -90,9 +90,9 @@
     "summary": "Many live on mountain trails and remain half buried while keeping an eye on climbers.",
     "type": "Rock",
     "weakness": "Steel/Fighting/Water/Ice/Grass/Ground",
-    "health": "40",
-    "attack": "80",
-    "defense": "100",
+    "health": 40,
+    "attack": 80,
+    "defense": 100,
     "evolve": "Graveler"
   },
   {
@@ -102,9 +102,81 @@
     "summary": "Pikachu that can generate powerful electricity have cheek sacs that are extra soft and super stretchy.",
     "type": "Fire",
     "weakness": "Water/Ground/Rock",
-    "health": "55",
-    "attack": "70",
-    "defense": "45",
+    "health": 55,
+    "attack": 70,
+    "defense": 45,
     "evolve": "Arcanine"
+  },
+  {
+    "name": "Ivysaur",
+    "image": "https://img.pokemondb.net/sprites/emerald/normal/ivysaur.png",
+    "abilities": "Overgrow",
+    "summary": "When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.",
+    "type": "Plant",
+    "weakness": "Fire/Physic/Flying/Ice",
+    "health": 60,
+    "attack": 62,
+    "defense": 63,
+    "evolve": "Venusaur"
+  },
+  {
+    "name": "Venusaur",
+    "image": "https://img.pokemondb.net/sprites/sword-shield/icon/venusaur.png",
+    "abilities": "Overgrow",
+    "summary": "VENUSAUR’s flower is said to take on vivid colors if it gets plenty of nutrition and sunlight. The flower’s aroma soothes the emotions of people.",
+    "type": "Plant",
+    "weakness": "Fire/Physic/Flying/Ice",
+    "health": 80,
+    "attack": 82,
+    "defense": 83,
+    "evolve": ""
+  },
+  {
+    "name": "Charmeleon",
+    "image": "https://img.pokemondb.net/sprites/sword-shield/icon/charmeleon.png",
+    "abilities": "Blaze",
+    "summary": "Without pity, its sharp claws destroy foes. If it encounters a strong enemy, it becomes agitated, and the flame on its tail flares with a bluish white color.",
+    "type": "Fire",
+    "weakness": "Water/Ground/Rock",
+    "health": 58,
+    "attack": 64,
+    "defense": 58,
+    "evolve": "Charizard"
+  },
+  {
+    "name": "Charizard",
+    "image": "https://img.pokemondb.net/sprites/emerald/normal/charizard.png",
+    "abilities": "Blaze",
+    "summary": "It is said that CHARIZARD’s fire burns hotter if it has experienced harsh battles.",
+    "type": "Fire/Flying",
+    "weakness": "Water/Electric/Rock",
+    "health": 78,
+    "attack": 84,
+    "defense": 78,
+    "evolve": ""
+  },
+  {
+    "name": "Wartortle",
+    "image": "https://img.pokemondb.net/sprites/emerald/normal/wartortle.png",
+    "abilities": "Torrent",
+    "summary": "It is said to live 10,000 years. Its furry tail is popular as a symbol of longevity.",
+    "type": "Water",
+    "weakness": "Grass/Electric",
+    "health": 59,
+    "attack": 63,
+    "defense": 80,
+    "evolve": "Blastoise"
+  },
+  {
+    "name": "Blastoise",
+    "image": "https://img.pokemondb.net/sprites/emerald/normal/blastoise.png",
+    "abilities": "Torrent",
+    "summary": "The jets of water it spouts from the rocket cannons on its shell can punch through thick steel.",
+    "type": "Water",
+    "weakness": "Grass/Electric",
+    "health": 79,
+    "attack": 83,
+    "defense": 100,
+    "evolve": ""
   }
 ]
