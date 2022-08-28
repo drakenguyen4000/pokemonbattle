@@ -1,3 +1,4 @@
+// import {months} from "./newlibrary";
 const startButton = document.querySelector(".btn-start");
 const rightButton = document.querySelector(".d-pad__btn--right");
 const leftButton = document.querySelector(".d-pad__btn--left");
@@ -11,40 +12,63 @@ let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
 let count = 0;
-let selectedAnswer = "yes";
 
-//Pick Pokemon
-selectButton.addEventListener("click", () => {
+let state = {
+  pokemon: {},
+  selectedAnswer: "yes",
+  screen: "",
+  mode: "",
+};
+
+//Selected Pokemon
+const selectedPokemon = () => {
   iframeDocument = iframe.contentWindow.document;
-  
   //Switch text to: Select this Pokemon?
   iframeDocument.querySelector(".infobox__text-choose").classList.add("hide");
-  iframeDocument.querySelector(".infobox__text-selected").classList.remove("hide");
+  iframeDocument
+    .querySelector(".infobox__text-selected")
+    .classList.remove("hide");
   //Switch to no with down button
   downButton.addEventListener("click", () => {
     iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.remove("hide");
-    selectedAnswer = "no";
+    state.selectedAnswer = "no";
   });
   //Switch to yes with up button
   upButton.addEventListener("click", () => {
     iframeDocument.querySelector(".option__yes-arrow").classList.remove("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
-    selectedAnswer = "yes";
+    state.selectedAnswer = "yes";
   });
+  //set mode selected pokemon
+  state.mode = "selected-pokemon";
+  // state.screen = "selected-pokemon";
+};
+
+selectButton.addEventListener("click", () => {
+  if (state.screen === "selection-screen") {
+    selectedPokemon();
+  }
+  //If in picked mode, enable pickedPokemon
+  if (state.selectedAnswer === "selected-pokemon") {
+    state.mode = ""
+    console.log("Let's go Pikachu!");
+  }
 });
 
 //Start Game
 startButton.addEventListener("click", () => {
   //Only enable start selection screen page if is not the current page loaded
-  let currentLoadedPage =
-    document.getElementById("iframe").attributes[1].nodeValue;
-  if (currentLoadedPage !== "selection-screen.html") {
+  // let currentLoadedPage =
+  //   document.getElementById("iframe").attributes[1].nodeValue;
+  // if (currentLoadedPage !== "selection-screen.html") {
+  if (state.screen !== "selection-screen") {
     const selectionPage = "selection-screen.html";
     //Display Selection Screen
     document.getElementsByName("screen-display")[0].src = selectionPage;
     setTimeout(() => {
       startSelectionScreen();
+      state.screen = "selection-screen";
     }, 2000);
   }
 });
@@ -131,6 +155,9 @@ const selectionsActive = () => {
   };
 
   const getDataSet = (count) => {
+    //Update state with currently highlighted pokemon
+    state.pokemon = Object.assign({}, selectionListItems[count].dataset);
+    console.log(state.pokemon);
     return `<li>${selectionListItems[count].dataset.type}</li>
       <li>${selectionListItems[count].dataset.health}</li>
       <li>${selectionListItems[count].dataset.attack}</li>
@@ -138,3 +165,10 @@ const selectionsActive = () => {
       <li>${selectionListItems[count].dataset.weakness}</li>`;
   };
 };
+
+const init = () => {
+  state.screen = "intro-screen";
+  console.log("starting up app...");
+};
+
+init();
