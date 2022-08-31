@@ -48,9 +48,19 @@
   justify-content: center;
 }
 
-.intro-pressstart-text {
+.pressstart-text {
   color: white;
   text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6),
     0 -1px rgb(6, 6, 6);
   text-transform: uppercase;
+}
+
+.pressstart-text--blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
