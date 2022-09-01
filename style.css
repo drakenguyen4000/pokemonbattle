@@ -392,13 +392,15 @@ iframe {
   filter: grayscale(70%);
 }
 
-.selection__card--hide {
+.selection__mystery-card--show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: "Black Ops One";
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 800;
   color: #ffcb05;
   -webkit-text-stroke: 2px #3367b0;
-  text-align: center;
   background: #3367b0;
   border: 2px solid #ffcb05;
   border-radius: 3px;
@@ -409,11 +411,11 @@ iframe {
   display: none;
 }
 
-.player__card-mystery {
+.selection__mystery-sign {
   display: none;
 }
 
-.player__card-mystery--show {
+.selection__mystery-sign--show {
   display: block;
 }
 

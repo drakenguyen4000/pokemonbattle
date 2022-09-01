@@ -9,6 +9,7 @@ async function getPokemon() {
   let selectionList = "";
   data.forEach((item, i) => {
     selectionList += `<li id="card_${i}" class="selection__card"
+    data-name=${item.name}
     data-abilities=${item.abilities}
     data-summary=${item.summary}
     data-type=${item.type}
@@ -24,7 +25,7 @@ async function getPokemon() {
     alt="${item.name}"
   />
   <p class="selection__name">${item.name}</p>
-  <p class="player__card-mystery">?</p>
+  <p class="selection__mystery-sign">?</p>
 </li>`;
   });
   //Load list
@@ -39,6 +40,3 @@ async function getPokemon() {
 }
 
 window.onload = getPokemon;
-
-//Side Scrolling effect
-//info box displaying/loading info of pokemon
