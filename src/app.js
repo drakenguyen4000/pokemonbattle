@@ -20,13 +20,9 @@ let state = {
   screen: "",
 };
 
-// pauseButton.addEventListener("click", function(){
-//   console.log(aiState)
-// })
-
 //Function to load different Screens
-const displayScreen = (stateUpdate, screenFunc) => {
-  state.screen = stateUpdate;
+const displayScreen = (screenUpdate, screenFunc) => {
+  state.screen = screenUpdate;
   //Display Selection Screen
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
   setTimeout(() => {
@@ -149,12 +145,20 @@ const selectionsActive = () => {
   };
 };
 
-const aiPicks = () => {
+//Calls AI screen to start
+async function aiSelectionScreen() {
+  //Wait for content to load
+  const nextScreen = await iframe.contentWindow.aiScreenLoad();
   //Get Opponent Pokemon and store in state
   const aiPokemon = iframe.contentWindow.aiState;
   state.opponentPokemon = aiPokemon.opponentPokemon;
-  console.log(state.opponentPokemon)
+  //Loads next screen
+  displayScreen(nextScreen, battleScreen);
 }
+
+const battleScreen = () => {
+  console.log("bg started");
+};
 
 selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
@@ -162,14 +166,14 @@ selectButton.addEventListener("click", () => {
     //Add Pokemon to Player Pokemon
 
     //Start AI's screen
-    displayScreen("ai-selection-screen", aiPicks)
+    displayScreen("ai-selection-screen", aiSelectionScreen);
     // console.log('hi')
   } else if (
     state.screen === "selected-mode" &&
     state.selectedAnswer === "no"
   ) {
     backToSelection();
-  } else if(state.screen === "selection-screen") {
+  } else if (state.screen === "selection-screen") {
     selectedPokemon();
   }
 });
