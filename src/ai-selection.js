@@ -1,14 +1,14 @@
-var aiState = {
+var oppState = {
   opponentPokemon: {},
 };
 
 //Creates list of info details
 const getDataSet = () => {
-  return `<li>${aiState.opponentPokemon.type}</li>
-<li>${aiState.opponentPokemon.health}</li>
-<li>${aiState.opponentPokemon.attack}</li>
-<li>${aiState.opponentPokemon.defense}</li>
-<li>${aiState.opponentPokemon.weakness}</li>`;
+  return `<li>${oppState.opponentPokemon.type}</li>
+<li>${oppState.opponentPokemon.health}</li>
+<li>${oppState.opponentPokemon.attack}</li>
+<li>${oppState.opponentPokemon.defense}</li>
+<li>${oppState.opponentPokemon.weakness}</li>`;
 };
 
 //Timer to slow effect
@@ -31,7 +31,7 @@ async function aiScreenLoad() {
   //Randomly Picks Pokemon from JSON List
   const randomPokemon = Math.floor(Math.random() * data.length);
   //Store picked Pokemon in state
-  aiState.opponentPokemon = data[randomPokemon];
+  oppState.opponentPokemon = data[randomPokemon];
 
   //Takes JSON data and create list
   let list = "";
@@ -75,22 +75,22 @@ async function aiScreenLoad() {
 
       //Create a list item with the randomly picked pokemon
       const opponentPokemonLi = `<li id="card_${randomPosition}" class="selection__card selection__card--selected"
-  data-name=${aiState.opponentPokemon.name}
-  data-abilities=${aiState.opponentPokemon.abilities}
-  data-summary=${aiState.opponentPokemon.summary}
-  data-type=${aiState.opponentPokemon.type}
-  data-weakness=${aiState.opponentPokemon.weakness}
-  data-health=${aiState.opponentPokemon.health}
-  data-attack=${aiState.opponentPokemon.attack}
-  data-defense=${aiState.opponentPokemon.defense}
-  data-evolve=${aiState.opponentPokemon.evolve}
+  data-name=${oppState.opponentPokemon.name}
+  data-abilities=${oppState.opponentPokemon.abilities}
+  data-summary=${oppState.opponentPokemon.summary}
+  data-type=${oppState.opponentPokemon.type}
+  data-weakness=${oppState.opponentPokemon.weakness}
+  data-health=${oppState.opponentPokemon.health}
+  data-attack=${oppState.opponentPokemon.attack}
+  data-defense=${oppState.opponentPokemon.defense}
+  data-evolve=${oppState.opponentPokemon.evolve}
   >
 <img
-  src="${aiState.opponentPokemon.image}"
+  src="${oppState.opponentPokemon.image}"
   class="selection__img"
-  alt="${aiState.opponentPokemon.name}"
+  alt="${oppState.opponentPokemon.name}"
 />
-<p class="selection__name">${aiState.opponentPokemon.name}</p>
+<p class="selection__name">${oppState.opponentPokemon.name}</p>
 <p class="selection__mystery-sign">?</p>
 </li>`;
       //Replace current list item with item of randomly picked pokemon
@@ -100,12 +100,9 @@ async function aiScreenLoad() {
       );
       //Update infobox with Opponent Pokemon's details
       document.querySelector(".info-list2").innerHTML = getDataSet();
-      // aiState.nextScreen = "battle-screen";
-      // if ((aiState.nextScreen === "battle-screen")) {
       setTimeout(() => {
         resolve("battle-screen");
       }, 4000);
-      // }
     }, 2000);
   });
 }

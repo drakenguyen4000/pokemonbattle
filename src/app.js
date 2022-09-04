@@ -150,8 +150,8 @@ async function aiSelectionScreen() {
   //Wait for content to load
   const nextScreen = await iframe.contentWindow.aiScreenLoad();
   //Get Opponent Pokemon and store in state
-  const aiPokemon = iframe.contentWindow.aiState;
-  state.opponentPokemon = aiPokemon.opponentPokemon;
+  const oppState = iframe.contentWindow.oppState;
+  state.opponentPokemon = oppState.opponentPokemon;
   //Loads next screen
   displayScreen(nextScreen, battleScreen);
 }
