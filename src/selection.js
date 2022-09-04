@@ -3,7 +3,7 @@ var selectionState = {
 }
 
 //Displays List of Pokemons
-async function getPokemon() {
+async function selectionScreenLoad() {
   //Fetches Pokemon JSON file
   const response = await fetch("./src/pokemonList.json").catch((err) =>
     console.log(err)
@@ -44,4 +44,5 @@ async function getPokemon() {
   document.getElementById("card_0").classList.add("selection__card--selected");
 }
 
-window.onload = getPokemon;
+window.onload = selectionScreenLoad;
+
