@@ -1,3 +1,7 @@
+var selectionState = {
+  pokemonList: {}
+}
+
 //Displays List of Pokemons
 async function getPokemon() {
   //Fetches Pokemon JSON file
@@ -5,6 +9,7 @@ async function getPokemon() {
     console.log(err)
   );
   const data = await response.json().catch((err) => console.log(err));
+  selectionState.pokemonList = data;
   //Takes JSON data and displays on selection screen
   let selectionList = "";
   data.forEach((item, i) => {

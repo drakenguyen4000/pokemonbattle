@@ -1,4 +1,4 @@
-const aiState = {
+var aiState = {
   opponentPokemon: {},
 };
 

@@ -13,10 +13,16 @@ let numItems; //Number of Pokemon available to select
 let count = 0;
 
 let state = {
-  pokemon: {},
+  pokemonList: {},
+  playerPokemon: {},
+  opponentPokemon: {},
   selectedAnswer: "yes",
   screen: "",
 };
+
+// pauseButton.addEventListener("click", function(){
+//   console.log(aiState)
+// })
 
 //Function to load different Screens
 const displayScreen = (stateUpdate, screenFunc) => {
@@ -44,6 +50,9 @@ const selectionScreen = () => {
   selectionList = iframeDocument.querySelector(".selection__list");
   selectionListItems = selectionList.children;
   numItems = selectionListItems.length - 1;
+  //Update state with Pokemon list
+  const pokemonList = iframe.contentWindow.selectionState.pokemonList;
+  state.pokemonList = pokemonList;
   //Checks if selection page is loaded before control buttons are active
   if (selectionListItems !== null) {
     selectionsActive();
@@ -130,7 +139,8 @@ const selectionsActive = () => {
 
   const getDataSet = (count) => {
     //Update state with currently highlighted pokemon
-    state.pokemon = Object.assign({}, selectionListItems[count].dataset);
+    state.playerPokemon = Object.assign({}, selectionListItems[count].dataset);
+    //List info of current pokemon
     return `<li>${selectionListItems[count].dataset.type}</li>
       <li>${selectionListItems[count].dataset.health}</li>
       <li>${selectionListItems[count].dataset.attack}</li>
@@ -139,20 +149,31 @@ const selectionsActive = () => {
   };
 };
 
+const aiPicks = () => {
+  //Get Opponent Pokemon and store in state
+  const aiPokemon = iframe.contentWindow.aiState;
+  state.opponentPokemon = aiPokemon.opponentPokemon;
+  console.log(state.opponentPokemon)
+}
+
 selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
   if (state.screen === "selected-mode" && state.selectedAnswer === "yes") {
+    //Add Pokemon to Player Pokemon
+
     //Start AI's screen
-    displayScreen("ai-picks-screen", aiPicks)
+    displayScreen("ai-selection-screen", aiPicks)
+    // console.log('hi')
   } else if (
     state.screen === "selected-mode" &&
     state.selectedAnswer === "no"
   ) {
     backToSelection();
-  } else {
+  } else if(state.screen === "selection-screen") {
     selectedPokemon();
   }
 });
+
 //In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
 const backToSelection = () => {
   state.screen = "selection-screen";
