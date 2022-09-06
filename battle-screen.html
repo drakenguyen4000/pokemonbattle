@@ -15,6 +15,12 @@
     <title>Pokemon Battles</title>
   </head>
   <body>
+    <div class="loading-screen align-center">
+      <div class="loading-screen__image-wrapper">
+        <img src="https://pkmn.net/sprites/emerald/3.gif" />
+        <p>Loading...</p>
+      </div>
+    </div>
     <div class="battle-container">
       <div class="sky-background">
         <div class="opponent-health">
@@ -24,16 +30,15 @@
               <span class="opponent-health__title">HP</span>
               <span class="opponent-health__bar"></span>
             </div>
-            <span class="opponent-health__point">43/43</span>
+            <span class="opponent-health__point"><span class="opponent-health__active"></span>/<span class="opponent-health__total"></span></span>
           </div>
         </div>
       </div>
       <div class="grass-background">
         <div class="opponent">
           <img
-            src="https://img.pokemondb.net/sprites/x-y/normal/gyarados-f.png"
-            class="opponent__image"
-            alt="Gyarados"
+            src=""
+            class="opponent__img"
           />
           <div class="opponent__circle"></div>
         </div>
@@ -41,9 +46,8 @@
       <div class="player-wrapper">
         <div class="player">
           <img
-            src="https://img.pokemondb.net/sprites/emerald/back-normal/charizard.png"
+            src=""
             class="player__img"
-            alt="Charizard"
           />
           <div class="player__circle"></div>
         </div>
@@ -54,7 +58,7 @@
               <span class="player-health__title">HP</span>
               <span class="player-health__bar"></span>
             </div>
-            <span class="player-health__point">43/43</span>
+            <span class="player-health__point"><span class="player-health__active"></span>/<span class="player-health__total"></span></span>
           </div>
         </div>
       </div>
@@ -72,7 +76,6 @@
         </div>
       </div>
     </div>
-    <script src="build/app.bundle.js"></script>
-    <script src="./src/app.js"></script>
+    <script src="./src/battleground.js"></script>
   </body>
 </html>
