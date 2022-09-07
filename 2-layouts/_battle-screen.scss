@@ -76,7 +76,7 @@
   position: relative;
 }
 
-.opponent__image {
+.opponent__img {
   position: absolute;
   top: -60px;
   right: 0;
@@ -106,7 +106,8 @@
 
 .player__img {
   position: relative;
-  bottom: 0px;
+  // bottom: 0px;
+  bottom: -20px;
   height: 110px;
   z-index: 100;
 }
@@ -175,22 +176,38 @@
   text-transform: uppercase;
 }
 
-.option--red {
-  background: #fecbcb;
-  border: 2px solid #ff4343;
-}
+// .option--attack {
+//   background: #fecbcb;
+//   border: 2px solid #ff4343;
+// }
 
-.option--yellow {
-  background: #ffd978;
-  border: 2px solid #b48204;
-}
+// .option--bag {
+//   background: #ffd978;
+//   border: 2px solid #b48204;
+// }
 
-.option--green {
-  background: #64f961;
-  border: 2px solid #098707;
-}
+// .option--pokemon {
+//   background: #64f961;
+//   border: 2px solid #098707;
+// }
 
-.option--blue {
-  background: #56ccff;
-  border: 2px solid #1279a6;
+// .option--run {
+//   background: #56ccff;
+//   border: 2px solid #1279a6;
+// }
+// .option-arrow {
+//   visibility: hidden;
+// }
+
+// .option-arrow--selected {
+//  visibility: visible;
+// }
+
+// .option-arrow {
+//   display: none;
+//   color: green;
+// }
+
+.option--selected {
+ color: green;
 }

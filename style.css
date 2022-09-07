@@ -139,7 +139,7 @@ iframe {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 500;
   background-color: #99d4ff;
   height: 100%;
   width: 100%;
@@ -585,7 +585,7 @@ iframe {
   position: relative;
 }
 
-.opponent__image {
+.opponent__img {
   position: absolute;
   top: -60px;
   right: 0;
@@ -617,7 +617,7 @@ iframe {
 
 .player__img {
   position: relative;
-  bottom: 0px;
+  bottom: -20px;
   height: 110px;
   z-index: 100;
 }
@@ -688,24 +688,8 @@ iframe {
   text-transform: uppercase;
 }
 
-.option--red {
-  background: #fecbcb;
-  border: 2px solid #ff4343;
-}
-
-.option--yellow {
-  background: #ffd978;
-  border: 2px solid #b48204;
-}
-
-.option--green {
-  background: #64f961;
-  border: 2px solid #098707;
-}
-
-.option--blue {
-  background: #56ccff;
-  border: 2px solid #1279a6;
+.option--selected {
+  color: green;
 }
 
 .display__gameover {

@@ -11,13 +11,16 @@ let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
 let count = 0;
+let optionsList;
+let optionsListItems;
 
-let state = {
+var state = {
   pokemonList: {},
   playerPokemon: {},
   opponentPokemon: {},
   selectedAnswer: "yes",
   screen: "",
+  optionSelected: "",
 };
 
 //Function to load different Screens
@@ -43,6 +46,7 @@ startButton.addEventListener("click", () => {
 //----------Load selection screen----------//
 const selectionScreen = () => {
   iframeDocument = iframe.contentWindow.document;
+  //Get Selection List of cards (children)
   selectionList = iframeDocument.querySelector(".selection__list");
   selectionListItems = selectionList.children;
   numItems = selectionListItems.length - 1;
@@ -61,6 +65,7 @@ const selectionsActive = () => {
   rightButton.addEventListener("click", () => {
     //Only works in selection screen, not selected-mode
     if (state.screen === "selection-screen") {
+      //Adds 1 every time user clicks right button on d-pad
       count += 1;
       //Set equal to # of selections available, if count exceeds it, before changing direction
       count > numItems ? (count = numItems) : switchDirection("right");
@@ -145,10 +150,10 @@ const selectionsActive = () => {
   };
 };
 
-//Calls AI screen to start
-async function aiSelectionScreen() {
+//Calls Opponent screen to start
+async function oppSelectionScreen() {
   //Wait for content to load
-  const nextScreen = await iframe.contentWindow.aiScreenLoad();
+  const nextScreen = await iframe.contentWindow.oppScreenLoad();
   //Get Opponent Pokemon and store in state
   const oppState = iframe.contentWindow.oppState;
   state.opponentPokemon = oppState.opponentPokemon;
@@ -156,18 +161,11 @@ async function aiSelectionScreen() {
   displayScreen(nextScreen, battleScreen);
 }
 
-const battleScreen = () => {
-  console.log("bg started");
-};
-
 selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
   if (state.screen === "selected-mode" && state.selectedAnswer === "yes") {
-    //Add Pokemon to Player Pokemon
-
-    //Start AI's screen
-    displayScreen("ai-selection-screen", aiSelectionScreen);
-    // console.log('hi')
+    //Start Opponent Selection screen
+    displayScreen("opp-selection-screen", oppSelectionScreen);
   } else if (
     state.screen === "selected-mode" &&
     state.selectedAnswer === "no"
@@ -223,14 +221,105 @@ const selectedPokemon = () => {
   });
 };
 
-const init = () => {
+async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
+  // setTimeout(() => {
+  // state.screen = "intro-screen";
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src =
+  //   state.screen + ".html";
+  // }, 1500);
+  const response1 = await fetch("./src/player.json").catch((err) =>
+    console.log(err)
+  );
+  const data1 = await response1.json().catch((err) => console.log(err));
+  state.playerPokemon = data1;
+
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2;
+  console.log(state);
+
+  // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
+}
+
+const battleScreen = () => {
+  iframeDocument = iframe.contentWindow.document;
+  optionsList = iframeDocument.querySelector(".infobox__container--red");
+  //Get list of all options in infobox box red
+  optionsListItems = optionsList.children;
+  numItems = optionsListItems.length - 1;
+  optionsPick();
 };
+
+const optionsPick =()=> {
+  rightButton.addEventListener("click", () => {
+    //Only works in selection screen, not selected-mode
+    // if (state.screen === "selection-screen") {
+      //Adds 1 every time user clicks right button on d-pad
+      count += 1;
+      //Set equal to # of selections available, if count exceeds it, before changing direction
+      count > numItems ? (count = numItems) : switchDirection("right");
+    // }
+  });
+
+  //Left button moves selection border one over to the left
+  leftButton.addEventListener("click", () => {
+    // if (state.screen === "selection-screen") {
+      count -= 1;
+      //Set count equal to zero, if count goes below zero, before changing direction
+      count < 0 ? (count = 0) : switchDirection("left");
+    // }
+  });
+
+  //Down button moves selection border one below
+  downButton.addEventListener("click", () => {
+    // if (state.screen === "selection-screen") {
+      count += 2;
+      //Reverse count by -3, if count exceeds # of selections available, before changing direction
+      count > numItems ? (count -= 2) : switchDirection("down");
+    // }
+  });
+
+  //Up button moves selection border one above
+  upButton.addEventListener("click", () => {
+    // if (state.screen === "selection-screen") {
+      count -= 2;
+      //Reverse count by +3, if count goes below zero, before changing direction
+      count < 0 ? (count += 2) : switchDirection("up");
+    // }
+  });
+
+  const switchDirection = (direction) => {
+    switch (direction) {
+      case "right":
+        optionsListItems[count - 1].classList.remove("option--selected");
+        optionsListItems[count].classList.add("option--selected");
+        //Update state with player choice
+        state.optionSelected = optionsListItems[count].textContent;
+        break;
+      case "left":
+        optionsListItems[count + 1].classList.remove("option--selected");
+        optionsListItems[count].classList.add("option--selected");
+        state.optionSelected = optionsListItems[count].textContent;
+        break;
+      case "down":
+        optionsListItems[count - 2].classList.remove("option--selected");
+        optionsListItems[count].classList.add("option--selected");
+        state.optionSelected = optionsListItems[count].textContent;
+        break;
+      case "up":
+        optionsListItems[count + 2].classList.remove("option--selected");
+        optionsListItems[count].classList.add("option--selected");
+        state.optionSelected = optionsListItems[count].textContent;
+    }
+  };  
+}
 
 init();

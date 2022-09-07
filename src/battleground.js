@@ -5,7 +5,7 @@ const battleGround = () => {
     document.querySelector(".loading-screen").classList.add("loading-screen--hide");
   }, 1000);
 
-  console.log("state:", window.parent.state);
+  // console.log("state:", window.parent.state);
 
   const opponentPokemon = window.parent.state.opponentPokemon[0];
   const playerPokemon = window.parent.state.playerPokemon[0];
@@ -21,10 +21,14 @@ const battleGround = () => {
 
   //Player
   document.querySelector(".player__img").src = playerPokemon.playerSprite;
-
   document.querySelector(".player-health__name").innerHTML = playerPokemon.name;
   document.querySelector(".player-health__total").innerHTML = playerPokemon.health_total;
   document.querySelector(".player-health__active").innerHTML = playerPokemon.health_active;
+
+  //Infobox 1
+  document.querySelector(".infobox__text").textContent = `You encountered a ${opponentPokemon.name}, a ${opponentPokemon.type} Pokemon. What will you do?`;
+  //Attack
+  
 };
 
 window.onload = battleGround;
