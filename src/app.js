@@ -299,24 +299,26 @@ const optionsPick =()=> {
   const switchDirection = (direction) => {
     switch (direction) {
       case "right":
-        optionsListItems[count - 1].classList.remove("option--selected");
-        optionsListItems[count].classList.add("option--selected");
+        optionsListItems[count - 1].children[0].classList.remove("arrow--selected");
+        optionsListItems[count].children[0].classList.add("arrow--selected");
         //Update state with player choice
         state.optionSelected = optionsListItems[count].textContent;
+        console.log( optionsListItems)
         break;
       case "left":
-        optionsListItems[count + 1].classList.remove("option--selected");
-        optionsListItems[count].classList.add("option--selected");
+        optionsListItems[count + 1].children[0].classList.remove("arrow--selected");
+        optionsListItems[count].children[0].classList.add("arrow--selected");
         state.optionSelected = optionsListItems[count].textContent;
+
         break;
       case "down":
-        optionsListItems[count - 2].classList.remove("option--selected");
-        optionsListItems[count].classList.add("option--selected");
+        optionsListItems[count - 2].children[0].classList.remove("arrow--selected");
+        optionsListItems[count].children[0].classList.add("arrow--selected");
         state.optionSelected = optionsListItems[count].textContent;
         break;
       case "up":
-        optionsListItems[count + 2].classList.remove("option--selected");
-        optionsListItems[count].classList.add("option--selected");
+        optionsListItems[count + 2].children[0].classList.remove("arrow--selected");
+        optionsListItems[count].children[0].classList.add("arrow--selected");
         state.optionSelected = optionsListItems[count].textContent;
     }
   };  

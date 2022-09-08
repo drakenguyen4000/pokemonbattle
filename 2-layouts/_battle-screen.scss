@@ -168,10 +168,13 @@
 }
 
 .option {
-  display: inline-block;
-  border-radius: 10px;
+  // display: inline-block; 
+  display: flex; 
+  justify-content: center;
+  align-self: center;
+  border-radius: 5px;
   margin: 1px;
-  padding: 2px;
+  // padding: 10%;
   text-align: center;
   text-transform: uppercase;
 }
@@ -195,19 +198,12 @@
 //   background: #56ccff;
 //   border: 2px solid #1279a6;
 // }
-// .option-arrow {
-//   visibility: hidden;
-// }
 
-// .option-arrow--selected {
-//  visibility: visible;
-// }
 
-// .option-arrow {
-//   display: none;
-//   color: green;
-// }
+.arrow {
+ visibility: hidden;
+}
 
-.option--selected {
- color: green;
+.arrow--selected {
+  visibility: visible;
 }
