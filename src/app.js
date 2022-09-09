@@ -13,6 +13,7 @@ let numItems; //Number of Pokemon available to select
 let count = 0;
 let optionsList;
 let optionsListItems;
+let dialogue;
 
 var state = {
   pokemonList: {},
@@ -85,6 +86,7 @@ async function oppSelectionScreen() {
 //Loads iframe of Battle Screen
 const battleScreen = () => {
   iframeDocument = iframe.contentWindow.document;
+  dialogue = iframeDocument.querySelector(".infobox__text");
   optionsList = iframeDocument.querySelector(".infobox__container--red");
   //Get list of all options in infobox box red
   optionsListItems = optionsList.children;
@@ -123,30 +125,40 @@ selectButton.addEventListener("click", () => {
     state.optionSelected === "attack"
   ) {
     state.screen = "attack-mode";
+    state.optionSelected = state.playerPokemon[0].attack_1;
+    dialogue.innerHTML = "Pick an attack!";
     //Display attacks in infobox red
     optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
     optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
-    optionsListItems[2].innerHTML = "";
-    optionsListItems[3].innerHTML = "";
-    // iframeDocument.querySelector(".infobox__container--red").
-    //Switches Option box into 4 different attack box
-    //Get Pokemon's abilities & list them into attack box
+    optionsListItems[2].lastChild.data = "";
+    optionsListItems[3].lastChild.data = "";
+  } else if (state.screen === "attack-mode") {
+    //Displays user command in infobox yellow
+    let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
+    dialogue.innerHTML = playerCommands;
+    optionsListItems[0].lastChild.data = "attack";
+    optionsListItems[1].lastChild.data = "bag";
+    optionsListItems[2].lastChild.data = "pkmon";
+    optionsListItems[3].lastChild.data = "run";
+    state.screen = "battle-screen"
+    state.optionSelected = "attack"
   }
-  //bag (potions)
-  else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
-    console.log("bag");
-  }
-  //pokemon (load your pokemon)
-  else if (
-    state.screen === "battle-screen" &&
-    state.optionSelected === "pkmon"
-  ) {
-    console.log("pkmon");
-  }
-  //run
-  else if (state.screen === "battle-screen" && state.optionSelected === "run") {
-    console.log("run");
-  }
+
+  // //bag (potions)
+  // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
+  //   console.log("bag");
+  // }
+  // //pokemon (load your pokemon)
+  // else if (
+  //   state.screen === "battle-screen" &&
+  //   state.optionSelected === "pkmon"
+  // ) {
+  //   console.log("pkmon");
+  // }
+  // //run
+  // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
+  //   console.log("run");
+  // }
 });
 
 rightButton.addEventListener("click", () => {
@@ -157,10 +169,13 @@ rightButton.addEventListener("click", () => {
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection("right");
   }
-  //Only works in selection screen, not selected-mode
-  if (state.screen === "battle-screen" || state.screen === "attack-mode") {
+  //Only works in battle screen
+  else if (state.screen === "battle-screen") {
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection2("right");
+  } else if (state.screen === "attack-mode") {
+    //Set equal to # of selections available, if count exceeds it, before changing direction
+    count > 1 ? (count = 1) : switchDirection2("right");
   }
 });
 
@@ -171,6 +186,7 @@ leftButton.addEventListener("click", () => {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection("left");
   }
+
   if (state.screen === "battle-screen" || state.screen === "attack-mode") {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection2("left");
@@ -183,15 +199,13 @@ downButton.addEventListener("click", () => {
     count += 3;
     //Reverse count by -3, if count exceeds # of selections available, before changing direction
     count > numItems ? (count -= 3) : switchDirection("down");
-  }
-  if (state.screen === "selected-mode") {
+  } else if (state.screen === "selected-mode") {
     iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.remove("hide");
     state.selectedAnswer = "no";
-  }
-  if (state.screen === "battle-screen") {
+  } else if (state.screen === "battle-screen") {
     count += 2;
-    //Reverse count by -3, if count exceeds # of selections available, before changing direction
+    //Reverse count by -2, if count exceeds # of selections available, before changing direction
     count > numItems ? (count -= 2) : switchDirection2("down");
   }
 });
@@ -202,15 +216,13 @@ upButton.addEventListener("click", () => {
     count -= 3;
     //Reverse count by +3, if count goes below zero, before changing direction
     count < 0 ? (count += 3) : switchDirection("up");
-  }
-  if (state.screen === "selected-mode") {
+  } else if (state.screen === "selected-mode") {
     iframeDocument.querySelector(".option__yes-arrow").classList.remove("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
     state.selectedAnswer = "yes";
-  }
-  if (state.screen === "battle-screen") {
+  } else if (state.screen === "battle-screen") {
     count -= 2;
-    //Reverse count by +3, if count goes below zero, before changing direction
+    //Reverse count by +2, if count goes below zero, before changing direction
     count < 0 ? (count += 2) : switchDirection2("up");
   }
 });
@@ -248,6 +260,7 @@ const switchDirection = (direction) => {
       );
       selectionListItems[count].classList.add("selection__card--selected");
       iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      break;
   }
 };
 
@@ -260,6 +273,7 @@ const switchDirection2 = (direction) => {
         "arrow--selected"
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
+
       //Update state with player choice
       state.optionSelected = optionsListItems[count].lastChild.data;
       break;
@@ -277,7 +291,6 @@ const switchDirection2 = (direction) => {
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
       state.optionSelected = optionsListItems[count].lastChild.data;
-
       break;
     case "up":
       optionsListItems[count + 2].children[0].classList.remove(
@@ -285,10 +298,11 @@ const switchDirection2 = (direction) => {
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
       state.optionSelected = optionsListItems[count].lastChild.data;
+      break;
   }
 };
 
-//Display current pokemon data to infbox 
+//Display current pokemon data to infbox
 const getDataSet = (count) => {
   //Update state with currently highlighted pokemon
   state.playerPokemon = Object.assign({}, selectionListItems[count].dataset);
@@ -325,8 +339,7 @@ async function init() {
   console.log(state);
 
   state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src =
-  state.screen + ".html";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
   displayScreen("battle-screen", battleScreen);
 }
 
