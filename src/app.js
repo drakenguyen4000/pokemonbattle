@@ -20,11 +20,12 @@ var state = {
   opponentPokemon: {},
   selectedAnswer: "yes",
   screen: "",
-  optionSelected: "",
+  optionSelected: "attack",
 };
 
 //Function to load different Screens
 const displayScreen = (screenUpdate, screenFunc) => {
+  count = 0;
   state.screen = screenUpdate;
   //Display Selection Screen
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
@@ -33,17 +34,7 @@ const displayScreen = (screenUpdate, screenFunc) => {
   }, 2000);
 };
 
-//----------Start Game----------//
-startButton.addEventListener("click", () => {
-  //Only enable start selection screen page if is not the current page loaded
-  if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
-    //set screen in state to equal selection-screen
-    displayScreen("selection-screen", selectionScreen);
-  }
-});
-
-//--------Console Control - Selection Screen--------//
-//----------Load selection screen----------//
+//Loads iframe of player Selection Screen
 const selectionScreen = () => {
   iframeDocument = iframe.contentWindow.document;
   //Get Selection List of cards (children)
@@ -53,128 +44,7 @@ const selectionScreen = () => {
   //Update state with Pokemon list
   const pokemonList = iframe.contentWindow.selectionState.pokemonList;
   state.pokemonList = pokemonList;
-  //Checks if selection page is loaded before control buttons are active
-  if (selectionListItems !== null) {
-    selectionsActive();
-  }
 };
-
-//----Enable Direction Pad Controls for Selection Screen----//
-const selectionsActive = () => {
-  //Right button moves selection border one over to the right
-  rightButton.addEventListener("click", () => {
-    //Only works in selection screen, not selected-mode
-    if (state.screen === "selection-screen") {
-      //Adds 1 every time user clicks right button on d-pad
-      count += 1;
-      //Set equal to # of selections available, if count exceeds it, before changing direction
-      count > numItems ? (count = numItems) : switchDirection("right");
-    }
-  });
-
-  //Left button moves selection border one over to the left
-  leftButton.addEventListener("click", () => {
-    if (state.screen === "selection-screen") {
-      count -= 1;
-      //Set count equal to zero, if count goes below zero, before changing direction
-      count < 0 ? (count = 0) : switchDirection("left");
-    }
-  });
-
-  //Down button moves selection border one below
-  downButton.addEventListener("click", () => {
-    if (state.screen === "selection-screen") {
-      count += 3;
-      //Reverse count by -3, if count exceeds # of selections available, before changing direction
-      count > numItems ? (count -= 3) : switchDirection("down");
-    }
-  });
-
-  //Up button moves selection border one above
-  upButton.addEventListener("click", () => {
-    if (state.screen === "selection-screen") {
-      count -= 3;
-      //Reverse count by +3, if count goes below zero, before changing direction
-      count < 0 ? (count += 3) : switchDirection("up");
-    }
-  });
-
-  const switchDirection = (direction) => {
-    switch (direction) {
-      case "right":
-        //removes selection border from previous selection
-        selectionListItems[count - 1].classList.remove(
-          "selection__card--selected"
-        );
-        //adds selection border to current selection
-        selectionListItems[count].classList.add("selection__card--selected");
-        //Switches infobox details based on pokemon selection
-        iframeDocument.querySelector(".info-list2").innerHTML =
-          getDataSet(count);
-        break;
-      case "left":
-        selectionListItems[count + 1].classList.remove(
-          "selection__card--selected"
-        );
-        selectionListItems[count].classList.add("selection__card--selected");
-        iframeDocument.querySelector(".info-list2").innerHTML =
-          getDataSet(count);
-        break;
-      case "down":
-        selectionListItems[count - 3].classList.remove(
-          "selection__card--selected"
-        );
-        selectionListItems[count].classList.add("selection__card--selected");
-        iframeDocument.querySelector(".info-list2").innerHTML =
-          getDataSet(count);
-        break;
-      case "up":
-        selectionListItems[count + 3].classList.remove(
-          "selection__card--selected"
-        );
-        selectionListItems[count].classList.add("selection__card--selected");
-        iframeDocument.querySelector(".info-list2").innerHTML =
-          getDataSet(count);
-    }
-  };
-
-  const getDataSet = (count) => {
-    //Update state with currently highlighted pokemon
-    state.playerPokemon = Object.assign({}, selectionListItems[count].dataset);
-    //List info of current pokemon
-    return `<li>${selectionListItems[count].dataset.type}</li>
-      <li>${selectionListItems[count].dataset.health}</li>
-      <li>${selectionListItems[count].dataset.attack}</li>
-      <li>${selectionListItems[count].dataset.defense}</li>
-      <li>${selectionListItems[count].dataset.weakness}</li>`;
-  };
-};
-
-//Calls Opponent screen to start
-async function oppSelectionScreen() {
-  //Wait for content to load
-  const nextScreen = await iframe.contentWindow.oppScreenLoad();
-  //Get Opponent Pokemon and store in state
-  const oppState = iframe.contentWindow.oppState;
-  state.opponentPokemon = oppState.opponentPokemon;
-  //Loads next screen
-  displayScreen(nextScreen, battleScreen);
-}
-
-selectButton.addEventListener("click", () => {
-  //Selects Pokemon in Selection Screen
-  if (state.screen === "selected-mode" && state.selectedAnswer === "yes") {
-    //Start Opponent Selection screen
-    displayScreen("opp-selection-screen", oppSelectionScreen);
-  } else if (
-    state.screen === "selected-mode" &&
-    state.selectedAnswer === "no"
-  ) {
-    backToSelection();
-  } else if (state.screen === "selection-screen") {
-    selectedPokemon();
-  }
-});
 
 //In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
 const backToSelection = () => {
@@ -199,37 +69,248 @@ const selectedPokemon = () => {
   iframeDocument
     .querySelector(".infobox__text-selected")
     .classList.remove("hide");
-  //Switch to no with down button
-  downButton.addEventListener("click", () => {
-    if (state.screen === "selected-mode") {
-      iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
-      iframeDocument
-        .querySelector(".option__no-arrow")
-        .classList.remove("hide");
-      state.selectedAnswer = "no";
-    }
-  });
-  //Switch to yes with up button
-  upButton.addEventListener("click", () => {
-    if (state.screen === "selected-mode") {
-      iframeDocument
-        .querySelector(".option__yes-arrow")
-        .classList.remove("hide");
-      iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
-      state.selectedAnswer = "yes";
-    }
-  });
+};
+
+//Loads iframe of Opponent Selection Screen
+async function oppSelectionScreen() {
+  //Wait for content to load
+  const nextScreen = await iframe.contentWindow.oppScreenLoad();
+  //Get Opponent Pokemon and store in state
+  const oppState = iframe.contentWindow.oppState;
+  state.opponentPokemon = oppState.opponentPokemon;
+  //Loads next screen
+  displayScreen(nextScreen, battleScreen);
+}
+
+//Loads iframe of Battle Screen
+const battleScreen = () => {
+  iframeDocument = iframe.contentWindow.document;
+  optionsList = iframeDocument.querySelector(".infobox__container--red");
+  //Get list of all options in infobox box red
+  optionsListItems = optionsList.children;
+  numItems = optionsListItems.length - 1;
+};
+
+//------------------------Control Buttons------------------------//
+startButton.addEventListener("click", () => {
+  //Only enable start selection screen page if is not the current page loaded
+  if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
+    //set screen in state to equal selection-screen
+    displayScreen("selection-screen", selectionScreen);
+  }
+});
+
+pauseButton.addEventListener("click", () => {
+  console.log(state);
+});
+
+selectButton.addEventListener("click", () => {
+  //Selects Pokemon in Selection Screen
+  if (state.screen === "selected-mode" && state.selectedAnswer === "yes") {
+    //Start Opponent Selection screen
+    displayScreen("opp-selection-screen", oppSelectionScreen);
+  } else if (
+    state.screen === "selected-mode" &&
+    state.selectedAnswer === "no"
+  ) {
+    backToSelection();
+  } else if (state.screen === "selection-screen") {
+    selectedPokemon();
+  }
+  // attack
+  else if (
+    state.screen === "battle-screen" &&
+    state.optionSelected === "attack"
+  ) {
+    state.screen = "attack-mode";
+    //Display attacks in infobox red
+    optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
+    optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
+    optionsListItems[2].innerHTML = "";
+    optionsListItems[3].innerHTML = "";
+    // iframeDocument.querySelector(".infobox__container--red").
+    //Switches Option box into 4 different attack box
+    //Get Pokemon's abilities & list them into attack box
+  }
+  //bag (potions)
+  else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
+    console.log("bag");
+  }
+  //pokemon (load your pokemon)
+  else if (
+    state.screen === "battle-screen" &&
+    state.optionSelected === "pkmon"
+  ) {
+    console.log("pkmon");
+  }
+  //run
+  else if (state.screen === "battle-screen" && state.optionSelected === "run") {
+    console.log("run");
+  }
+});
+
+rightButton.addEventListener("click", () => {
+  //Adds 1 every time user clicks right button on d-pad
+  count += 1;
+  //Only works in selection screen, not selected-mode
+  if (state.screen === "selection-screen") {
+    //Set equal to # of selections available, if count exceeds it, before changing direction
+    count > numItems ? (count = numItems) : switchDirection("right");
+  }
+  //Only works in selection screen, not selected-mode
+  if (state.screen === "battle-screen" || state.screen === "attack-mode") {
+    //Set equal to # of selections available, if count exceeds it, before changing direction
+    count > numItems ? (count = numItems) : switchDirection2("right");
+  }
+});
+
+//Left button moves selection border one over to the left
+leftButton.addEventListener("click", () => {
+  count -= 1;
+  if (state.screen === "selection-screen") {
+    //Set count equal to zero, if count goes below zero, before changing direction
+    count < 0 ? (count = 0) : switchDirection("left");
+  }
+  if (state.screen === "battle-screen" || state.screen === "attack-mode") {
+    //Set count equal to zero, if count goes below zero, before changing direction
+    count < 0 ? (count = 0) : switchDirection2("left");
+  }
+});
+
+//Down button moves selection border one below
+downButton.addEventListener("click", () => {
+  if (state.screen === "selection-screen") {
+    count += 3;
+    //Reverse count by -3, if count exceeds # of selections available, before changing direction
+    count > numItems ? (count -= 3) : switchDirection("down");
+  }
+  if (state.screen === "selected-mode") {
+    iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
+    iframeDocument.querySelector(".option__no-arrow").classList.remove("hide");
+    state.selectedAnswer = "no";
+  }
+  if (state.screen === "battle-screen") {
+    count += 2;
+    //Reverse count by -3, if count exceeds # of selections available, before changing direction
+    count > numItems ? (count -= 2) : switchDirection2("down");
+  }
+});
+
+//Switch to yes with up button
+upButton.addEventListener("click", () => {
+  if (state.screen === "selection-screen") {
+    count -= 3;
+    //Reverse count by +3, if count goes below zero, before changing direction
+    count < 0 ? (count += 3) : switchDirection("up");
+  }
+  if (state.screen === "selected-mode") {
+    iframeDocument.querySelector(".option__yes-arrow").classList.remove("hide");
+    iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
+    state.selectedAnswer = "yes";
+  }
+  if (state.screen === "battle-screen") {
+    count -= 2;
+    //Reverse count by +3, if count goes below zero, before changing direction
+    count < 0 ? (count += 2) : switchDirection2("up");
+  }
+});
+
+//----Enable Direction Pad Controls for Selection Screen----//
+const switchDirection = (direction) => {
+  switch (direction) {
+    case "right":
+      //removes selection border from previous selection
+      selectionListItems[count - 1].classList.remove(
+        "selection__card--selected"
+      );
+      //adds selection border to current selection
+      selectionListItems[count].classList.add("selection__card--selected");
+      //Switches infobox details based on pokemon selection
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      break;
+    case "left":
+      selectionListItems[count + 1].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      break;
+    case "down":
+      selectionListItems[count - 3].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      break;
+    case "up":
+      selectionListItems[count + 3].classList.remove(
+        "selection__card--selected"
+      );
+      selectionListItems[count].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+  }
+};
+
+//----Enable Direction Pad Controls for Battle Screen----//
+const switchDirection2 = (direction) => {
+  switch (direction) {
+    case "right":
+      //displays & removes arrow
+      optionsListItems[count - 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      //Update state with player choice
+      state.optionSelected = optionsListItems[count].lastChild.data;
+      break;
+    case "left":
+      optionsListItems[count + 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[count].lastChild.data;
+
+      break;
+    case "down":
+      optionsListItems[count - 2].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[count].lastChild.data;
+
+      break;
+    case "up":
+      optionsListItems[count + 2].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[count].lastChild.data;
+  }
+};
+
+//Display current pokemon data to infbox 
+const getDataSet = (count) => {
+  //Update state with currently highlighted pokemon
+  state.playerPokemon = Object.assign({}, selectionListItems[count].dataset);
+  //List info of current pokemon
+  return `<li>${selectionListItems[count].dataset.type}</li>
+      <li>${selectionListItems[count].dataset.health}</li>
+      <li>${selectionListItems[count].dataset.attack}</li>
+      <li>${selectionListItems[count].dataset.defense}</li>
+      <li>${selectionListItems[count].dataset.weakness}</li>`;
 };
 
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
   // setTimeout(() => {
-  // state.screen = "intro-screen";
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src =
-  //   state.screen + ".html";
+  //   state.screen = "intro-screen";
+  //   // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
   // }, 1500);
+
+  //--Battle Screen Test load---//
   const response1 = await fetch("./src/player.json").catch((err) =>
     console.log(err)
   );
@@ -243,85 +324,10 @@ async function init() {
   state.opponentPokemon = data2;
   console.log(state);
 
-  // state.screen = "battle-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src =
+  state.screen + ".html";
   displayScreen("battle-screen", battleScreen);
-}
-
-const battleScreen = () => {
-  iframeDocument = iframe.contentWindow.document;
-  optionsList = iframeDocument.querySelector(".infobox__container--red");
-  //Get list of all options in infobox box red
-  optionsListItems = optionsList.children;
-  numItems = optionsListItems.length - 1;
-  optionsPick();
-};
-
-const optionsPick =()=> {
-  rightButton.addEventListener("click", () => {
-    //Only works in selection screen, not selected-mode
-    // if (state.screen === "selection-screen") {
-      //Adds 1 every time user clicks right button on d-pad
-      count += 1;
-      //Set equal to # of selections available, if count exceeds it, before changing direction
-      count > numItems ? (count = numItems) : switchDirection("right");
-    // }
-  });
-
-  //Left button moves selection border one over to the left
-  leftButton.addEventListener("click", () => {
-    // if (state.screen === "selection-screen") {
-      count -= 1;
-      //Set count equal to zero, if count goes below zero, before changing direction
-      count < 0 ? (count = 0) : switchDirection("left");
-    // }
-  });
-
-  //Down button moves selection border one below
-  downButton.addEventListener("click", () => {
-    // if (state.screen === "selection-screen") {
-      count += 2;
-      //Reverse count by -3, if count exceeds # of selections available, before changing direction
-      count > numItems ? (count -= 2) : switchDirection("down");
-    // }
-  });
-
-  //Up button moves selection border one above
-  upButton.addEventListener("click", () => {
-    // if (state.screen === "selection-screen") {
-      count -= 2;
-      //Reverse count by +3, if count goes below zero, before changing direction
-      count < 0 ? (count += 2) : switchDirection("up");
-    // }
-  });
-
-  const switchDirection = (direction) => {
-    switch (direction) {
-      case "right":
-        optionsListItems[count - 1].children[0].classList.remove("arrow--selected");
-        optionsListItems[count].children[0].classList.add("arrow--selected");
-        //Update state with player choice
-        state.optionSelected = optionsListItems[count].textContent;
-        console.log( optionsListItems)
-        break;
-      case "left":
-        optionsListItems[count + 1].children[0].classList.remove("arrow--selected");
-        optionsListItems[count].children[0].classList.add("arrow--selected");
-        state.optionSelected = optionsListItems[count].textContent;
-
-        break;
-      case "down":
-        optionsListItems[count - 2].children[0].classList.remove("arrow--selected");
-        optionsListItems[count].children[0].classList.add("arrow--selected");
-        state.optionSelected = optionsListItems[count].textContent;
-        break;
-      case "up":
-        optionsListItems[count + 2].children[0].classList.remove("arrow--selected");
-        optionsListItems[count].children[0].classList.add("arrow--selected");
-        state.optionSelected = optionsListItems[count].textContent;
-    }
-  };  
 }
 
 init();
