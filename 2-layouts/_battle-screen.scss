@@ -167,17 +167,26 @@
   font-weight: 800;
 }
 
-.option {
-  // display: inline-block; 
-  display: flex; 
-  justify-content: center;
-  align-self: center;
-  border-radius: 5px;
-  margin: 1px;
-  // padding: 10%;
-  text-align: center;
+
+
+.option-grid{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-items: center;
+  align-items: center;
   text-transform: uppercase;
 }
+
+// .option {
+//   display: flex; 
+//   justify-content: center;
+//   align-self: center;
+//   border-radius: 5px;
+//   margin: 1px;
+//   // padding: 10%;
+//   text-align: center;
+//   text-transform: uppercase;
+// }
 
 // .option--attack {
 //   background: #fecbcb;

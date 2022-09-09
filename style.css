@@ -679,17 +679,20 @@ iframe {
   font-weight: 800;
 }
 
-.option {
-  display: inline-block;
-  border-radius: 10px;
-  margin: 1px;
-  padding: 2px;
-  text-align: center;
+.option-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-items: center;
+  align-items: center;
   text-transform: uppercase;
 }
 
-.option--selected {
-  color: green;
+.arrow {
+  visibility: hidden;
+}
+
+.arrow--selected {
+  visibility: visible;
 }
 
 .display__gameover {
