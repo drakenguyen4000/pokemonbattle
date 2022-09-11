@@ -140,8 +140,26 @@ selectButton.addEventListener("click", () => {
     optionsListItems[1].lastChild.data = "bag";
     optionsListItems[2].lastChild.data = "pkmon";
     optionsListItems[3].lastChild.data = "run";
-    state.screen = "battle-screen"
-    state.optionSelected = "attack"
+
+    setTimeout(() => {
+      iframeDocument
+        .querySelector(".player__img")
+        .classList.add("static-attack");
+      iframeDocument
+        .querySelector(".opponent__img")
+        .classList.add("static-effect");
+
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.remove("static-attack");
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.remove("static-effect");
+      }, 1500);
+      state.screen = "battle-screen";
+      state.optionSelected = "attack";
+    }, 1000);
   }
 
   // //bag (potions)
