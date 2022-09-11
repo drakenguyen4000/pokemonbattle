@@ -146,17 +146,22 @@ selectButton.addEventListener("click", () => {
         .querySelector(".player__img")
         .classList.add("static-attack");
       iframeDocument
+        .querySelector(".static-effect")
+        .classList.add("static-effect--animate");
+      iframeDocument
         .querySelector(".opponent__img")
-        .classList.add("static-effect");
-
+        .classList.add("opponent--staggered");
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
           .classList.remove("static-attack");
         iframeDocument
+          .querySelector(".static-effect")
+          .classList.remove("static-effect--animate");
+        iframeDocument
           .querySelector(".opponent__img")
-          .classList.remove("static-effect");
-      }, 1500);
+          .classList.remove("opponent--staggered");
+      }, 4000);
       state.screen = "battle-screen";
       state.optionSelected = "attack";
     }, 1000);

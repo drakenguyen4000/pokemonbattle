@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://kit.fontawesome.com/6cd6827a69.js" crossorigin="anonymous"></script>
     <title>Pokemon Battles</title>
   </head>
   <body>
@@ -36,6 +37,7 @@
       </div>
       <div class="grass-background">
         <div class="opponent">
+          <i class="static-effect fa-solid fa-bolt"></i>
           <img
             src=""
             class="opponent__img"
@@ -69,11 +71,17 @@
           </p>
         </div>
         <div class="infobox__container infobox__container--red option-grid">
-          <span class="option option--attack"><span class="arrow arrow--selected">&#9658;</span>Attack</span>
-          <span class="option option--bag"><span class="arrow">&#9658;</span>Bag</span>
-          <span class="option option--pokemon"><span class="arrow">&#9658;</span>Pkmon</span>
-          <span class="option option--run"><span class="arrow">&#9658;</span>Run</span>
+          <span class="option option--attack"><span class="arrow arrow--selected">&#9658;</span>attack</span>
+          <span class="option option--bag"><span class="arrow">&#9658;</span>bag</span>
+          <span class="option option--pokemon"><span class="arrow">&#9658;</span>pkmon</span>
+          <span class="option option--run"><span class="arrow">&#9658;</span>run</span>
         </div>
+        <!-- <div class="infobox__container infobox__container--red option-grid">
+          <span class="option-attack option-attack--1"><span class="arrow arrow--selected">&#9658;</span>Electric</span>
+          <span class="option-attack option-attack--2"><span class="arrow">&#9658;</span>Charge</span>
+          <span class="option-attack option-attack--3"><span class="arrow">&#9658;</span>Stun</span>
+          <span class="option-attack option-attack--4"><span class="arrow">&#9658;</span>Tailwhip</span>
+        </div> -->
       </div>
     </div>
     <script src="./src/battleground.js"></script>
