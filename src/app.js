@@ -140,31 +140,66 @@ selectButton.addEventListener("click", () => {
     optionsListItems[1].lastChild.data = "bag";
     optionsListItems[2].lastChild.data = "pkmon";
     optionsListItems[3].lastChild.data = "run";
+    //Reset count and arrow icon
+    optionsListItems[count].children[0].classList.remove(
+      "arrow--selected"
+    );
+    count = 0;
+    optionsListItems[count].children[0].classList.add("arrow--selected");
+    // state.optionSelected = optionsListItems[count].lastChild.data;
 
-    setTimeout(() => {
-      iframeDocument
-        .querySelector(".player__img")
-        .classList.add("static-attack");
-      iframeDocument
-        .querySelector(".static-effect")
-        .classList.add("static-effect--animate");
-      iframeDocument
-        .querySelector(".opponent__img")
-        .classList.add("opponent--staggered");
+    console.log(state.optionSelected)
+    if(state.optionSelected === "Static") {
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
-          .classList.remove("static-attack");
+          .classList.add("player-attack");
         iframeDocument
-          .querySelector(".static-effect")
-          .classList.remove("static-effect--animate");
+          .querySelector(".player-energy")
+          .classList.add("player-energy--animate");
         iframeDocument
           .querySelector(".opponent__img")
-          .classList.remove("opponent--staggered");
-      }, 4000);
-      state.screen = "battle-screen";
-      state.optionSelected = "attack";
-    }, 1000);
+          .classList.add("opponent--staggered");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("player-attack");
+          iframeDocument
+            .querySelector(".player-energy")
+            .classList.remove("player-energy--animate");
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("opponent--staggered");
+        }, 4000);
+      }, 1000);
+    }
+    if(state.optionSelected === "Lghtnng Rod") {
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("player-attack_2");
+        iframeDocument
+          .querySelector(".player-energy")
+          .classList.add("player-energy--animate_2");
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.add("opponent--staggered_2");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("player-attack_2");
+          iframeDocument
+            .querySelector(".player-energy")
+            .classList.remove("player-energy--animate_2");
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("opponent--staggered_2");
+        }, 4000);
+      }, 1000);
+
+    }
+    state.screen = "battle-screen";
+    state.optionSelected = "attack";
   }
 
   // //bag (potions)
