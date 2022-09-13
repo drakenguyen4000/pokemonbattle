@@ -81,7 +81,7 @@
   top: -60px;
   right: 0;
   height: 110px;
-  z-index: 100;
+  z-index: 90;
 }
 
 .opponent__circle {
@@ -236,8 +236,8 @@
   visibility: visible;
   color: yellow;
   position: absolute;
-  right: 40px;
-  top: -40;
+  right: 0;
+  bottom: 0;
   z-index: 105;
   animation: player-energy 4s;
 }
@@ -252,12 +252,25 @@
   animation: player-energy_2 4s;
 }
 
+.player-energy--animate_3 {
+  visibility: visible;
+  position: absolute;
+  z-index: 95;
+  animation: player-energy_3 4s;
+  border: 10px dotted  green;
+  border-radius: 200px;
+}
+
 .opponent--staggered {
   animation: stagger 4s;
 }
 
 .opponent--staggered_2 {
   animation: stagger_2 4s;
+}
+
+.opponent--staggered_3 {
+  animation: stagger_3 4s;
 }
 
 //player attacks animation
@@ -272,6 +285,7 @@
   100% {  filter: sepia(0%) hue-rotate(0) saturate(0)}
 }
 
+//Light and energy circle
 @keyframes player-attack_2 {
   0% {border: 4px dotted yellow; filter: sepia(100%) hue-rotate(190deg) saturate(500%); }
   20% {border: 0px  yellow;   filter: sepia(0%) hue-rotate(0) saturate(0)}
@@ -311,6 +325,15 @@
   100%  {filter: sepia(0%) hue-rotate(0) saturate(0); right:50px; top: 0px; opacity: 0; }
 }
 
+//Spinning Projectile
+@keyframes player-energy_3 {
+  0%   {border: 10px dotted green; height: 110px; width: 110px;  left: 20px; bottom: -80px; opacity: .5; }
+  25%   {border: 10px dotted green; transform: rotate(360deg); height: 110px; width: 110px;  left: 20px; bottom: -80px; opacity: .8; }
+  50%  {border: 8px dotted green; transform: rotate(-90deg);height: 90px; width: 90px;  opacity: 1;}
+  75%  {border: 6px dotted green;transform: rotate(180deg); height: 70px; width: 70px;  opacity: .8;}
+  100%  {border: 4px dotted green; transform: rotate(270deg); height: 50px; width: 50px;  left: 190px; bottom: 100px; opacity: 0;}
+}
+
 //Stagger animation
 @keyframes stagger {
   0%   {filter: grayscale(0)}
@@ -332,6 +355,15 @@
     80%  {filter: grayscale(90%); right: 7px; transform: rotate(-5deg);} 
     90%  {filter: grayscale(25%); right: 0px; transform: rotate(0)}
     100%  {filter: grayscale(100%); right: -6px; transform: rotate(5deg);} 
+}
+
+@keyframes stagger_3 {
+  0%   {filter: grayscale(0)}
+  25%   {filter: grayscale(0)}
+  50%   {filter: grayscale(0)}
+  75%   {filter: grayscale(0)}
+  95%   {filter: grayscale(0)}
+  100%  {filter: grayscale(70%); right: 5px; transform: rotate(-5deg);} 
 }
 
 
