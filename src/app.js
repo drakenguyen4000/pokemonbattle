@@ -14,6 +14,12 @@ let count = 0;
 let optionsList;
 let optionsListItems;
 let dialogue;
+let oppHealthValue;
+let playerHealthValue;
+let oppHealthFill;
+let playerHealthFill;
+let playerHealthBar;
+let oppHealthBar;
 
 var state = {
   pokemonList: {},
@@ -91,6 +97,20 @@ const battleScreen = () => {
   //Get list of all options in infobox box red
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
+  //Controls Health bars
+  console.log("iframe:", iframeDocument);
+  oppHealthValue = state.opponentPokemon[0].health_active;
+  playerHealthValue = state.playerPokemon[0].health_active;
+  //  let opphbElement = iframeDocument.querySelector(".opponent-health__bar");
+  //  let playerhbElement = iframeDocument.querySelector(".player-health__bar");
+  oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
+  playerHealthFill = iframeDocument.querySelector(".player-health__bar-fill");
+  setTimeout(() => {
+  console.log(oppHealthFill);
+
+    oppHealthBar = new HealthBar(100, oppHealthValue, oppHealthFill);
+    playerHealthBar = new HealthBar(100, playerHealthValue, playerHealthFill);
+  }, 2000);
 };
 
 //------------------------Control Buttons------------------------//
@@ -141,22 +161,19 @@ selectButton.addEventListener("click", () => {
     optionsListItems[2].lastChild.data = "pkmon";
     optionsListItems[3].lastChild.data = "run";
     //Reset count and arrow icon
-    optionsListItems[count].children[0].classList.remove(
-      "arrow--selected"
-    );
+    optionsListItems[count].children[0].classList.remove("arrow--selected");
     count = 0;
     optionsListItems[count].children[0].classList.add("arrow--selected");
-    // state.optionSelected = optionsListItems[count].lastChild.data;
 
-    console.log(state.optionSelected)
-    if(state.optionSelected === "Static") {
+    if (state.optionSelected === "Static") {
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack");
         iframeDocument
           .querySelector(".player-energy")
-          .classList.add("player-energy--animate");
+          .classList.add("fa-solid", "fa-bolt", "player-energy--animate");
+        // .classList.add( "player-energy--animate");
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent--staggered");
@@ -173,14 +190,14 @@ selectButton.addEventListener("click", () => {
         }, 4000);
       }, 1000);
     }
-    if(state.optionSelected === "Lghtnng Rod") {
+    if (state.optionSelected === "Lghtnng Rod") {
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack_2");
         iframeDocument
           .querySelector(".player-energy")
-          .classList.add("player-energy--animate_2");
+          .classList.add("fa-solid", "fa-bolt", "player-energy--animate_2");
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent--staggered_2");
@@ -196,7 +213,6 @@ selectButton.addEventListener("click", () => {
             .classList.remove("opponent--staggered_2");
         }, 4000);
       }, 1000);
-
     }
     state.screen = "battle-screen";
     state.optionSelected = "attack";
@@ -399,6 +415,33 @@ async function init() {
   state.screen = "battle-screen";
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
   displayScreen("battle-screen", battleScreen);
+}
+
+//Health Bar
+class HealthBar {
+  constructor(userInput = 0, healthValue, healthFill) {
+    this.valueElem = healthValue;
+    this.fillElem = healthFill;
+    this.setValue(userInput);
+  }
+  setValue(newValue) {
+    if (newValue < 0) {
+      newValue = 0;
+    }
+    if (newValue > 100) {
+      newValue = 100;
+    }
+    this.value = newValue;
+    this.update();
+  }
+
+  update() {
+    console.log(this.fillElem);
+    const percentage = this.value + "%";
+    // this.valueElem.textContent = percentage;
+    this.valueElem = percentage;
+    this.fillElem.style.width = percentage;
+  }
 }
 
 init();
