@@ -20,6 +20,8 @@ let oppHealthFill;
 let playerHealthFill;
 let playerHealthBar;
 let oppHealthBar;
+let oppTotalHealth;
+let playerTotalHealth
 
 var state = {
   pokemonList: {},
@@ -98,19 +100,17 @@ const battleScreen = () => {
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
   //Controls Health bars
-  console.log("iframe:", iframeDocument);
-  oppHealthValue = state.opponentPokemon[0].health_active;
-  playerHealthValue = state.playerPokemon[0].health_active;
-  //  let opphbElement = iframeDocument.querySelector(".opponent-health__bar");
-  //  let playerhbElement = iframeDocument.querySelector(".player-health__bar");
+  oppHealthValue = state.opponentPokemon[0];
+  playerHealthValue = state.playerPokemon[0];
+  oppTotalHealth = state.opponentPokemon[0].health_total;
+  playerTotalHealth = state.playerPokemon[0].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
-  playerHealthFill = iframeDocument.querySelector(".player-health__bar-fill");
-  setTimeout(() => {
-  console.log(oppHealthFill);
-
-    oppHealthBar = new HealthBar(100, oppHealthValue, oppHealthFill);
-    playerHealthBar = new HealthBar(100, playerHealthValue, playerHealthFill);
-  }, 2000);
+  playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
+  oppHealthBar = new HealthBar(oppTotalHealth, oppTotalHealth, oppHealthValue, oppHealthFill);
+  playerHealthBar = new HealthBar(playerTotalHealth, playerTotalHealth, playerHealthValue, playerHealthFill);
+  oppHealthBar.setValue(1)
+  playerHealthBar.setValue(34)
+  iframe.contentWindow.updateValues()
 };
 
 //------------------------Control Buttons------------------------//
@@ -410,7 +410,7 @@ async function init() {
   );
   const data2 = await response2.json().catch((err) => console.log(err));
   state.opponentPokemon = data2;
-  console.log(state);
+  // console.log(state);
 
   state.screen = "battle-screen";
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
@@ -419,28 +419,29 @@ async function init() {
 
 //Health Bar
 class HealthBar {
-  constructor(userInput = 0, healthValue, healthFill) {
-    this.valueElem = healthValue;
-    this.fillElem = healthFill;
-    this.setValue(userInput);
+  constructor(totalHealth, remainHealth, healthValue, healthFill) {
+    this.totHealth = totalHealth;
+    this.stateHealth = healthValue;
+    this.healthFillEl = healthFill;
+    this.setValue(remainHealth);
   }
-  setValue(newValue) {
-    if (newValue < 0) {
-      newValue = 0;
+  setValue(remainHealth) {
+    if (remainHealth < 0) {
+      remainHealth = 0;
     }
-    if (newValue > 100) {
-      newValue = 100;
+    if (remainHealth > 100) {
+      remainHealth = 100;
     }
-    this.value = newValue;
+    this.value = remainHealth;
     this.update();
   }
 
   update() {
-    console.log(this.fillElem);
-    const percentage = this.value + "%";
-    // this.valueElem.textContent = percentage;
-    this.valueElem = percentage;
-    this.fillElem.style.width = percentage;
+    const percentage = Math.floor(this.value / this.totHealth * 100) + "%";
+    //Health value 
+    this.stateHealth.health_active = this.value;
+    //Health bar level
+    this.healthFillEl.style.width = percentage;
   }
 }
 

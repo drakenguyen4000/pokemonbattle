@@ -568,11 +568,18 @@ iframe {
 .opponent-health__bar {
   display: inline-block;
   height: 8px;
-  width: 90%;
+  width: 100%;
+  background-color: red;
   margin: auto;
-  background: rgb(155, 253, 155);
   border: 2px solid rgb(104, 103, 103);
   border-radius: 5px;
+}
+
+.opponent-health__bar--fill {
+  display: block;
+  background: rgb(155, 253, 155);
+  height: 100%;
+  width: 100%;
 }
 
 .opponent-health__point {
@@ -591,7 +598,7 @@ iframe {
   top: -60px;
   right: 0;
   height: 110px;
-  z-index: 100;
+  z-index: 90;
 }
 
 .opponent__circle {
@@ -668,11 +675,18 @@ iframe {
 .player-health__bar {
   display: inline-block;
   height: 10px;
-  width: 89%;
+  width: 100%;
+  background-color: red;
   margin: auto;
-  background: rgb(155, 253, 155);
   border-radius: 5px;
   border: 2px solid rgb(104, 103, 103);
+}
+
+.player-health__bar--fill {
+  display: block;
+  background: rgb(155, 253, 155);
+  height: 100%;
+  width: 100%;
 }
 
 .player-health__point {
@@ -716,8 +730,8 @@ iframe {
   visibility: visible;
   color: yellow;
   position: absolute;
-  right: 40px;
-  top: -40;
+  right: 0;
+  bottom: 0;
   z-index: 105;
   -webkit-animation: player-energy 4s;
           animation: player-energy 4s;
@@ -734,6 +748,16 @@ iframe {
           animation: player-energy_2 4s;
 }
 
+.player-energy--animate_3 {
+  visibility: visible;
+  position: absolute;
+  z-index: 95;
+  -webkit-animation: player-energy_3 4s;
+          animation: player-energy_3 4s;
+  border: 10px dotted green;
+  border-radius: 200px;
+}
+
 .opponent--staggered {
   -webkit-animation: stagger 4s;
           animation: stagger 4s;
@@ -742,6 +766,11 @@ iframe {
 .opponent--staggered_2 {
   -webkit-animation: stagger_2 4s;
           animation: stagger_2 4s;
+}
+
+.opponent--staggered_3 {
+  -webkit-animation: stagger_3 4s;
+          animation: stagger_3 4s;
 }
 
 @-webkit-keyframes player-attack {
@@ -1137,6 +1166,90 @@ iframe {
     opacity: 0;
   }
 }
+@-webkit-keyframes player-energy_3 {
+  0% {
+    border: 10px dotted green;
+    height: 110px;
+    width: 110px;
+    left: 20px;
+    bottom: -80px;
+    opacity: 0.5;
+  }
+  25% {
+    border: 10px dotted green;
+    transform: rotate(360deg);
+    height: 110px;
+    width: 110px;
+    left: 20px;
+    bottom: -80px;
+    opacity: 0.8;
+  }
+  50% {
+    border: 8px dotted green;
+    transform: rotate(-90deg);
+    height: 90px;
+    width: 90px;
+    opacity: 1;
+  }
+  75% {
+    border: 6px dotted green;
+    transform: rotate(180deg);
+    height: 70px;
+    width: 70px;
+    opacity: 0.8;
+  }
+  100% {
+    border: 4px dotted green;
+    transform: rotate(270deg);
+    height: 50px;
+    width: 50px;
+    left: 190px;
+    bottom: 100px;
+    opacity: 0;
+  }
+}
+@keyframes player-energy_3 {
+  0% {
+    border: 10px dotted green;
+    height: 110px;
+    width: 110px;
+    left: 20px;
+    bottom: -80px;
+    opacity: 0.5;
+  }
+  25% {
+    border: 10px dotted green;
+    transform: rotate(360deg);
+    height: 110px;
+    width: 110px;
+    left: 20px;
+    bottom: -80px;
+    opacity: 0.8;
+  }
+  50% {
+    border: 8px dotted green;
+    transform: rotate(-90deg);
+    height: 90px;
+    width: 90px;
+    opacity: 1;
+  }
+  75% {
+    border: 6px dotted green;
+    transform: rotate(180deg);
+    height: 70px;
+    width: 70px;
+    opacity: 0.8;
+  }
+  100% {
+    border: 4px dotted green;
+    transform: rotate(270deg);
+    height: 50px;
+    width: 50px;
+    left: 190px;
+    bottom: 100px;
+    opacity: 0;
+  }
+}
 @-webkit-keyframes stagger {
   0% {
     filter: grayscale(0);
@@ -1295,6 +1408,50 @@ iframe {
     filter: grayscale(100%);
     right: -6px;
     transform: rotate(5deg);
+  }
+}
+@-webkit-keyframes stagger_3 {
+  0% {
+    filter: grayscale(0);
+  }
+  25% {
+    filter: grayscale(0);
+  }
+  50% {
+    filter: grayscale(0);
+  }
+  75% {
+    filter: grayscale(0);
+  }
+  95% {
+    filter: grayscale(0);
+  }
+  100% {
+    filter: grayscale(70%);
+    right: 5px;
+    transform: rotate(-5deg);
+  }
+}
+@keyframes stagger_3 {
+  0% {
+    filter: grayscale(0);
+  }
+  25% {
+    filter: grayscale(0);
+  }
+  50% {
+    filter: grayscale(0);
+  }
+  75% {
+    filter: grayscale(0);
+  }
+  95% {
+    filter: grayscale(0);
+  }
+  100% {
+    filter: grayscale(70%);
+    right: 5px;
+    transform: rotate(-5deg);
   }
 }
 .display__gameover {

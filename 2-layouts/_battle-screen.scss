@@ -58,11 +58,18 @@
 
 .opponent-health__bar {
   display: inline-block;
-  @include dimension(8px, 90%);
+  @include dimension(8px, 100%);
+  background-color: red;
   margin: auto;
-  background: $health-bar;
   border: 2px solid $health-bar-border;
   border-radius: 5px;
+}
+
+.opponent-health__bar--fill {
+  display: block;
+  background: $health-bar;
+  height: 100%;
+  width: 100%;
 }
 
 .opponent-health__point {
@@ -155,11 +162,18 @@
 
 .player-health__bar {
   display: inline-block;
-  @include dimension(10px, 89%);
+  @include dimension(10px, 100%);
+  background-color: red;
   margin: auto;
-  background: $health-bar;
   border-radius: 5px;
   border: 2px solid $health-bar-border;
+}
+
+.player-health__bar--fill {
+  display: block;
+  background: $health-bar;
+  height: 100%;
+  width: 100%;
 }
 
 .player-health__point {
