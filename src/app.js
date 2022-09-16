@@ -18,10 +18,14 @@ let oppHealthValue;
 let playerHealthValue;
 let oppHealthFill;
 let playerHealthFill;
-let playerHealthBar;
-let oppHealthBar;
+let playerPokemon;
+let oppPokemon;
 let oppTotalHealth;
-let playerTotalHealth
+let playerTotalHealth;
+let oppAttack;
+let playerAttack;
+let oppDefense;
+let playerDefense;
 
 var state = {
   pokemonList: {},
@@ -99,18 +103,20 @@ const battleScreen = () => {
   //Get list of all options in infobox box red
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
-  //Controls Health bars
-  oppHealthValue = state.opponentPokemon[0];
-  playerHealthValue = state.playerPokemon[0];
+
+  //Pokemon Instance
+  oppAttack = state.opponentPokemon[0].attack;
+  playerAttack = state.playerPokemon[0].attack;
+  oppDefense = state.opponentPokemon[0].defense;
+  playerDefense = state.playerPokemon[0].defense;
+  oppState = state.opponentPokemon[0];
+  playerState = state.playerPokemon[0];
   oppTotalHealth = state.opponentPokemon[0].health_total;
   playerTotalHealth = state.playerPokemon[0].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
-  oppHealthBar = new HealthBar(oppTotalHealth, oppTotalHealth, oppHealthValue, oppHealthFill);
-  playerHealthBar = new HealthBar(playerTotalHealth, playerTotalHealth, playerHealthValue, playerHealthFill);
-  oppHealthBar.setValue(1)
-  playerHealthBar.setValue(34)
-  iframe.contentWindow.updateValues()
+  oppPokemon = new Pokemon(oppAttack, oppDefense, oppTotalHealth, oppState, oppHealthFill);
+  playerPokemon = new Pokemon(playerAttack, playerDefense, playerTotalHealth, playerState, playerHealthFill);
 };
 
 //------------------------Control Buttons------------------------//
@@ -187,6 +193,9 @@ selectButton.addEventListener("click", () => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("opponent--staggered");
+            let attack = Math.floor(playerPokemon.attackPower("attack_2"))
+            oppPokemon.damage(attack);
+            iframe.contentWindow.updateValues();
         }, 4000);
       }, 1000);
     }
@@ -211,6 +220,9 @@ selectButton.addEventListener("click", () => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("opponent--staggered_2");
+            let attack = Math.floor(playerPokemon.attackPower("attack_2"))
+            oppPokemon.damage(attack);
+            iframe.contentWindow.updateValues()
         }, 4000);
       }, 1000);
     }
@@ -417,29 +429,37 @@ async function init() {
   displayScreen("battle-screen", battleScreen);
 }
 
-//Health Bar
-class HealthBar {
-  constructor(totalHealth, remainHealth, healthValue, healthFill) {
+//Pokemon status
+class Pokemon {
+  constructor(attack, defense, totalHealth, state, healthFill) {
+    this.attackpt = attack;
+    this.defense = defense;
     this.totHealth = totalHealth;
-    this.stateHealth = healthValue;
+    this.state = state;
     this.healthFillEl = healthFill;
-    this.setValue(remainHealth);
   }
-  setValue(remainHealth) {
-    if (remainHealth < 0) {
-      remainHealth = 0;
+  attackPower(attacktype){
+      let accuracy = Math.random() * (1 - .5) + .5;
+      if(attacktype === "attack_1"){
+       return this.state.health_active*.05 + this.attackpt *.12 * accuracy;
+      }
+      return this.state.health_active*.05 + this.attackpt *.15 * accuracy
     }
-    if (remainHealth > 100) {
-      remainHealth = 100;
+  damage(attack){
+    let defensePt = this.defense * .025;
+    let damage = attack - defensePt;
+    let currHealth = Math.floor(this.state.health_active - damage);
+    if (currHealth < 0) {
+      currHealth = 0;
     }
-    this.value = remainHealth;
+    this.value = currHealth;
     this.update();
   }
 
   update() {
     const percentage = Math.floor(this.value / this.totHealth * 100) + "%";
     //Health value 
-    this.stateHealth.health_active = this.value;
+    this.state.health_active = this.value;
     //Health bar level
     this.healthFillEl.style.width = percentage;
   }
