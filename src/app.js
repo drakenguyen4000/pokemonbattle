@@ -162,15 +162,7 @@ selectButton.addEventListener("click", () => {
     //Displays user command in infobox yellow
     let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
-    optionsListItems[0].lastChild.data = "attack";
-    optionsListItems[1].lastChild.data = "bag";
-    optionsListItems[2].lastChild.data = "pkmon";
-    optionsListItems[3].lastChild.data = "run";
-    //Reset count and arrow icon
-    optionsListItems[count].children[0].classList.remove("arrow--selected");
-    count = 0;
-    optionsListItems[count].children[0].classList.add("arrow--selected");
-
+    state.screen = "hold-mode";
     if (state.optionSelected === "Static") {
       setTimeout(() => {
         iframeDocument
@@ -196,6 +188,9 @@ selectButton.addEventListener("click", () => {
             let attack = Math.floor(playerPokemon.attackPower("attack_2"))
             oppPokemon.damage(attack);
             iframe.contentWindow.updateValues();
+            resetOptions();
+            //Opponent turn 
+            //Prevent player for controls.  
         }, 4000);
       }, 1000);
     }
@@ -223,12 +218,13 @@ selectButton.addEventListener("click", () => {
             let attack = Math.floor(playerPokemon.attackPower("attack_2"))
             oppPokemon.damage(attack);
             iframe.contentWindow.updateValues()
+            resetOptions();
         }, 4000);
       }, 1000);
     }
-    state.screen = "battle-screen";
-    state.optionSelected = "attack";
   }
+
+
 
   // //bag (potions)
   // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
@@ -248,8 +244,11 @@ selectButton.addEventListener("click", () => {
 });
 
 rightButton.addEventListener("click", () => {
+  //Prevents count / d-pad change
+  if(state.screen !== "hold-mode") {
   //Adds 1 every time user clicks right button on d-pad
-  count += 1;
+    count += 1;
+  }
   //Only works in selection screen, not selected-mode
   if (state.screen === "selection-screen") {
     //Set equal to # of selections available, if count exceeds it, before changing direction
@@ -267,7 +266,9 @@ rightButton.addEventListener("click", () => {
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
+  if(state.screen !== "hold-mode") {
   count -= 1;
+  }
   if (state.screen === "selection-screen") {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection("left");
@@ -399,6 +400,20 @@ const getDataSet = (count) => {
       <li>${selectionListItems[count].dataset.defense}</li>
       <li>${selectionListItems[count].dataset.weakness}</li>`;
 };
+
+const resetOptions = () => {
+  //Resets options list
+  optionsListItems[0].lastChild.data = "attack";
+  optionsListItems[1].lastChild.data = "bag";
+  optionsListItems[2].lastChild.data = "pkmon";
+  optionsListItems[3].lastChild.data = "run";
+  //Reset count and arrow icon
+  optionsListItems[count].children[0].classList.remove("arrow--selected");
+  count = 0;
+  optionsListItems[count].children[0].classList.add("arrow--selected");
+  state.screen = "battle-screen";
+  state.optionSelected = "attack";
+}
 
 async function init() {
   console.log("starting up app...");
