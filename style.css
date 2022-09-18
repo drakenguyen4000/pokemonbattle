@@ -615,9 +615,6 @@ iframe {
 
 /*Player Pokemon*/
 .player {
-  position: relative;
-  bottom: 0px;
-  left: 0px;
   height: 100px;
   width: 250px;
   overflow: hidden;
@@ -712,14 +709,14 @@ iframe {
 }
 
 .player-attack {
-  -webkit-animation: player-attack 4s;
-          animation: player-attack 4s;
+  -webkit-animation: attacker-animate 4s;
+          animation: attacker-animate 4s;
 }
 
 .player-attack_2 {
   border-radius: 200px;
-  -webkit-animation: player-attack_2 4s;
-          animation: player-attack_2 4s;
+  -webkit-animation: attacker-animate_2 4s;
+          animation: attacker-animate_2 4s;
 }
 
 .player-energy {
@@ -730,7 +727,7 @@ iframe {
   visibility: visible;
   color: yellow;
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
   z-index: 105;
   -webkit-animation: player-energy 4s;
@@ -742,7 +739,7 @@ iframe {
   color: yellow;
   position: absolute;
   right: 40px;
-  top: -40;
+  top: -40px;
   z-index: 105;
   -webkit-animation: player-energy_2 4s;
           animation: player-energy_2 4s;
@@ -773,7 +770,68 @@ iframe {
           animation: stagger_3 4s;
 }
 
-@-webkit-keyframes player-attack {
+.opponent-attack {
+  -webkit-animation: attacker-animate 4s;
+          animation: attacker-animate 4s;
+}
+
+.opponent-attack_2 {
+  border-radius: 200px;
+  -webkit-animation: attacker-animate_2 4s;
+          animation: attacker-animate_2 4s;
+}
+
+.opponent-energy {
+  visibility: hidden;
+}
+
+.opponent-energy--animate {
+  visibility: visible;
+  position: absolute;
+  right: 210px;
+  top: 60px;
+  z-index: 90;
+  -webkit-animation: opponent-energy 4s;
+          animation: opponent-energy 4s;
+}
+
+.opponent-energy--animate_2 {
+  visibility: visible;
+  color: yellow;
+  position: absolute;
+  left: 80px;
+  bottom: 30px;
+  z-index: 95;
+  -webkit-animation: opponent-energy_2 4s;
+          animation: opponent-energy_2 4s;
+}
+
+.opponent-energy--animate_3 {
+  visibility: visible;
+  position: absolute;
+  z-index: 95;
+  -webkit-animation: opponent-energy_3 4s;
+          animation: opponent-energy_3 4s;
+  border: 10px dotted green;
+  border-radius: 200px;
+}
+
+.staggered {
+  -webkit-animation: stagger 4s;
+          animation: stagger 4s;
+}
+
+.staggered_2 {
+  -webkit-animation: stagger_2 4s;
+          animation: stagger_2 4s;
+}
+
+.staggered_3 {
+  -webkit-animation: stagger_3 4s;
+          animation: stagger_3 4s;
+}
+
+@-webkit-keyframes attacker-animate {
   0% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
@@ -800,7 +858,7 @@ iframe {
   }
 }
 
-@keyframes player-attack {
+@keyframes attacker-animate {
   0% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
@@ -826,7 +884,7 @@ iframe {
     filter: sepia(0%) hue-rotate(0) saturate(0);
   }
 }
-@-webkit-keyframes player-attack_2 {
+@-webkit-keyframes attacker-animate_2 {
   0% {
     border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
@@ -852,7 +910,7 @@ iframe {
     filter: sepia(0%) hue-rotate(0) saturate(0);
   }
 }
-@keyframes player-attack_2 {
+@keyframes attacker-animate_2 {
   0% {
     border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
@@ -1042,6 +1100,170 @@ iframe {
     font-size: 90%;
   }
 }
+@-webkit-keyframes opponent-energy {
+  0% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  10% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  20% {
+    right: 210px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  30% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  40% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  50% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  60% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  70% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  80% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  90% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  95% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  100% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+}
+@keyframes opponent-energy {
+  0% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  10% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  20% {
+    right: 210px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  30% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  40% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  50% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  60% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  70% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  80% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+  90% {
+    color: yellow;
+    right: 70px;
+    top: -100px;
+    opacity: 0.3;
+    font-size: 150%;
+  }
+  95% {
+    color: yellow;
+    right: 210px;
+    top: 70px;
+    opacity: 1;
+    font-size: 170%;
+  }
+  100% {
+    right: 200px;
+    top: 60px;
+    opacity: 0;
+    font-size: 190%;
+  }
+}
 @-webkit-keyframes player-energy_2 {
   0% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
@@ -1163,6 +1385,152 @@ iframe {
     filter: sepia(0%) hue-rotate(0) saturate(0);
     right: 50px;
     top: 0px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes opponent-energy_2 {
+  0% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 120px;
+    bottom: 100px;
+    opacity: 1;
+    font-size: 200%;
+  }
+  10% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 70px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 10px;
+    bottom: 90px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(-1);
+  }
+  40% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 60px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 105px;
+    bottom: 100px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(1);
+  }
+  70% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 70px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  80% {
+    opacity: 0;
+  }
+  90% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 0px;
+    bottom: 90px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(-1);
+  }
+  98% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 60px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes opponent-energy_2 {
+  0% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 120px;
+    bottom: 100px;
+    opacity: 1;
+    font-size: 200%;
+  }
+  10% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 70px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  20% {
+    opacity: 0;
+  }
+  30% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 10px;
+    bottom: 90px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(-1);
+  }
+  40% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 60px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 105px;
+    bottom: 100px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(1);
+  }
+  70% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 70px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  80% {
+    opacity: 0;
+  }
+  90% {
+    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
+    left: 0px;
+    bottom: 90px;
+    opacity: 1;
+    font-size: 200%;
+    transform: scaleX(-1);
+  }
+  98% {
+    filter: sepia(0%) hue-rotate(0) saturate(0);
+    left: 60px;
+    bottom: 20px;
+    opacity: 0.5;
+    font-size: 150%;
+  }
+  100% {
     opacity: 0;
   }
 }

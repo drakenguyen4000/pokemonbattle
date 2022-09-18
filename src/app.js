@@ -158,7 +158,8 @@ selectButton.addEventListener("click", () => {
     optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
-  } else if (state.screen === "attack-mode") {
+  } else if (state.screen === "attack-mode" || state.screen === "hold-mode" ) {
+    console.log(state)
     //Displays user command in infobox yellow
     let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
@@ -174,7 +175,7 @@ selectButton.addEventListener("click", () => {
         // .classList.add( "player-energy--animate");
         iframeDocument
           .querySelector(".opponent__img")
-          .classList.add("opponent--staggered");
+          .classList.add("staggered");
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -184,11 +185,11 @@ selectButton.addEventListener("click", () => {
             .classList.remove("player-energy--animate");
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("opponent--staggered");
-            let attack = Math.floor(playerPokemon.attackPower("attack_2"))
+            .classList.remove("staggered");
+            let attack = Math.floor(playerPokemon.attackPower("attack_1"))
             oppPokemon.damage(attack);
             iframe.contentWindow.updateValues();
-            resetOptions();
+            oppTurn();
             //Opponent turn 
             //Prevent player for controls.  
         }, 4000);
@@ -204,7 +205,7 @@ selectButton.addEventListener("click", () => {
           .classList.add("fa-solid", "fa-bolt", "player-energy--animate_2");
         iframeDocument
           .querySelector(".opponent__img")
-          .classList.add("opponent--staggered_2");
+          .classList.add("staggered_2");
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -214,11 +215,11 @@ selectButton.addEventListener("click", () => {
             .classList.remove("player-energy--animate_2");
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("opponent--staggered_2");
+            .classList.remove("staggered_2");
             let attack = Math.floor(playerPokemon.attackPower("attack_2"))
             oppPokemon.damage(attack);
             iframe.contentWindow.updateValues()
-            resetOptions();
+            oppTurn();
         }, 4000);
       }, 1000);
     }
@@ -413,6 +414,68 @@ const resetOptions = () => {
   optionsListItems[count].children[0].classList.add("arrow--selected");
   state.screen = "battle-screen";
   state.optionSelected = "attack";
+  let instructions = `It's your opponent, ${state.opponentPokemon[0].name}'s move.`;
+    dialogue.innerHTML = instructions;
+}
+
+const oppTurn = () => {
+  state.optionSelected = Math.random() > .5 ? "Static" : "Lghtnng Rod";
+  if (state.optionSelected === "Static") {
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.add("opponent-attack");
+        iframeDocument
+          .querySelector(".opponent-energy")
+          .classList.add("fa-solid", "fa-bolt", "opponent-energy--animate");
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("staggered");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("opponent-attack");
+          iframeDocument
+            .querySelector(".opponent-energy")
+            .classList.remove("opponent-energy--animate");
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("staggered");
+            let attack = Math.floor(oppPokemon.attackPower("attack_1"))
+            playerPokemon.damage(attack);
+            iframe.contentWindow.updateValues();
+            resetOptions();
+        }, 4000);
+      }, 1000);
+    }
+    if (state.optionSelected === "Lghtnng Rod") {
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.add("opponent-attack_2");
+        iframeDocument
+          .querySelector(".opponent-energy")
+          .classList.add("fa-solid", "fa-bolt", "opponent-energy--animate_2");
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("staggered_2");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("opponent-attack_2");
+          iframeDocument
+            .querySelector(".opponent-energy")
+            .classList.remove("opponent-energy--animate_2");
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("staggered_2");
+            let attack = Math.floor(oppPokemon.attackPower("attack_2"))
+            playerPokemon.damage(attack);
+            iframe.contentWindow.updateValues()
+            resetOptions();
+        }, 4000);
+      }, 1000);
+    }
 }
 
 async function init() {
