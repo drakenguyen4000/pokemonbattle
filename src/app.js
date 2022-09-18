@@ -34,6 +34,7 @@ var state = {
   selectedAnswer: "yes",
   screen: "",
   optionSelected: "attack",
+  wins: 0
 };
 
 //Function to load different Screens
@@ -115,8 +116,20 @@ const battleScreen = () => {
   playerTotalHealth = state.playerPokemon[0].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
-  oppPokemon = new Pokemon(oppAttack, oppDefense, oppTotalHealth, oppState, oppHealthFill);
-  playerPokemon = new Pokemon(playerAttack, playerDefense, playerTotalHealth, playerState, playerHealthFill);
+  oppPokemon = new Pokemon(
+    oppAttack,
+    oppDefense,
+    oppTotalHealth,
+    oppState,
+    oppHealthFill
+  );
+  playerPokemon = new Pokemon(
+    playerAttack,
+    playerDefense,
+    playerTotalHealth,
+    playerState,
+    playerHealthFill
+  );
 };
 
 //------------------------Control Buttons------------------------//
@@ -158,8 +171,7 @@ selectButton.addEventListener("click", () => {
     optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
-  } else if (state.screen === "attack-mode" || state.screen === "hold-mode" ) {
-    console.log(state)
+  } else if (state.screen === "attack-mode" || state.screen === "hold-mode") {
     //Displays user command in infobox yellow
     let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
@@ -172,7 +184,6 @@ selectButton.addEventListener("click", () => {
         iframeDocument
           .querySelector(".player-energy")
           .classList.add("fa-solid", "fa-bolt", "player-energy--animate");
-        // .classList.add( "player-energy--animate");
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered");
@@ -186,12 +197,12 @@ selectButton.addEventListener("click", () => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("staggered");
-            let attack = Math.floor(playerPokemon.attackPower("attack_1"))
-            oppPokemon.damage(attack);
-            iframe.contentWindow.updateValues();
-            oppTurn();
-            //Opponent turn 
-            //Prevent player for controls.  
+          let attack = Math.floor(playerPokemon.attackPower("attack_1"));
+          oppPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          oppTurn();
+          //Opponent turn
+          //Prevent player for controls.
         }, 4000);
       }, 1000);
     }
@@ -216,16 +227,14 @@ selectButton.addEventListener("click", () => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("staggered_2");
-            let attack = Math.floor(playerPokemon.attackPower("attack_2"))
-            oppPokemon.damage(attack);
-            iframe.contentWindow.updateValues()
-            oppTurn();
+          let attack = Math.floor(playerPokemon.attackPower("attack_2"));
+          oppPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          oppTurn();
         }, 4000);
       }, 1000);
     }
   }
-
-
 
   // //bag (potions)
   // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
@@ -246,8 +255,8 @@ selectButton.addEventListener("click", () => {
 
 rightButton.addEventListener("click", () => {
   //Prevents count / d-pad change
-  if(state.screen !== "hold-mode") {
-  //Adds 1 every time user clicks right button on d-pad
+  if (state.screen !== "hold-mode") {
+    //Adds 1 every time user clicks right button on d-pad
     count += 1;
   }
   //Only works in selection screen, not selected-mode
@@ -267,8 +276,8 @@ rightButton.addEventListener("click", () => {
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
-  if(state.screen !== "hold-mode") {
-  count -= 1;
+  if (state.screen !== "hold-mode" || state.screen !== "battle-over") {
+    count -= 1;
   }
   if (state.screen === "selection-screen") {
     //Set count equal to zero, if count goes below zero, before changing direction
@@ -403,34 +412,37 @@ const getDataSet = (count) => {
 };
 
 const resetOptions = () => {
-  //Resets options list
-  optionsListItems[0].lastChild.data = "attack";
-  optionsListItems[1].lastChild.data = "bag";
-  optionsListItems[2].lastChild.data = "pkmon";
-  optionsListItems[3].lastChild.data = "run";
-  //Reset count and arrow icon
-  optionsListItems[count].children[0].classList.remove("arrow--selected");
-  count = 0;
-  optionsListItems[count].children[0].classList.add("arrow--selected");
-  state.screen = "battle-screen";
-  state.optionSelected = "attack";
-  let instructions = `It's your opponent, ${state.opponentPokemon[0].name}'s move.`;
-    dialogue.innerHTML = instructions;
-}
+  if (state.screen !== "battle-over") {
+    dialogue.innerHTML = `It's your move!`;
+    //Resets options list
+    optionsListItems[0].lastChild.data = "attack";
+    optionsListItems[1].lastChild.data = "bag";
+    optionsListItems[2].lastChild.data = "pkmon";
+    optionsListItems[3].lastChild.data = "run";
+    //Reset count and arrow icon
+    optionsListItems[count].children[0].classList.remove("arrow--selected");
+    count = 0;
+    optionsListItems[count].children[0].classList.add("arrow--selected");
+    state.screen = "battle-screen";
+    state.optionSelected = "attack";
+  }
+};
 
 const oppTurn = () => {
-  state.optionSelected = Math.random() > .5 ? "Static" : "Lghtnng Rod";
-  if (state.optionSelected === "Static") {
-      setTimeout(() => {
+  if (state.screen !== "battle-over") {
+    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
+  }
+  setTimeout(() => {
+    if (state.screen !== "battle-over") {
+      state.optionSelected = Math.random() > 0.5 ? "Static" : "Lghtnng Rod";
+      if (state.optionSelected === "Static") {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack");
         iframeDocument
           .querySelector(".opponent-energy")
           .classList.add("fa-solid", "fa-bolt", "opponent-energy--animate");
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("staggered");
+        iframeDocument.querySelector(".player__img").classList.add("staggered");
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -441,15 +453,13 @@ const oppTurn = () => {
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("staggered");
-            let attack = Math.floor(oppPokemon.attackPower("attack_1"))
-            playerPokemon.damage(attack);
-            iframe.contentWindow.updateValues();
-            resetOptions();
+          let attack = Math.floor(oppPokemon.attackPower("attack_1"));
+          playerPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          resetOptions();
         }, 4000);
-      }, 1000);
-    }
-    if (state.optionSelected === "Lghtnng Rod") {
-      setTimeout(() => {
+      }
+      if (state.optionSelected === "Lghtnng Rod") {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack_2");
@@ -469,14 +479,15 @@ const oppTurn = () => {
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("staggered_2");
-            let attack = Math.floor(oppPokemon.attackPower("attack_2"))
-            playerPokemon.damage(attack);
-            iframe.contentWindow.updateValues()
-            resetOptions();
+          let attack = Math.floor(oppPokemon.attackPower("attack_2"));
+          playerPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          resetOptions();
         }, 4000);
-      }, 1000);
+      }
     }
-}
+  }, 2000);
+};
 
 async function init() {
   console.log("starting up app...");
@@ -500,7 +511,6 @@ async function init() {
   );
   const data2 = await response2.json().catch((err) => console.log(err));
   state.opponentPokemon = data2;
-  // console.log(state);
 
   state.screen = "battle-screen";
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
@@ -513,21 +523,21 @@ class Pokemon {
     this.attackpt = attack;
     this.defense = defense;
     this.totHealth = totalHealth;
-    this.state = state;
+    this.pkmState = state;
     this.healthFillEl = healthFill;
   }
-  attackPower(attacktype){
-      let accuracy = Math.random() * (1 - .5) + .5;
-      if(attacktype === "attack_1"){
-       return this.state.health_active*.05 + this.attackpt *.12 * accuracy;
-      }
-      return this.state.health_active*.05 + this.attackpt *.15 * accuracy
+  attackPower(attacktype) {
+    let accuracy = Math.random() * (1 - 0.5) + 0.5;
+    if (attacktype === "attack_1") {
+      return this.pkmState.health_active * 0.05 + this.attackpt * 0.12 * accuracy;
     }
-  damage(attack){
-    let defensePt = this.defense * .025;
+    return this.pkmState.health_active * 0.05 + this.attackpt * 0.15 * accuracy;
+  }
+  damage(attack) {
+    let defensePt = this.defense * 0.025;
     let damage = attack - defensePt;
-    let currHealth = Math.floor(this.state.health_active - damage);
-    if (currHealth < 0) {
+    let currHealth = Math.floor(this.pkmState.health_active - damage);
+    if (currHealth <= 0) {
       currHealth = 0;
     }
     this.value = currHealth;
@@ -535,11 +545,18 @@ class Pokemon {
   }
 
   update() {
-    const percentage = Math.floor(this.value / this.totHealth * 100) + "%";
-    //Health value 
-    this.state.health_active = this.value;
+    const percentage = Math.floor((this.value / this.totHealth) * 100) + "%";
+    //Health value
+    this.pkmState.health_active = this.value;
     //Health bar level
     this.healthFillEl.style.width = percentage;
+    if (this.pkmState.health_active === 0 && this.pkmState.name === state.playerPokemon[0].name) {
+      dialogue.innerHTML = "You lost!";
+      state.screen = "battle-over";
+    } else if (this.pkmState.health_active === 0){
+      dialogue.innerHTML = "You win!";
+      state.screen = "battle-over";
+    }
   }
 }
 
