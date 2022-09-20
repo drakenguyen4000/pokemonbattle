@@ -34,6 +34,7 @@ var state = {
   selectedAnswer: "yes",
   screen: "",
   optionSelected: "attack",
+  attackSelected: "attack_1",
   wins: 0
 };
 
@@ -58,8 +59,7 @@ const selectionScreen = () => {
   //Update state with Pokemon list
   const pokemonList = iframe.contentWindow.selectionState.pokemonList;
   state.pokemonList = pokemonList;
-  //Set default pokemon
-  state.playerPokemon = pokemonList[0];
+  console.log("state select:", state)
 };
 
 //In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
@@ -94,6 +94,7 @@ async function oppSelectionScreen() {
   //Get Opponent Pokemon and store in state
   const oppState = iframe.contentWindow.oppState;
   state.opponentPokemon = oppState.opponentPokemon;
+  console.log("after OppUpdate:", state)
   //Loads next screen
   displayScreen(nextScreen, battleScreen);
 }
@@ -101,21 +102,23 @@ async function oppSelectionScreen() {
 //Loads iframe of Battle Screen
 const battleScreen = () => {
   iframeDocument = iframe.contentWindow.document;
+  console.log(state)
   dialogue = iframeDocument.querySelector(".infobox__text");
   optionsList = iframeDocument.querySelector(".infobox__container--red");
   //Get list of all options in infobox box red
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
+  console.log("state battle:", state)
 
   //Pokemon Class Instance
-  oppAttack = state.opponentPokemon.attack;
-  playerAttack = state.playerPokemon.attack;
-  oppDefense = state.opponentPokemon.defense;
-  playerDefense = state.playerPokemon.defense;
-  oppState = state.opponentPokemon;
-  playerState = state.playerPokemon;
-  oppTotalHealth = state.opponentPokemon.health_total;
-  playerTotalHealth = state.playerPokemon.health_total;
+  oppAttack = state.opponentPokemon[0].attack;
+  playerAttack = state.playerPokemon[0].attack;
+  oppDefense = state.opponentPokemon[0].defense;
+  playerDefense = state.playerPokemon[0].defense;
+  oppState = state.opponentPokemon[0];
+  playerState = state.playerPokemon[0];
+  oppTotalHealth = state.opponentPokemon[0].health_total;
+  playerTotalHealth = state.playerPokemon[0].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
   oppPokemon = new Pokemon(
@@ -166,26 +169,27 @@ selectButton.addEventListener("click", () => {
     state.optionSelected === "attack"
   ) {
     state.screen = "attack-mode";
-    state.optionSelected = state.playerPokemon.attack_1;
+    state.optionSelected = state.playerPokemon[0].attack_1;
     dialogue.innerHTML = "Pick an attack!";
     //Display attacks in infobox red
-    optionsListItems[0].lastChild.data = state.playerPokemon.attack_1;
-    optionsListItems[1].lastChild.data = state.playerPokemon.attack_2;
+    optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
+    optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
   } else if (state.screen === "attack-mode" || state.screen === "hold-mode") {
     //Displays user command in infobox yellow
-    let playerCommands = `${state.playerPokemon.name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
+    let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
     state.screen = "hold-mode";
-    if (state.optionSelected === "Static") {
+    if (state.attackSelected === "attack_1") {
+    // if (state.optionSelected === "Static") {
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack");
         iframeDocument
           .querySelector(".player-energy")
-          .classList.add("fa-solid", "fa-bolt", "player-energy--animate");
+          .classList.add("player-energy--animate");
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered");
@@ -203,19 +207,47 @@ selectButton.addEventListener("click", () => {
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
           oppTurn();
-          //Opponent turn
-          //Prevent player for controls.
         }, 4000);
       }, 1000);
     }
-    if (state.optionSelected === "Lghtnng Rod") {
+    // if (state.optionSelected === "Static") {
+    //   setTimeout(() => {
+    //     iframeDocument
+    //       .querySelector(".player__img")
+    //       .classList.add("player-attack");
+    //     iframeDocument
+    //       .querySelector(".player-energy")
+    //       .classList.add("fa-solid", "fa-bolt", "player-energy--animate");
+    //     iframeDocument
+    //       .querySelector(".opponent__img")
+    //       .classList.add("staggered");
+    //     setTimeout(() => {
+    //       iframeDocument
+    //         .querySelector(".player__img")
+    //         .classList.remove("player-attack");
+    //       iframeDocument
+    //         .querySelector(".player-energy")
+    //         .classList.remove("player-energy--animate");
+    //       iframeDocument
+    //         .querySelector(".opponent__img")
+    //         .classList.remove("staggered");
+    //       let attack = Math.floor(playerPokemon.attackPower("attack_1"));
+    //       oppPokemon.damage(attack);
+    //       iframe.contentWindow.updateValues();
+    //       oppTurn();
+    //       //Opponent turn
+    //       //Prevent player for controls.
+    //     }, 4000);
+    //   }, 1000);
+    // }
+    if (state.attackSelected === "attack_2") {
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack_2");
         iframeDocument
           .querySelector(".player-energy")
-          .classList.add("fa-solid", "fa-bolt", "player-energy--animate_2");
+          .classList.add("player-energy--animate_2");
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
@@ -375,6 +407,7 @@ const switchDirection2 = (direction) => {
 
       //Update state with player choice
       state.optionSelected = optionsListItems[count].lastChild.data;
+      state.attackSelected = count > 0 ? "attack_2" :  "attack_1";
       break;
     case "left":
       optionsListItems[count + 1].children[0].classList.remove(
@@ -382,7 +415,7 @@ const switchDirection2 = (direction) => {
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
       state.optionSelected = optionsListItems[count].lastChild.data;
-
+      state.attackSelected = count > 0 ? "attack_2" :  "attack_1";
       break;
     case "down":
       optionsListItems[count - 2].children[0].classList.remove(
@@ -403,8 +436,8 @@ const switchDirection2 = (direction) => {
 
 //Display current pokemon data to infbox
 const getDataSet = (count) => {
-  //Update state with currently highlighted pokemon 
-  state.playerPokemon = state.pokemonList[count];
+  //Update state with currently highlighted pokemon
+  state.playerPokemon = Object.assign({}, selectionListItems[count].dataset);
   //List info of current pokemon
   return `<li>${selectionListItems[count].dataset.type}</li>
       <li>${selectionListItems[count].dataset.health}</li>
@@ -432,18 +465,18 @@ const resetOptions = () => {
 
 const oppTurn = () => {
   if (state.screen === "battle-screen") {
-    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon.name}'s, move.`;
+    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
   }
   setTimeout(() => {
     if (state.screen === "battle-screen") {
-      state.optionSelected = Math.random() > 0.5 ? "Static" : "Lghtnng Rod";
-      if (state.optionSelected === "Static") {
+      state.attackSelected = Math.random() > 0.5 ? "attack_1" : "attack_2";
+      if (state.attackSelected === "attack_1") {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add("fa-solid", "fa-bolt", "opponent-energy--animate");
+          .classList.add("opponent-energy--animate");
         iframeDocument.querySelector(".player__img").classList.add("staggered");
         setTimeout(() => {
           iframeDocument
@@ -461,13 +494,13 @@ const oppTurn = () => {
           resetOptions();
         }, 4000);
       }
-      if (state.optionSelected === "Lghtnng Rod") {
+      if (state.attackSelected === "attack_2") {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack_2");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add("fa-solid", "fa-bolt", "opponent-energy--animate_2");
+          .classList.add("opponent-energy--animate_2");
         iframeDocument
           .querySelector(".player__img")
           .classList.add("staggered_2");
@@ -494,29 +527,29 @@ const oppTurn = () => {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    // state.screen = "battle-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
+  // setTimeout(() => {
+  //   state.screen = "intro-screen";
+  //   // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  // }, 1500);
 
   //--Battle Screen Test load---//
-  // const response1 = await fetch("./src/player.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data1 = await response1.json().catch((err) => console.log(err));
-  // state.playerPokemon = data1;
+  const response1 = await fetch("./src/player.json").catch((err) =>
+    console.log(err)
+  );
+  const data1 = await response1.json().catch((err) => console.log(err));
+  state.playerPokemon = data1;
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2;
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2;
 
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 }
 
 //Pokemon status
@@ -553,14 +586,14 @@ class Pokemon {
     this.pkmState.health_active = this.value;
     //Health bar level
     this.healthFillEl.style.width = percentage;
-    if (this.pkmState.health_active === 0 && this.pkmState.name === state.playerPokemon.name) {
+    if (this.pkmState.health_active === 0 && this.pkmState.name === state.playerPokemon[0].name) {
       dialogue.innerHTML = "You lost!";
       state.screen = "battle-over";
     } else if (this.pkmState.health_active === 0){
       dialogue.innerHTML = "You win!";
       state.screen = "battle-over";
-      state.win =+ 1;
-      displayScreen("selection-screen", selectionScreen);
+      state.wins += 1;
+      // displayScreen("selection-screen", selectionScreen);
     }
   }
 }

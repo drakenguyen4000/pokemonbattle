@@ -734,6 +734,11 @@ iframe {
           animation: player-energy 4s;
 }
 
+.player-energy--animate:before, .player-energy--animate_2:before {
+  font-family: FontAwesome;
+  content: "\f0e7";
+}
+
 .player-energy--animate_2 {
   visibility: visible;
   color: yellow;
