@@ -1,15 +1,12 @@
-const opponentPokemon = window.parent.state.opponentPokemon[0];
-const playerPokemon = window.parent.state.playerPokemon[0];
+const opponentPokemon = window.parent.state.opponentPokemon;
+const playerPokemon = window.parent.state.playerPokemon;
 
 const battleGround = () => {
   // Load screen for 2 seconds
   setTimeout(()=>{
     //Hide loading screen
     document.querySelector(".loading-screen").classList.add("loading-screen--hide");
-  }, 1000);
-
-  // console.log("state:", window.parent.state);
-  console.log("battleground started...");
+    setTimeout(()=>{
   //Opponent
   document.querySelector(".opponent__img").src = opponentPokemon.image;
   document.querySelector(".opponent-health__name").innerHTML =
@@ -25,8 +22,9 @@ const battleGround = () => {
   document.querySelector(".player-health__active").innerHTML = playerPokemon.health_active;
     //Infobox 1
   document.querySelector(".infobox__text").textContent = `You encountered a ${opponentPokemon.name}, a ${opponentPokemon.type} Pokemon. What will you do?`;
-  //Attack
   
+    }, 2000)
+  }, 2000);
 };
 
 function updateValues () {
