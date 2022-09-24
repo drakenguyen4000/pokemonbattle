@@ -26,6 +26,7 @@ let oppAttack;
 let playerAttack;
 let oppDefense;
 let playerDefense;
+let playagainChoice;
 
 var state = {
   pokemonList: {},
@@ -34,7 +35,7 @@ var state = {
   selectedAnswer: "yes",
   screen: "",
   optionSelected: "attack",
-  attackSelected: "attack_1",
+  attackSelected: "",
   wins: 0
 };
 
@@ -137,6 +138,13 @@ const battleScreen = () => {
   );
 };
 
+const gameoverScreen = () =>{
+  iframeDocument = iframe.contentWindow.document;
+  //   console.log( iframeDocument.querySelector(".gameover-playagain"))
+  // playagainChoice = iframeDocument.querySelector(".gameover-playagain").children;
+  // iframeDocument.querySelector(".gameover-playagain__yes").childNodes[2].textContent;
+}
+
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
   //Only enable start selection screen page if is not the current page loaded
@@ -170,17 +178,18 @@ selectButton.addEventListener("click", () => {
   ) {
     state.screen = "attack-mode";
     state.optionSelected = state.playerPokemon[0].attack_1;
+    state.attackSelected = "attack_1";
     dialogue.innerHTML = "Pick an attack!";
     //Display attacks in infobox red
     optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
     optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
-  } else if (state.screen === "attack-mode" || state.screen !== "hold-mode") {
+  } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
     let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
-    state.screen = "hold-mode";
+    state.screen = "hold-mode";   //temp turn off
     if (state.attackSelected === "attack_1") {
       const energy = state.playerPokemon[0].attack_1;
       setTimeout(() => {
@@ -206,7 +215,7 @@ selectButton.addEventListener("click", () => {
           let attack = Math.floor(playerPokemon.attackPower("attack_1"));
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
-          oppTurn();
+          oppTurn(); //temp turn off
         }, 4000);
       }, 1000);
     }
@@ -218,7 +227,7 @@ selectButton.addEventListener("click", () => {
           .classList.add("player-attack_2");
         iframeDocument
           .querySelector(".player-energy")
-          .classList.add(`player-${energy}--animate_2`);
+          .classList.add(`player-${energy}--animate`);
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
@@ -228,19 +237,20 @@ selectButton.addEventListener("click", () => {
             .classList.remove("player-attack_2");
           iframeDocument
             .querySelector(".player-energy")
-            .classList.remove(`player-${energy}--animate_2`);
+            .classList.remove(`player-${energy}--animate`);
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("staggered_2");
           let attack = Math.floor(playerPokemon.attackPower("attack_2"));
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
-          oppTurn();
+          oppTurn();  //temp turn off
         }, 4000);
       }, 1000);
     }
+  } else if (state.screen === "gameover-screen") {
+ 
   }
-
   // //bag (potions)
   // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
   //   console.log("bag");
@@ -260,12 +270,12 @@ selectButton.addEventListener("click", () => {
 
 rightButton.addEventListener("click", () => {
   //Prevents count / d-pad change
-  if (state.screen !== "hold-mode" && state.screen !== "battle-over") {
+  if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
     //Adds 1 every time user clicks right button on d-pad
     count += 1;
   }
   //Only works in selection screen, not selected-mode
-  if (state.screen === "selection-screen") {
+  else if (state.screen === "selection-screen") {
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection("right");
   }
@@ -281,7 +291,7 @@ rightButton.addEventListener("click", () => {
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
-  if (state.screen !== "hold-mode" && state.screen !== "battle-over") {
+  if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
     count -= 1;
   }
   if (state.screen === "selection-screen") {
@@ -418,7 +428,7 @@ const getDataSet = (count) => {
 };
 
 const resetOptions = () => {
-  if (state.screen !== "battle-over") {
+  if (state.screen !== "gameover-screen") {
     dialogue.innerHTML = `It's your move!`;
     //Resets options list
     optionsListItems[0].lastChild.data = "attack";
@@ -431,16 +441,16 @@ const resetOptions = () => {
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
     state.optionSelected = "attack";
-    state.attackSelected = "attack_1";
+    state.attackSelected = "";
   }
 };
 
 const oppTurn = () => {
-  if (state.screen !== "battle-over") {
+  if (state.screen !== "gameover-screen") {
     dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
   }
   setTimeout(() => {
-    if (state.screen !== "battle-over") {
+    if (state.screen !== "gameover-screen") {
       state.attackSelected = Math.random() > 0.5 ? "attack_1" : "attack_2";
       if (state.attackSelected === "attack_1") {
         const energy = state.opponentPokemon[0].attack_1;
@@ -474,7 +484,7 @@ const oppTurn = () => {
           .classList.add("opponent-attack_2");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add(`opponent-${energy}--animate_2`);
+          .classList.add(`opponent-${energy}--animate`);
         iframeDocument
           .querySelector(".player__img")
           .classList.add("staggered_2");
@@ -484,7 +494,7 @@ const oppTurn = () => {
             .classList.remove("opponent-attack_2");
           iframeDocument
             .querySelector(".opponent-energy")
-            .classList.remove(`opponent-${energy}--animate_2`);
+            .classList.remove(`opponent-${energy}--animate`);
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("staggered_2");
@@ -508,22 +518,25 @@ async function init() {
   //     state.screen + ".html";
   // }, 1500);
 
-  //--Battle Screen Test load---//
-  const response1 = await fetch("./src/player.json").catch((err) =>
-    console.log(err)
-  );
-  const data1 = await response1.json().catch((err) => console.log(err));
-  state.playerPokemon = data1;
+  // //--Battle Screen Test load---//
+  // const response1 = await fetch("./src/player.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data1 = await response1.json().catch((err) => console.log(err));
+  // state.playerPokemon = data1;
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2;
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2;
 
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
+
+  //---Gameover Test Load---//
+    displayScreen("gameover-screen", gameoverScreen)
 }
 
 //Pokemon status
@@ -544,9 +557,9 @@ class Pokemon {
     return this.pkmState.health_active * 0.05 + this.attackpt * 0.15 * accuracy;
   }
   damage(attack) {
-    let defensePt = this.defense * 0.025;
-    let damage = attack - defensePt;
-    // let damage = 40;
+    // let defensePt = this.defense * 0.025; 
+    // let damage = attack - defensePt;
+    let damage = 45; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
@@ -564,11 +577,13 @@ class Pokemon {
     if (this.pkmState.health_active === 0 && this.side === 'opponent') {
       dialogue.innerHTML = "You win!";
       state.wins += 1;
-      state.screen = "battle-over";
+      state.screen = "gameover-screen";
+      setInterval(()=>{
+        displayScreen("gameover-screen", gameoverScreen)
+      }, 2000)
     } else if (this.pkmState.health_active === 0){
       dialogue.innerHTML = "You lost!";
-      state.screen = "battle-over";
-      // displayScreen("selection-screen", selectionScreen);
+      state.screen = "gameover-screen";
     }
   }
 }
