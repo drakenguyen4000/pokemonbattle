@@ -26,7 +26,7 @@ let oppAttack;
 let playerAttack;
 let oppDefense;
 let playerDefense;
-let playagainChoice;
+let playagainList;
 
 var state = {
   pokemonList: {},
@@ -49,6 +49,10 @@ const displayScreen = (screenUpdate, screenFunc) => {
     screenFunc();
   }, 2000);
 };
+
+const introScreen = () => {
+    console.log("Intro screen starting...")
+}
 
 //Loads iframe of player Selection Screen
 const selectionScreen = () => {
@@ -140,9 +144,11 @@ const battleScreen = () => {
 
 const gameoverScreen = () =>{
   iframeDocument = iframe.contentWindow.document;
-  //   console.log( iframeDocument.querySelector(".gameover-playagain"))
-  // playagainChoice = iframeDocument.querySelector(".gameover-playagain").children;
-  // iframeDocument.querySelector(".gameover-playagain__yes").childNodes[2].textContent;
+  playagainList = iframeDocument.querySelector(".playagain").children;
+  console.log(playagainList)
+  // numItems = playagainList.length - 1;
+  // console.log(playagainList)
+  // iframeDocument.querySelector(".playagain__yes").childNodes[2].textContent;
 }
 
 //------------------------Control Buttons------------------------//
@@ -248,8 +254,10 @@ selectButton.addEventListener("click", () => {
         }, 4000);
       }, 1000);
     }
-  } else if (state.screen === "gameover-screen") {
- 
+  } else if (state.screen === "gameover-screen" && state.selectedAnswer === "Yes") {
+    displayScreen("selection-screen", selectionScreen)
+  } else if (state.screen === "gameover-screen" && state.selectedAnswer === "No") {
+    displayScreen("intro-screen", introScreen)
   }
   // //bag (potions)
   // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
@@ -319,6 +327,9 @@ downButton.addEventListener("click", () => {
     count += 2;
     //Reverse count by -2, if count exceeds # of selections available, before changing direction
     count > numItems ? (count -= 2) : switchDirection2("down");
+  } else if (state.screen === "gameover-screen"){
+    count += 1;
+    count > numItems ? (count = numItems) : switchDirection3("down");
   }
 });
 
@@ -336,6 +347,9 @@ upButton.addEventListener("click", () => {
     count -= 2;
     //Reverse count by +2, if count goes below zero, before changing direction
     count < 0 ? (count += 2) : switchDirection2("up");
+  }else if (state.screen === "gameover-screen"){
+  count -= 1;
+  count < 0 ? (count = 0) : switchDirection3("up");
   }
 });
 
@@ -411,6 +425,25 @@ const switchDirection2 = (direction) => {
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
       state.optionSelected = optionsListItems[count].lastChild.data;
+      break;
+  }
+};
+
+const switchDirection3 = (direction) => {
+  switch (direction) {
+    case "down":
+      playagainList[count - 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      playagainList[count].children[0].classList.add("arrow--selected");
+      state.selectedAnswer = playagainList[count].lastChild.data;
+      break;
+    case "up":
+      playagainList[count + 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      playagainList[count].children[0].classList.add("arrow--selected");
+      state.selectedAnswer = playagainList[count].lastChild.data;
       break;
   }
 };

@@ -723,7 +723,7 @@ iframe {
   visibility: hidden;
 }
 
-.player-energy--animate {
+.player-Static--animate {
   visibility: visible;
   color: yellow;
   position: absolute;
@@ -734,12 +734,7 @@ iframe {
           animation: player-energy 4s;
 }
 
-.player-energy--animate:before, .player-energy--animate_2:before {
-  font-family: FontAwesome;
-  content: "\f0e7";
-}
-
-.player-energy--animate_2 {
+.player-Lightning--animate {
   visibility: visible;
   color: yellow;
   position: absolute;
@@ -750,7 +745,15 @@ iframe {
           animation: player-energy_2 4s;
 }
 
-.player-energy--animate_3 {
+.player-Static--animate:before,
+.player-Lightning--animate:before,
+.opponent-Static--animate:before,
+.opponent-Lightning--animate:before {
+  font-family: FontAwesome;
+  content: "\f0e7";
+}
+
+.player-Razor-Leaf--animate {
   visibility: visible;
   position: absolute;
   z-index: 95;
@@ -758,6 +761,21 @@ iframe {
           animation: player-energy_3 4s;
   border: 10px dotted green;
   border-radius: 200px;
+}
+
+.player-Solar-Beam--animate {
+  transform: rotate(42deg);
+  width: 10px;
+  border: 1px white solid;
+  border-radius: 200;
+  background: white;
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 105;
+  -webkit-animation: player-energy_4 4s;
+          animation: player-energy_4 4s;
 }
 
 .opponent--staggered {
@@ -790,7 +808,7 @@ iframe {
   visibility: hidden;
 }
 
-.opponent-energy--animate {
+.opponent-Static--animate {
   visibility: visible;
   position: absolute;
   right: 210px;
@@ -800,7 +818,7 @@ iframe {
           animation: opponent-energy 4s;
 }
 
-.opponent-energy--animate_2 {
+.opponent-Lightning--animate {
   visibility: visible;
   color: yellow;
   position: absolute;
@@ -1623,6 +1641,172 @@ iframe {
     opacity: 0;
   }
 }
+@-webkit-keyframes player-energy_4 {
+  0% {
+    height: 80px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 0.5;
+    font-size: 200%;
+  }
+  10% {
+    height: 150px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  20% {
+    height: 150px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  30% {
+    color: yellow;
+    left: 80px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  40% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  50% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  60% {
+    color: yellow;
+    left: 90px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  70% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  80% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  90% {
+    color: yellow;
+    left: 95px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  95% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  100% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+}
+@keyframes player-energy_4 {
+  0% {
+    height: 80px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 0.5;
+    font-size: 200%;
+  }
+  10% {
+    height: 150px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  20% {
+    height: 150px;
+    left: 85px;
+    bottom: -10px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  30% {
+    color: yellow;
+    left: 80px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  40% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  50% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  60% {
+    color: yellow;
+    left: 90px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  70% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  80% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+  90% {
+    color: yellow;
+    left: 95px;
+    bottom: -30px;
+    opacity: 0.3;
+    font-size: 170%;
+  }
+  95% {
+    color: yellow;
+    left: 210px;
+    bottom: 110px;
+    opacity: 1;
+    font-size: 125%;
+  }
+  100% {
+    left: 200px;
+    bottom: 100px;
+    opacity: 0;
+    font-size: 90%;
+  }
+}
 @-webkit-keyframes stagger {
   0% {
     filter: grayscale(0);
@@ -1849,7 +2033,7 @@ iframe {
   text-transform: uppercase;
 }
 
-.gameover-playagain {
+.playagain {
   margin-top: 20%;
   font-size: 2rem;
 }
@@ -1985,4 +2169,57 @@ iframe {
   .display__intro-arena-circle {
     height: 40%;
   }
+}
+/*----IronMan Skin----*/
+.console {
+  background: #fa5b3c;
+}
+
+.console-top {
+  background-color: #fb4824;
+}
+
+.screen-panel {
+  background-color: #fce377;
+}
+
+.screen {
+  border: 3px solid #f29c24;
+}
+
+.btn-pause--red,
+.btn-start--blue {
+  background-color: #5873f1;
+  border: 1px solid #042fec;
+}
+
+.btn-select {
+  background-color: #5873f1;
+  border: 2px solid #042fec;
+}
+
+.d-pad__btn {
+  background: #fce377;
+  border: 2px solid #f0c505;
+}
+
+.d-pad__btn {
+  color: #c5a101;
+}
+
+.d-pad__center {
+  box-shadow: 1px 1px 1px #585757;
+}
+
+.btn-text {
+  color: #fce377;
+}
+
+.green-display {
+  background-color: #c4e1f6;
+}
+
+.speaker__port {
+  background-color: #f29c24;
+  border: 1px solid #965801;
 }/*# sourceMappingURL=style.css.map */
