@@ -2011,6 +2011,45 @@ iframe {
     transform: rotate(-5deg);
   }
 }
+.bag-container {
+  height: 200px;
+  width: 350px;
+  background: white;
+  position: absolute;
+  top: 20%;
+  left: 2%;
+  z-index: 1000;
+  border: 5px solid rgb(169, 168, 168);
+  font-size: 0.7rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.bag-item-img {
+  background-size: cover;
+  height: 25px;
+  width: 25px;
+}
+
+.potion-img {
+  background-image: url("https://www.serebii.net/itemdex/sprites/pgl/potion.png");
+}
+
+.super-potion-img {
+  background-image: url("https://www.serebii.net/itemdex/sprites/pgl/superpotion.png");
+}
+
+.pokeball-img {
+  background-image: url("https://www.serebii.net/itemdex/sprites/pgl/pokeball.png");
+}
+
 .display__gameover {
   position: absolute;
   top: 0;
@@ -2036,6 +2075,7 @@ iframe {
 .playagain {
   margin-top: 20%;
   font-size: 2rem;
+  text-transform: capitalize;
 }
 
 .playgain-arrow {
@@ -2169,57 +2209,4 @@ iframe {
   .display__intro-arena-circle {
     height: 40%;
   }
-}
-/*----IronMan Skin----*/
-.console {
-  background: #fa5b3c;
-}
-
-.console-top {
-  background-color: #fb4824;
-}
-
-.screen-panel {
-  background-color: #fce377;
-}
-
-.screen {
-  border: 3px solid #f29c24;
-}
-
-.btn-pause--red,
-.btn-start--blue {
-  background-color: #5873f1;
-  border: 1px solid #042fec;
-}
-
-.btn-select {
-  background-color: #5873f1;
-  border: 2px solid #042fec;
-}
-
-.d-pad__btn {
-  background: #fce377;
-  border: 2px solid #f0c505;
-}
-
-.d-pad__btn {
-  color: #c5a101;
-}
-
-.d-pad__center {
-  box-shadow: 1px 1px 1px #585757;
-}
-
-.btn-text {
-  color: #fce377;
-}
-
-.green-display {
-  background-color: #c4e1f6;
-}
-
-.speaker__port {
-  background-color: #f29c24;
-  border: 1px solid #965801;
 }/*# sourceMappingURL=style.css.map */

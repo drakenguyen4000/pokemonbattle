@@ -23,9 +23,33 @@
       </div>
     </div>
     <div class="battle-container">
+    <div class="bag-container">
+      <table>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>Effect</th>
+        </tr>
+        <tr>
+          <td><img class="bag-item-img potion-img"/></td>
+          <td>Potion</td>
+          <td>Restores a Pokémon's HP by 20 </td>
+        </tr>
+        <tr>
+          <td><img class="bag-item-img super-potion-img"/></td></td>
+          <td>Super Potion</td>
+          <td>Restores a Pokémon's HP by 50 </td>
+        </tr>
+        <tr>
+          <td><img class="bag-item-img pokeball-img"/></td></td>
+          <td>Pokeball</td>
+          <td>Use to capture pokemon</td>
+        </tr>
+      </table>
+    </div>
       <div class="sky-background">
         <div class="opponent-health">
-          <p class="opponent-health__name">Gyarados</p>
+          <p class="opponent-health__name"></p>
           <div class="opponent-health__panel">
             <div class="opponent-health__wrapper">
               <span class="opponent-health__title">HP</span>
@@ -49,6 +73,7 @@
       </div>
       <div class="player-wrapper">
         <div class="player">
+          <i class="opponent-energy"></i>
           <img style="border: 1px solid red;"
             src=""
             class="player__img"
@@ -56,7 +81,7 @@
           <div class="player__circle"></div>
         </div>
         <div class="player-health">
-          <p class="player-health__name">Charizard</p>
+          <p class="player-health__name"></p>
           <div class="player-health__panel">
             <div class="player-health__wrapper">
               <span class="player-health__title">HP</span>
