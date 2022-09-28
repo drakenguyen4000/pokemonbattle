@@ -24,25 +24,36 @@
     </div>
     <div class="battle-container">
     <div class="bag">
-      <ul>
-        <li class="bag-list__item">
+      <h3>Press Select to Pick An Item</h3>
+      <ul class="bag-title">
+        <li class="bag-title__item">
+          <span></span>
           <span></span>
           <span>Item</span>
           <span>Effect</span>
         </li>
       </ul>
-      <ul table class="bag-list">
-        <li class="bag-list__item">
-          <img class="bag-item-img potion-img bag-item-img--selected "/>
-          <span>Potion</span>
-          <span>Restores a Pokémon's HP by 20.</span>
+      <ul class="bag-list">
+        <li class="bag-list__item bag-item--selected">
+          <span></span>
+          <span class="bag-item-img exit-img bag-item-img--selected"><i class="fa-solid fa-xmark"></i></span>
+          <span>Exit</span>
+          <span></span>
         </li>
         <li class="bag-list__item">
+          <span>1x</span>
+          <img class="bag-item-img potion-img"/>
+          <span>Potion</span>
+          <span>Restores a Pokémon's HP by 15.</span>
+        </li>
+        <li class="bag-list__item">
+          <span>1x</span>
           <img class="bag-item-img super-potion-img"/>
           <span>Super Potion</span>
-          <span>Restores a Pokémon's HP by 50.</span>
+          <span>Restores a Pokémon's HP by 25.</span>
         </li>
         <li class="bag-list__item">
+          <span>1x</span>
           <img class="bag-item-img pokeball-img"/>
           <span>Pokeball</span>
           <span>Use to capture pokemon.</span>

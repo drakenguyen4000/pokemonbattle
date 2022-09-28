@@ -980,33 +980,40 @@
 }
 
 .bag {
-  // display:none;
-  height: 200px;
-  width: 350px;
+  display:none;
+  // height: 200px;
+  // width: 350px;
+  @include dimension(60%, 96%);
   background: white;
   position: absolute;
-  top: 20%;
+  top: 4%;
   left: 2%;
   z-index: 200;
   border: 5px solid rgb(169, 168, 168);
   font-size: 0.7rem;
   border-radius:  20px;
-  display: grid;
-  grid-template-rows: 1fr;
   padding: 2%;
 }
 
-// .bag--show {
-  // display: grid;
-  // grid-template-rows: 1fr;
-  // padding: 2%;
-// }
+.bag > h3 {
+  text-align:  center;
+}
 
-.bag-list__item {
+.bag--show {
   display: grid;
-  grid-template-columns: 10% 30% 60%;
-  padding-top: 5%;
-  margin: 1%;
+  grid-template-rows: 1fr fr;
+}
+
+.bag-list__item, .bag-title__item {
+  display: grid;
+  grid-template-columns: 5% 10% 30% 55%;
+  margin: 1% 0;
+  font-weight: 800;
+  text-shadow: none; 
+}
+
+.bag-item--selected{
+  color: rgb(1, 188, 1);
 }
 
 .bag-item-img {
@@ -1019,16 +1026,17 @@
   background: lightgreen;
 }
 
-table {
-  width: 100%;
-  font-weight: 800;
-  text-shadow: none;
-}
-
 .bag-item-img {
   background-size: cover;
   height:25px;
   width:25px;
+}
+
+.exit-img {
+  text-align: center;
+  font-size: 1.8em;
+  border-radius: 2px;
+  border: 1px solid rgb(194, 194, 194);
 }
 
 .potion-img {
@@ -1039,4 +1047,9 @@ table {
 }
 .pokeball-img {
   background-image: url("https://www.serebii.net/itemdex/sprites/pgl/pokeball.png");
+}
+
+.pokeBallHit {
+  background: white;
+  border-radius: 200px;
 }
