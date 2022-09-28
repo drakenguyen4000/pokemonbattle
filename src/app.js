@@ -11,6 +11,7 @@ let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
 let count = 0;
+let count2 = 0;
 let optionsList;
 let optionsListItems;
 let dialogue;
@@ -27,6 +28,7 @@ let playerAttack;
 let oppDefense;
 let playerDefense;
 let playagainList;
+let bagItems;
 
 var state = {
   pokemonList: {},
@@ -115,14 +117,14 @@ const battleScreen = () => {
   //Pokemon Class Instance
   let player = "player";
   let opponent = "opponent";
-  oppAttack = state.opponentPokemon.attack;
-  playerAttack = state.playerPokemon.attack;
-  oppDefense = state.opponentPokemon.defense;
-  playerDefense = state.playerPokemon.defense;
-  oppState = state.opponentPokemon;
-  playerState = state.playerPokemon;
-  oppTotalHealth = state.opponentPokemon.health_total;
-  playerTotalHealth = state.playerPokemon.health_total;
+  oppAttack = state.opponentPokemon[0].attack;
+  playerAttack = state.playerPokemon[0].attack;
+  oppDefense = state.opponentPokemon[0].defense;
+  playerDefense = state.playerPokemon[0].defense;
+  oppState = state.opponentPokemon[0];
+  playerState = state.playerPokemon[0];
+  oppTotalHealth = state.opponentPokemon[0].health_total;
+  playerTotalHealth = state.playerPokemon[0].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
   oppPokemon = new Pokemon(
@@ -161,6 +163,8 @@ startButton.addEventListener("click", () => {
 
 pauseButton.addEventListener("click", () => {
   console.log(state);
+  console.log(count)
+  console.log(count2)
 });
 
 selectButton.addEventListener("click", () => {
@@ -182,21 +186,21 @@ selectButton.addEventListener("click", () => {
     state.optionSelected === "attack"
   ) {
     state.screen = "attack-mode";
-    state.optionSelected = state.playerPokemon.attack_1;
+    state.optionSelected = state.playerPokemon[0].attack_1;
     state.attackSelected = "attack_1";
     dialogue.innerHTML = "Pick an attack!";
     //Display attacks in infobox red
-    optionsListItems[0].lastChild.data = state.playerPokemon.attack_1;
-    optionsListItems[1].lastChild.data = state.playerPokemon.attack_2;
+    optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
+    optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
   } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
-    let playerCommands = `${state.playerPokemon.name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
+    let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     dialogue.innerHTML = playerCommands;
     state.screen = "hold-mode"; //temp turn off
     if (state.attackSelected === "attack_1") {
-      const energy = state.playerPokemon.attack_1;
+      const energy = state.playerPokemon[0].attack_1;
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -225,7 +229,7 @@ selectButton.addEventListener("click", () => {
       }, 1000);
     }
     if (state.attackSelected === "attack_2") {
-      const energy = state.playerPokemon.attack_2;
+      const energy = state.playerPokemon[0].attack_2;
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -264,10 +268,13 @@ selectButton.addEventListener("click", () => {
   ) {
     displayScreen("intro-screen", introScreen);
   }
-  // //bag (potions)
-  // else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
-  //   console.log("bag");
-  // }
+  //bag (potions)
+  else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
+    bagItems = iframeDocument.querySelector(".bag-list").children;
+    numItems = bagItems.length -1; //Stopped Here -- revise to numItems2
+    state.selectedAnswer = "Potion";
+    state.screen = "hold-mode";
+  }
   // //pokemon (load your pokemon)
   // else if (
   //   state.screen === "battle-screen" &&
@@ -335,6 +342,9 @@ downButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     count += 1;
     count > numItems ? (count = numItems) : switchDirection3("down");
+  } else if (state.optionSelected === "bag") {
+    count2 += 1;
+    count2 > numItems ? (count2 = numItems) : switchDirection4("down");
   }
 });
 
@@ -355,7 +365,11 @@ upButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     count -= 1;
     count < 0 ? (count = 0) : switchDirection3("up");
+  } else if (state.optionSelected === "bag") {
+    count2 -= 1;
+    count2 < 0 ? (count2 = 0) : switchDirection4("up");
   }
+
 });
 
 //----Enable Direction Pad Controls for Selection Screen----//
@@ -449,6 +463,21 @@ const switchDirection3 = (direction) => {
   }
 };
 
+const switchDirection4 = (direction) => {
+  switch (direction) {
+    case "down":
+      bagItems[count2 - 1].children[0].classList.remove("bag-item-img--selected");
+      bagItems[count2].children[0].classList.add("bag-item-img--selected");
+      state.selectedAnswer = bagItems[count2].children[0].nextElementSibling.textContent;
+      break;
+    case "up":
+      bagItems[count2 + 1].children[0].classList.remove("bag-item-img--selected");
+      bagItems[count2].children[0].classList.add("bag-item-img--selected");
+      state.selectedAnswer = bagItems[count2].children[0].nextElementSibling.textContent;
+      break;
+  }
+} 
+
 //Display current pokemon data to infbox
 const getDataSet = (count) => {
   //Update state with currently highlighted pokemon
@@ -484,13 +513,13 @@ const resetOptions = () => {
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
-    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon.name}'s, move.`;
+    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
   }
   setTimeout(() => {
     if (state.screen !== "gameover-screen") {
       state.attackSelected = Math.random() > 0.5 ? "attack_1" : "attack_2";
       if (state.attackSelected === "attack_1") {
-        const energy = state.opponentPokemon.attack_1;
+        const energy = state.opponentPokemon[0].attack_1;
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack");
@@ -515,7 +544,7 @@ const oppTurn = () => {
         }, 4000);
       }
       if (state.attackSelected === "attack_2") {
-        const energy = state.opponentPokemon.attack_2;
+        const energy = state.opponentPokemon[0].attack_2;
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack_2");
@@ -578,7 +607,7 @@ class Pokemon {
   battleScreen() {
     setTimeout(()=>{
       displayScreen("gameover-screen", gameoverScreen);
-    }, 3000)
+    }, 4000)
   }
   update() {
     const percentage = Math.floor((this.value / this.totHealth) * 100) + "%";
@@ -590,14 +619,10 @@ class Pokemon {
       dialogue.innerHTML = "You win!";
       state.wins += 1;
       state.screen = "gameover-screen";
-      console.log("condition running")
       this.battleScreen()
-      // battleOver();
     } else if (this.pkmState.health_active === 0) {
       dialogue.innerHTML = "You lost!";
       state.screen = "gameover-screen";
-      console.log("condition running")
-      // battleOver();
       this.battleScreen()
     }
   }
@@ -606,7 +631,7 @@ class Pokemon {
 async function init() {
   // console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
+  // displayScreen("intro-screen", introScreen);
   // setTimeout(() => {
   //   state.screen = "intro-screen";
   //   // state.screen = "battle-screen";
@@ -615,21 +640,21 @@ async function init() {
   // }, 1500);
 
   // //--Battle Screen Test load---//
-  // const response1 = await fetch("./src/player.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data1 = await response1.json().catch((err) => console.log(err));
-  // state.playerPokemon = data1;
+  const response1 = await fetch("./src/player.json").catch((err) =>
+    console.log(err)
+  );
+  const data1 = await response1.json().catch((err) => console.log(err));
+  state.playerPokemon = data1;
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2;
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2;
 
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen)
