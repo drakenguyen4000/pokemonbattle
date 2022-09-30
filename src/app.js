@@ -10,6 +10,7 @@ let iframeDocument;
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
+let numItems2; //Number of Pokemon available to select
 let count = 0;
 let count2 = 0;
 let optionsList;
@@ -269,12 +270,29 @@ selectButton.addEventListener("click", () => {
     displayScreen("intro-screen", introScreen);
   }
   //bag (potions)
-  else if (state.screen === "battle-screen" && state.optionSelected === "bag") {
+  else if (state.optionSelected === "bag") {
     bagItems = iframeDocument.querySelector(".bag-list").children;
-    numItems = bagItems.length -1; //Stopped Here -- revise to numItems2
-    state.selectedAnswer = "Potion";
+    numItems2 = bagItems.length - 1;
+    state.selectedAnswer = "Exit";
     state.screen = "hold-mode";
+    state.optionSelected = "bag-opened";
+    iframeDocument.querySelector(".bag").classList.add("bag--show");
+  } else if (state.optionSelected === "bag-opened") {
+    //Execute item picked
+    let item = state.selectedAnswer;
+    itemSelected(item);
+    //Turn off bag display
+    iframeDocument.querySelector(".bag").classList.remove("bag--show");
+    bagItems[count2].classList.remove("bag-item--selected");
+    bagItems[count2].children[1].classList.remove("bag-item-img--selected");
+    //reset options
+    state.optionSelected = "bag";
+    state.screen = "battle-screen";
+    count2 = 0;
+    bagItems[count2].classList.add("bag-item--selected");
+    bagItems[count2].children[1].classList.add("bag-item-img--selected");
   }
+  // else if (state.screen === "battle-screen" &&)
   // //pokemon (load your pokemon)
   // else if (
   //   state.screen === "battle-screen" &&
@@ -342,9 +360,9 @@ downButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     count += 1;
     count > numItems ? (count = numItems) : switchDirection3("down");
-  } else if (state.optionSelected === "bag") {
+  } else if (state.optionSelected === "bag-opened") {
     count2 += 1;
-    count2 > numItems ? (count2 = numItems) : switchDirection4("down");
+    count2 > numItems2 ? (count2 = numItems2) : switchDirection4("down");
   }
 });
 
@@ -365,7 +383,7 @@ upButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     count -= 1;
     count < 0 ? (count = 0) : switchDirection3("up");
-  } else if (state.optionSelected === "bag") {
+  } else if (state.optionSelected === "bag-opened") {
     count2 -= 1;
     count2 < 0 ? (count2 = 0) : switchDirection4("up");
   }
@@ -448,6 +466,7 @@ const switchDirection2 = (direction) => {
   }
 };
 
+//Game-over selection D-Pad Control
 const switchDirection3 = (direction) => {
   switch (direction) {
     case "down":
@@ -463,20 +482,40 @@ const switchDirection3 = (direction) => {
   }
 };
 
+//Bag items D-Pad Control
 const switchDirection4 = (direction) => {
   switch (direction) {
     case "down":
-      bagItems[count2 - 1].children[0].classList.remove("bag-item-img--selected");
-      bagItems[count2].children[0].classList.add("bag-item-img--selected");
-      state.selectedAnswer = bagItems[count2].children[0].nextElementSibling.textContent;
+      bagItems[count2 - 1].classList.remove("bag-item--selected");
+      bagItems[count2].classList.add("bag-item--selected");
+      bagItems[count2 - 1].children[1].classList.remove("bag-item-img--selected");
+      bagItems[count2].children[1].classList.add("bag-item-img--selected");
+      state.selectedAnswer = bagItems[count2].children[1].nextElementSibling.textContent;
       break;
     case "up":
-      bagItems[count2 + 1].children[0].classList.remove("bag-item-img--selected");
-      bagItems[count2].children[0].classList.add("bag-item-img--selected");
-      state.selectedAnswer = bagItems[count2].children[0].nextElementSibling.textContent;
+      bagItems[count2 + 1].classList.remove("bag-item--selected");
+      bagItems[count2].classList.add("bag-item--selected");
+      bagItems[count2 + 1].children[1].classList.remove("bag-item-img--selected");
+      bagItems[count2].children[1].classList.add("bag-item-img--selected");
+      state.selectedAnswer = bagItems[count2].children[1].nextElementSibling.textContent;
       break;
   }
 } 
+
+//Executes Bag Item selected
+const itemSelected = (item) => {
+  switch(item){
+    case "Pokeball":
+      console.log("throwb", throwPokeBall())
+    break;
+    case "Potion":
+    case "Super Potion":
+    playerPokemon.recover(item); 
+    break;  
+    default:
+      null;
+  }
+}
 
 //Display current pokemon data to infbox
 const getDataSet = (count) => {
@@ -539,7 +578,7 @@ const oppTurn = () => {
             .classList.remove("staggered");
           let attack = Math.floor(oppPokemon.attackPower("attack_1"));
           playerPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
+          // iframe.contentWindow.updateValues();
           resetOptions();
         }, 4000);
       }
@@ -566,13 +605,60 @@ const oppTurn = () => {
             .classList.remove("staggered_2");
           let attack = Math.floor(oppPokemon.attackPower("attack_2"));
           playerPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
+          // iframe.contentWindow.updateValues();
           resetOptions();
         }, 4000);
       }
     }
   }, 2000);
 };
+
+const throwPokeBall = () => {
+  // // console.log("Throws PokeBall")
+    const health = oppPokemon.pkmState.health_active;
+    if(health > 40){
+      return catchSuccess(5)
+    } else if (health < 40 && health > 30) {
+      return catchSuccess(5)
+    } else if (health < 30 && health > 20) {
+      return catchSuccess(5)
+    } else if (health < 20 && health > 10) {
+      return catchSuccess(3);
+    } else {
+      let num = Math.floor(Math.random() * 4)
+     return 2 !== num ? pokemonCaught("fail") : null;
+  }
+  //Catch Probability
+  //if health > 40% Catch chance is 1%; 1 of 100
+  //if health < 40% && > 30% Catch chance is 10%; 1 of 10
+  //if health < 30% && > 20% Catch chance is 20%; 1 of 5
+  //if health < 20% && > 10% Catch chance is 33%; 1 of 3
+  //if health < 10% Catch chance is 75%; 3/4
+}
+
+const pokemonCaught = (caught) =>{
+  console.log("running catch")
+  // iframeDocument.querySelector(".opponent__img").style.background = "red";
+  // setTimeout(()=>{
+    // iframeDocument.querySelector(".opponent__img").src ="https://www.serebii.net/itemdex/sprites/pgl/pokeball.png"
+    // iframeDocument.querySelector(".opponent__img").classList.add("opponent__img--hide");
+    iframeDocument.querySelector(".opponent").classList.add("pokeBallHit");
+  // }, 2000)
+  if(caught === "fail") {
+    setTimeout(()=>{
+      iframeDocument.querySelector(".opponent__img").classList.remove("pokeBallHit");
+      iframeDocument.querySelector(".opponent__img").classList.remove("opponent__img--hide");
+    }, 4000)
+  }
+}
+
+const catchSuccess = (n) => {
+    let num = Math.floor(Math.random() * n)
+    if(2 === num) {
+     return pokemonCaught("success");
+    }
+    return pokemonCaught("fail");
+  }
 
 //Pokemon status
 class Pokemon {
@@ -604,6 +690,15 @@ class Pokemon {
     this.value = currHealth;
     this.update();
   }
+  recover(potion) {
+    let healPoints = potion === "Potion" ? 15 : 25;
+    let currHealth = Math.floor(this.pkmState.health_active + healPoints);
+    if (currHealth >= this.pkmState.health_total) {
+      currHealth = this.pkmState.health_total;
+    }
+    this.value = currHealth;
+    this.update();
+  }
   battleScreen() {
     setTimeout(()=>{
       displayScreen("gameover-screen", gameoverScreen);
@@ -613,6 +708,7 @@ class Pokemon {
     const percentage = Math.floor((this.value / this.totHealth) * 100) + "%";
     //Health value
     this.pkmState.health_active = this.value;
+    iframe.contentWindow.updateValues();
     //Health bar level
     this.healthFillEl.style.width = percentage;
     if (this.pkmState.health_active === 0 && this.side === "opponent") {
