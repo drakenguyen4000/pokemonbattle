@@ -2090,8 +2090,15 @@ iframe {
 }
 
 .pokeBallHit {
-  background: white;
-  border-radius: 200px;
+  filter: grayscale(80%);
+}
+
+.pokeBall {
+  filter: grayscale(0%);
+  height: 40%;
+  position: absolute;
+  top: -30px;
+  right: 30px;
 }
 
 .display__gameover {

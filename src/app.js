@@ -287,10 +287,13 @@ selectButton.addEventListener("click", () => {
     bagItems[count2].children[1].classList.remove("bag-item-img--selected");
     //reset options
     state.optionSelected = "bag";
-    state.screen = "battle-screen";
     count2 = 0;
     bagItems[count2].classList.add("bag-item--selected");
     bagItems[count2].children[1].classList.add("bag-item-img--selected");
+    //Keep in hold-mode if Pokeball is used
+    if(state.selectedAnswer !== "Pokeball") {
+      state.screen = "battle-screen";
+    }
   }
   // else if (state.screen === "battle-screen" &&)
   // //pokemon (load your pokemon)
@@ -506,11 +509,11 @@ const switchDirection4 = (direction) => {
 const itemSelected = (item) => {
   switch(item){
     case "Pokeball":
-      console.log("throwb", throwPokeBall())
+      throwPokeBall();
     break;
     case "Potion":
     case "Super Potion":
-    playerPokemon.recover(item); 
+      playerPokemon.recover(item); 
     break;  
     default:
       null;
@@ -544,8 +547,8 @@ const resetOptions = () => {
     state.screen = "battle-screen";
     state.optionSelected = "attack";
     state.attackSelected = "";
-    state.selectedAnswer = "yes";
   }
+  state.selectedAnswer = "yes";
   state.optionSelected = "attack";
   state.attackSelected = "";
 };
@@ -614,47 +617,49 @@ const oppTurn = () => {
 };
 
 const throwPokeBall = () => {
-  // // console.log("Throws PokeBall")
-    const health = oppPokemon.pkmState.health_active;
-    if(health > 40){
+    //Determines catch success rate probability based on health of opponent
+    const healthPercent = Math.floor(oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total * 100);
+    if(healthPercent > 40){
+      return catchSuccess(100)
+    } else if (healthPercent < 40 && healthPercent > 30) {
+      return catchSuccess(10)
+    } else if (healthPercent < 30 && healthPercent > 20) {
       return catchSuccess(5)
-    } else if (health < 40 && health > 30) {
-      return catchSuccess(5)
-    } else if (health < 30 && health > 20) {
-      return catchSuccess(5)
-    } else if (health < 20 && health > 10) {
+    } else if (healthPercent < 20 && healthPercent > 10) {
       return catchSuccess(3);
     } else {
-      let num = Math.floor(Math.random() * 4)
-     return 2 !== num ? pokemonCaught("fail") : null;
+      const successNum = Math.floor(Math.random() * 4) + 1
+      const matchNum = Math.floor(Math.random() * 4) + 1
+     return matchNum !== successNum ? pokemonCaught("fail") : null;
   }
-  //Catch Probability
-  //if health > 40% Catch chance is 1%; 1 of 100
-  //if health < 40% && > 30% Catch chance is 10%; 1 of 10
-  //if health < 30% && > 20% Catch chance is 20%; 1 of 5
-  //if health < 20% && > 10% Catch chance is 33%; 1 of 3
-  //if health < 10% Catch chance is 75%; 3/4
 }
 
+//Pokeball catching Pokemon
 const pokemonCaught = (caught) =>{
-  console.log("running catch")
-  // iframeDocument.querySelector(".opponent__img").style.background = "red";
-  // setTimeout(()=>{
-    // iframeDocument.querySelector(".opponent__img").src ="https://www.serebii.net/itemdex/sprites/pgl/pokeball.png"
-    // iframeDocument.querySelector(".opponent__img").classList.add("opponent__img--hide");
-    iframeDocument.querySelector(".opponent").classList.add("pokeBallHit");
-  // }, 2000)
-  if(caught === "fail") {
+  iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
+  setTimeout(()=>{
+    iframeDocument.querySelector(".opponent__img").classList.remove("pokeBallHit");
+    iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
+    iframeDocument.querySelector(".opponent__img").src ="https://www.serebii.net/itemdex/sprites/pgl/pokeball.png"
     setTimeout(()=>{
-      iframeDocument.querySelector(".opponent__img").classList.remove("pokeBallHit");
-      iframeDocument.querySelector(".opponent__img").classList.remove("opponent__img--hide");
-    }, 4000)
-  }
+        //If fail, release pokemon
+      if(caught === "fail") {
+        iframeDocument.querySelector(".opponent__img").classList.remove("pokeBall");
+        iframeDocument.querySelector(".opponent__img").src = state.opponentPokemon[0].oppSprite
+        state.screen = "battle-screen";
+    } else {
+        //Else win
+        oppPokemon.damage(90000);
+        }
+    }, 3000)
+  }, 1000)
 }
 
+//Randomly catch success based on number range
 const catchSuccess = (n) => {
-    let num = Math.floor(Math.random() * n)
-    if(2 === num) {
+    let matchNum = Math.floor(Math.random() * n) + 1;
+    let successNum = Math.floor(Math.random() * n) + 1;
+    if(matchNum === successNum) {
      return pokemonCaught("success");
     }
     return pokemonCaught("fail");
