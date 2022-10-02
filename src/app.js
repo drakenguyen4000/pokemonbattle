@@ -637,13 +637,16 @@ const throwPokeBall = () => {
 //Pokeball catching Pokemon
 const pokemonCaught = (caught) =>{
   iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
+  dialogue.textContent = `You threw a pokeball.`
   setTimeout(()=>{
     iframeDocument.querySelector(".opponent__img").classList.remove("pokeBallHit");
     iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
     iframeDocument.querySelector(".opponent__img").src ="https://www.serebii.net/itemdex/sprites/pgl/pokeball.png"
+    dialogue.textContent = `You caught the ${oppPokemon.pkmState.name}...`
     setTimeout(()=>{
         //If fail, release pokemon
       if(caught === "fail") {
+        dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`
         iframeDocument.querySelector(".opponent__img").classList.remove("pokeBall");
         iframeDocument.querySelector(".opponent__img").src = state.opponentPokemon[0].oppSprite
         state.screen = "battle-screen";
@@ -651,8 +654,8 @@ const pokemonCaught = (caught) =>{
         //Else win
         oppPokemon.damage(90000);
         }
-    }, 3000)
-  }, 1000)
+    }, 3500)
+  }, 2000)
 }
 
 //Randomly catch success based on number range
@@ -702,6 +705,7 @@ class Pokemon {
       currHealth = this.pkmState.health_total;
     }
     this.value = currHealth;
+    dialogue.innerHTML = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
   }
   battleScreen() {
