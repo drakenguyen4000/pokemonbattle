@@ -39,6 +39,11 @@ var state = {
   screen: "",
   optionSelected: "attack",
   attackSelected: "",
+  bag: {
+    Potion: 3,
+    'Super Potion': 4, 
+    Pokeball: 2, 
+  },
   wins: 0,
 };
 
@@ -273,27 +278,23 @@ selectButton.addEventListener("click", () => {
   else if (state.optionSelected === "bag") {
     bagItems = iframeDocument.querySelector(".bag-list").children;
     numItems2 = bagItems.length - 1;
+    //Display bag item quantity
+    var bagItemElements = 0;
+    var bagObject = state.bag;
+    for(const prop in bagObject) {
+      bagItemElements +=1;
+      bagItems[bagItemElements].firstElementChild.textContent = `${bagObject[prop]}x`
+    }
     state.selectedAnswer = "Exit";
     state.screen = "hold-mode";
     state.optionSelected = "bag-opened";
+    
     iframeDocument.querySelector(".bag").classList.add("bag--show");
   } else if (state.optionSelected === "bag-opened") {
     //Execute item picked
     let item = state.selectedAnswer;
-    itemSelected(item);
-    //Turn off bag display
-    iframeDocument.querySelector(".bag").classList.remove("bag--show");
-    bagItems[count2].classList.remove("bag-item--selected");
-    bagItems[count2].children[1].classList.remove("bag-item-img--selected");
-    //reset options
-    state.optionSelected = "bag";
-    count2 = 0;
-    bagItems[count2].classList.add("bag-item--selected");
-    bagItems[count2].children[1].classList.add("bag-item-img--selected");
-    //Keep in hold-mode if Pokeball is used
-    if(state.selectedAnswer !== "Pokeball") {
-      state.screen = "battle-screen";
-    }
+    //Only call itemSelected function if item quantity is not zero.
+    state.bag[item] > 0 || state.selectedAnswer === "Exit" ? itemSelected(item) : null;
   }
   // else if (state.screen === "battle-screen" &&)
   // //pokemon (load your pokemon)
@@ -339,7 +340,6 @@ leftButton.addEventListener("click", () => {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection("left");
   }
-
   if (state.screen === "battle-screen" || state.screen === "attack-mode") {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection2("left");
@@ -507,6 +507,7 @@ const switchDirection4 = (direction) => {
 
 //Executes Bag Item selected
 const itemSelected = (item) => {
+  closeBag();
   switch(item){
     case "Pokeball":
       throwPokeBall();
@@ -517,6 +518,22 @@ const itemSelected = (item) => {
     break;  
     default:
       null;
+  }
+}
+
+//Turn off bag display
+const closeBag = () => {
+  iframeDocument.querySelector(".bag").classList.remove("bag--show");
+  bagItems[count2].classList.remove("bag-item--selected");
+  bagItems[count2].children[1].classList.remove("bag-item-img--selected");
+  //reset options
+  state.optionSelected = "bag";
+  count2 = 0;
+  bagItems[count2].classList.add("bag-item--selected");
+  bagItems[count2].children[1].classList.add("bag-item-img--selected");
+  //Keep in hold-mode if Pokeball is used
+  if(state.selectedAnswer !== "Pokeball") {
+    state.screen = "battle-screen";
   }
 }
 
@@ -532,6 +549,7 @@ const getDataSet = (count) => {
       <li>${selectionListItems[count].dataset.weakness}</li>`;
 };
 
+//Resets infobox Red options list
 const resetOptions = () => {
   if (state.screen !== "gameover-screen") {
     dialogue.innerHTML = `It's your move!`;
@@ -616,8 +634,9 @@ const oppTurn = () => {
   }, 2000);
 };
 
+//Determines catch success rate probability based on health of opponent
 const throwPokeBall = () => {
-    //Determines catch success rate probability based on health of opponent
+    state.bag.Pokeball -= 1;
     const healthPercent = Math.floor(oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total * 100);
     if(healthPercent > 40){
       return catchSuccess(100)
@@ -632,6 +651,16 @@ const throwPokeBall = () => {
       const matchNum = Math.floor(Math.random() * 4) + 1
      return matchNum !== successNum ? pokemonCaught("fail") : null;
   }
+}
+
+//Randomly catch success based on number range
+const catchSuccess = (n) => {
+  let matchNum = Math.floor(Math.random() * n) + 1;
+  let successNum = Math.floor(Math.random() * n) + 1;
+  if(matchNum === successNum) {
+   return pokemonCaught("success");
+  }
+  return pokemonCaught("fail");
 }
 
 //Pokeball catching Pokemon
@@ -658,15 +687,6 @@ const pokemonCaught = (caught) =>{
   }, 2000)
 }
 
-//Randomly catch success based on number range
-const catchSuccess = (n) => {
-    let matchNum = Math.floor(Math.random() * n) + 1;
-    let successNum = Math.floor(Math.random() * n) + 1;
-    if(matchNum === successNum) {
-     return pokemonCaught("success");
-    }
-    return pokemonCaught("fail");
-  }
 
 //Pokemon status
 class Pokemon {
@@ -699,6 +719,9 @@ class Pokemon {
     this.update();
   }
   recover(potion) {
+    //Determines which potion count to reduce
+    potion === "Potion" ? state.bag.Potion -= 1 : state.bag["Super Potion"] -= 1;
+    //Determines which potion to use
     let healPoints = potion === "Potion" ? 15 : 25;
     let currHealth = Math.floor(this.pkmState.health_active + healPoints);
     if (currHealth >= this.pkmState.health_total) {
