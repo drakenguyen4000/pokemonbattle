@@ -40,10 +40,11 @@ var state = {
   optionSelected: "attack",
   attackSelected: "",
   bag: {
-    Potion: 3,
-    'Super Potion': 4, 
-    Pokeball: 2, 
+    Potion: 1,
+    'Super Potion': 1,
+    Pokeball: 3, 
   },
+  yourPokemon: [], 
   itemUsed: 1,
   wins: 0,
 };
@@ -275,7 +276,7 @@ selectButton.addEventListener("click", () => {
   ) {
     displayScreen("intro-screen", introScreen);
   }
-  //bag (potions)
+  //bag (items)
   else if (state.optionSelected === "bag" && state.itemUsed !== 0) {
     bagItems = iframeDocument.querySelector(".bag-list").children;
     numItems2 = bagItems.length - 1;
@@ -298,15 +299,13 @@ selectButton.addEventListener("click", () => {
     state.bag[item] > 0 || state.selectedAnswer === "Exit" ? itemSelected(item) : null;
   } else if (state.optionSelected === "bag" && state.itemUsed === 0) {
     dialogue.textContent = "You already used an item this turn. Choose another option."
+  }  //pokemon (load your pokemon)
+  else if (
+    state.screen === "battle-screen" &&
+    state.optionSelected === "pkmon"
+  ) {
+    console.log(state.yourPokemon);
   }
-  // else if (state.screen === "battle-screen" &&)
-  // //pokemon (load your pokemon)
-  // else if (
-  //   state.screen === "battle-screen" &&
-  //   state.optionSelected === "pkmon"
-  // ) {
-  //   console.log("pkmon");
-  // }
   // //run
   // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
   //   console.log("run");
@@ -713,8 +712,8 @@ class Pokemon {
   }
   damage(attack) {
     let defensePt = this.defense * 0.025;
-    let damage = attack - defensePt;
-    // let damage = 35; //temp damage test
+    // let damage = attack - defensePt;
+    let damage = 45; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
@@ -736,7 +735,7 @@ class Pokemon {
     dialogue.textContent = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
   }
-  battleScreen() {
+  delayLoadingScreen() {
     setTimeout(()=>{
       displayScreen("gameover-screen", gameoverScreen);
     }, 4000)
@@ -752,11 +751,15 @@ class Pokemon {
       dialogue.textContent = "You win!";
       state.wins += 1;
       state.screen = "gameover-screen";
-      this.battleScreen()
+      //Win an item. Randomly.  
+      const ranNum = Math.floor((Math.random() * 3));
+      const bagItemsArr = ["Potion", "Super Potion", "Pokeball"]
+      state.bag[bagItemsArr[ranNum]] += 1;
+      this.delayLoadingScreen();
     } else if (this.pkmState.health_active === 0) {
       dialogue.textContent = "You lost!";
       state.screen = "gameover-screen";
-      this.battleScreen()
+      this.delayLoadingScreen();
     }
   }
 }
