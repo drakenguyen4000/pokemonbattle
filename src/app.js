@@ -44,6 +44,7 @@ var state = {
     'Super Potion': 4, 
     Pokeball: 2, 
   },
+  itemUsed: 1,
   wins: 0,
 };
 
@@ -194,7 +195,7 @@ selectButton.addEventListener("click", () => {
     state.screen = "attack-mode";
     state.optionSelected = state.playerPokemon[0].attack_1;
     state.attackSelected = "attack_1";
-    dialogue.innerHTML = "Pick an attack!";
+    dialogue.textContent = "Pick an attack!";
     //Display attacks in infobox red
     optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
     optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
@@ -203,7 +204,7 @@ selectButton.addEventListener("click", () => {
   } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
     let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
-    dialogue.innerHTML = playerCommands;
+    dialogue.textContent = playerCommands;
     state.screen = "hold-mode"; //temp turn off
     if (state.attackSelected === "attack_1") {
       const energy = state.playerPokemon[0].attack_1;
@@ -275,7 +276,7 @@ selectButton.addEventListener("click", () => {
     displayScreen("intro-screen", introScreen);
   }
   //bag (potions)
-  else if (state.optionSelected === "bag") {
+  else if (state.optionSelected === "bag" && state.itemUsed !== 0) {
     bagItems = iframeDocument.querySelector(".bag-list").children;
     numItems2 = bagItems.length - 1;
     //Display bag item quantity
@@ -295,6 +296,8 @@ selectButton.addEventListener("click", () => {
     let item = state.selectedAnswer;
     //Only call itemSelected function if item quantity is not zero.
     state.bag[item] > 0 || state.selectedAnswer === "Exit" ? itemSelected(item) : null;
+  } else if (state.optionSelected === "bag" && state.itemUsed === 0) {
+    dialogue.textContent = "You already used an item this turn. Choose another option."
   }
   // else if (state.screen === "battle-screen" &&)
   // //pokemon (load your pokemon)
@@ -552,7 +555,7 @@ const getDataSet = (count) => {
 //Resets infobox Red options list
 const resetOptions = () => {
   if (state.screen !== "gameover-screen") {
-    dialogue.innerHTML = `It's your move!`;
+    dialogue.textContent = `It's your move!`;
     //Resets options list
     optionsListItems[0].lastChild.data = "attack";
     optionsListItems[1].lastChild.data = "bag";
@@ -565,6 +568,7 @@ const resetOptions = () => {
     state.screen = "battle-screen";
     state.optionSelected = "attack";
     state.attackSelected = "";
+    state.itemUsed = 1;
   }
   state.selectedAnswer = "yes";
   state.optionSelected = "attack";
@@ -573,7 +577,7 @@ const resetOptions = () => {
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
-    dialogue.innerHTML = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
+    dialogue.textContent = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
   }
   setTimeout(() => {
     if (state.screen !== "gameover-screen") {
@@ -637,6 +641,7 @@ const oppTurn = () => {
 //Determines catch success rate probability based on health of opponent
 const throwPokeBall = () => {
     state.bag.Pokeball -= 1;
+    state.itemUsed = 0;
     const healthPercent = Math.floor(oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total * 100);
     if(healthPercent > 40){
       return catchSuccess(100)
@@ -687,7 +692,6 @@ const pokemonCaught = (caught) =>{
   }, 2000)
 }
 
-
 //Pokemon status
 class Pokemon {
   constructor(side, attack, defense, totalHealth, state, healthFill) {
@@ -724,11 +728,12 @@ class Pokemon {
     //Determines which potion to use
     let healPoints = potion === "Potion" ? 15 : 25;
     let currHealth = Math.floor(this.pkmState.health_active + healPoints);
+    state.itemUsed = 0;
     if (currHealth >= this.pkmState.health_total) {
       currHealth = this.pkmState.health_total;
     }
     this.value = currHealth;
-    dialogue.innerHTML = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
+    dialogue.textContent = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
   }
   battleScreen() {
@@ -744,12 +749,12 @@ class Pokemon {
     //Health bar level
     this.healthFillEl.style.width = percentage;
     if (this.pkmState.health_active === 0 && this.side === "opponent") {
-      dialogue.innerHTML = "You win!";
+      dialogue.textContent = "You win!";
       state.wins += 1;
       state.screen = "gameover-screen";
       this.battleScreen()
     } else if (this.pkmState.health_active === 0) {
-      dialogue.innerHTML = "You lost!";
+      dialogue.textContent = "You lost!";
       state.screen = "gameover-screen";
       this.battleScreen()
     }
