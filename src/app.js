@@ -134,14 +134,6 @@ const battleScreen = () => {
   //Pokemon Class Instance
   let player = "player";
   let opponent = "opponent";
-  // oppAttack = state.opponentPokemon[0].attack;
-  // playerAttack = state.playerPokemon[0].attack;
-  // oppDefense = state.opponentPokemon[0].defense;
-  // playerDefense = state.playerPokemon[0].defense;
-  // oppState = state.opponentPokemon[0];
-  // playerState = state.playerPokemon[0];
-  // oppTotalHealth = state.opponentPokemon[0].health_total;
-  // playerTotalHealth = state.playerPokemon[0].health_total;
   oppAttack = state.opponentPokemon.attack;
   playerAttack = state.playerPokemon.attack;
   oppDefense = state.opponentPokemon.defense;
@@ -211,25 +203,20 @@ selectButton.addEventListener("click", () => {
     state.optionSelected === "attack"
   ) {
     state.screen = "attack-mode";
-    // state.optionSelected = state.playerPokemon[0].attack_1;
     state.optionSelected = state.playerPokemon.attack_1;
     state.attackSelected = "attack_1";
     dialogue.textContent = "Pick an attack!";
     //Display attacks in infobox red
-    // optionsListItems[0].lastChild.data = state.playerPokemon[0].attack_1;
-    // optionsListItems[1].lastChild.data = state.playerPokemon[0].attack_2;
     optionsListItems[0].lastChild.data = state.playerPokemon.attack_1;
     optionsListItems[1].lastChild.data = state.playerPokemon.attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
   } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
-    // let playerCommands = `${state.playerPokemon[0].name}, use ${state.optionSelected} attack on ${state.opponentPokemon[0].name}!`;
     let playerCommands = `${state.playerPokemon.name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
     dialogue.textContent = playerCommands;
     state.screen = "hold-mode"; //temp turn off
     if (state.attackSelected === "attack_1") {
-      // const energy = state.playerPokemon[0].attack_1;
       const energy = state.playerPokemon.attack_1;
       setTimeout(() => {
         iframeDocument
@@ -259,7 +246,6 @@ selectButton.addEventListener("click", () => {
       }, 1000);
     }
     if (state.attackSelected === "attack_2") {
-      // const energy = state.playerPokemon[0].attack_2;
       const energy = state.playerPokemon.attack_2;
       setTimeout(() => {
         iframeDocument
@@ -603,14 +589,12 @@ const resetOptions = () => {
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
-    // dialogue.textContent = `It's your opponent, ${state.opponentPokemon[0].name}'s, move.`;
     dialogue.textContent = `It's your opponent, ${state.opponentPokemon.name}'s, move.`;
   }
   setTimeout(() => {
     if (state.screen !== "gameover-screen") {
       state.attackSelected = Math.random() > 0.5 ? "attack_1" : "attack_2";
       if (state.attackSelected === "attack_1") {
-        // const energy = state.opponentPokemon[0].attack_1;
         const energy = state.opponentPokemon.attack_1;
         iframeDocument
           .querySelector(".opponent__img")
@@ -636,7 +620,6 @@ const oppTurn = () => {
         }, 4000);
       }
       if (state.attackSelected === "attack_2") {
-        // const energy = state.opponentPokemon[0].attack_2;
         const energy = state.opponentPokemon.attack_2;
         iframeDocument
           .querySelector(".opponent__img")
@@ -711,7 +694,6 @@ const pokemonCaught = (caught) =>{
       if(caught === "fail") {
         dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`
         iframeDocument.querySelector(".opponent__img").classList.remove("pokeBall");
-        // iframeDocument.querySelector(".opponent__img").src = state.opponentPokemon[0].oppSprite;
         iframeDocument.querySelector(".opponent__img").src = state.opponentPokemon.oppSprite;
         state.screen = "battle-screen";
     } else {
