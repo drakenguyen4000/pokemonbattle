@@ -205,7 +205,8 @@ selectButton.addEventListener("click", () => {
   } else if (
     state.screen === "selected-mode" &&
     state.selectedAnswer === "no"
-  ) {//Cancel pokemon selection
+  ) {
+    //Cancel pokemon selection
     backToSelection();
   } else if (state.screen === "selection-screen") {
     selectedPokemon();
@@ -312,7 +313,6 @@ selectButton.addEventListener("click", () => {
     state.selectedAnswer = "Exit";
     state.screen = "hold-mode";
     state.optionSelected = "bag-opened";
-    
     iframeDocument.querySelector(".bag").classList.add("bag--show");
   } else if (state.optionSelected === "bag-opened") {
     //Execute item picked
@@ -327,39 +327,37 @@ selectButton.addEventListener("click", () => {
   //  //get bag element. Add show element
    iframeDocument.querySelector(".bag").classList.add("bag--show");
    iframeDocument.querySelector(".yourPkmnList").classList.add("yourPkmnList--show");
-  //**Pop Your Pokemon**//
+  //**Your Pokemon Panel**//
   //display pokemon from yourPkmn List
     const pkmonList = state.yourPkmn;
     let list = "";
-    pkmonList.forEach((pokemon)=>{
-      list += `<li class="yourPkmnList__item"><img src=${pokemon.image}><span>${pokemon.name}</span></li>`;
+    pkmonList.forEach((pokemon, i)=>{
+      list +=`<li id="card_${i}" class="selection__card"><img
+      src="${pokemon.image}"
+      class="selection__img"
+       alt="${pokemon.name}"
+       />
+      <p class="selection__name">${pokemon.name}</p>
+      <p class="selection__mystery-sign">?</p>
+      </li>`;
     });
     iframeDocument.querySelector(".yourPkmnList").innerHTML = list;
     yourPkmn = iframeDocument.querySelector(".yourPkmnList").children;
     iframeDocument.querySelector(".yourPkmnList").firstElementChild.classList.add("selection__card--selected");
     state.screen = "yourPkmn";
     numItems3 = yourPkmn.length - 1;
-    //Select Pokemon;
-    //Close Prompt
-    
-   //Limit Pokemon use limit 1
-  // displayScreen("selection-screen", selectionScreen);
-    
-  //   //Load switched in Pokemon in iframe
-    // state.playerPokemon = state.yourPkmn[0]; //temp load setup
-  //   iframe.contentWindow.switchPokemon();
-  //   loadPokemon();
-  //   playerPokemon.switchPkmnUpdate();
-  //   console.log(playerPokemon)
-
-  //  console.log(state.yourPkmn)
-
-   
+    state.playerPokemon = state.yourPkmn[0];
+    state.switchPkmn.yes = true;
   } else if (state.switchPkmn.yes === true) {
-  resetOptions();
-  // displayScreen("battle-screen", battleScreen); 
-  //Stopped here
-  //if switched out pokemon, player loses turn.
+    //Load switched in Pokemon in iframe
+    // state.playerPokemon = state.yourPkmn[2]; //temp load setup
+    iframeDocument.querySelector(".bag").classList.remove("bag--show");
+    iframe.contentWindow.switchPokemon();
+    loadPokemon();
+    playerPokemon.switchPkmnUpdate();
+    resetOptions();
+    //Limit Pokemon use limit 1    
+    //if switched out pokemon, player loses turn.
   }
   // //run
   // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
@@ -369,17 +367,19 @@ selectButton.addEventListener("click", () => {
 
 rightButton.addEventListener("click", () => {
   //Prevents count / d-pad change
-  if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
-    //Adds 1 every time user clicks right button on d-pad
-    count += 1;
-  }
+  // if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
+  //   //Adds 1 every time user clicks right button on d-pad
+  //   count += 1;
+  // }
   //Only works in selection screen, not selected-mode
   if (state.screen === "selection-screen") {
+    count += 1;
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection("right");
   }
   //Only works in battle screen
   else if (state.screen === "battle-screen") {
+    count += 1;
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection2("right");
   } else if (state.screen === "attack-mode") {
@@ -393,14 +393,16 @@ rightButton.addEventListener("click", () => {
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
-  if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
-    count -= 1;
-  }
+  // if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
+  //   count -= 1;
+  // }
   if (state.screen === "selection-screen") {
+    count -= 1;
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection("left");
   }
   if (state.screen === "battle-screen" || state.screen === "attack-mode") {
+    count -= 1;
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection2("left");
   } else if (state.screen === "yourPkmn") {
@@ -583,24 +585,29 @@ const switchDirection5 = (direction) => {
       );
       //adds selection border to current selection
       yourPkmn[count3].classList.add("selection__card--selected");
+      //Update state with currently highlighted pokemon
+      state.playerPokemon = state.yourPkmn[count3];
       break;
     case "left":
       yourPkmn[count3 + 1].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
+      state.playerPokemon = state.yourPkmn[count3];
       break;
     case "down":
       yourPkmn[count3 - 3].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
+      state.playerPokemon = state.yourPkmn[count3];
       break;
     case "up":
       yourPkmn[count3 + 3].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
+      state.playerPokemon = state.yourPkmn[count3];
       break;
   }
 };
@@ -661,16 +668,18 @@ const resetOptions = () => {
     //Reset count and arrow icon
     optionsListItems[count].children[0].classList.remove("arrow--selected");
     count = 0;
+    count2 = 0;
+    count3 = 0;
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
     state.optionSelected = "attack";
     state.attackSelected = "";
     state.itemUsed = 1;
   }
-  state.switchPkmn.yes = false;
-  state.selectedAnswer = "yes";
-  state.optionSelected = "attack";
-  state.attackSelected = "";
+    state.switchPkmn.yes = false;
+    state.selectedAnswer = "yes";
+    state.optionSelected = "attack";
+    state.attackSelected = "";
 };
 
 const oppTurn = () => {
@@ -902,7 +911,7 @@ async function init() {
   //Grab from state 3 pokemon
   const response3 = await fetch("./src/pokemonList.json").catch(err => console.log(err));
   const data = await response3.json().catch((err) => console.log(err));
-  for(let i = 0; i < data.length; i++) {
+  for(let i = 0; i < 3; i++) {
     state.yourPkmn.push(data[i]);
   }
 

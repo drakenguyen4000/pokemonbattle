@@ -979,6 +979,7 @@
   }
 }
 
+/*--bag--*/
 .bag {
   display:none;
   // height: 200px;
@@ -991,7 +992,7 @@
   z-index: 200;
   border: 5px solid rgb(169, 168, 168);
   font-size: 0.7rem;
-  border-radius:  20px;
+  // border-radius:  20px;
   padding: 2%;
 }
 
@@ -1007,7 +1008,8 @@
 .bag-list__item, .bag-title__item {
   display: grid;
   grid-template-columns: 5% 10% 30% 55%;
-  margin: 1% 0;
+  grid-gap: 1%;
+  margin: 1%;
   font-weight: 800;
   text-shadow: none; 
 }
@@ -1059,4 +1061,25 @@
    position: absolute;
    top: -30px;
    right: 30px;
+}
+
+
+.yourPkmnList {
+  display:none;
+}
+
+.yourPkmnList {
+  display:none;
+  @include dimension(100%, 100%);
+  position: absolute;
+  z-index: 300;
+  font-size: 0.7rem;
+}
+
+.yourPkmnList--show {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 1%;
+  list-style: none;
 }
