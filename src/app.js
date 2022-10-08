@@ -54,10 +54,7 @@ var state = {
   curPkmIndex: 0,
   yourPkmn: [], 
   itemUsed: 1,
-  switchPkmn: {
-    allowed: 1,
-    yes: false, 
-  },
+  switchPkmn: 1,
   wins: 0,
 };
 
@@ -325,8 +322,7 @@ selectButton.addEventListener("click", () => {
     dialogue.textContent = "You already used an item this turn. Choose another option."
   } 
   //===Pkmon option selected===// 
-   else if (state.optionSelected === "pkmon" && state.switchPkmn.yes === false) {
-  //  //get bag element. Add show element
+   else if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
    iframeDocument.querySelector(".bag").classList.add("bag--show");
    iframeDocument.querySelector(".yourPkmnList").classList.add("yourPkmnList--show");
   //**Your Pokemon Panel**//
@@ -348,24 +344,20 @@ selectButton.addEventListener("click", () => {
     iframeDocument.querySelector(".yourPkmnList").firstElementChild.classList.add("selection__card--selected");
     state.screen = "yourPkmn";
     numItems3 = yourPkmn.length - 1;
-    state.switchPkmn.yes = true;
-  } else if (state.switchPkmn.yes === true) {
+    state.optionSelected = "pkmn-switch"
+  } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
     //Load switched in Pokemon
     iframeDocument.querySelector(".bag").classList.remove("bag--show");
     iframe.contentWindow.switchPokemon();
+    state.switchPkmn = 0;
+    dialogue.textContent = `I choose, ${state.yourPkmn[state.curPkmIndex].name}!`
     loadPokemon();
     playerPokemon.switchPkmnHeatlh();
-    dialogue.textContent = `I choose, ${state.yourPkmn[state.curPkmIndex].name}!`
     setTimeout(()=>{
       oppTurn();
     }, 3000)
-    resetOptions();
-    //if pokemon is pokemon1, don't call switchPkmUpdate, 
-    //if switched out pokemon, player loses turn.
-    //Limit Pokemon use limit 1;   
-    //Add dialogue: 
-    //"You get only one Pokemon switch."
-    //""
+  } else if (state.switchPkmn === 0) {
+    dialogue.textContent = `You already switched out a Pokemon this battle. Pick another option.`
   }
   // //run
   // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
@@ -685,7 +677,6 @@ const resetOptions = () => {
     state.attackSelected = "";
     state.itemUsed = 1;
   }
-    state.switchPkmn.yes = false;
     state.selectedAnswer = "yes";
     state.optionSelected = "attack";
     state.attackSelected = "";
