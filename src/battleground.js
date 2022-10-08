@@ -1,10 +1,11 @@
-// const opponentPokemon = window.parent.state.opponentPokemon;
-// const playerPokemon = window.parent.state.playerPokemon;
-const opponentPokemon = window.parent.state.opponentPokemon[0];
-const playerPokemon = window.parent.state.playerPokemon[0];
+const opponentPokemon = window.parent.state.opponentPokemon;
+var curPkmIndex;
+let playerPokemon;
 
 const battleGround = () => {
- 
+  curPkmIndex = window.parent.state.curPkmIndex;
+  playerPokemon = window.parent.state.yourPkmn[curPkmIndex];
+  console.log(playerPokemon);
   console.log("battle screen started...");
   // Load screen for 2 seconds
   setTimeout(() => {
@@ -44,6 +45,18 @@ const battleGround = () => {
 function updateValues() {
   document.querySelector(".opponent-health__active").innerHTML =
     opponentPokemon.health_active;
+  document.querySelector(".player-health__active").innerHTML =
+    playerPokemon.health_active;
+}
+
+function switchPokemon() {
+  curPkmIndex = window.parent.state.curPkmIndex;
+  playerPokemon = window.parent.state.yourPkmn[curPkmIndex];
+  //Player
+  document.querySelector(".player__img").src = playerPokemon.playerSprite;
+  document.querySelector(".player-health__name").innerHTML = playerPokemon.name;
+  document.querySelector(".player-health__total").innerHTML =
+    playerPokemon.health_total;
   document.querySelector(".player-health__active").innerHTML =
     playerPokemon.health_active;
 }

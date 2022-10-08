@@ -51,6 +51,7 @@ var state = {
     'Super Potion': 1,
     Pokeball: 3, 
   },
+  curPkmIndex: 0,
   yourPkmn: [], 
   itemUsed: 1,
   switchPkmn: {
@@ -85,7 +86,7 @@ const selectionScreen = () => {
   //Update state with Pokemon list
   const pokemonList = iframe.contentWindow.selectionState.pokemonList;
   state.pokemonList = pokemonList;
-  //Set default pokemon
+  //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
   state.playerPokemon = pokemonList[0];
 };
 
@@ -149,13 +150,13 @@ const loadPokemon = () => {
    player = "player";
    opponent = "opponent";
    oppAttack = state.opponentPokemon.attack;
-   playerAttack = state.playerPokemon.attack;
+   playerAttack = state.yourPkmn[state.curPkmIndex].attack;
    oppDefense = state.opponentPokemon.defense;
-   playerDefense = state.playerPokemon.defense;
+   playerDefense = state.yourPkmn[state.curPkmIndex].defense;
    oppState = state.opponentPokemon;
-   playerState = state.playerPokemon;
+   playerState = state.yourPkmn[state.curPkmIndex];
    oppTotalHealth = state.opponentPokemon.health_total;
-   playerTotalHealth = state.playerPokemon.health_total;
+   playerTotalHealth = state.yourPkmn[state.curPkmIndex].health_total;
    oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
    playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
    oppPokemon = new Pokemon(
@@ -194,6 +195,7 @@ pauseButton.addEventListener("click", () => {
   console.log("numItems:", numItems)
   console.log("numItems2:", numItems2)
   console.log("numItems3:", numItems3)
+  console.log(state)
   console.log(iframeDocument.querySelector(".yourPkmnList").children)
 });
 
@@ -217,21 +219,21 @@ selectButton.addEventListener("click", () => {
     state.optionSelected === "attack"
   ) {
     state.screen = "attack-mode";
-    state.optionSelected = state.playerPokemon.attack_1;
+    state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
     state.attackSelected = "attack_1";
     dialogue.textContent = "Pick an attack!";
     //Display attacks in infobox red
-    optionsListItems[0].lastChild.data = state.playerPokemon.attack_1;
-    optionsListItems[1].lastChild.data = state.playerPokemon.attack_2;
+    optionsListItems[0].lastChild.data = state.yourPkmn[state.curPkmIndex].attack_1;
+    optionsListItems[1].lastChild.data = state.yourPkmn[state.curPkmIndex].attack_2;
     optionsListItems[2].lastChild.data = "";
     optionsListItems[3].lastChild.data = "";
   } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
-    let playerCommands = `${state.playerPokemon.name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
+    let playerCommands = `${state.yourPkmn[state.curPkmIndex].name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
     dialogue.textContent = playerCommands;
     state.screen = "hold-mode"; //temp turn off
     if (state.attackSelected === "attack_1") {
-      const energy = state.playerPokemon.attack_1;
+      const energy = state.yourPkmn[state.curPkmIndex].attack_1;
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -260,7 +262,7 @@ selectButton.addEventListener("click", () => {
       }, 1000);
     }
     if (state.attackSelected === "attack_2") {
-      const energy = state.playerPokemon.attack_2;
+      const energy = state.yourPkmn[state.curPkmIndex].attack_2;
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -346,18 +348,24 @@ selectButton.addEventListener("click", () => {
     iframeDocument.querySelector(".yourPkmnList").firstElementChild.classList.add("selection__card--selected");
     state.screen = "yourPkmn";
     numItems3 = yourPkmn.length - 1;
-    state.playerPokemon = state.yourPkmn[0];
     state.switchPkmn.yes = true;
   } else if (state.switchPkmn.yes === true) {
-    //Load switched in Pokemon in iframe
-    // state.playerPokemon = state.yourPkmn[2]; //temp load setup
+    //Load switched in Pokemon
     iframeDocument.querySelector(".bag").classList.remove("bag--show");
     iframe.contentWindow.switchPokemon();
     loadPokemon();
-    playerPokemon.switchPkmnUpdate();
+    playerPokemon.switchPkmnHeatlh();
+    dialogue.textContent = `I choose, ${state.yourPkmn[state.curPkmIndex].name}!`
+    setTimeout(()=>{
+      oppTurn();
+    }, 3000)
     resetOptions();
-    //Limit Pokemon use limit 1    
+    //if pokemon is pokemon1, don't call switchPkmUpdate, 
     //if switched out pokemon, player loses turn.
+    //Limit Pokemon use limit 1;   
+    //Add dialogue: 
+    //"You get only one Pokemon switch."
+    //""
   }
   // //run
   // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
@@ -586,28 +594,28 @@ const switchDirection5 = (direction) => {
       //adds selection border to current selection
       yourPkmn[count3].classList.add("selection__card--selected");
       //Update state with currently highlighted pokemon
-      state.playerPokemon = state.yourPkmn[count3];
+      state.curPkmIndex = count3;
       break;
     case "left":
       yourPkmn[count3 + 1].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
-      state.playerPokemon = state.yourPkmn[count3];
+      state.curPkmIndex = count3;
       break;
     case "down":
       yourPkmn[count3 - 3].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
-      state.playerPokemon = state.yourPkmn[count3];
+      state.curPkmIndex = count3;
       break;
     case "up":
       yourPkmn[count3 + 3].classList.remove(
         "selection__card--selected"
       );
       yourPkmn[count3].classList.add("selection__card--selected");
-      state.playerPokemon = state.yourPkmn[count3];
+      state.curPkmIndex = count3;
       break;
   }
 };
@@ -673,6 +681,7 @@ const resetOptions = () => {
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
     state.optionSelected = "attack";
+    state.curPkmIndex = 0;
     state.attackSelected = "";
     state.itemUsed = 1;
   }
@@ -848,9 +857,9 @@ class Pokemon {
       displayScreen("gameover-screen", gameoverScreen);
     }, 4000)
   }
-  switchPkmnUpdate() {
-    //Updates Healthbar to switched in Pokemon's health;
-    this.value = this.pkmState.health_total;
+  switchPkmnHeatlh() {
+    //Updates health bar to switched in Pokemon
+    this.value = this.pkmState.health_active;
     this.update();
   }
   update() {
@@ -890,12 +899,12 @@ async function init() {
   // }, 1500);
 
   //--Battle Screen Test load---//
-  const response1 = await fetch("./src/player.json").catch((err) =>
-    console.log(err)
-  );
-  const data1 = await response1.json().catch((err) => console.log(err));
-  state.playerPokemon = data1[0];
-  console.log(data1)
+  // const response1 = await fetch("./src/player.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data1 = await response1.json().catch((err) => console.log(err));
+  // state.playerPokemon = data1[0];
+  // console.log(data1)
 
   const response2 = await fetch("./src/opponent.json").catch((err) =>
     console.log(err)
