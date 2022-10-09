@@ -136,6 +136,7 @@ const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
   playagainList = iframeDocument.querySelector(".playagain").children;
   numItems = playagainList.length - 1;
+  state.yourPkmn = [];
   resetOptions();
 };
 
@@ -191,19 +192,29 @@ pauseButton.addEventListener("click", () => {
   console.log("numItems2:", numItems2);
   console.log("numItems3:", numItems3);
   console.log(state);
-  console.log(iframeDocument.querySelector(".yourPkmnList").children);
 });
 
 selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
   if (
     state.screen === "selected-mode" &&
-    state.selectedAnswer === "yes" &&
-    state.optionSelected === "attack"
+    state.selectedAnswer === "yes" 
+    // && state.optionSelected === "attack"
   ) {
-    //Start Opponent Selection screen
-    displayScreen("opp-selection-screen", oppSelectionScreen);
-  } else if (
+    //Pokemon team selection. Player cannot select same Pokemon on team.
+    if(state.yourPkmn.find(e => e.name === state.playerPokemon.name)){
+      backToSelection();
+      iframeDocument.querySelector(".infobox__text-choose").textContent = "You already picked this Pokemon. Select another."
+    } else {
+      state.yourPkmn.push(state.playerPokemon);
+      state.yourPkmn.length === 3 ? displayScreen("opp-selection-screen", oppSelectionScreen) : null;
+      let remainingNum = 3 - state.yourPkmn.length;
+      iframeDocument.querySelector(".infobox__text-choose").textContent = `Select ${remainingNum} Pokemon for battle.`
+      selectionListItems[count].classList.add("selection__card--unavaible")
+      backToSelection();
+    }
+  } //Start Opponent Selection screen
+    else if (
     state.screen === "selected-mode" &&
     state.selectedAnswer === "no"
   ) {
@@ -942,13 +953,13 @@ class Pokemon {
 async function init() {
   // console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
-  // setTimeout(() => {
-  //   state.screen = "intro-screen";
-  //   // state.screen = "battle-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
-  // }, 1500);
+  displayScreen("intro-screen", introScreen);
+  setTimeout(() => {
+    state.screen = "intro-screen";
+    // state.screen = "battle-screen";
+    document.getElementsByName("screen-display")[0].src =
+      state.screen + ".html";
+  }, 1500);
 
   //--Battle Screen Test load---//
   // const response1 = await fetch("./src/player.json").catch((err) =>
@@ -958,25 +969,25 @@ async function init() {
   // state.playerPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
 
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
-  //==Temp load a pokemon team==//
-  //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 0; i < 3; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // //==Temp load a pokemon team==//
+  // //Grab from state 3 pokemon
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 0; i < 3; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen)

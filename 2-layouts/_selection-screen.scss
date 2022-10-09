@@ -15,7 +15,8 @@
 
 .selection__list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 1%;
   list-style: none;
 }
@@ -28,6 +29,7 @@
   border: 2px solid #5198ab;
   border-radius: 3px;
   filter: grayscale(70%);
+  overflow: hidden;
 }
 
 .selection__mystery-card--show {
@@ -61,6 +63,7 @@
   align-self: center;
   justify-self: center;
   height: 90%;
+  max-height: 90px;
   aspect-ratio: 1/1;
 }
 
@@ -78,6 +81,15 @@
 .selection__card--selected {
   border: 3px solid #f87030;
   filter: grayscale(0);
+  border: 2px solid #0aecff;
+}
+
+/*marks selection unavaible*/
+.selection__card--unavaible {
+  background-color: rgb(235, 135, 135);
+  img{
+    filter: grayscale(100);
+  }
 }
 
 /*selection-infobox*/
@@ -93,6 +105,7 @@
 }
 
 .infobox__container {
+  min-height: 80px;
   padding: 1px;
   background: #ffffff;
   border-radius: 5px;
@@ -113,11 +126,6 @@
     align-items: center;
     margin-left: 2%;
   }
-}
-
-.option-grid{
-  display: grid;
-  grid-template-columns: 50% 50%;
 }
 
 .infobox__text {
