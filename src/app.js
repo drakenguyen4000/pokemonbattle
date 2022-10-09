@@ -312,6 +312,7 @@ selectButton.addEventListener("click", () => {
     state.selectedAnswer = "Exit";
     state.screen = "hold-mode";
     state.optionSelected = "bag-opened";
+    iframeDocument.querySelector(".backpack").classList.add("backpack--show");
     iframeDocument.querySelector(".bag").classList.add("bag--show");
   } else if (state.optionSelected === "bag-opened") {
     //Execute item picked
@@ -323,7 +324,7 @@ selectButton.addEventListener("click", () => {
   } 
   //===Pkmon option selected===// 
    else if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
-   iframeDocument.querySelector(".bag").classList.add("bag--show");
+   iframeDocument.querySelector(".backpack").classList.add("backpack--show");
    iframeDocument.querySelector(".yourPkmnList").classList.add("yourPkmnList--show");
   //**Your Pokemon Panel**//
   //display pokemon from yourPkmn List
@@ -347,9 +348,9 @@ selectButton.addEventListener("click", () => {
     state.optionSelected = "pkmn-switch"
   } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
     //Load switched in Pokemon
-    iframeDocument.querySelector(".bag").classList.remove("bag--show");
+    iframeDocument.querySelector(".backpack").classList.remove("backpack--show");
     iframe.contentWindow.switchPokemon();
-    state.switchPkmn = 0;
+    // state.switchPkmn = 0;
     dialogue.textContent = `I choose, ${state.yourPkmn[state.curPkmIndex].name}!`
     loadPokemon();
     playerPokemon.switchPkmnHeatlh();
@@ -630,6 +631,7 @@ const itemSelected = (item) => {
 
 //Turn off bag display
 const closeBag = () => {
+  iframeDocument.querySelector(".backpack").classList.remove("backpack--show");
   iframeDocument.querySelector(".bag").classList.remove("bag--show");
   bagItems[count2].classList.remove("bag-item--selected");
   bagItems[count2].children[1].classList.remove("bag-item-img--selected");
@@ -673,7 +675,6 @@ const resetOptions = () => {
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
     state.optionSelected = "attack";
-    state.curPkmIndex = 0;
     state.attackSelected = "";
     state.itemUsed = 1;
   }

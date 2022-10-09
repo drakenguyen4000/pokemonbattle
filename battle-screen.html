@@ -12,7 +12,10 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="https://kit.fontawesome.com/6cd6827a69.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/6cd6827a69.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Pokemon Battles</title>
   </head>
   <body>
@@ -23,43 +26,49 @@
       </div>
     </div>
     <div class="battle-container">
-    <div class="bag">
-      <h3>Press Select to Pick An Item</h3>
-      <ul class="bag-title">
-        <li class="bag-title__item">
-          <span></span>
-          <span></span>
-          <span>Item</span>
-          <span>Effect</span>
-        </li>
-      </ul>
-      <ul class="bag-list">
-        <li class="bag-list__item bag-item--selected">
-          <span></span>
-          <span class="bag-item-img exit-img bag-item-img--selected"><i class="fa-solid fa-xmark"></i></span>
-          <span>Exit</span>
-          <span></span>
-        </li>
-        <li class="bag-list__item">
-          <span>1x</span>
-          <img class="bag-item-img potion-img"/>
-          <span>Potion</span>
-          <span>Restores a Pokémon's HP by 15.</span>
-        </li>
-        <li class="bag-list__item">
-          <span>1x</span>
-          <img class="bag-item-img super-potion-img"/>
-          <span>Super Potion</span>
-          <span>Restores a Pokémon's HP by 25.</span>
-        </li>
-        <li class="bag-list__item">
-          <span>1x</span>
-          <img class="bag-item-img pokeball-img"/>
-          <span>Pokeball</span>
-          <span>Use to capture pokemon.</span>
-        </li>
-      </ul>
-    </div>
+      <div class="backpack">
+        <ul class="yourPkmnList"></ul>
+        <div class="bag">
+          <h3>Press Select to Pick An Item</h3>
+          <ul class="bag-title">
+            <li class="bag-title__item">
+              <span></span>
+              <span></span>
+              <span>Item</span>
+              <span>Effect</span>
+            </li>
+          </ul>
+          <ul class="bag-list">
+            <li class="bag-list__item bag-item--selected">
+              <span></span>
+              <span class="bag-item-img exit-img bag-item-img--selected"
+                ><i class="fa-solid fa-xmark"></i
+              ></span>
+              <span>Exit</span>
+              <span></span>
+            </li>
+            <li class="bag-list__item">
+              <span></span>
+              <img class="bag-item-img potion-img" />
+              <span>Potion</span>
+              <span>Restores a Pokémon's HP by 15.</span>
+            </li>
+            <li class="bag-list__item">
+              <span></span>
+              <img class="bag-item-img super-potion-img" />
+              <span>Super Potion</span>
+              <span>Restores a Pokémon's HP by 25.</span>
+            </li>
+            <li class="bag-list__item">
+              <span></span>
+              <img class="bag-item-img pokeball-img" />
+              <span>Pokeball</span>
+              <span>Use to capture pokemon.</span>
+            </li>
+          </ul>
+          <p>Note: You can only use 1 item per turn.</p>
+        </div>
+      </div>
       <div class="sky-background">
         <div class="opponent-health">
           <p class="opponent-health__name"></p>
@@ -70,27 +79,25 @@
                 <div class="opponent-health__bar--fill"></div>
               </span>
             </div>
-            <span class="opponent-health__point"><span class="opponent-health__active"></span>/<span class="opponent-health__total"></span></span>
+            <span class="opponent-health__point"
+              ><span class="opponent-health__active"></span>/<span
+                class="opponent-health__total"
+              ></span
+            ></span>
           </div>
         </div>
       </div>
       <div class="grass-background">
         <div class="opponent">
           <i class="player-energy"></i>
-          <img style="border: 1px solid red;"
-            src=""
-            class="opponent__img"
-          />
+          <img style="border: 1px solid red" src="" class="opponent__img" />
           <div class="opponent__circle"></div>
         </div>
       </div>
       <div class="player-wrapper">
         <div class="player">
           <i class="opponent-energy"></i>
-          <img style="border: 1px solid red;"
-            src=""
-            class="player__img"
-          />
+          <img style="border: 1px solid red" src="" class="player__img" />
           <div class="player__circle"></div>
         </div>
         <div class="player-health">
@@ -102,21 +109,31 @@
                 <div class="player-health__bar--fill"></div>
               </span>
             </div>
-            <span class="player-health__point"><span class="player-health__active"></span>/<span class="player-health__total"></span></span>
+            <span class="player-health__point"
+              ><span class="player-health__active"></span>/<span
+                class="player-health__total"
+              ></span
+            ></span>
           </div>
         </div>
       </div>
       <div class="infobox">
         <div class="infobox__container infobox__container--yellow">
-          <p class="infobox__text">
-            Your foe SQUIRTLE is paralyzed! It maybe be unable to move!
-          </p>
+          <p class="infobox__text">...</p>
         </div>
         <div class="infobox__container infobox__container--red option-grid">
-          <span class="option option--attack"><span class="arrow arrow--selected">&#9658;</span>attack</span>
-          <span class="option option--bag"><span class="arrow">&#9658;</span>bag</span>
-          <span class="option option--pokemon"><span class="arrow">&#9658;</span>pkmon</span>
-          <span class="option option--run"><span class="arrow">&#9658;</span>run</span>
+          <span class="option option--attack"
+            ><span class="arrow arrow--selected">&#9658;</span>attack</span
+          >
+          <span class="option option--bag"
+            ><span class="arrow">&#9658;</span>bag</span
+          >
+          <span class="option option--pokemon"
+            ><span class="arrow">&#9658;</span>pkmon</span
+          >
+          <span class="option option--run"
+            ><span class="arrow">&#9658;</span>run</span
+          >
         </div>
         <!-- <div class="infobox__container infobox__container--red option-grid">
           <span class="option-attack option-attack--1"><span class="arrow arrow--selected">&#9658;</span>Electric</span>

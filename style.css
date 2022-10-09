@@ -376,7 +376,8 @@ iframe {
 
 .selection__list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 1%;
   list-style: none;
 }
@@ -390,6 +391,7 @@ iframe {
   border: 2px solid #5198ab;
   border-radius: 3px;
   filter: grayscale(70%);
+  overflow: hidden;
 }
 
 .selection__mystery-card--show {
@@ -423,6 +425,7 @@ iframe {
   align-self: center;
   justify-self: center;
   height: 90%;
+  max-height: 90px;
   aspect-ratio: 1/1;
 }
 
@@ -2018,7 +2021,8 @@ iframe {
     transform: rotate(-5deg);
   }
 }
-.bag {
+/*--Backpack--*/
+.backpack {
   display: none;
   height: 60%;
   width: 96%;
@@ -2029,12 +2033,16 @@ iframe {
   z-index: 200;
   border: 5px solid rgb(169, 168, 168);
   font-size: 0.7rem;
-  border-radius: 20px;
   padding: 2%;
 }
 
-.bag > h3 {
-  text-align: center;
+.backpack--show {
+  display: grid;
+}
+
+.bag {
+  display: none;
+  grid-template-rows: 1fr fr;
 }
 
 .bag--show {
@@ -2042,10 +2050,15 @@ iframe {
   grid-template-rows: 1fr fr;
 }
 
+.bag > h3 {
+  text-align: center;
+}
+
 .bag-list__item, .bag-title__item {
   display: grid;
   grid-template-columns: 5% 10% 30% 55%;
-  margin: 1% 0;
+  grid-gap: 1%;
+  margin: 1%;
   font-weight: 800;
   text-shadow: none;
 }
@@ -2099,6 +2112,27 @@ iframe {
   position: absolute;
   top: -30px;
   right: 30px;
+}
+
+.yourPkmnList {
+  display: none;
+}
+
+.yourPkmnList {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 300;
+  font-size: 0.7rem;
+}
+
+.yourPkmnList--show {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 1%;
+  list-style: none;
 }
 
 .display__gameover {

@@ -979,8 +979,8 @@
   }
 }
 
-/*--bag--*/
-.bag {
+/*--Backpack--*/
+.backpack {
   display:none;
   // height: 200px;
   // width: 350px;
@@ -996,13 +996,22 @@
   padding: 2%;
 }
 
-.bag > h3 {
-  text-align:  center;
+.backpack--show {
+  display: grid;
+}
+
+.bag {
+  display: none;
+  grid-template-rows: 1fr fr;
 }
 
 .bag--show {
   display: grid;
   grid-template-rows: 1fr fr;
+}
+
+.bag > h3 {
+  text-align:  center;
 }
 
 .bag-list__item, .bag-title__item {
