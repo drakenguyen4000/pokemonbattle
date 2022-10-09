@@ -6,9 +6,7 @@ const upButton = document.querySelector(".d-pad__btn--up");
 const selectButton = document.querySelector(".btn-select");
 const pauseButton = document.querySelector(".btn-pause");
 let iframe = document.getElementById("iframe");
-let iframe2 = document.getElementById("iframe2"); //Temp
 let iframeDocument;
-let iframeDocument2;
 let selectionList;
 let selectionListItems;
 let numItems; //Number of Pokemon available to select
@@ -48,11 +46,11 @@ var state = {
   attackSelected: "",
   bag: {
     Potion: 1,
-    'Super Potion': 1,
-    Pokeball: 3, 
+    "Super Potion": 1,
+    Pokeball: 3,
   },
   curPkmIndex: 0,
-  yourPkmn: [], 
+  yourPkmn: [],
   itemUsed: 1,
   switchPkmn: 1,
   wins: 0,
@@ -143,36 +141,36 @@ const gameoverScreen = () => {
 
 /*Pokemon Class*/
 const loadPokemon = () => {
-   //Pokemon Class Instance
-   player = "player";
-   opponent = "opponent";
-   oppAttack = state.opponentPokemon.attack;
-   playerAttack = state.yourPkmn[state.curPkmIndex].attack;
-   oppDefense = state.opponentPokemon.defense;
-   playerDefense = state.yourPkmn[state.curPkmIndex].defense;
-   oppState = state.opponentPokemon;
-   playerState = state.yourPkmn[state.curPkmIndex];
-   oppTotalHealth = state.opponentPokemon.health_total;
-   playerTotalHealth = state.yourPkmn[state.curPkmIndex].health_total;
-   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
-   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
-   oppPokemon = new Pokemon(
-     opponent,
-     oppAttack,
-     oppDefense,
-     oppTotalHealth,
-     oppState,
-     oppHealthFill
-   );
-   playerPokemon = new Pokemon(
-     player,
-     playerAttack,
-     playerDefense,
-     playerTotalHealth,
-     playerState,
-     playerHealthFill
-   );
-}
+  //Pokemon Class Instance
+  player = "player";
+  opponent = "opponent";
+  oppAttack = state.opponentPokemon.attack;
+  playerAttack = state.yourPkmn[state.curPkmIndex].attack;
+  oppDefense = state.opponentPokemon.defense;
+  playerDefense = state.yourPkmn[state.curPkmIndex].defense;
+  oppState = state.opponentPokemon;
+  playerState = state.yourPkmn[state.curPkmIndex];
+  oppTotalHealth = state.opponentPokemon.health_total;
+  playerTotalHealth = state.yourPkmn[state.curPkmIndex].health_total;
+  oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
+  playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
+  oppPokemon = new Pokemon(
+    opponent,
+    oppAttack,
+    oppDefense,
+    oppTotalHealth,
+    oppState,
+    oppHealthFill
+  );
+  playerPokemon = new Pokemon(
+    player,
+    playerAttack,
+    playerDefense,
+    playerTotalHealth,
+    playerState,
+    playerHealthFill
+  );
+};
 
 //*Buttons*//
 //------------------------Control Buttons------------------------//
@@ -186,19 +184,23 @@ startButton.addEventListener("click", () => {
 
 pauseButton.addEventListener("click", () => {
   console.log("state:", state);
-  console.log("count:", count)
-  console.log("count2:", count2)
-  console.log("count3:", count3)
-  console.log("numItems:", numItems)
-  console.log("numItems2:", numItems2)
-  console.log("numItems3:", numItems3)
-  console.log(state)
-  console.log(iframeDocument.querySelector(".yourPkmnList").children)
+  console.log("count:", count);
+  console.log("count2:", count2);
+  console.log("count3:", count3);
+  console.log("numItems:", numItems);
+  console.log("numItems2:", numItems2);
+  console.log("numItems3:", numItems3);
+  console.log(state);
+  console.log(iframeDocument.querySelector(".yourPkmnList").children);
 });
 
 selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
-  if (state.screen === "selected-mode" && state.selectedAnswer === "yes" && state.optionSelected === "attack") {
+  if (
+    state.screen === "selected-mode" &&
+    state.selectedAnswer === "yes" &&
+    state.optionSelected === "attack"
+  ) {
     //Start Opponent Selection screen
     displayScreen("opp-selection-screen", oppSelectionScreen);
   } else if (
@@ -209,84 +211,6 @@ selectButton.addEventListener("click", () => {
     backToSelection();
   } else if (state.screen === "selection-screen") {
     selectedPokemon();
-  }
-  //===attack option selected===//
-  else if (
-    state.screen === "battle-screen" &&
-    state.optionSelected === "attack"
-  ) {
-    state.screen = "attack-mode";
-    state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
-    state.attackSelected = "attack_1";
-    dialogue.textContent = "Pick an attack!";
-    //Display attacks in infobox red
-    optionsListItems[0].lastChild.data = state.yourPkmn[state.curPkmIndex].attack_1;
-    optionsListItems[1].lastChild.data = state.yourPkmn[state.curPkmIndex].attack_2;
-    optionsListItems[2].lastChild.data = "";
-    optionsListItems[3].lastChild.data = "";
-  } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
-    //Displays user command in infobox yellow
-    let playerCommands = `${state.yourPkmn[state.curPkmIndex].name}, use ${state.optionSelected} attack on ${state.opponentPokemon.name}!`;
-    dialogue.textContent = playerCommands;
-    state.screen = "hold-mode"; //temp turn off
-    if (state.attackSelected === "attack_1") {
-      const energy = state.yourPkmn[state.curPkmIndex].attack_1;
-      setTimeout(() => {
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("player-attack");
-        iframeDocument
-          .querySelector(".player-energy")
-          .classList.add(`player-${energy}--animate`);
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.add("staggered");
-        setTimeout(() => {
-          iframeDocument
-            .querySelector(".player__img")
-            .classList.remove("player-attack");
-          iframeDocument
-            .querySelector(".player-energy")
-            .classList.remove(`player-${energy}--animate`);
-          iframeDocument
-            .querySelector(".opponent__img")
-            .classList.remove("staggered");
-          let attack = Math.floor(playerPokemon.attackPower("attack_1"));
-          oppPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
-          oppTurn(); //temp turn off
-        }, 4000);
-      }, 1000);
-    }
-    if (state.attackSelected === "attack_2") {
-      const energy = state.yourPkmn[state.curPkmIndex].attack_2;
-      setTimeout(() => {
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("player-attack_2");
-        iframeDocument
-          .querySelector(".player-energy")
-          .classList.add(`player-${energy}--animate`);
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.add("staggered_2");
-        setTimeout(() => {
-          iframeDocument
-            .querySelector(".player__img")
-            .classList.remove("player-attack_2");
-          iframeDocument
-            .querySelector(".player-energy")
-            .classList.remove(`player-${energy}--animate`);
-          iframeDocument
-            .querySelector(".opponent__img")
-            .classList.remove("staggered_2");
-          let attack = Math.floor(playerPokemon.attackPower("attack_2"));
-          oppPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
-          oppTurn(); //temp turn off
-        }, 4000);
-      }, 1000);
-    }
   } else if (
     state.screen === "gameover-screen" &&
     state.selectedAnswer === "yes"
@@ -298,72 +222,31 @@ selectButton.addEventListener("click", () => {
   ) {
     displayScreen("intro-screen", introScreen);
   }
-  //===bag (items)===// 
-  else if (state.optionSelected === "bag" && state.itemUsed !== 0) {
-    bagItems = iframeDocument.querySelector(".bag-list").children;
-    numItems2 = bagItems.length - 1;
-    //Display bag item quantity
-    var bagItemElements = 0;
-    var bagObject = state.bag;
-    for(const prop in bagObject) {
-      bagItemElements +=1;
-      bagItems[bagItemElements].firstElementChild.textContent = `${bagObject[prop]}x`
-    }
-    state.selectedAnswer = "Exit";
-    state.screen = "hold-mode";
-    state.optionSelected = "bag-opened";
-    iframeDocument.querySelector(".backpack").classList.add("backpack--show");
-    iframeDocument.querySelector(".bag").classList.add("bag--show");
-  } else if (state.optionSelected === "bag-opened") {
-    //Execute item picked
-    let item = state.selectedAnswer;
-    //Only call itemSelected function if item quantity is not zero.
-    state.bag[item] > 0 || state.selectedAnswer === "Exit" ? itemSelected(item) : null;
-  } else if (state.optionSelected === "bag" && state.itemUsed === 0) {
-    dialogue.textContent = "You already used an item this turn. Choose another option."
-  } 
-  //===Pkmon option selected===// 
-   else if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
-   iframeDocument.querySelector(".backpack").classList.add("backpack--show");
-   iframeDocument.querySelector(".yourPkmnList").classList.add("yourPkmnList--show");
-  //**Your Pokemon Panel**//
-  //display pokemon from yourPkmn List
-    const pkmonList = state.yourPkmn;
-    let list = "";
-    pkmonList.forEach((pokemon, i)=>{
-      list +=`<li id="card_${i}" class="selection__card"><img
-      src="${pokemon.image}"
-      class="selection__img"
-       alt="${pokemon.name}"
-       />
-      <p class="selection__name">${pokemon.name}</p>
-      <p class="selection__mystery-sign">?</p>
-      </li>`;
-    });
-    iframeDocument.querySelector(".yourPkmnList").innerHTML = list;
-    yourPkmn = iframeDocument.querySelector(".yourPkmnList").children;
-    iframeDocument.querySelector(".yourPkmnList").firstElementChild.classList.add("selection__card--selected");
-    state.screen = "yourPkmn";
-    numItems3 = yourPkmn.length - 1;
-    state.optionSelected = "pkmn-switch"
-  } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
-    //Load switched in Pokemon
-    iframeDocument.querySelector(".backpack").classList.remove("backpack--show");
-    iframe.contentWindow.switchPokemon();
-    // state.switchPkmn = 0;
-    dialogue.textContent = `I choose, ${state.yourPkmn[state.curPkmIndex].name}!`
-    loadPokemon();
-    playerPokemon.switchPkmnHeatlh();
-    setTimeout(()=>{
-      oppTurn();
-    }, 3000)
-  } else if (state.switchPkmn === 0) {
-    dialogue.textContent = `You already switched out a Pokemon this battle. Pick another option.`
+  //===attack option selected===//
+  else if (
+    state.optionSelected === "attack" ||
+    state.screen === "attack-mode"
+  ) {
+    attackOption();
   }
-  // //run
-  // else if (state.screen === "battle-screen" && state.optionSelected === "run") {
-  //   console.log("run");
-  // }
+  //===bag (items)===//
+  else if (
+    state.optionSelected === "bag" ||
+    state.optionSelected === "bag-opened"
+  ) {
+    bagOption();
+  }
+  //===Pkmon option===//
+  else if (
+    state.optionSelected === "pkmon" ||
+    state.optionSelected === "pkmn-switch"
+  ) {
+    pkmonOption();
+  }
+  //===run option===//
+  else if (state.optionSelected === "run") {
+    runOption();
+  }
 });
 
 rightButton.addEventListener("click", () => {
@@ -384,10 +267,11 @@ rightButton.addEventListener("click", () => {
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection2("right");
   } else if (state.screen === "attack-mode") {
+    count += 1;
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > 1 ? (count = 1) : switchDirection2("right");
   } else if (state.screen === "yourPkmn") {
-    count3 +=1;
+    count3 += 1;
     count3 > numItems3 ? (count3 = numItems3) : switchDirection5("right");
   }
 });
@@ -407,7 +291,7 @@ leftButton.addEventListener("click", () => {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection2("left");
   } else if (state.screen === "yourPkmn") {
-    count3 -=1;
+    count3 -= 1;
     count3 < 0 ? (count3 = 0) : switchDirection5("left");
   }
 });
@@ -433,7 +317,7 @@ downButton.addEventListener("click", () => {
     count2 += 1;
     count2 > numItems2 ? (count2 = numItems2) : switchDirection4("down");
   } else if (state.screen === "yourPkmn") {
-    count3 +=3;
+    count3 += 3;
     count3 > numItems3 ? (count3 -= 3) : switchDirection5("down");
   }
 });
@@ -459,7 +343,7 @@ upButton.addEventListener("click", () => {
     count2 -= 1;
     count2 < 0 ? (count2 = 0) : switchDirection4("up");
   } else if (state.screen === "yourPkmn") {
-    count3 -=3;
+    count3 -= 3;
     count3 < 0 ? (count3 += 3) : switchDirection5("up");
   }
 });
@@ -563,71 +447,237 @@ const switchDirection4 = (direction) => {
     case "down":
       bagItems[count2 - 1].classList.remove("bag-item--selected");
       bagItems[count2].classList.add("bag-item--selected");
-      bagItems[count2 - 1].children[1].classList.remove("bag-item-img--selected");
+      bagItems[count2 - 1].children[1].classList.remove(
+        "bag-item-img--selected"
+      );
       bagItems[count2].children[1].classList.add("bag-item-img--selected");
-      state.selectedAnswer = bagItems[count2].children[1].nextElementSibling.textContent;
+      state.selectedAnswer =
+        bagItems[count2].children[1].nextElementSibling.textContent;
       break;
     case "up":
       bagItems[count2 + 1].classList.remove("bag-item--selected");
       bagItems[count2].classList.add("bag-item--selected");
-      bagItems[count2 + 1].children[1].classList.remove("bag-item-img--selected");
+      bagItems[count2 + 1].children[1].classList.remove(
+        "bag-item-img--selected"
+      );
       bagItems[count2].children[1].classList.add("bag-item-img--selected");
-      state.selectedAnswer = bagItems[count2].children[1].nextElementSibling.textContent;
+      state.selectedAnswer =
+        bagItems[count2].children[1].nextElementSibling.textContent;
       break;
   }
-} 
+};
 
 const switchDirection5 = (direction) => {
   switch (direction) {
     case "right":
       //removes selection border from previous selection
-      yourPkmn[count3 - 1].classList.remove(
-        "selection__card--selected"
-      );
+      yourPkmn[count3 - 1].classList.remove("selection__card--selected");
       //adds selection border to current selection
       yourPkmn[count3].classList.add("selection__card--selected");
       //Update state with currently highlighted pokemon
       state.curPkmIndex = count3;
       break;
     case "left":
-      yourPkmn[count3 + 1].classList.remove(
-        "selection__card--selected"
-      );
+      yourPkmn[count3 + 1].classList.remove("selection__card--selected");
       yourPkmn[count3].classList.add("selection__card--selected");
       state.curPkmIndex = count3;
       break;
     case "down":
-      yourPkmn[count3 - 3].classList.remove(
-        "selection__card--selected"
-      );
+      yourPkmn[count3 - 3].classList.remove("selection__card--selected");
       yourPkmn[count3].classList.add("selection__card--selected");
       state.curPkmIndex = count3;
       break;
     case "up":
-      yourPkmn[count3 + 3].classList.remove(
-        "selection__card--selected"
-      );
+      yourPkmn[count3 + 3].classList.remove("selection__card--selected");
       yourPkmn[count3].classList.add("selection__card--selected");
       state.curPkmIndex = count3;
       break;
   }
 };
 
+
+const attackOption = () => {
+  if (state.optionSelected === "attack") {
+    state.screen = "attack-mode";
+    state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
+    state.attackSelected = "attack_1";
+    dialogue.textContent = "Pick an attack!";
+    //Display attacks in infobox red
+    optionsListItems[0].lastChild.data =
+      state.yourPkmn[state.curPkmIndex].attack_1;
+    optionsListItems[1].lastChild.data =
+      state.yourPkmn[state.curPkmIndex].attack_2;
+    optionsListItems[2].lastChild.data = "";
+    optionsListItems[3].lastChild.data = "";
+  } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
+    //Displays user command in infobox yellow
+    let playerCommands = `${state.yourPkmn[state.curPkmIndex].name}, use ${
+      state.optionSelected
+    } attack on ${state.opponentPokemon.name}!`;
+    dialogue.textContent = playerCommands;
+    state.screen = "hold-mode"; //temp turn off
+    if (state.attackSelected === "attack_1") {
+      const energy = state.yourPkmn[state.curPkmIndex].attack_1;
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("player-attack");
+        iframeDocument
+          .querySelector(".player-energy")
+          .classList.add(`player-${energy}--animate`);
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.add("staggered");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("player-attack");
+          iframeDocument
+            .querySelector(".player-energy")
+            .classList.remove(`player-${energy}--animate`);
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("staggered");
+          let attack = Math.floor(playerPokemon.attackPower("attack_1"));
+          oppPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          oppTurn(); //temp turn off
+        }, 4000);
+      }, 1000);
+    }
+    if (state.attackSelected === "attack_2") {
+      const energy = state.yourPkmn[state.curPkmIndex].attack_2;
+      setTimeout(() => {
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("player-attack_2");
+        iframeDocument
+          .querySelector(".player-energy")
+          .classList.add(`player-${energy}--animate`);
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.add("staggered_2");
+        setTimeout(() => {
+          iframeDocument
+            .querySelector(".player__img")
+            .classList.remove("player-attack_2");
+          iframeDocument
+            .querySelector(".player-energy")
+            .classList.remove(`player-${energy}--animate`);
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("staggered_2");
+          let attack = Math.floor(playerPokemon.attackPower("attack_2"));
+          oppPokemon.damage(attack);
+          iframe.contentWindow.updateValues();
+          oppTurn(); //temp turn off
+        }, 4000);
+      }, 1000);
+    }
+  }
+};
+
+const bagOption = () => {
+  if (state.optionSelected === "bag" && state.itemUsed !== 0) {
+    bagItems = iframeDocument.querySelector(".bag-list").children;
+    numItems2 = bagItems.length - 1;
+    //Display bag item quantity
+    var bagItemElements = 0;
+    var bagObject = state.bag;
+    for (const prop in bagObject) {
+      bagItemElements += 1;
+      bagItems[
+        bagItemElements
+      ].firstElementChild.textContent = `${bagObject[prop]}x`;
+    }
+    state.selectedAnswer = "Exit";
+    state.screen = "hold-mode";
+    state.optionSelected = "bag-opened";
+    iframeDocument.querySelector(".backpack").classList.add("backpack--show");
+    iframeDocument.querySelector(".bag").classList.add("bag--show");
+  } else if (state.optionSelected === "bag-opened") {
+    //Execute item picked
+    let item = state.selectedAnswer;
+    //Only call itemSelected function if item quantity is not zero.
+    state.bag[item] > 0 || state.selectedAnswer === "Exit"
+      ? itemSelected(item)
+      : null;
+  } else if (state.optionSelected === "bag" && state.itemUsed === 0) {
+    dialogue.textContent =
+      "You already used an item this turn. Choose another option.";
+  }
+};
+
+const runOption = () => {
+  dialogue.textContent = `You can't run! Keep fighting!`;
+};
+
+const pkmonOption = () => {
+  if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
+    iframeDocument.querySelector(".backpack").classList.add("backpack--show");
+    iframeDocument
+      .querySelector(".yourPkmnList")
+      .classList.add("yourPkmnList--show");
+    //**Your Pokemon Panel**//
+    //display pokemon from yourPkmn List
+    const pkmonList = state.yourPkmn;
+    let list = "";
+    pkmonList.forEach((pokemon, i) => {
+      list += `<li id="card_${i}" class="selection__card"><img
+      src="${pokemon.image}"
+      class="selection__img"
+       alt="${pokemon.name}"
+       />
+      <p class="selection__name">${pokemon.name}</p>
+      <p class="selection__mystery-sign">?</p>
+      </li>`;
+    });
+    iframeDocument.querySelector(".yourPkmnList").innerHTML = list;
+    yourPkmn = iframeDocument.querySelector(".yourPkmnList").children;
+    iframeDocument
+      .querySelector(".yourPkmnList")
+      .firstElementChild.classList.add("selection__card--selected");
+    state.screen = "yourPkmn";
+    numItems3 = yourPkmn.length - 1;
+    state.optionSelected = "pkmn-switch";
+  } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
+    //Load switched in Pokemon
+    iframeDocument
+      .querySelector(".backpack")
+      .classList.remove("backpack--show");
+    iframeDocument
+      .querySelector(".yourPkmnList")
+      .classList.remove("yourPkmnList--show");
+    iframe.contentWindow.switchPokemon();
+    state.switchPkmn = 0;
+    dialogue.textContent = `I choose, ${
+      state.yourPkmn[state.curPkmIndex].name
+    }!`;
+    loadPokemon();
+    playerPokemon.switchPkmnHeatlh();
+    setTimeout(() => {
+      oppTurn();
+    }, 3000);
+  } else if (state.switchPkmn === 0) {
+    dialogue.textContent = `You already switched out a Pokemon this battle. Pick another option.`;
+  }
+};
+
 //Executes Bag Item selected
 const itemSelected = (item) => {
   closeBag();
-  switch(item){
+  switch (item) {
     case "Pokeball":
       throwPokeBall();
-    break;
+      break;
     case "Potion":
     case "Super Potion":
-      playerPokemon.recover(item); 
-    break;  
+      playerPokemon.recover(item);
+      break;
     default:
       null;
   }
-}
+};
 
 //Turn off bag display
 const closeBag = () => {
@@ -641,10 +691,10 @@ const closeBag = () => {
   bagItems[count2].classList.add("bag-item--selected");
   bagItems[count2].children[1].classList.add("bag-item-img--selected");
   //Keep in hold-mode if Pokeball is used
-  if(state.selectedAnswer !== "Pokeball") {
+  if (state.selectedAnswer !== "Pokeball") {
     state.screen = "battle-screen";
   }
-}
+};
 
 //Display current pokemon data to infbox
 const getDataSet = (count) => {
@@ -678,9 +728,9 @@ const resetOptions = () => {
     state.attackSelected = "";
     state.itemUsed = 1;
   }
-    state.selectedAnswer = "yes";
-    state.optionSelected = "attack";
-    state.attackSelected = "";
+  state.selectedAnswer = "yes";
+  state.optionSelected = "attack";
+  state.attackSelected = "";
 };
 
 const oppTurn = () => {
@@ -748,57 +798,65 @@ const oppTurn = () => {
 
 //Determines catch success rate probability based on health of opponent
 const throwPokeBall = () => {
-    state.bag.Pokeball -= 1;
-    state.itemUsed = 0;
-    const healthPercent = Math.floor(oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total * 100);
-    if(healthPercent > 40){
-      return catchSuccess(100)
-    } else if (healthPercent < 40 && healthPercent > 30) {
-      return catchSuccess(10)
-    } else if (healthPercent < 30 && healthPercent > 20) {
-      return catchSuccess(5)
-    } else if (healthPercent < 20 && healthPercent > 10) {
-      return catchSuccess(3);
-    } else {
-      const successNum = Math.floor(Math.random() * 4) + 1
-      const matchNum = Math.floor(Math.random() * 4) + 1
-     return matchNum !== successNum ? pokemonCaught("fail") : null;
+  state.bag.Pokeball -= 1;
+  state.itemUsed = 0;
+  const healthPercent = Math.floor(
+    (oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total) * 100
+  );
+  if (healthPercent > 40) {
+    return catchSuccess(100);
+  } else if (healthPercent < 40 && healthPercent > 30) {
+    return catchSuccess(10);
+  } else if (healthPercent < 30 && healthPercent > 20) {
+    return catchSuccess(5);
+  } else if (healthPercent < 20 && healthPercent > 10) {
+    return catchSuccess(3);
+  } else {
+    const successNum = Math.floor(Math.random() * 4) + 1;
+    const matchNum = Math.floor(Math.random() * 4) + 1;
+    return matchNum !== successNum ? pokemonCaught("fail") : null;
   }
-}
+};
 
 //Randomly catch success based on number range
 const catchSuccess = (n) => {
   let matchNum = Math.floor(Math.random() * n) + 1;
   let successNum = Math.floor(Math.random() * n) + 1;
-  if(matchNum === successNum) {
-   return pokemonCaught("success");
+  if (matchNum === successNum) {
+    return pokemonCaught("success");
   }
   return pokemonCaught("fail");
-}
+};
 
 //Pokeball catching Pokemon
-const pokemonCaught = (caught) =>{
+const pokemonCaught = (caught) => {
   iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
-  dialogue.textContent = `You threw a pokeball.`
-  setTimeout(()=>{
-    iframeDocument.querySelector(".opponent__img").classList.remove("pokeBallHit");
+  dialogue.textContent = `You threw a pokeball.`;
+  setTimeout(() => {
+    iframeDocument
+      .querySelector(".opponent__img")
+      .classList.remove("pokeBallHit");
     iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
-    iframeDocument.querySelector(".opponent__img").src ="https://www.serebii.net/itemdex/sprites/pgl/pokeball.png"
-    dialogue.textContent = `You caught the ${oppPokemon.pkmState.name}...`
-    setTimeout(()=>{
-        //If fail, release pokemon
-      if(caught === "fail") {
-        dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`
-        iframeDocument.querySelector(".opponent__img").classList.remove("pokeBall");
-        iframeDocument.querySelector(".opponent__img").src = state.opponentPokemon.oppSprite;
+    iframeDocument.querySelector(".opponent__img").src =
+      "https://www.serebii.net/itemdex/sprites/pgl/pokeball.png";
+    dialogue.textContent = `You caught the ${oppPokemon.pkmState.name}...`;
+    setTimeout(() => {
+      //If fail, release pokemon
+      if (caught === "fail") {
+        dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
+        iframeDocument
+          .querySelector(".opponent__img")
+          .classList.remove("pokeBall");
+        iframeDocument.querySelector(".opponent__img").src =
+          state.opponentPokemon.oppSprite;
         state.screen = "battle-screen";
-    } else {
+      } else {
         //Else win
         oppPokemon.damage(90000);
-        }
-    }, 3500)
-  }, 2000)
-}
+      }
+    }, 3500);
+  }, 2000);
+};
 
 //Pokemon status
 class Pokemon {
@@ -832,7 +890,9 @@ class Pokemon {
   }
   recover(potion) {
     //Determines which potion count to reduce
-    potion === "Potion" ? state.bag.Potion -= 1 : state.bag["Super Potion"] -= 1;
+    potion === "Potion"
+      ? (state.bag.Potion -= 1)
+      : (state.bag["Super Potion"] -= 1);
     //Determines which potion to use
     let healPoints = potion === "Potion" ? 15 : 25;
     let currHealth = Math.floor(this.pkmState.health_active + healPoints);
@@ -845,9 +905,9 @@ class Pokemon {
     this.update();
   }
   delayLoadingScreen() {
-    setTimeout(()=>{
+    setTimeout(() => {
       displayScreen("gameover-screen", gameoverScreen);
-    }, 4000)
+    }, 4000);
   }
   switchPkmnHeatlh() {
     //Updates health bar to switched in Pokemon
@@ -866,9 +926,9 @@ class Pokemon {
       dialogue.textContent = "You win!";
       state.wins += 1;
       state.screen = "gameover-screen";
-      //Win an item. Randomly.  
-      const ranNum = Math.floor((Math.random() * 3));
-      const bagItemsArr = ["Potion", "Super Potion", "Pokeball"]
+      //Win an item. Randomly.
+      const ranNum = Math.floor(Math.random() * 3);
+      const bagItemsArr = ["Potion", "Super Potion", "Pokeball"];
       state.bag[bagItemsArr[ranNum]] += 1;
       this.delayLoadingScreen();
     } else if (this.pkmState.health_active === 0) {
@@ -910,9 +970,11 @@ async function init() {
 
   //==Temp load a pokemon team==//
   //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch(err => console.log(err));
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
   const data = await response3.json().catch((err) => console.log(err));
-  for(let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
     state.yourPkmn.push(data[i]);
   }
 
