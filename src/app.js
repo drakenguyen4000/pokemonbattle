@@ -136,7 +136,6 @@ const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
   playagainList = iframeDocument.querySelector(".playagain").children;
   numItems = playagainList.length - 1;
-  state.yourPkmn = [];
   resetOptions();
 };
 
@@ -198,26 +197,28 @@ selectButton.addEventListener("click", () => {
   //Selects Pokemon in Selection Screen
   if (
     state.screen === "selected-mode" &&
-    state.selectedAnswer === "yes" 
+    state.selectedAnswer === "yes"
     // && state.optionSelected === "attack"
   ) {
     //Pokemon team selection. Player cannot select same Pokemon on team.
-    if(state.yourPkmn.find(e => e.name === state.playerPokemon.name)){
+    if (state.yourPkmn.find((e) => e.name === state.playerPokemon.name)) {
       backToSelection();
-      iframeDocument.querySelector(".infobox__text-choose").textContent = "You already picked this Pokemon. Select another."
+      iframeDocument.querySelector(".infobox__text-choose").textContent =
+        "You already picked this Pokemon. Select another.";
     } else {
       state.yourPkmn.push(state.playerPokemon);
-      state.yourPkmn.length === 3 ? displayScreen("opp-selection-screen", oppSelectionScreen) : null;
+      state.yourPkmn.length === 3
+        ? displayScreen("opp-selection-screen", oppSelectionScreen)
+        : null;
       let remainingNum = 3 - state.yourPkmn.length;
-      iframeDocument.querySelector(".infobox__text-choose").textContent = `Select ${remainingNum} Pokemon for battle.`
-      selectionListItems[count].classList.add("selection__card--unavaible")
+      iframeDocument.querySelector(
+        ".infobox__text-choose"
+      ).textContent = `Select ${remainingNum} more Pokemon for battle.`;
+      selectionListItems[count].classList.add("selection__card--unavaible");
       backToSelection();
     }
   } //Start Opponent Selection screen
-    else if (
-    state.screen === "selected-mode" &&
-    state.selectedAnswer === "no"
-  ) {
+  else if (state.screen === "selected-mode" && state.selectedAnswer === "no") {
     //Cancel pokemon selection
     backToSelection();
   } else if (state.screen === "selection-screen") {
@@ -235,6 +236,7 @@ selectButton.addEventListener("click", () => {
   }
   //===attack option selected===//
   else if (
+    state.screen === "battle-screen" &&
     state.optionSelected === "attack" ||
     state.screen === "attack-mode"
   ) {
@@ -506,7 +508,6 @@ const switchDirection5 = (direction) => {
   }
 };
 
-
 const attackOption = () => {
   if (state.optionSelected === "attack") {
     state.screen = "attack-mode";
@@ -721,7 +722,13 @@ const getDataSet = (count) => {
 
 //Resets infobox Red options list
 const resetOptions = () => {
-  if (state.screen !== "gameover-screen") {
+  if (state.screen === "gameover-screen") {
+    state.switchPkmn = 1;
+    state.yourPkmn = [];
+    numItems = 0;
+    numItems2 = 0;
+    numItems3 = 3;
+  } else {
     dialogue.textContent = `It's your move!`;
     //Resets options list
     optionsListItems[0].lastChild.data = "attack";
@@ -735,13 +742,11 @@ const resetOptions = () => {
     count3 = 0;
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
-    state.optionSelected = "attack";
-    state.attackSelected = "";
     state.itemUsed = 1;
   }
-  state.selectedAnswer = "yes";
-  state.optionSelected = "attack";
-  state.attackSelected = "";
+    state.optionSelected = "attack";
+    state.attackSelected = "";
+    state.selectedAnswer = "yes";
 };
 
 const oppTurn = () => {
