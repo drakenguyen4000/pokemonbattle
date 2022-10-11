@@ -52,6 +52,7 @@ var state = {
   curPkmIndex: 0,
   yourPkmn: [],
   itemUsed: 1,
+  captured: false,
   switchPkmn: 1,
   wins: 0,
 };
@@ -527,7 +528,7 @@ const attackOption = () => {
       state.optionSelected
     } attack on ${state.opponentPokemon.name}!`;
     dialogue.textContent = playerCommands;
-    state.screen = "hold-mode"; //temp turn off
+    state.screen = "hold-mode";
     if (state.attackSelected === "attack_1") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_1;
       setTimeout(() => {
@@ -553,7 +554,7 @@ const attackOption = () => {
           let attack = Math.floor(playerPokemon.attackPower("attack_1"));
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
-          oppTurn(); //temp turn off
+          oppTurn(); 
         }, 4000);
       }, 1000);
     }
@@ -582,7 +583,7 @@ const attackOption = () => {
           let attack = Math.floor(playerPokemon.attackPower("attack_2"));
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
-          oppTurn(); //temp turn off
+          oppTurn();
         }, 4000);
       }, 1000);
     }
@@ -777,7 +778,6 @@ const oppTurn = () => {
             .classList.remove("staggered");
           let attack = Math.floor(oppPokemon.attackPower("attack_1"));
           playerPokemon.damage(attack);
-          // iframe.contentWindow.updateValues();
           resetOptions();
         }, 4000);
       }
@@ -804,7 +804,6 @@ const oppTurn = () => {
             .classList.remove("staggered_2");
           let attack = Math.floor(oppPokemon.attackPower("attack_2"));
           playerPokemon.damage(attack);
-          // iframe.contentWindow.updateValues();
           resetOptions();
         }, 4000);
       }
@@ -828,16 +827,15 @@ const throwPokeBall = () => {
   } else if (healthPercent < 20 && healthPercent > 10) {
     return catchSuccess(3);
   } else {
-    const successNum = Math.floor(Math.random() * 4) + 1;
-    const matchNum = Math.floor(Math.random() * 4) + 1;
-    return matchNum !== successNum ? pokemonCaught("fail") : null;
-  }
+    return catchSuccess(2);
+  } 
 };
 
 //Randomly catch success based on number range
 const catchSuccess = (n) => {
   let matchNum = Math.floor(Math.random() * n) + 1;
   let successNum = Math.floor(Math.random() * n) + 1;
+  console.log(matchNum, successNum)
   if (matchNum === successNum) {
     return pokemonCaught("success");
   }
@@ -847,7 +845,7 @@ const catchSuccess = (n) => {
 //Pokeball catching Pokemon
 const pokemonCaught = (caught) => {
   iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
-  dialogue.textContent = `You threw a pokeball.`;
+  dialogue.textContent = "'Go pokeball!'";
   setTimeout(() => {
     iframeDocument
       .querySelector(".opponent__img")
@@ -856,9 +854,11 @@ const pokemonCaught = (caught) => {
     iframeDocument.querySelector(".opponent__img").src =
       "https://www.serebii.net/itemdex/sprites/pgl/pokeball.png";
     dialogue.textContent = `You caught the ${oppPokemon.pkmState.name}...`;
+    state.captured = true;
     setTimeout(() => {
       //If fail, release pokemon
       if (caught === "fail") {
+        state.captured = false;
         dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
         iframeDocument
           .querySelector(".opponent__img")
@@ -866,9 +866,22 @@ const pokemonCaught = (caught) => {
         iframeDocument.querySelector(".opponent__img").src =
           state.opponentPokemon.oppSprite;
         state.screen = "battle-screen";
-      } else {
-        //Else win
+      } else if (caught === "success") {
+        //Reduce Opponent Pokemon if caught success during battle.
         oppPokemon.damage(90000);
+      } else {
+        state.wins += 1;
+        //Win an item. Randomly.
+        const ranNum = Math.floor(Math.random() * 3);
+        const bagItemsArr = ["Potion", "Super Potion", "Pokeball"];
+        const itemWon = bagItemsArr[ranNum];
+        state.bag[itemWon] += 1;
+        // display winning item infobox red;
+        dialogue.textContent = "You win!";
+        // dialogue.textContent = `You gained an extra ${itemWon} this battle.`
+        setTimeout(()=>{
+          playerPokemon.delayLoadingScreen();
+        }, 1500)
       }
     }, 3500);
   }, 2000);
@@ -896,7 +909,7 @@ class Pokemon {
   damage(attack) {
     let defensePt = this.defense * 0.025;
     // let damage = attack - defensePt;
-    let damage = 15; //temp damage test
+    let damage = 43; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
@@ -939,14 +952,12 @@ class Pokemon {
     //Health bar level
     this.healthFillEl.style.width = percentage;
     if (this.pkmState.health_active === 0 && this.side === "opponent") {
-      dialogue.textContent = "You win!";
-      state.wins += 1;
+      //If win was from catching in a pokemon, do throw another pokeball.
       state.screen = "gameover-screen";
-      //Win an item. Randomly.
-      const ranNum = Math.floor(Math.random() * 3);
-      const bagItemsArr = ["Potion", "Super Potion", "Pokeball"];
-      state.bag[bagItemsArr[ranNum]] += 1;
-      this.delayLoadingScreen();
+      dialogue.textContent = `It's health is 0.`
+      setTimeout(()=>{
+        state.captured === true ? null : pokemonCaught(null);
+      }, 1500)
     } else if (this.pkmState.health_active === 0) {
       dialogue.textContent = "You lost!";
       state.screen = "gameover-screen";
@@ -958,41 +969,41 @@ class Pokemon {
 async function init() {
   // console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    // state.screen = "battle-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
+  // displayScreen("intro-screen", introScreen);
+  // setTimeout(() => {
+  //   state.screen = "intro-screen";
+  //   // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  // }, 1500);
 
   //--Battle Screen Test load---//
-  // const response1 = await fetch("./src/player.json").catch((err) =>
-  //   console.log(err)
-  // );
+  const response1 = await fetch("./src/player.json").catch((err) =>
+    console.log(err)
+  );
   // const data1 = await response1.json().catch((err) => console.log(err));
   // state.playerPokemon = data1[0];
   // console.log(data1)
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2[0];
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2[0];
 
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
-  // //==Temp load a pokemon team==//
-  // //Grab from state 3 pokemon
-  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data = await response3.json().catch((err) => console.log(err));
-  // for (let i = 0; i < 3; i++) {
-  //   state.yourPkmn.push(data[i]);
-  // }
+  //==Temp load a pokemon team==//
+  //Grab from state 3 pokemon
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response3.json().catch((err) => console.log(err));
+  for (let i = 1; i < 3; i++) {
+    state.yourPkmn.push(data[i]);
+  }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen)
