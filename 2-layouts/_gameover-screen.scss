@@ -14,8 +14,20 @@
   border-radius: 0 0 5px 5px;
 }
 
-.gameover-gameover {
+.lost, .win {
   text-transform: uppercase;
+}
+
+.win {
+  display: none;
+}
+
+.win--show {
+  display: block;
+}
+
+.lost--hide {
+  display: none;
 }
 
 .playagain {

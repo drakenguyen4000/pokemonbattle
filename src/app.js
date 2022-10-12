@@ -45,9 +45,9 @@ var state = {
   optionSelected: "attack",
   attackSelected: "",
   bag: {
-    Potion: 1,
-    "Super Potion": 1,
-    Pokeball: 3,
+    Potion: 5,
+    "Super Potion": 5,
+    Pokeball: 10,
   },
   curPkmIndex: 0,
   yourPkmn: [],
@@ -135,9 +135,12 @@ const battleScreen = () => {
 
 const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
+  if(state.wins === 3) {
+    iframeDocument.querySelector(".lost").classList.add("lost--hide");
+    iframeDocument.querySelector(".win").classList.add("win--show");
+  }
   playagainList = iframeDocument.querySelector(".playagain").children;
   numItems = playagainList.length - 1;
-  resetOptions();
 };
 
 /*Pokemon Class*/
@@ -228,11 +231,13 @@ selectButton.addEventListener("click", () => {
     state.screen === "gameover-screen" &&
     state.selectedAnswer === "yes"
   ) {
+    resetOptions();
     displayScreen("selection-screen", selectionScreen);
   } else if (
     state.screen === "gameover-screen" &&
     state.selectedAnswer === "no"
   ) {
+    resetOptions();
     displayScreen("intro-screen", introScreen);
   }
   //===attack option selected===//
@@ -723,11 +728,11 @@ const getDataSet = (count) => {
 //Resets infobox Red options list
 const resetOptions = () => {
   if (state.screen === "gameover-screen") {
-    state.switchPkmn = 1;
-    state.yourPkmn = [];
+    state.yourPkmn = []; 
     numItems = 0;
     numItems2 = 0;
-    numItems3 = 3;
+    numItems3 = 0;
+    state.wins = 0;
   } else {
     dialogue.textContent = `It's your move!`;
     //Resets options list
@@ -852,7 +857,7 @@ const pokemonCaught = (caught) => {
     iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
     iframeDocument.querySelector(".opponent__img").src =
       "https://www.serebii.net/itemdex/sprites/pgl/pokeball.png";
-    dialogue.textContent = `You caught the ${oppPokemon.pkmState.name}...`;
+    dialogue.textContent = `You caught ${oppPokemon.pkmState.name}...`;
     state.captured = true;
     setTimeout(() => {
       //If fail, release pokemon
@@ -940,14 +945,15 @@ class Pokemon {
     //Health bar level
     this.healthFillEl.style.width = percentage;
     if (this.pkmState.health_active === 0 && this.side === "opponent") {
-      //If win was from catching in a pokemon, do throw another pokeball.
+      //You win
       state.screen = "gameover-screen";
       dialogue.textContent = `It's health is 0.`;
       setTimeout(() => {
-        //If Pokemon has not been captured, use Pokemon.
+        //If Pokemon has not been captured, use Pokeball.
         state.captured === false ? pokemonCaught(null) : this.win();
       }, 1500);
     } else if (this.pkmState.health_active === 0) {
+      //You lost
       dialogue.textContent = "You lost!";
       state.screen = "gameover-screen";
       this.delayLoadingScreen();
@@ -961,24 +967,37 @@ class Pokemon {
     const itemWon = bagItemsArr[ranNum];
     state.bag[itemWon] += 1;
     // display winning item infobox red;
-    dialogue.textContent = "You win!";
+    dialogue.textContent = `You win ${state.wins} round.`;
+    //Add Caught Pokemon to your team
+    state.yourPkmn.push(state.opponentPokemon)
+    //Reset 
+    state.captured = false;
+    state.switchPkmn = 1;
     // dialogue.textContent = `You gained an extra ${itemWon} this battle.`
     setTimeout(() => {
-      this.delayLoadingScreen();
+      if(state.wins === 3) {
+        //You win a Pokemon badge //Gameover
+        displayScreen("gameover-screen", gameoverScreen);
+      } else {
+        //Continue Battle Rounds
+        displayScreen("opp-selection-screen", oppSelectionScreen);
+      }
+      //Restore all pokemon when new round starts
+      //win 5, game ends
     }, 1500);
   }
 }
 
 async function init() {
-  // console.log("starting up app...");
+  console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
-  // setTimeout(() => {
-  //   state.screen = "intro-screen";
-  //   // state.screen = "battle-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
-  // }, 1500);
+  displayScreen("intro-screen", introScreen);
+  setTimeout(() => {
+    state.screen = "intro-screen";
+    // state.screen = "battle-screen";
+    document.getElementsByName("screen-display")[0].src =
+      state.screen + ".html";
+  }, 1500);
 
   //--Battle Screen Test load---//
   const response1 = await fetch("./src/player.json").catch((err) =>
@@ -988,28 +1007,28 @@ async function init() {
   // state.playerPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
 
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
-  //==Temp load a pokemon team==//
-  //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 1; i < 3; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // //==Temp load a pokemon team==//
+  // //Grab from state 3 pokemon
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 1; i < 3; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
-  // displayScreen("gameover-screen", gameoverScreen)
+  // displayScreen("gameover-screen", gameoverScreen);
 }
 
 init();
