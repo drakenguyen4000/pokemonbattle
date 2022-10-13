@@ -115,10 +115,10 @@ const selectedPokemon = () => {
 async function oppSelectionScreen() {
   //Restore your pokemon health;
   const yourTeam = state.yourPkmn;
-  yourTeam.forEach((el)=>{
+  yourTeam.forEach((el) => {
     el.health_active = el.health_total;
-  })
-  
+  });
+
   //Wait for content to load
   const nextScreen = await iframe.contentWindow.oppScreenLoad();
   //Get Opponent Pokemon and store in state
@@ -131,8 +131,6 @@ async function oppSelectionScreen() {
 //Loads iframe of Battle Screen
 const battleScreen = () => {
   iframeDocument = iframe.contentWindow.document;
-  //Reset Your Pokemon controls
-  state.curPkmIndex = 0;
   dialogue = iframeDocument.querySelector(".infobox__text");
   optionsList = iframeDocument.querySelector(".infobox__container--red");
   //Get list of all options in infobox box red
@@ -143,7 +141,7 @@ const battleScreen = () => {
 
 const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
-  if(state.wins === 3) {
+  if (state.wins === 3) {
     iframeDocument.querySelector(".lost").classList.add("lost--hide");
     iframeDocument.querySelector(".win").classList.add("win--show");
   }
@@ -523,6 +521,8 @@ const switchDirection5 = (direction) => {
 };
 
 const attackOption = () => {
+  console.log("curPkmIndex:", state.curPkmIndex);
+  console.log("currentPkmn:", state.yourPkmn[state.curPkmIndex])
   if (state.optionSelected === "attack") {
     state.screen = "attack-mode";
     state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
@@ -640,6 +640,8 @@ const runOption = () => {
 
 const pkmonOption = () => {
   if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
+    //Always default your Pokemon to first on list
+    state.curPkmIndex = 0;
     iframeDocument.querySelector(".backpack").classList.add("backpack--show");
     iframeDocument
       .querySelector(".yourPkmnList")
@@ -737,7 +739,7 @@ const getDataSet = (count) => {
 //Resets infobox Red options list
 const resetOptions = () => {
   if (state.screen === "gameover-screen") {
-    state.yourPkmn = []; 
+    state.yourPkmn = [];
     numItems = 0;
     numItems2 = 0;
     numItems3 = 0;
@@ -935,9 +937,10 @@ class Pokemon {
     dialogue.textContent = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
   }
-  delayLoadingScreen() {
+  delayLoadingScreen(screen, screenFunc) {
+    state.switchPkmn = 1;
     setTimeout(() => {
-      displayScreen("gameover-screen", gameoverScreen);
+      displayScreen(screen, screenFunc);
     }, 4000);
   }
   switchPkmnHeatlh() {
@@ -962,37 +965,36 @@ class Pokemon {
         state.captured === false ? pokemonCaught(null) : this.win();
       }, 1500);
     } else if (this.pkmState.health_active === 0) {
-      //You lose
-      dialogue.textContent = "You lost!";
-      state.screen = "gameover-screen";
-      this.delayLoadingScreen();
+      this.lose();
     }
   }
   win() {
     state.wins += 1;
-    //Win an item. Randomly.
+    //Receive an extra item randomly
     const ranNum = Math.floor(Math.random() * 3);
     const bagItemsArr = ["Potion", "Super Potion", "Pokeball"];
     const itemWon = bagItemsArr[ranNum];
     state.bag[itemWon] += 1;
-    // display winning item infobox red;
+    //display winning item infobox red
     dialogue.textContent = `You win ${state.wins} round.`;
     //Add Caught Pokemon to your team
-    state.yourPkmn.push(state.opponentPokemon)
-    //Reset 
+    state.yourPkmn.push(state.opponentPokemon);
+    //Reset
     state.captured = false;
-    state.switchPkmn = 1;
     //Restore all pokemon when new round starts
     // dialogue.textContent = `You gained an extra ${itemWon} this battle.`
-    setTimeout(() => {
-      if(state.wins === 3) {
-        //You win a Pokemon badge //Gameover
-        displayScreen("gameover-screen", gameoverScreen);
-      } else {
-        //Continue Battle Rounds
-        displayScreen("opp-selection-screen", oppSelectionScreen);
-      }
-    }, 1500);
+    if (state.wins === 2) {
+      //You win a Pokemon badge //Gameover
+      this.delayLoadingScreen("gameover-screen", gameoverScreen);
+    } else {
+      //Continue Battle Rounds
+      this.delayLoadingScreen("opp-selection-screen", oppSelectionScreen);
+    }
+  }
+  lose() {
+    dialogue.textContent = "You lost!";
+    state.screen = "gameover-screen";
+    this.delayLoadingScreen("gameover-screen", gameoverScreen);
   }
 }
 
