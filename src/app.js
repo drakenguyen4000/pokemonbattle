@@ -38,7 +38,7 @@ let yourPkmn;
 
 var state = {
   pokemonList: {},
-  playerPokemon: {},
+  curSelectPokemon: {},
   opponentPokemon: {},
   selectedAnswer: "yes",
   screen: "",
@@ -83,7 +83,7 @@ const selectionScreen = () => {
   const pokemonList = iframe.contentWindow.selectionState.pokemonList;
   state.pokemonList = pokemonList;
   //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
-  state.playerPokemon = pokemonList[0];
+  state.curSelectPokemon = pokemonList[0];
 };
 
 //In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
@@ -113,6 +113,12 @@ const selectedPokemon = () => {
 
 //Loads iframe of Opponent Selection Screen
 async function oppSelectionScreen() {
+  //Restore your pokemon health;
+  const yourTeam = state.yourPkmn;
+  yourTeam.forEach((el)=>{
+    el.health_active = el.health_total;
+  })
+  
   //Wait for content to load
   const nextScreen = await iframe.contentWindow.oppScreenLoad();
   //Get Opponent Pokemon and store in state
@@ -125,6 +131,8 @@ async function oppSelectionScreen() {
 //Loads iframe of Battle Screen
 const battleScreen = () => {
   iframeDocument = iframe.contentWindow.document;
+  //Reset Your Pokemon controls
+  state.curPkmIndex = 0;
   dialogue = iframeDocument.querySelector(".infobox__text");
   optionsList = iframeDocument.querySelector(".infobox__container--red");
   //Get list of all options in infobox box red
@@ -205,12 +213,12 @@ selectButton.addEventListener("click", () => {
     // && state.optionSelected === "attack"
   ) {
     //Pokemon team selection. Player cannot select same Pokemon on team.
-    if (state.yourPkmn.find((e) => e.name === state.playerPokemon.name)) {
+    if (state.yourPkmn.find((e) => e.name === state.curSelectPokemon.name)) {
       backToSelection();
       iframeDocument.querySelector(".infobox__text-choose").textContent =
         "You already picked this Pokemon. Select another.";
     } else {
-      state.yourPkmn.push(state.playerPokemon);
+      state.yourPkmn.push(state.curSelectPokemon);
       state.yourPkmn.length === 3
         ? displayScreen("opp-selection-screen", oppSelectionScreen)
         : null;
@@ -485,6 +493,7 @@ const switchDirection4 = (direction) => {
   }
 };
 
+//Switch out Pokemon
 const switchDirection5 = (direction) => {
   switch (direction) {
     case "right":
@@ -716,7 +725,7 @@ const closeBag = () => {
 //Display current pokemon data to infbox
 const getDataSet = (count) => {
   //Update state with currently highlighted pokemon
-  state.playerPokemon = state.pokemonList[count];
+  state.curSelectPokemon = state.pokemonList[count];
   //List info of current pokemon
   return `<li>${selectionListItems[count].dataset.type}</li>
       <li>${selectionListItems[count].dataset.health}</li>
@@ -953,7 +962,7 @@ class Pokemon {
         state.captured === false ? pokemonCaught(null) : this.win();
       }, 1500);
     } else if (this.pkmState.health_active === 0) {
-      //You lost
+      //You lose
       dialogue.textContent = "You lost!";
       state.screen = "gameover-screen";
       this.delayLoadingScreen();
@@ -973,6 +982,7 @@ class Pokemon {
     //Reset 
     state.captured = false;
     state.switchPkmn = 1;
+    //Restore all pokemon when new round starts
     // dialogue.textContent = `You gained an extra ${itemWon} this battle.`
     setTimeout(() => {
       if(state.wins === 3) {
@@ -982,8 +992,6 @@ class Pokemon {
         //Continue Battle Rounds
         displayScreen("opp-selection-screen", oppSelectionScreen);
       }
-      //Restore all pokemon when new round starts
-      //win 5, game ends
     }, 1500);
   }
 }
@@ -999,12 +1007,15 @@ async function init() {
       state.screen + ".html";
   }, 1500);
 
+  //--Opponent Screen--//
+  // displayScreen("opp-selection-screen", oppSelectionScreen);
+
   //--Battle Screen Test load---//
-  const response1 = await fetch("./src/player.json").catch((err) =>
-    console.log(err)
-  );
+  // const response1 = await fetch("./src/player.json").catch((err) =>
+  //   console.log(err)
+  // );
   // const data1 = await response1.json().catch((err) => console.log(err));
-  // state.playerPokemon = data1[0];
+  // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
   // const response2 = await fetch("./src/opponent.json").catch((err) =>

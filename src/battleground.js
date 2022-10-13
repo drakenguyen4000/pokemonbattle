@@ -9,7 +9,6 @@ const battleGround = () => {
   document.querySelector(".loading-screen__image").src = `${opponentPokemon.image}`
   // Load screen for 2 seconds
   setTimeout(() => {
-    console.log()
     //Hide loading screen
     document
       .querySelector(".loading-screen")
