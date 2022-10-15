@@ -130,6 +130,7 @@ async function oppSelectionScreen() {
 
 //Loads iframe of Battle Screen
 const battleScreen = () => {
+  state.optionSelected = "attack";
   iframeDocument = iframe.contentWindow.document;
   dialogue = iframeDocument.querySelector(".infobox__text");
   optionsList = iframeDocument.querySelector(".infobox__container--red");
@@ -290,10 +291,10 @@ rightButton.addEventListener("click", () => {
     count += 1;
     //Set equal to # of selections available, if count exceeds it, before changing direction
     count > numItems ? (count = numItems) : switchDirection2("right");
-  } else if (state.screen === "attack-mode") {
-    count += 1;
-    //Set equal to # of selections available, if count exceeds it, before changing direction
-    count > 1 ? (count = 1) : switchDirection2("right");
+  // } else if (state.screen === "attack-mode") {  //old attack option layout
+  //   count += 1;
+  //   //Set equal to # of selections available, if count exceeds it, before changing direction
+  //   count > 1 ? (count = 1) : switchDirection2("right");
   } else if (state.screen === "yourPkmn") {
     count3 += 1;
     count3 > numItems3 ? (count3 = numItems3) : switchDirection5("right");
@@ -310,7 +311,8 @@ leftButton.addEventListener("click", () => {
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection("left");
   }
-  if (state.screen === "battle-screen" || state.screen === "attack-mode") {
+  // if (state.screen === "battle-screen" || state.screen === "attack-mode") { //old attack option layout
+  if (state.screen === "battle-screen") {
     count -= 1;
     //Set count equal to zero, if count goes below zero, before changing direction
     count < 0 ? (count = 0) : switchDirection2("left");
@@ -334,6 +336,9 @@ downButton.addEventListener("click", () => {
     count += 2;
     //Reverse count by -2, if count exceeds # of selections available, before changing direction
     count > numItems ? (count -= 2) : switchDirection2("down");
+  } else if (state.screen === "attack-mode") {
+    count += 1; 
+    count > 1 ? (count = 1) : switchDirection6("down");
   } else if (state.screen === "gameover-screen") {
     count += 1;
     count > numItems ? (count = numItems) : switchDirection3("down");
@@ -360,6 +365,9 @@ upButton.addEventListener("click", () => {
     count -= 2;
     //Reverse count by +2, if count goes below zero, before changing direction
     count < 0 ? (count += 2) : switchDirection2("up");
+  } else if (state.screen === "attack-mode") {
+    count -= 1;
+    count < 0 ? (count = 0) : switchDirection6("up");
   } else if (state.screen === "gameover-screen") {
     count -= 1;
     count < 0 ? (count = 0) : switchDirection3("up");
@@ -422,7 +430,7 @@ const switchDirection2 = (direction) => {
 
       //Update state with player choice
       state.optionSelected = optionsListItems[count].lastChild.data;
-      state.attackSelected = count > 0 ? "attack_2" : "attack_1";
+      // state.attackSelected = count > 0 ? "attack_2" : "attack_1"; //old attack option layout
       break;
     case "left":
       optionsListItems[count + 1].children[0].classList.remove(
@@ -430,7 +438,7 @@ const switchDirection2 = (direction) => {
       );
       optionsListItems[count].children[0].classList.add("arrow--selected");
       state.optionSelected = optionsListItems[count].lastChild.data;
-      state.attackSelected = count > 0 ? "attack_2" : "attack_1";
+      // state.attackSelected = count > 0 ? "attack_2" : "attack_1"; //old attack option layout
       break;
     case "down":
       optionsListItems[count - 2].children[0].classList.remove(
@@ -520,9 +528,32 @@ const switchDirection5 = (direction) => {
   }
 };
 
+const switchDirection6 = (direction) => {
+  switch (direction) {
+    case "down":
+      //displays & removes arrow
+      optionsListItems[count - 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      // //Update state with player choice
+      state.optionSelected = optionsListItems[count].lastChild.data;
+      state.attackSelected = count > 0 ? "attack_2" : "attack_1";
+      break;
+    case "up":
+      optionsListItems[count + 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      optionsListItems[count].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[count].lastChild.data;
+      state.attackSelected = count > 0 ? "attack_2" : "attack_1";
+      break;
+  }
+};
+
 const attackOption = () => {
-  console.log("curPkmIndex:", state.curPkmIndex);
-  console.log("currentPkmn:", state.yourPkmn[state.curPkmIndex])
+  //Set Attack Option Grid layout as list
+  iframeDocument.querySelector(".option-grid").classList.add("option-grid--list");
   if (state.optionSelected === "attack") {
     state.screen = "attack-mode";
     state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
@@ -753,6 +784,7 @@ const resetOptions = () => {
     optionsListItems[3].lastChild.data = "run";
     //Reset count and arrow icon
     optionsListItems[count].children[0].classList.remove("arrow--selected");
+    iframeDocument.querySelector(".option-grid").classList.remove("option-grid--list");
     count = 0;
     count2 = 0;
     count3 = 0;
@@ -1001,44 +1033,43 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    // state.screen = "battle-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
+  // displayScreen("intro-screen", introScreen);
+  // setTimeout(() => {
+  //   state.screen = "intro-screen";
+  //   // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  // }, 1500);
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
 
   //--Battle Screen Test load---//
-  // const response1 = await fetch("./src/player.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data1 = await response1.json().catch((err) => console.log(err));
-  // state.curSelectPokemon = data1[0];
-  // console.log(data1)
+  const response1 = await fetch("./src/player.json").catch((err) =>
+    console.log(err)
+  );
+  const data1 = await response1.json().catch((err) => console.log(err));
+  state.curSelectPokemon = data1[0];
+  console.log(data1)
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2[0];
-
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2[0];
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
   // //==Temp load a pokemon team==//
-  // //Grab from state 3 pokemon
-  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data = await response3.json().catch((err) => console.log(err));
-  // for (let i = 1; i < 3; i++) {
-  //   state.yourPkmn.push(data[i]);
-  // }
+  //Grab from state 3 pokemon
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response3.json().catch((err) => console.log(err));
+  for (let i = 1; i < 3; i++) {
+    state.yourPkmn.push(data[i]);
+  }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
