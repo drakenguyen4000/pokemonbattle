@@ -292,30 +292,6 @@
   border-radius: 200px;
 }
 
-.player-Solar-Beam--animate {
-  border-radius: 200px;
-  background: white;
-  visibility: visible;
-  position: absolute;
-  animation: player-energy_4 4s;
-  height: 110px;
-  width: 110px;
-  left: 0px;
-  bottom: -110px;
-}
-
-.opponent-Solar-Beam--animate {
-  border-radius: 200px;
-  background: white;
-  visibility: visible;
-  animation: player-energy_4 4s;
-  height: 110px;
-  width: 110px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-}
-
 .opponent--staggered {
   animation: stagger 4s;
 }
@@ -361,13 +337,31 @@
   animation: opponent-energy_2 4s;
 }
 
-.opponent-energy--animate_3 {
+.opponent-Solar-Beam--animate {
+  visibility: visible;
+  background: white;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  top: -150px;
+  right: 20px;
+  border-radius: 200px;
+  z-index: 100;
+  animation: player-energy_4 4s;
+}
+
+.opponent-Razor-Leaf--animate {
   visibility: visible;
   position: absolute;
   z-index: 95;
   animation: opponent-energy_3 4s;
-  border: 10px dotted green;
-  border-radius: 200px;
+  border: 20px dotted green;
+  border-radius: 100px;
+  position: absolute;
+  top: -150px;
+  right: 20px;
+  height: 80px;
+  width: 80px;
 }
 
 .staggered {
@@ -778,6 +772,16 @@
     left: 190px;
     bottom: 100px;
     opacity: 0;
+  }
+}
+
+@keyframes opponent-energy_3 {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(1340deg);
+    opacity: 1;
   }
 }
 
