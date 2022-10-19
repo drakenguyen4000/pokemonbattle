@@ -418,6 +418,32 @@
   transform: rotate(180deg);
 }
 
+.player-Flamewheel--animate {
+  visibility: visible;
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  z-index: 95;
+  animation: Flamewheel 4s;
+  height: 80px;
+  width: 80px;
+  border:  12px dotted red;
+  border-radius: 100px;
+}
+
+.opponent-Flamewheel--animate {
+  visibility: visible;
+  position:absolute;
+  top: -50px;
+  right: 15px;
+  z-index: 95;
+  animation: Flamewheel 4s;
+  height: 80px;
+  width: 80px;
+  border:  12px dotted red;
+  border-radius: 100px;
+}
+
 .staggered {
   animation: stagger 4s;
 }
@@ -794,6 +820,20 @@
   100% {
     transform: rotate(1340deg);
     border: 12px dotted green;
+    height: 100px;
+    width: 100px;
+    opacity: 1;
+  }
+}
+
+
+@keyframes Flamewheel {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: rotate(1340deg);
+    border:  12px dotted red;
     height: 100px;
     width: 100px;
     opacity: 1;
