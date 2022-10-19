@@ -385,8 +385,37 @@
   bottom: 20px;
   left: 70px;
   z-index: 95;
-  animation: Ember 3s;
+  animation: player-Ember 3s;
   border-radius: 100px;
+}
+
+.opponent-Ember--animate {
+  visibility: visible;
+  position: absolute;
+  top: -20px;
+  right: 50px;
+  z-index: 95;
+  animation: opponent-Ember 3s;
+  border-radius: 100px;
+}
+
+.player-Flamethrower--animate {
+  visibility: visible;
+  position: absolute;
+  bottom: 20px;
+  left: 70px;
+  z-index: 95;
+  animation: flamethrower 3s;
+}
+
+.opponent-Flamethrower--animate {
+  visibility: visible;
+  position: absolute;
+  top: -20px;
+  right: 50px;
+  z-index: 95;
+  animation: flamethrower 3s;
+  transform: rotate(180deg);
 }
 
 .staggered {
@@ -779,7 +808,7 @@
   100%  {background: white;}
 }
 
-@keyframes Ember {
+@keyframes player-Ember {
   0% {
     bottom: 20px;
     left: 70px;
@@ -851,6 +880,144 @@
   }
   100% {
     border: none;
+  }
+}
+
+@keyframes opponent-Ember {
+  0% {
+    top: -20px;
+    right: 50px;
+    opacity: .5;
+    height: 20px;
+    width: 20px;
+  }
+  10% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  20% {
+    border: none;
+  }
+  30% {
+    top: -20px;
+    right: 50px;
+    opacity: .5;
+    height: 20px;
+    width: 20px;
+  }
+  40% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  50% {
+    border: none;
+  }
+  60% {
+    top: -20px;
+    right: 50px;
+    opacity: .5;
+    height: 20px;
+    width: 20px;
+  }
+  70% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  80% {
+    border: none;
+  }
+  90% {
+    top: -20px;
+    right: 50px;
+    opacity: .5;
+    height: 20px;
+    width: 20px;
+  }
+  95% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+
+@keyframes flamethrower {
+  0% {
+    height: 70px;
+    width: 70px;
+    background: white;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+  }
+  15% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid red;
+    border-radius: 99% 0% 99% 50%;
+  }
+  30% {
+    height: 70px;
+    width: 70px;
+    background: white;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+  }
+  45% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid red;
+    border-radius: 99% 0% 99% 50%;
+  }
+  60% {
+    height: 70px;
+    width: 70px;
+    background: white;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+  }
+  65% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid red;
+    border-radius: 99% 0% 99% 50%;
+  }
+  80% {
+    height: 70px;
+    width: 70px;
+    background: white;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+  }
+  95% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid red;
+    border-radius: 99% 0% 99% 50%;
+  }
+  100% {
+    background: gold;
+    border: 10px solid orange;
   }
 }
 
