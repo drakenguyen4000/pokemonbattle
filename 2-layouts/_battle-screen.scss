@@ -427,8 +427,9 @@
   animation: Flamewheel 4s;
   height: 80px;
   width: 80px;
-  border:  12px dotted red;
+  // border:  10px dotted orange;
   border-radius: 100px;
+  background: radial-gradient(closest-side, transparent,lightyellow, orange);
 }
 
 .opponent-Flamewheel--animate {
@@ -440,8 +441,8 @@
   animation: Flamewheel 4s;
   height: 80px;
   width: 80px;
-  border:  12px dotted red;
   border-radius: 100px;
+  background: radial-gradient(closest-side, transparent, lightyellow, orange);
 }
 
 .staggered {
@@ -830,10 +831,11 @@
 @keyframes Flamewheel {
   0% {
     opacity: 0.5;
+    border:  10px dashed orange;
   }
   100% {
     transform: rotate(1340deg);
-    border:  12px dotted red;
+    border:  15px solid orange;
     height: 100px;
     width: 100px;
     opacity: 1;
