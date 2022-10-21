@@ -462,6 +462,21 @@
   transform: rotate(45deg);
 }
 
+.player-Rockthrow--animate {
+  visibility: visible;
+  position: absolute;
+  left: 85px;
+  bottom: 30px;
+  z-index: 105;
+  animation: player-energy 4s;
+  height: 50px;
+  width: 30px;
+  border-radius: 10px 30px 20px 5px;
+  background: radial-gradient(closest-side, #d2cbcb, #bdb4b4);
+  border: 2px solid #838181;
+  transform: rotate(225deg);
+}
+
 .player-Bubble--animate {
   visibility: visible;
   position: absolute;
