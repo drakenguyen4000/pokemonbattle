@@ -1,10 +1,4 @@
 /*======Battle Screen======*/
-#myCanvas {
-  border: solid 5px blue;
-  width: 100%;
-  height: 100vh;
-}
-
 .battle-container {
   @include absolute-position;
   display: grid;
@@ -74,8 +68,7 @@
 .opponent-health__bar--fill {
   display: block;
   background: $health-bar;
-  height: 100%;
-  width: 100%;
+  @include dimension(100%, 100%);
 }
 
 .opponent-health__point {
@@ -110,16 +103,12 @@
 
 /*Player Pokemon*/
 .player {
-  // position: relative;
-  // bottom: 0px;
-  // left: 0px;
   @include dimension(100px, 250px);
   overflow: hidden;
 }
 
 .player__img {
   position: relative;
-  // bottom: 0px;
   bottom: -20px;
   height: 110px;
   z-index: 100;
@@ -178,8 +167,7 @@
 .player-health__bar--fill {
   display: block;
   background: $health-bar;
-  height: 100%;
-  width: 100%;
+  @include dimension(100%, 100%);
 }
 
 .player-health__point {
@@ -332,8 +320,7 @@
 .player-Solar-Beam--animate {
   visibility: visible;
   background: white;
-  height: 120px;
-  width: 120px;
+  @include dimension(120px, 120px);
   position: absolute;
   bottom: -40px;
   left: 0px;
@@ -344,8 +331,7 @@
 .opponent-Solar-Beam--animate {
   visibility: visible;
   background: white;
-  height: 70px;
-  width: 70px;
+  @include dimension(70px, 70px);
   position: absolute;
   top: -40px;
   right: 20px;
@@ -361,8 +347,7 @@
   left: 40px;
   z-index: 95;
   animation: Razor-Leaf 4s;
-  height: 80px;
-  width: 80px;
+  @include dimension(80px, 80px);
   border: 20px dotted green;
   border-radius: 100px;
 }
@@ -372,8 +357,7 @@
   position:absolute;
   top: -50px;
   right: 15px;
-  height: 80px;
-  width: 80px;
+  @include dimension(80px, 80px);
   z-index: 105;
   border: 20px dotted green;
   border-radius: 100px;
@@ -426,8 +410,7 @@
   left: 40px;
   z-index: 95;
   animation: Flamewheel 4s;
-  height: 80px;
-  width: 80px;
+  @include dimension(80px, 80px);
   border-radius: 100px;
   background: radial-gradient(closest-side, transparent,lightyellow, orange);
 }
@@ -439,8 +422,7 @@
   right: 15px;
   z-index: 95;
   animation: Flamewheel 4s;
-  height: 80px;
-  width: 80px;
+  @include dimension(80px, 80px);
   border-radius: 100px;
   background: radial-gradient(closest-side, transparent, lightyellow, orange);
 }
@@ -467,8 +449,6 @@
   background: radial-gradient(closest-side, transparent,#ebca97, #C5B59F );
 }
 
-
-
 .player-Water-Gun--animate:before {
   font-family: FontAwesome;
   content: "\f76f";
@@ -492,8 +472,7 @@
   left: 85px;
   bottom: 30px;
   animation: player-energy 2s;
-  height: 40px;
-  width: 30px;
+  @include dimension(40px, 30px);
   z-index: 95;
   border-radius: 10px 30px 20px 5px;
   background: radial-gradient(closest-side, #b6b0b0, #a09898);
@@ -507,8 +486,7 @@
   right: 80px;
   top: -20px;
   animation: opponent-energy 2s;
-  height: 40px;
-  width: 30px;
+  @include dimension(40px, 30px);
   z-index: 95;
   border-radius: 10px 30px 20px 5px;
   background: radial-gradient(closest-side, #b6b0b0, #a09898);
@@ -882,8 +860,7 @@
   100% {
     transform: rotate(1340deg);
     border: 12px dotted green;
-    height: 100px;
-    width: 100px;
+    @include dimension(100px, 100px);
     opacity: 1;
   }
 }
@@ -896,8 +873,7 @@
   100% {
     transform: rotate(1340deg);
     border:  15px solid orange;
-    height: 100px;
-    width: 100px;
+    @include dimension(100px, 100px);
     opacity: 1;
   }
 }
@@ -905,13 +881,11 @@
 @keyframes Sandstorm {
   0% {
     opacity: 0.5;
-    height: 50px;
-    width: 50px;
+    @include dimension(50px, 50px);
   }
   100% {
     z-index: 200;
-    height: 2000px;
-    width: 2000px;
+    @include dimension(2000px, 2000px);
     opacity: 0.5;
   }
 }
@@ -929,15 +903,13 @@
     bottom: 20px;
     left: 70px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   10% {
     bottom: 100px;
     left: 120px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   20% {
@@ -947,15 +919,13 @@
     bottom: 20px;
     left: 70px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   40% {
     bottom: 100px;
     left: 120px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   50% {
@@ -965,15 +935,13 @@
     bottom: 20px;
     left: 70px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   70% {
     bottom: 100px;
     left: 120px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   80% {
@@ -983,15 +951,13 @@
     bottom: 20px;
     left: 70px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   95% {
     bottom: 100px;
     left: 120px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   100% {
@@ -1004,15 +970,13 @@
     top: -20px;
     right: 50px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   10% {
     top: 50px;
     right: 85px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   20% {
@@ -1022,15 +986,13 @@
     top: -20px;
     right: 50px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   40% {
     top: 50px;
     right: 85px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   50% {
@@ -1040,15 +1002,13 @@
     top: -20px;
     right: 50px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   70% {
     top: 50px;
     right: 85px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   80% {
@@ -1058,15 +1018,13 @@
     top: -20px;
     right: 50px;
     opacity: .5;
-    height: 20px;
-    width: 20px;
+    @include dimension(20px, 20px);
   }
   95% {
     top: 50px;
     right: 85px;
     border: 18px dotted red;
-    height: 80px;
-    width: 80px;
+    @include dimension(80px, 80px);
     opacity: 1;
   }
   100% {
@@ -1076,64 +1034,56 @@
 
 @keyframes flamethrower {
   0% {
-    height: 70px;
-    width: 70px;
+    @include dimension(70px, 70px);
     background: yellow;
     border: 10px solid orange;
     border-radius: 70% 0% 70% 50%;
     box-shadow: 0px 0px 9px 4px orange;
   }
   15% {
-    height: 90px;
-    width: 90px;
+    @include dimension(90px, 90px);
     background: gold;
     border: 16px solid orangered;
     border-radius: 99% 0% 99% 50%;
     box-shadow: 0px 0px 9px 4px  orangered;
   }
   30% {
-    height: 70px;
-    width: 70px;
+    @include dimension(70px, 70px);
     background: yellow;
     border: 10px solid orange;
     border-radius: 70% 0% 70% 50%;
     box-shadow: 0px 0px 9px 4px orange;
   }
   45% {
-    height: 90px;
-    width: 90px;
+    @include dimension(90px, 90px);
     background: gold;
     border: 16px solid orangered;
     border-radius: 99% 0% 99% 50%;
     box-shadow: 0px 0px 9px 4px  orangered;
   }
   60% {
-    height: 70px;
-    width: 70px;
+    @include dimension(70px, 70px);
     background: yellow;
     border: 10px solid orange;
     border-radius: 70% 0% 70% 50%;
     box-shadow: 0px 0px 9px 4px orange;
   }
   65% {
-    height: 90px;
-    width: 90px;
+    @include dimension(90px, 90px);
     background: gold;
     border: 16px solid orangered;
     border-radius: 99% 0% 99% 50%;
     box-shadow: 0px 0px 9px 4px  orangered;
   }
   80% {
-    height: 70px;
-    width: 70px;
+    @include dimension(70px, 70px);
     background: yellow;
     border: 10px solid orange;
     border-radius: 70% 0% 70% 50%;
     box-shadow: 0px 0px 9px 4px orange;
   }
   95% {
-    height: 90px;
-    width: 90px;
+    @include dimension(90px, 90px);
     background: gold;
     border: 16px solid orangered;
     border-radius: 99% 0% 99% 50%;
@@ -1154,8 +1104,7 @@
     left: 70px;
     opacity: .5;
     border: 30px dotted rgb(116, 209, 249);
-    height: 90px;
-    width: 90px;
+    @include dimension(90px, 90px);
   }
   25% {
     bottom: 100px;
@@ -1276,8 +1225,6 @@
 /*--Backpack--*/
 .backpack {
   display:none;
-  // height: 200px;
-  // width: 350px;
   @include dimension(60%, 96%);
   background: white;
   position: absolute;
@@ -1333,8 +1280,7 @@
 
 .bag-item-img {
   background-size: cover;
-  height:25px;
-  width:25px;
+  @include dimension(25px, 25px);
 }
 
 .exit-img {
