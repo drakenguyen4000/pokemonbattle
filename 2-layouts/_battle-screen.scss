@@ -449,6 +449,20 @@
   background: radial-gradient(closest-side, transparent,#ebca97, #C5B59F );
 }
 
+.player-Sand--animate {
+  visibility: visible;
+  position: absolute;
+  z-index: 95;
+  animation: player-Sand 2s;
+}
+
+.opponent-Sand--animate {
+  visibility: visible;
+  position: absolute;
+  z-index: 95;
+  animation: opponent-Sand 2s;
+}
+
 .player-Water-Gun--animate:before {
   font-family: FontAwesome;
   content: "\f76f";
@@ -887,6 +901,44 @@
     z-index: 200;
     @include dimension(2000px, 2000px);
     opacity: 0.5;
+  }
+}
+
+@keyframes player-Sand {
+  0% {
+    bottom: 20px;
+    left: 70px;
+    opacity: .5;
+    border: 8px dotted #ebca97;
+    transform: rotate(1340deg);
+    @include dimension(40px, 40px);
+  }
+  25% {
+    bottom: 100px;
+    left: 120px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+
+@keyframes opponent-Sand {
+  0% {
+    top: -20px;
+    right: 50px;
+    opacity: .5;
+    border: 8px dotted #ebca97;
+    transform: rotate(1340deg);
+    @include dimension(40px, 40px);
+  }
+  25% {
+    top: 50px;
+    right: 100px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
   }
 }
 
