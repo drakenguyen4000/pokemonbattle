@@ -438,16 +438,6 @@
   transform: rotate(45deg);
 }
 
-.player-Hyperbeam--animate {
-  animation: Hyperbeam 3s;
-}
-
-.opponent-Hyperbeam--animate {
-  animation: Hyperbeam 3s;
-  top: 5px;
-  right: 75px;
-}
-
 .player-Hurricane--animate:before, .opponent-Hurricane--animate:before {
   font-family: 'Material Icons';
     content: "\f070";
@@ -458,6 +448,33 @@
   color: #156e8a;
   font-size: 150px;
   opacity: .1;
+}
+
+.player-Hyperbeam--animate {
+  animation: Hyperbeam 3s;
+}
+
+.opponent-Hyperbeam--animate {
+  animation: Hyperbeam 3s;
+  top: 5px;
+  right: 75px;
+}
+
+.player-Slash--animate {
+  animation: player-Slash 2s;
+  bottom: 0;
+  left: 30px;
+  transform: rotate(-70deg);
+	border-radius: 80%;
+	box-shadow: 25px 10px 0px 0px #fff; 
+}
+.opponent-Slash--animate {
+  animation: opponent-Slash 2s;
+  top: -20px;
+  right: 65px;
+  transform: rotate(100deg);
+	border-radius: 80%;
+	box-shadow: 25px 10px 0px 0px #fff; 
 }
 
 .player-Rockthrow--animate {
@@ -937,6 +954,56 @@
  100% {
     opacity: .1;
   }
+}
+
+@keyframes player-Slash {
+  0% {
+    opacity: 0;
+    @include dimension(60px, 60px);
+  }
+  40% {
+    left: 190px;
+    bottom: 110px;
+    opacity: 1;
+    @include dimension(100px, 100px);
+  }
+  60% {
+    bottom: 0;
+    left: 30px;
+    opacity: 0;
+    @include dimension(60px, 60px);
+  }
+  100% {
+    bottom: 110px;
+    left: 190px;
+    opacity: 1;
+    @include dimension(100px, 100px);
+  } 
+}
+
+@keyframes opponent-Slash {
+  0% {
+    opacity: 0;
+    @include dimension(60px, 60px);
+  }
+  40% {
+    top: 50px;
+    right: 100px;
+    opacity: 1;
+    @include dimension(100px, 100px);
+  }
+  60% {
+    top: -20px;
+    right: 65px;
+    opacity: 0;
+    @include dimension(60px, 60px);
+  }
+  100% {
+    top: 50px;
+    right: 100px;
+    opacity: 1;
+    @include dimension(100px, 100px);
+  } 
 }
 
 @keyframes player-Sand {
