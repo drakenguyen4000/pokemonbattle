@@ -243,32 +243,12 @@
   visibility: hidden;
 }
 
-.player-Static--animate {
+.player-energy--show {
   visibility: visible;
-  color: yellow;
   position: absolute;
-  left: 85px;
-  bottom: 30px;
-  z-index: 105;
-  animation: player-energy 4s;
-}
-
-.player-Lightning--animate {
-  visibility: visible;
-  color: yellow;
-  position: absolute;
-  // right: 40px;
-  // top: -40px;
-  z-index: 105;
-  animation: player-energy_2 4s;
-}
-
-.player-Static--animate:before,
-.player-Lightning--animate:before,
-.opponent-Static--animate:before,
-.opponent-Lightning--animate:before {
-  font-family: FontAwesome;
-  content: "\f0e7";
+  bottom: 20px;
+  left: 70px;
+  z-index: 95;
 }
 
 .opponent--staggered {
@@ -297,169 +277,149 @@
   visibility: hidden;
 }
 
-.opponent-Static--animate {
+.opponent-energy--show {
   visibility: visible;
   position: absolute;
-  color: yellow;
-  right: 80px;
   top: -20px;
+  right: 80px;
+  z-index: 95;
+}
+
+.player-Static--animate {
+  animation: player-energy 4s;
+  color: yellow;
+  left: 85px;
+  bottom: 30px;
   z-index: 105;
+}
+
+.player-Lightning--animate {
+  // visibility: visible;
+  // position: absolute;
+  // right: 40px;
+  // top: -40px;
+  animation: player-energy_2 4s;
+  z-index: 105;
+  color: yellow;
+}
+
+.player-Static--animate:before,
+.player-Lightning--animate:before,
+.opponent-Static--animate:before,
+.opponent-Lightning--animate:before {
+  font-family: FontAwesome;
+  content: "\f0e7";
+}
+
+.opponent-Static--animate {
   animation: opponent-energy 2s;
+  z-index: 105;
+  color: yellow;
 }
 
 .opponent-Lightning--animate {
-  visibility: visible;
-  color: yellow;
-  position: absolute;
-  left: 80px;
-  bottom: 30px;
-  z-index: 95;
   animation: opponent-energy_2 4s;
+  bottom: 30px;
+  left: 80px;
+  color: yellow;
 }
 
 .player-Solar-Beam--animate {
-  visibility: visible;
-  background: white;
-  @include dimension(120px, 120px);
-  position: absolute;
+  animation: Solar-Beam 4s;
   bottom: -40px;
   left: 0px;
+  @include dimension(120px, 120px);
+  background: white;
   border-radius: 200px;
-  animation: Solar-Beam 4s;
 }
 
 .opponent-Solar-Beam--animate {
-  visibility: visible;
-  background: white;
-  @include dimension(70px, 70px);
-  position: absolute;
+  animation: Solar-Beam 4s;
+  z-index: 100;
   top: -40px;
   right: 20px;
+  @include dimension(70px, 70px);
+  background: white;
   border-radius: 200px;
-  z-index: 100;
-  animation: Solar-Beam 4s;
 }
 
 .player-Razor-Leaf--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 20px;
-  left: 40px;
-  z-index: 95;
   animation: Razor-Leaf 4s;
+  z-index: 95;
+  left: 40px;
   @include dimension(80px, 80px);
   border: 20px dotted green;
   border-radius: 100px;
 }
 
 .opponent-Razor-Leaf--animate {
-  visibility: visible;
-  position:absolute;
+  animation: Razor-Leaf 4s;
+  z-index: 105;
   top: -50px;
   right: 15px;
   @include dimension(80px, 80px);
-  z-index: 105;
   border: 20px dotted green;
   border-radius: 100px;
-  animation: Razor-Leaf 4s;
 }
 
 .player-Ember--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 20px;
-  left: 70px;
-  z-index: 95;
   animation: player-Ember 3s;
   border-radius: 100px;
 }
 
 .opponent-Ember--animate {
-  visibility: visible;
-  position: absolute;
-  top: -20px;
-  right: 50px;
-  z-index: 95;
   animation: opponent-Ember 3s;
+  right: 50px;
   border-radius: 100px;
 }
 
 .player-Flamethrower--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 20px;
-  left: 70px;
-  z-index: 95;
   animation: flamethrower 3s;
 }
 
 .opponent-Flamethrower--animate {
-  visibility: visible;
-  position: absolute;
-  top: -20px;
-  right: 50px;
-  z-index: 95;
   animation: flamethrower 3s;
+  right: 50px;
   transform: rotate(180deg);
 }
 
 .player-Flamewheel--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 20px;
-  left: 40px;
-  z-index: 95;
   animation: Flamewheel 4s;
+  left: 40px;
   @include dimension(80px, 80px);
   border-radius: 100px;
   background: radial-gradient(closest-side, transparent,lightyellow, orange);
 }
 
 .opponent-Flamewheel--animate {
-  visibility: visible;
-  position:absolute;
+  animation: Flamewheel 4s;
   top: -50px;
   right: 15px;
-  z-index: 95;
-  animation: Flamewheel 4s;
   @include dimension(80px, 80px);
   border-radius: 100px;
   background: radial-gradient(closest-side, transparent, lightyellow, orange);
 }
 
 .player-Sandstorm--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 10px;
-  left: 70px;
-  z-index: 95;
   animation: Sandstorm 2s;
+  bottom: 10px;
   border-radius: 200px;
   background: radial-gradient(closest-side, transparent,#ebca97, #C5B59F );
 }
 
 .opponent-Sandstorm--animate {
-  visibility: visible;
-  position:absolute;
+  animation: Sandstorm 2s;
   top: -50px;
   right: 15px;
-  z-index: 95;
-  animation: Sandstorm 2s;
   border-radius: 100px;
   background: radial-gradient(closest-side, transparent,#ebca97, #C5B59F );
 }
 
 .player-Sand--animate {
-  visibility: visible;
-  position: absolute;
-  z-index: 95;
   animation: player-Sand 2s;
 }
 
 .opponent-Sand--animate {
-  visibility: visible;
-  position: absolute;
-  z-index: 95;
   animation: opponent-Sand 2s;
 }
 
@@ -469,67 +429,57 @@
 }
 
 .player-Water-Gun--animate {
-  visibility: visible;
-  color: rgb(61, 194, 238);
-  position: absolute;
-  font-size: 150%;
-  left: 85px;
-  bottom: 30px;
-  z-index: 105;
   animation: player-energy 4s;
+  z-index: 105;
+  bottom: 30px;
+  left: 85px;
+  color: rgb(61, 194, 238);
+  font-size: 150%;
   transform: rotate(45deg);
 }
 
 .player-Hyperbeam--animate {
-  visibility: visible;
-  position: absolute;
-  bottom: 20px;
-  left: 80px;
-  z-index: 95;
   animation: Hyperbeam 3s;
 }
 
 .opponent-Hyperbeam--animate {
-  visibility: visible;
-  position: absolute;
+  animation: Hyperbeam 3s;
   top: 5px;
   right: 75px;
-  z-index: 95;
-  animation: Hyperbeam 3s;
-  transform: rotate(180deg);
+}
+
+.player-Hurricane--animate:before, .opponent-Hurricane--animate:before {
+  font-family: 'Material Icons';
+    content: "\f070";
+}
+
+.player-Hurricane--animate, .opponent-Hurricane--animate {
+  animation: Hurricane 3s infinite linear;
+  color: #156e8a;
+  font-size: 150px;
+  opacity: .1;
 }
 
 .player-Rockthrow--animate {
-  visibility: visible;
-  position: absolute;
-  left: 85px;
-  bottom: 30px;
   animation: player-energy 2s;
+  bottom: 30px;
+  left: 85px;
   @include dimension(40px, 30px);
-  z-index: 95;
+  border: 2px solid #757373;
   border-radius: 10px 30px 20px 5px;
   background: radial-gradient(closest-side, #b6b0b0, #a09898);
-  border: 2px solid #757373;
   transform: rotate(225deg);
 }
 
 .opponent-Rockthrow--animate {
-  visibility: visible;
-  position: absolute;
-  right: 80px;
-  top: -20px;
   animation: opponent-energy 2s;
   @include dimension(40px, 30px);
-  z-index: 95;
   border-radius: 10px 30px 20px 5px;
   background: radial-gradient(closest-side, #b6b0b0, #a09898);
   border: 2px solid #757373;
   transform: rotate(225deg);
 }
 .player-Bubble--animate {
-  visibility: visible;
-  position: absolute;
-  z-index: 95;
   animation: player-bubble 1s;
   border-radius: 100px;
 }
@@ -891,7 +841,7 @@
     opacity: 0.5;
   }
   100% {
-    transform: rotate(1340deg);
+    transform: rotate(1440deg);
     border: 12px dotted green;
     @include dimension(100px, 100px);
     opacity: 1;
@@ -904,7 +854,7 @@
     border:  10px dashed orange;
   }
   100% {
-    transform: rotate(1340deg);
+    transform: rotate(1440deg);
     border:  15px solid orange;
     @include dimension(100px, 100px);
     opacity: 1;
@@ -970,13 +920,32 @@
   }
 }
 
+@keyframes Hurricane {
+  0% {
+    opacity: .5;
+    transform: rotate(-1440deg);
+  }
+  25% {
+    opacity: .4;
+  }
+  50% {
+    opacity: .3;
+  }
+  75% {
+    opacity: .2;
+  }
+ 100% {
+    opacity: .1;
+  }
+}
+
 @keyframes player-Sand {
   0% {
     bottom: 20px;
     left: 70px;
     opacity: .5;
     border: 14px dotted #705a5a;
-    transform: rotate(1340deg);
+    transform: rotate(1440deg);
     @include dimension(40px, 40px);
   }
   25% {
@@ -995,7 +964,7 @@
     right: 50px;
     opacity: .5;
     border: 8px dotted #ebca97;
-    transform: rotate(1340deg);
+    transform: rotate(1440deg);
     @include dimension(40px, 40px);
   }
   25% {
