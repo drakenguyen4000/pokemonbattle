@@ -477,6 +477,30 @@
 	box-shadow: 25px 10px 0px 0px #fff; 
 }
 
+.player-Duplicate--animate {
+  animation: player-Duplicate 2s;
+  background-image: url("https://img.pokemondb.net/sprites/black-white/anim/back-normal/scyther.gif");
+  @include dimension(170px, 170px);
+  border-radius: 200px;
+  left: 100px;
+  bottom: 70px;
+  background-size: 130px 130px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.opponent-Duplicate--animate {
+  animation: opponent-Duplicate 2s;
+  background-image: url("https://img.pokemondb.net/sprites/black-white/anim/normal/scyther-f.gif");
+  @include dimension(150px, 150px);
+  border-radius: 200px;
+  bottom: 70px;
+  left: 100px;
+  background-size: 110px 110px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .player-Rockthrow--animate {
   animation: player-energy 2s;
   bottom: 30px;
@@ -1004,6 +1028,55 @@
     opacity: 1;
     @include dimension(100px, 100px);
   } 
+}
+
+@keyframes player-Duplicate {
+  from {
+    bottom: 0px;
+    left: 40px;
+    opacity: .7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    border: none;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  }
+}
+
+@keyframes opponent-Duplicate {
+  from {
+    top: -20px;
+    right: 65px;
+    opacity: .7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  }
 }
 
 @keyframes player-Sand {
