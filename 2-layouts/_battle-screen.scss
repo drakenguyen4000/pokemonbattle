@@ -285,6 +285,15 @@
   z-index: 95;
 }
 
+/*Pikachu*/
+.player-Static--animate:before,
+.player-Lightning--animate:before,
+.opponent-Static--animate:before,
+.opponent-Lightning--animate:before {
+  font-family: FontAwesome;
+  content: "\f0e7";
+}
+
 .player-Static--animate {
   animation: player-energy 4s;
   color: yellow;
@@ -303,20 +312,13 @@
   color: yellow;
 }
 
-.player-Static--animate:before,
-.player-Lightning--animate:before,
-.opponent-Static--animate:before,
-.opponent-Lightning--animate:before {
-  font-family: FontAwesome;
-  content: "\f0e7";
-}
-
 .opponent-Static--animate {
   animation: opponent-energy 2s;
   z-index: 105;
   color: yellow;
 }
 
+/*Pikachu*/
 .opponent-Lightning--animate {
   animation: opponent-energy_2 4s;
   bottom: 30px;
@@ -324,25 +326,7 @@
   color: yellow;
 }
 
-.player-Solar-Beam--animate {
-  animation: Solar-Beam 4s;
-  bottom: -40px;
-  left: 0px;
-  @include dimension(120px, 120px);
-  background: white;
-  border-radius: 200px;
-}
-
-.opponent-Solar-Beam--animate {
-  animation: Solar-Beam 4s;
-  z-index: 100;
-  top: -40px;
-  right: 20px;
-  @include dimension(70px, 70px);
-  background: white;
-  border-radius: 200px;
-}
-
+/*Bulbasaur*/
 .player-Razor-Leaf--animate {
   animation: Razor-Leaf 4s;
   z-index: 95;
@@ -362,6 +346,27 @@
   border-radius: 100px;
 }
 
+/*Bulbasaur*/
+.player-Solar-Beam--animate {
+  animation: Solar-Beam 4s;
+  bottom: -40px;
+  left: 0px;
+  @include dimension(120px, 120px);
+  background: white;
+  border-radius: 200px;
+}
+
+.opponent-Solar-Beam--animate {
+  animation: Solar-Beam 4s;
+  z-index: 100;
+  top: -40px;
+  right: 20px;
+  @include dimension(70px, 70px);
+  background: white;
+  border-radius: 200px;
+}
+
+/*Charmander*/
 .player-Ember--animate {
   animation: player-Ember 3s;
   border-radius: 100px;
@@ -373,6 +378,7 @@
   border-radius: 100px;
 }
 
+/*Growlith, Charmander*/
 .player-Flamethrower--animate {
   animation: flamethrower 3s;
 }
@@ -383,6 +389,7 @@
   transform: rotate(180deg);
 }
 
+/*Growlith*/
 .player-Flamewheel--animate {
   animation: Flamewheel 4s;
   left: 40px;
@@ -400,6 +407,7 @@
   background: radial-gradient(closest-side, transparent, lightyellow, orange);
 }
 
+/*SandShrew, Onix*/
 .player-Sandstorm--animate {
   animation: Sandstorm 2s;
   bottom: 10px;
@@ -423,7 +431,8 @@
   animation: opponent-Sand 2s;
 }
 
-.player-Water-Gun--animate:before {
+/*Squirtle*/
+.player-Water-Gun--animate:before, .opponent-Water-Gun--animate:before {
   font-family: FontAwesome;
   content: "\f76f";
 }
@@ -431,13 +440,34 @@
 .player-Water-Gun--animate {
   animation: player-energy 4s;
   z-index: 105;
-  bottom: 30px;
-  left: 85px;
+  left: 190px;
+  bottom: 140px;
   color: rgb(61, 194, 238);
   font-size: 150%;
   transform: rotate(45deg);
 }
 
+.opponent-Water-Gun--animate {
+  animation: opponent-energy 4s;
+  z-index: 105;
+  top: 70px;
+  right: 150px;
+  color: rgb(61, 194, 238);
+  font-size: 150%;
+  transform: rotate(225deg);
+}
+
+.player-Bubble--animate {
+  animation: player-bubble 1s;
+  border-radius: 100px;
+}
+
+.opponent-Bubble--animate {
+  animation: opponent-bubble 1s;
+  border-radius: 100px;
+}
+
+/*Gyrados*/
 .player-Hurricane--animate:before, .opponent-Hurricane--animate:before {
   font-family: 'Material Icons';
     content: "\f070";
@@ -445,11 +475,12 @@
 
 .player-Hurricane--animate, .opponent-Hurricane--animate {
   animation: Hurricane 3s infinite linear;
-  color: #156e8a;
+  color: white;
   font-size: 150px;
   opacity: .1;
 }
 
+/*Gyrados*/
 .player-Hyperbeam--animate {
   animation: Hyperbeam 3s;
 }
@@ -460,10 +491,11 @@
   right: 75px;
 }
 
+/*Scyther*/
 .player-Slash--animate {
   animation: player-Slash 2s;
   bottom: 0;
-  left: 30px;
+  left: 40px;
   transform: rotate(-70deg);
 	border-radius: 80%;
 	box-shadow: 25px 10px 0px 0px #fff; 
@@ -477,6 +509,7 @@
 	box-shadow: 25px 10px 0px 0px #fff; 
 }
 
+/*Scyther*/
 .player-Duplicate--animate {
   animation: player-Duplicate 2s;
   background-image: url("https://img.pokemondb.net/sprites/black-white/anim/back-normal/scyther.gif");
@@ -519,10 +552,6 @@
   background: radial-gradient(closest-side, #b6b0b0, #a09898);
   border: 2px solid #757373;
   transform: rotate(225deg);
-}
-.player-Bubble--animate {
-  animation: player-bubble 1s;
-  border-radius: 100px;
 }
 
 .staggered {
@@ -593,37 +622,37 @@
     left: 85px;
     bottom: 30px;
     opacity: 0.3;
-    font-size: 200%;
+    font-size: 250%;
   }
   20% {
     left: 190px;
     bottom: 140px;
     opacity: 1;
-    font-size: 125%;
+    font-size: 270%;
   }
   40% {
     left: 180px;
     bottom: 130px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 290%;
   } 
   60% {
     left: 80px;
     bottom: 30px;
     opacity: 0.3;
-    font-size: 170%;
+    font-size: 350%;
   }
   80% {
     left: 190px;
     bottom: 140px;
     opacity: 1;
-    font-size: 125%;
+    font-size: 370%;
   }
   100% {
-    left: 180px;
-    bottom: 130px;
+    left: 190px;
+    bottom: 140px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 390%;
   } //hit damage
   // 60% {
   //   left: 90px;
@@ -670,37 +699,37 @@
     top: -20px;
     right: 80px;
     opacity: 0.3;
-    font-size: 150%;
+    font-size: 250%;
   }
   20% {
     right: 150px;
     top: 70px;
     opacity: 1;
-    font-size: 170%;
+    font-size: 270%;
   }
   40% {
     right: 150px;
     top: 60px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 290%;
   } 
   60% {
     top: -20px;
     right: 80px;
     opacity: 0.3;
-    font-size: 150%;
+    font-size: 350%;
   }
   80% {
     right: 150px;
     top: 70px;
     opacity: 1;
-    font-size: 170%;
+    font-size: 370%;
   }
   100% {
     right: 150px;
-    top: 60px;
+    top: 70px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 390%;
   } 
   // 60% {
   //   top: -20px;
@@ -918,46 +947,55 @@
   0% {
     @include dimension(70px, 70px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(0.40turn, rgb(155, 185, 247),  rgb(122, 166, 254));
   }
   15% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(white,  rgb(70, 128, 244));
   }
   30% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(0.40turn, rgb(155, 185, 247),  rgb(122, 166, 254));
   }
   45% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(white,  rgb(70, 128, 244));
   }
   60% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(0.40turn, rgb(155, 185, 247),  rgb(122, 166, 254));
   }
   65% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(white,  rgb(70, 128, 244));
   }
   80% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(0.40turn, rgb(155, 185, 247),  rgb(122, 166, 254));
   }
   95% {
     @include dimension(200px, 200px);
     border-radius: 1000% 50% 1000% 50%;
+    opacity: .7;
     background: linear-gradient(white,  rgb(70, 128, 244));
   }
   100% {
     background: linear-gradient(0.40turn, rgb(155, 185, 247),  rgb(122, 166, 254));
      border-radius: 1000% 50% 1000% 50%;
+     opacity: .7;
   }
 }
 
@@ -986,21 +1024,21 @@
     @include dimension(60px, 60px);
   }
   40% {
-    left: 190px;
-    bottom: 110px;
-    opacity: 1;
+    bottom: 70px;
+    left: 150px;
+    opacity: .7;
     @include dimension(100px, 100px);
   }
   60% {
     bottom: 0;
-    left: 30px;
+    left: 40px;
     opacity: 0;
     @include dimension(60px, 60px);
   }
   100% {
-    bottom: 110px;
-    left: 190px;
-    opacity: 1;
+    bottom: 70px;
+    left: 150px;
+    opacity: .7;
     @include dimension(100px, 100px);
   } 
 }
@@ -1013,7 +1051,7 @@
   40% {
     top: 50px;
     right: 100px;
-    opacity: 1;
+    opacity: .7;
     @include dimension(100px, 100px);
   }
   60% {
@@ -1025,7 +1063,7 @@
   100% {
     top: 50px;
     right: 100px;
-    opacity: 1;
+    opacity: .7;
     @include dimension(100px, 100px);
   } 
 }
@@ -1036,7 +1074,7 @@
     left: 40px;
     opacity: .7;
     background-color: lightgreen;
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
   20% {
     bottom: 70px;
@@ -1051,7 +1089,7 @@
     left: 100px;
     opacity: 1;
     background-color: lightgreen;
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
 }
 
@@ -1061,7 +1099,7 @@
     right: 65px;
     opacity: .7;
     background-color: lightgreen;
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
   20% {
     bottom: 70px;
@@ -1075,7 +1113,7 @@
     left: 100px;
     opacity: 1;
     background-color: lightgreen;
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
 }
 
@@ -1118,11 +1156,11 @@
 }
 
 @keyframes Solar-Beam {
-  0%   {background: white;} 
+  0%   {background: white;@include dimension(140px, 140px);} 
   25% {background: none;}
-  50%  {background: white;}
+  50%  {background: white;@include dimension(160px, 160px);}
   75% {background: none;}
-  100%  {background: white;}
+  100%  {background: white;@include dimension(180px, 180px);}
 }
 
 @keyframes player-Ember {
@@ -1324,22 +1362,65 @@
   }
 }
 
-
 @keyframes player-bubble {
   0% {
     bottom: 20px;
     left: 70px;
     opacity: .5;
-    border: 30px dotted rgb(116, 209, 249);
-    @include dimension(90px, 90px);
   }
   25% {
-    bottom: 100px;
-    left: 120px;
+    bottom: 70px;
+    left: 100px;
     opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    @include dimension(160px, 160px);
+  }
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    bottom: 70px;
+    left: 100px;
+  }
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    @include dimension(160px, 160px);
+    bottom: 70px;
+    left: 100px;
   }
   100% {
     border: none;
+    bottom: 70px;
+    left: 100px;
+  }
+}
+
+@keyframes opponent-bubble {
+  0% {
+    top: -20px;
+    right: 30px;
+    opacity: .5;
+  }
+  25% {
+    top: 30px;
+    right: 85px;
+    opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    @include dimension(160px, 160px);
+  }
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    top: 30px;
+    right: 85px;
+  }
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    @include dimension(160px, 160px);
+    top: 30px;
+    right: 85px;
+  }
+  100% {
+    border: none;
+    top: 30px;
+    right: 85px;
   }
 }
 
