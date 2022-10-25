@@ -6,7 +6,6 @@
   @include dimension(100%, 100%);
   background-color: $battle-ground;
   border-radius: 10px;
-  // font-family: 'Goldman', cursive;
   text-shadow: 1px 1px rgb(154, 154, 154);
   font-family: "Orbitron", sans-serif;
 }
@@ -190,37 +189,6 @@
   justify-items: left;
 }
 
-// .option {
-//   display: flex;
-//   justify-content: center;
-//   align-self: center;
-//   border-radius: 5px;
-//   margin: 1px;
-//   // padding: 10%;
-//   text-align: center;
-//   text-transform: uppercase;
-// }
-
-// .option--attack {
-//   background: #fecbcb;
-//   border: 2px solid #ff4343;
-// }
-
-// .option--bag {
-//   background: #ffd978;
-//   border: 2px solid #b48204;
-// }
-
-// .option--pokemon {
-//   background: #64f961;
-//   border: 2px solid #098707;
-// }
-
-// .option--run {
-//   background: #56ccff;
-//   border: 2px solid #1279a6;
-// }
-
 .arrow {
   visibility: hidden;
 }
@@ -287,9 +255,7 @@
 
 /*Pikachu*/
 .player-Static--animate:before,
-.player-Lightning--animate:before,
-.opponent-Static--animate:before,
-.opponent-Lightning--animate:before {
+.opponent-Static--animate:before {
   font-family: FontAwesome;
   content: "\f0e7";
 }
@@ -302,14 +268,13 @@
   z-index: 105;
 }
 
-.player-Lightning--animate {
-  // visibility: visible;
-  // position: absolute;
-  // right: 40px;
-  // top: -40px;
-  animation: player-energy_2 4s;
-  z-index: 105;
-  color: yellow;
+.player-Discharge--animate {
+  animation: Discharge 3s;
+  background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
+  border:rgb(70, 128, 244) 4px dashed;
+  border-radius: 10px;
+  bottom: -10px;
+  left: 0px;
 }
 
 .opponent-Static--animate {
@@ -319,11 +284,13 @@
 }
 
 /*Pikachu*/
-.opponent-Lightning--animate {
-  animation: opponent-energy_2 4s;
-  bottom: 30px;
-  left: 80px;
-  color: yellow;
+.opponent-Discharge--animate {
+  animation: Discharge 3s;
+  background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
+  border:rgb(70, 128, 244) 4px dashed;
+  border-radius: 10px;
+  top: -70px;
+  right: 0px;
 }
 
 /*Bulbasaur*/
@@ -586,12 +553,6 @@
   100% {
     filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
-  // 80% {
-  //   filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-  // }
-  // 100% {
-  //   filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  // }
 }
 
 //Light and energy circle
@@ -653,43 +614,7 @@
     bottom: 140px;
     opacity: 0;
     font-size: 390%;
-  } //hit damage
-  // 60% {
-  //   left: 90px;
-  //   bottom: 30px;
-  //   opacity: 0.3;
-  //   font-size: 170%;
-  // }
-  // 70% {
-  //   left: 190px;
-  //   bottom: 140px;
-  //   opacity: 1;
-  //   font-size: 125%;
-  // }
-  // 80% {
-  //   left: 180px;
-  //   bottom: 130px;
-  //   opacity: 0;
-  //   font-size: 90%;
-  // } //hit damage
-  // 90% {
-  //   left: 95px;
-  //   bottom: 30px;
-  //   opacity: 0.3;
-  //   font-size: 170%;
-  // }
-  // 95% {
-  //   left: 190px;
-  //   bottom: 140px;
-  //   opacity: 1;
-  //   font-size: 125%;
-  // }
-  // 100% {
-  //   left: 180px;
-  //   bottom: 130px;
-  //   opacity: 0;
-  //   font-size: 90%;
-  // } //hit damage
+  } 
 }
 
 //static
@@ -731,103 +656,50 @@
     opacity: 0;
     font-size: 390%;
   } 
-  // 60% {
-  //   top: -20px;
-  //   right: 80px;
-  //   opacity: 0.3;
-  //   font-size: 150%;
-  // }
-  // 70% {
-  //   right: 150px;
-  //   top: 70px;
-  //   opacity: 1;
-  //   font-size: 170%;
-  // }
-  // 80% {
-  //   right: 150px;
-  //   top: 60px;
-  //   opacity: 0;
-  // } 
-  // 90% {
-  //   top: -20px;
-  //   right: 80px;
-  //   opacity: 0.3;
-  //   font-size: 150%;
-  // }
-  // 95% {
-  //   right: 150px;
-  //   top: 70px;
-  //   opacity: 1;
-  //   font-size: 170%;
-  // }
-  // 100% {
-  //   right: 150px;
-  //   top: 60px;
-  //   opacity: 0;
-  //   font-size: 190%;
-  // } 
 }
 
-@keyframes player-energy_2 {
+@keyframes Discharge {
   0% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 10px;
-    top: -50px;
-    opacity: 1;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: .2;
+    border:rgb(70, 128, 244) 2px dashed;
+    @include dimension(110px, 110px);
   }
   10% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    opacity: .4;
+    border: 4px dashed white;
   }
   20% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     opacity: 0;
+    border:rgb(70, 128, 244) 4px dashed;
+    @include dimension(140px, 140px);
   }
   30% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 70px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    opacity: 0;
+    border: none;
+    background-color: none;
   }
   40% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: .2;
+    border:rgb(70, 128, 244) 2px dashed;
+    @include dimension(110px, 110px);
   }
   50% {
-    opacity: 0;
+      opacity: .4;
+      border: 4px dashed white;
   }
   60% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 25px;
-    top: -50px;
-    opacity: 1;
-    transform: scaleX(1);
-  }
-  70% {
     filter: sepia(0%) hue-rotate(0%) saturate(0%);
-    right: 50px;
-    top: 0px;
     opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  90% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 80px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    border:rgb(70, 128, 244) 4px dashed;
+    @include dimension(140px, 140px);
   }
   100% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-    right: 50px;
-    top: 0px;
     opacity: 0;
+    border: none;
+    background-color: none;
   }
 }
 
@@ -1619,7 +1491,6 @@
    top: -30px;
    right: 30px;
 }
-
 
 .yourPkmnList {
   display:none;
