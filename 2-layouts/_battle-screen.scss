@@ -1,4 +1,10 @@
 /*======Battle Screen======*/
+#myCanvas {
+  border: solid 5px blue;
+  width: 100%;
+  height: 100vh;
+}
+
 .battle-container {
   @include absolute-position;
   display: grid;
@@ -202,10 +208,19 @@
   animation: attacker-animate 2s;
 }
 
+//Tackle
 .player-attack_2 {
-  border-radius: 200px;
-  animation: attacker-animate_2 2s;
+  animation: tackle-animate 2s;
 }
+
+.opponent-attack_2 {
+  animation: tackle-animate 2s;
+}
+
+// .player-attack_2 {
+//   border-radius: 200px;
+//   animation: attacker-animate_2 2s;
+// }
 
 .player-energy {
   visibility: hidden;
@@ -219,26 +234,30 @@
   z-index: 95;
 }
 
-.opponent--staggered {
-  animation: stagger 4s;
-}
+// .opponent--staggered {
+//   animation: stagger 4s;
+// }
 
-.opponent--staggered_2 {
-  animation: stagger_2 4s;
-}
+// .opponent--staggered_2 {
+//   animation: stagger_2 4s;
+// }
 
-.opponent--staggered_3 {
-  animation: stagger_3 4s;
-}
+// .opponent--staggered_3 {
+//   animation: stagger_3 4s;
+// }
 
 //Opponent Attack animations
 .opponent-attack {
   animation: attacker-animate 4s;
 }
 
+// .opponent-attack_2 {
+//   border-radius: 200px;
+//   animation: attacker-animate_2 4s;
+// }
+
 .opponent-attack_2 {
-  border-radius: 200px;
-  animation: attacker-animate_2 4s;
+  animation: tackle-animate_2 2s;
 }
 
 .opponent-energy {
@@ -261,13 +280,20 @@
 }
 
 .player-Static--animate {
-  animation: player-energy 4s;
+  animation: player-energy 2s;
   color: yellow;
-  left: 85px;
-  bottom: 30px;
+  font-size: 0;
   z-index: 105;
 }
 
+.opponent-Static--animate {
+  animation: opponent-energy 2s;
+  color: yellow;
+  font-size: 0;
+  z-index: 105;
+}
+
+/*Pikachu*/
 .player-Discharge--animate {
   animation: Discharge 3s;
   background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
@@ -277,13 +303,6 @@
   left: 0px;
 }
 
-.opponent-Static--animate {
-  animation: opponent-energy 2s;
-  z-index: 105;
-  color: yellow;
-}
-
-/*Pikachu*/
 .opponent-Discharge--animate {
   animation: Discharge 3s;
   background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
@@ -553,6 +572,27 @@
   100% {
     filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
+}
+
+//Tackle animate
+@keyframes tackle-animate {
+    from {
+      left: 30px;
+    }
+    to {
+      left: 0px;
+    }
+}
+
+@keyframes tackle-animate_2 {
+    from {
+      top: -50px;
+      right: 20px;
+      height: 120px;
+    }
+    to {
+      right: 0;
+    }
 }
 
 //Light and energy circle
@@ -1486,7 +1526,7 @@
 
 .pokeBall {
    filter: grayscale(0%);
-   height: 40%;
+   height: 60px;
    position: absolute;
    top: -30px;
    right: 30px;
