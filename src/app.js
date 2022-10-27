@@ -57,6 +57,14 @@ var state = {
   wins: 0,
 };
 
+const sound = {
+  selecting: new Audio("sounds/171697__nenadsimic__menu-selection-click.wav"),
+  takeDamage: new Audio("sounds/grunt-hit-01.wav"),
+  energyBlast: new Audio("sounds/8-bit-game-over.wav"),
+  winGame: new Audio("sounds/win-video-game-sound.wav"),
+  battle: new Audio("sounds/338817__sirkoto51__rpg-battle-loop-1.wav")
+};
+
 /*Displays*/
 //Function to load different Screens
 const displayScreen = (screenUpdate, screenFunc) => {
@@ -130,6 +138,7 @@ async function oppSelectionScreen() {
 
 //Loads iframe of Battle Screen
 const battleScreen = () => {
+  sound.battle.pause();
   state.optionSelected = "attack";
   iframeDocument = iframe.contentWindow.document;
   dialogue = iframeDocument.querySelector(".infobox__text");
@@ -138,6 +147,9 @@ const battleScreen = () => {
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
   loadPokemon();
+  sound.battle.play();
+  sound.battle.volume = 0.5;
+  sound.battle.loop = true;
 };
 
 const gameoverScreen = () => {
@@ -186,6 +198,10 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
+  
+  // console.log(sound)
+  // sound.start.play();
+  // sound.start.volume = 1;
   //Only enable start selection screen page if is not the current page loaded
   if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
     //set screen in state to equal selection-screen
@@ -194,7 +210,9 @@ startButton.addEventListener("click", () => {
 });
 
 pauseButton.addEventListener("click", () => {
-  oppTurn();
+  sound.battle.play();
+  sound.battle.volume = .9;
+  // oppTurn();
   // console.log("state:", state);
   // console.log("count:", count);
   // console.log("count2:", count2);
@@ -384,6 +402,7 @@ upButton.addEventListener("click", () => {
 /*Switch*/
 //----Enable Direction Pad Controls for Selection Screen----//
 const switchDirection = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "right":
       //removes selection border from previous selection
@@ -421,6 +440,7 @@ const switchDirection = (direction) => {
 
 //----Enable Direction Pad Controls for Battle Screen----//
 const switchDirection2 = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "right":
       //displays & removes arrow
@@ -460,6 +480,7 @@ const switchDirection2 = (direction) => {
 
 //Game-over selection D-Pad Control
 const switchDirection3 = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "down":
       playagainList[count - 1].children[0].classList.remove("arrow--selected");
@@ -476,6 +497,7 @@ const switchDirection3 = (direction) => {
 
 //Bag items D-Pad Control
 const switchDirection4 = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "down":
       bagItems[count2 - 1].classList.remove("bag-item--selected");
@@ -502,6 +524,7 @@ const switchDirection4 = (direction) => {
 
 //Switch out Pokemon
 const switchDirection5 = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "right":
       //removes selection border from previous selection
@@ -530,6 +553,7 @@ const switchDirection5 = (direction) => {
 };
 
 const switchDirection6 = (direction) => {
+  sound.selecting.play();
   switch (direction) {
     case "down":
       //displays & removes arrow
@@ -580,12 +604,14 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack");
+        soundBox.energyBlast.play();
         iframeDocument
           .querySelector(".player-energy")
           .classList.add(`player-energy--show`, `player-${energy}--animate`);
         iframeDocument
           .querySelector(".opponent__img")
-          .classList.add("staggered");
+          .classList.add("staggered_2");
+        soundBox.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -595,7 +621,7 @@ const attackOption = () => {
             .classList.remove(`player-energy--show`, `player-${energy}--animate`);
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("staggered");
+            .classList.remove("staggered_2");
           let attack = Math.floor(playerPokemon.attackPower("attack_1"));
           oppPokemon.damage(attack);
           iframe.contentWindow.updateValues();
@@ -606,7 +632,7 @@ const attackOption = () => {
     }
     if (state.attackSelected === "attack_2") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_2;
-      console.log(energy)
+      soundBox.energyBlast.play();
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -620,6 +646,7 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
+        soundBox.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -813,11 +840,10 @@ const oppTurn = () => {
   }
   setTimeout(() => {
     if (state.screen !== "gameover-screen") {
-      state.attackSelected = Math.random() > 0.5 ? "attack_1" : "attack_1";
+      state.attackSelected = Math.random() > 0.5 ? "attack_2" : "attack_1";
       if (state.attackSelected === "attack_1") {
-        console.log("attack_1")
         const energy = state.opponentPokemon.attack_1;
-        console.log(energy)
+        soundBox.energyBlast.play();
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack");
@@ -825,6 +851,7 @@ const oppTurn = () => {
           .querySelector(".opponent-energy")
           .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
         iframeDocument.querySelector(".player__img").classList.add("staggered");
+        soundBox.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -841,9 +868,8 @@ const oppTurn = () => {
         }, 4000);
       }
       if (state.attackSelected === "attack_2") {
-        console.log("attack2 running")
         const energy = state.opponentPokemon.attack_2;
-        console.log(energy)
+        soundBox.energyBlast.play();
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack_2");
@@ -852,7 +878,8 @@ const oppTurn = () => {
           .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
         iframeDocument
           .querySelector(".player__img")
-          .classList.add("staggered_2");
+          .classList.add("staggered");
+        soundBox.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -862,7 +889,7 @@ const oppTurn = () => {
             .classList.remove(`opponent-energy--show`, `opponent-${energy}--animate`);
           iframeDocument
             .querySelector(".player__img")
-            .classList.remove("staggered_2");
+            .classList.remove("staggered");
           let attack = Math.floor(oppPokemon.attackPower("attack_2"));
           playerPokemon.damage(attack);
           resetOptions();
@@ -896,7 +923,6 @@ const throwPokeBall = () => {
 const catchSuccess = (n) => {
   let matchNum = Math.floor(Math.random() * n) + 1;
   let successNum = Math.floor(Math.random() * n) + 1;
-  console.log(matchNum, successNum);
   if (matchNum === successNum) {
     return pokemonCaught("success");
   }
@@ -951,10 +977,10 @@ class Pokemon {
     let accuracy = Math.random() * (1 - 0.5) + 0.5;
     if (attacktype === "attack_1") {
       return (
-        this.pkmState.health_active * 0.05 + this.attackpt * 0.12 * accuracy
+        this.pkmState.health_active * 0.05 + this.attackpt * 0.22 * accuracy
       );
     }
-    return this.pkmState.health_active * 0.05 + this.attackpt * 0.15 * accuracy;
+    return this.pkmState.health_active * 0.05 + this.attackpt * 0.25 * accuracy;
   }
   damage(attack) {
     let defensePt = this.defense * 0.025;
@@ -1023,6 +1049,7 @@ class Pokemon {
     state.bag[itemWon] += 1;
     //display winning item infobox red
     dialogue.textContent = `You win ${state.wins} round.`;
+    sound.winGame.play();
     //Add Caught Pokemon to your team
     state.yourPkmn.push(state.opponentPokemon);
     //Reset
@@ -1048,12 +1075,12 @@ async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
   // displayScreen("intro-screen", introScreen);
-  // setTimeout(() => {
-  //   state.screen = "intro-screen";
-  //   // state.screen = "battle-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
-  // }, 1500);
+  setTimeout(() => {
+    state.screen = "intro-screen";
+    // state.screen = "battle-screen";
+    document.getElementsByName("screen-display")[0].src =
+      state.screen + ".html";
+  }, 1500);
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1066,24 +1093,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
-  // // //==Temp load a pokemon team==//
-  //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 6; i < 9; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // // // //==Temp load a pokemon team==//
+  // //Grab from state 3 pokemon
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 7; i < 9; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
