@@ -58,11 +58,15 @@ var state = {
 };
 
 const sound = {
-  selecting: new Audio("sounds/171697__nenadsimic__menu-selection-click.wav"),
-  takeDamage: new Audio("sounds/grunt-hit-01.wav"),
-  energyBlast: new Audio("sounds/8-bit-game-over.wav"),
-  winGame: new Audio("sounds/win-video-game-sound.wav"),
-  battle: new Audio("sounds/338817__sirkoto51__rpg-battle-loop-1.wav")
+  // selecting: new Audio("./src/sounds/171697__nenadsimic__menu-selection-click.wav"),
+  click: new Audio("./src/sounds/splits.mp3"),
+  click2: new Audio("./src/sounds/608432__plasterbrain__pokemon-ui-select-enter.flac"),
+  intro: new Audio("./src/sounds/514155__edwardszakal__game-music.mp3"),
+  takeDamage: new Audio("./src/sounds/grunt-hit-01.wav"),
+  energyBlast: new Audio("./src/sounds/8-bit-game-over.wav"),
+  winGame: new Audio("./src/sounds/win-video-game-sound.wav"),
+  battle: new Audio("./src/sounds/338817__sirkoto51__rpg-battle-loop-1.wav"),
+  // click: new Audio("./src/sounds/338817__sirkoto51__rpg-battle-loop-1.wav"),
 };
 
 /*Displays*/
@@ -92,6 +96,9 @@ const selectionScreen = () => {
   state.pokemonList = pokemonList;
   //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
   state.curSelectPokemon = pokemonList[0];
+  sound.intro.play();
+  sound.intro.volume = .1;
+  sound.intro.loop = true;
 };
 
 //In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
@@ -125,6 +132,7 @@ async function oppSelectionScreen() {
   const yourTeam = state.yourPkmn;
   yourTeam.forEach((el) => {
     el.health_active = el.health_total;
+    sound.click.play();
   });
 
   //Wait for content to load
@@ -138,7 +146,6 @@ async function oppSelectionScreen() {
 
 //Loads iframe of Battle Screen
 const battleScreen = () => {
-  sound.battle.pause();
   state.optionSelected = "attack";
   iframeDocument = iframe.contentWindow.document;
   dialogue = iframeDocument.querySelector(".infobox__text");
@@ -147,8 +154,10 @@ const battleScreen = () => {
   optionsListItems = optionsList.children;
   numItems = optionsListItems.length - 1;
   loadPokemon();
+  sound.intro.pause();
+  sound.intro.currentTime = 0;
   sound.battle.play();
-  sound.battle.volume = 0.5;
+  sound.battle.volume = 0.1;
   sound.battle.loop = true;
 };
 
@@ -198,10 +207,7 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
-  
-  // console.log(sound)
-  // sound.start.play();
-  // sound.start.volume = 1;
+  sound.click2.play();
   //Only enable start selection screen page if is not the current page loaded
   if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
     //set screen in state to equal selection-screen
@@ -210,8 +216,7 @@ startButton.addEventListener("click", () => {
 });
 
 pauseButton.addEventListener("click", () => {
-  sound.battle.play();
-  sound.battle.volume = .9;
+  sound.click2.play();
   // oppTurn();
   // console.log("state:", state);
   // console.log("count:", count);
@@ -224,6 +229,7 @@ pauseButton.addEventListener("click", () => {
 });
 
 selectButton.addEventListener("click", () => {
+  sound.click2.play();
   //Selects Pokemon in Selection Screen
   if (
     state.screen === "selected-mode" &&
@@ -294,6 +300,7 @@ selectButton.addEventListener("click", () => {
 });
 
 rightButton.addEventListener("click", () => {
+  sound.click.play();
   //Prevents count / d-pad change
   // if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
   //   //Adds 1 every time user clicks right button on d-pad
@@ -322,6 +329,7 @@ rightButton.addEventListener("click", () => {
 
 //Left button moves selection border one over to the left
 leftButton.addEventListener("click", () => {
+  sound.click.play();
   // if (state.screen !== "hold-mode" && state.screen !== "gameover-screen") {
   //   count -= 1;
   // }
@@ -343,6 +351,7 @@ leftButton.addEventListener("click", () => {
 
 //Down button moves selection border one below
 downButton.addEventListener("click", () => {
+  sound.click.play();
   if (state.screen === "selection-screen") {
     count += 3;
     //Reverse count by -3, if count exceeds # of selections available, before changing direction
@@ -372,6 +381,7 @@ downButton.addEventListener("click", () => {
 
 //Switch to yes with up button
 upButton.addEventListener("click", () => {
+  sound.click.play();
   if (state.screen === "selection-screen") {
     count -= 3;
     //Reverse count by +3, if count goes below zero, before changing direction
@@ -402,7 +412,6 @@ upButton.addEventListener("click", () => {
 /*Switch*/
 //----Enable Direction Pad Controls for Selection Screen----//
 const switchDirection = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "right":
       //removes selection border from previous selection
@@ -440,7 +449,6 @@ const switchDirection = (direction) => {
 
 //----Enable Direction Pad Controls for Battle Screen----//
 const switchDirection2 = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "right":
       //displays & removes arrow
@@ -480,7 +488,6 @@ const switchDirection2 = (direction) => {
 
 //Game-over selection D-Pad Control
 const switchDirection3 = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "down":
       playagainList[count - 1].children[0].classList.remove("arrow--selected");
@@ -497,7 +504,6 @@ const switchDirection3 = (direction) => {
 
 //Bag items D-Pad Control
 const switchDirection4 = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "down":
       bagItems[count2 - 1].classList.remove("bag-item--selected");
@@ -524,7 +530,6 @@ const switchDirection4 = (direction) => {
 
 //Switch out Pokemon
 const switchDirection5 = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "right":
       //removes selection border from previous selection
@@ -553,7 +558,6 @@ const switchDirection5 = (direction) => {
 };
 
 const switchDirection6 = (direction) => {
-  sound.selecting.play();
   switch (direction) {
     case "down":
       //displays & removes arrow
@@ -604,14 +608,14 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player-attack");
-        soundBox.energyBlast.play();
+        sound.energyBlast.play();
         iframeDocument
           .querySelector(".player-energy")
           .classList.add(`player-energy--show`, `player-${energy}--animate`);
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
-        soundBox.takeDamage.play();
+        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -632,7 +636,7 @@ const attackOption = () => {
     }
     if (state.attackSelected === "attack_2") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_2;
-      soundBox.energyBlast.play();
+      sound.energyBlast.play();
       setTimeout(() => {
         iframeDocument
           .querySelector(".player__img")
@@ -646,7 +650,7 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
-        soundBox.takeDamage.play();
+        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -843,7 +847,7 @@ const oppTurn = () => {
       state.attackSelected = Math.random() > 0.5 ? "attack_2" : "attack_1";
       if (state.attackSelected === "attack_1") {
         const energy = state.opponentPokemon.attack_1;
-        soundBox.energyBlast.play();
+        sound.energyBlast.play();
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack");
@@ -851,7 +855,7 @@ const oppTurn = () => {
           .querySelector(".opponent-energy")
           .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
         iframeDocument.querySelector(".player__img").classList.add("staggered");
-        soundBox.takeDamage.play();
+        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -869,7 +873,7 @@ const oppTurn = () => {
       }
       if (state.attackSelected === "attack_2") {
         const energy = state.opponentPokemon.attack_2;
-        soundBox.energyBlast.play();
+        sound.energyBlast.play();
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("opponent-attack_2");
@@ -879,7 +883,7 @@ const oppTurn = () => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("staggered");
-        soundBox.takeDamage.play();
+        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -1074,7 +1078,7 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
+  displayScreen("intro-screen", introScreen);
   setTimeout(() => {
     state.screen = "intro-screen";
     // state.screen = "battle-screen";

@@ -210,17 +210,12 @@
 
 //Tackle
 .player-attack_2 {
-  animation: tackle-animate 2s;
+  animation: player-tackle  2s;
 }
 
 .opponent-attack_2 {
-  animation: tackle-animate 2s;
+  animation: opponent-tackle  2s;
 }
-
-// .player-attack_2 {
-//   border-radius: 200px;
-//   animation: attacker-animate_2 2s;
-// }
 
 .player-energy {
   visibility: hidden;
@@ -234,18 +229,6 @@
   z-index: 95;
 }
 
-// .opponent--staggered {
-//   animation: stagger 4s;
-// }
-
-// .opponent--staggered_2 {
-//   animation: stagger_2 4s;
-// }
-
-// .opponent--staggered_3 {
-//   animation: stagger_3 4s;
-// }
-
 //Opponent Attack animations
 .opponent-attack {
   animation: attacker-animate 4s;
@@ -255,10 +238,6 @@
 //   border-radius: 200px;
 //   animation: attacker-animate_2 4s;
 // }
-
-.opponent-attack_2 {
-  animation: tackle-animate_2 2s;
-}
 
 .opponent-energy {
   visibility: hidden;
@@ -541,15 +520,11 @@
 }
 
 .staggered {
-  animation: stagger 2s;
+  animation: player-stagger 2s;
 }
 
 .staggered_2 {
-  animation: stagger_2 2s;
-}
-
-.staggered_3 {
-  animation: stagger_3 2s;
+  animation: opponent-stagger 2s;
 }
 
 //player attacks animation
@@ -575,7 +550,7 @@
 }
 
 //Tackle animate
-@keyframes tackle-animate {
+@keyframes player-tackle  {
     from {
       left: 30px;
     }
@@ -584,7 +559,7 @@
     }
 }
 
-@keyframes tackle-animate_2 {
+@keyframes opponent-tackle {
     from {
       top: -50px;
       right: 20px;
@@ -1337,108 +1312,31 @@
 }
 
 //Stagger animation
-@keyframes stagger {
-  0% {
-    filter: grayscale(0);
+@keyframes player-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    bottom: -23px;
+    left: 0px;
   }
   20% {
-    filter: grayscale(50%);
-    right: -5px;
-    transform: rotate(5deg);
+    filter: sepia(0) hue-rotate(0) saturate(0);
   }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
-  }
-  50% {
-    filter: grayscale(60%);
-    right: -6px;
-    transform: rotate(5deg);
-  }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
-  }
-  80% {
-    filter: grayscale(70%);
-    right: -7px;
-    transform: rotate(5deg);
-  }
-  90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
-  }
-  100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
   }
 }
 
-@keyframes stagger_2 {
-  0% {
-    filter: grayscale(0);
+@keyframes opponent-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    top: -62px;
+    right: -2px;
   }
   20% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+    filter: sepia(0) hue-rotate(0) saturate(0);
   }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
-  }
-  50% {
-    filter: grayscale(80%);
-    right: -6px;
-    transform: rotate(5deg);
-  }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
-  }
-  80% {
-    filter: grayscale(90%);
-    right: 7px;
-    transform: rotate(-5deg);
-  }
-  90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
-  }
-  100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes stagger_3 {
-  0% {
-    filter: grayscale(0);
-  }
-  25% {
-    filter: grayscale(0);
-  }
-  50% {
-    filter: grayscale(0);
-  }
-  75% {
-    filter: grayscale(0);
-  }
-  95% {
-    filter: grayscale(0);
-  }
-  100% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
   }
 }
 
