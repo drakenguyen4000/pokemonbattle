@@ -51,7 +51,7 @@ var state = {
   },
   curPkmIndex: 0,
   yourPkmn: [],
-  itemUsed: 1,
+  itemsAllowed: 5,
   captured: false,
   switchPkmn: 1,
   wins: 0,
@@ -62,9 +62,13 @@ const sound = {
   click: new Audio("./src/sounds/splits.mp3"),
   click2: new Audio("./src/sounds/608432__plasterbrain__pokemon-ui-select-enter.flac"),
   intro: new Audio("./src/sounds/514155__edwardszakal__game-music.mp3"),
-  takeDamage: new Audio("./src/sounds/grunt-hit-01.wav"),
-  energyBlast: new Audio("./src/sounds/8-bit-game-over.wav"),
+  energyBlast: new Audio("./src/sounds/213149__complex-waveform__8bit-style-bonus-effect.wav"),
+  heal: new Audio("./src/sounds/562292__colorscrimsontears__heal-rpg.wav"),
+  catch: new Audio("./src/sounds/464904__plasterbrain__8bit-beam.flac"),
+  fail: new Audio("./src/sounds/159408__noirenex__life-lost-game-over.wav"),
   winGame: new Audio("./src/sounds/win-video-game-sound.wav"),
+  lostGame: new Audio("./src/sounds/538151__fupicat__8bit-fall.wav"),
+  gameOver: new Audio("./src/sounds/617466__cwright13__pokemoncenter.mp3"),
   battle: new Audio("./src/sounds/338817__sirkoto51__rpg-battle-loop-1.wav"),
   // click: new Audio("./src/sounds/338817__sirkoto51__rpg-battle-loop-1.wav"),
 };
@@ -169,6 +173,9 @@ const gameoverScreen = () => {
   }
   playagainList = iframeDocument.querySelector(".playagain").children;
   numItems = playagainList.length - 1;
+  sound.gameOver.play();
+  sound.gameOver.volume = .1;
+  sound.gameOver.loop = true;
 };
 
 /*Pokemon Class*/
@@ -615,7 +622,6 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
-        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -650,7 +656,6 @@ const attackOption = () => {
         iframeDocument
           .querySelector(".opponent__img")
           .classList.add("staggered_2");
-        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".player__img")
@@ -676,7 +681,7 @@ const attackOption = () => {
 };
 
 const bagOption = () => {
-  if (state.optionSelected === "bag" && state.itemUsed !== 0) {
+  if (state.optionSelected === "bag" && state.itemsAllowed !== 0) {
     bagItems = iframeDocument.querySelector(".bag-list").children;
     numItems2 = bagItems.length - 1;
     //Display bag item quantity
@@ -700,13 +705,15 @@ const bagOption = () => {
     state.bag[item] > 0 || state.selectedAnswer === "Exit"
       ? itemSelected(item)
       : null;
-  } else if (state.optionSelected === "bag" && state.itemUsed === 0) {
+  } else if (state.optionSelected === "bag" && state.itemsAllowed === 0) {
     dialogue.textContent =
       "You already used an item this turn. Choose another option.";
   }
 };
 
 const runOption = () => {
+  sound.fail.play();
+  sound.fail.volume = .1;
   dialogue.textContent = `You can't run! Keep fighting!`;
 };
 
@@ -831,7 +838,7 @@ const resetOptions = () => {
     count3 = 0;
     optionsListItems[count].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
-    state.itemUsed = 1;
+    state.itemsAllowed = 5;
   }
   state.optionSelected = "attack";
   state.attackSelected = "";
@@ -855,7 +862,6 @@ const oppTurn = () => {
           .querySelector(".opponent-energy")
           .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
         iframeDocument.querySelector(".player__img").classList.add("staggered");
-        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -883,7 +889,6 @@ const oppTurn = () => {
         iframeDocument
           .querySelector(".player__img")
           .classList.add("staggered");
-        sound.takeDamage.play();
         setTimeout(() => {
           iframeDocument
             .querySelector(".opponent__img")
@@ -905,8 +910,8 @@ const oppTurn = () => {
 
 //Determines catch success rate probability based on health of opponent
 const throwPokeBall = () => {
-  // state.bag.Pokeball -= 1;
-  // state.itemUsed = 0;
+  state.bag.Pokeball -= 1;
+  state.itemsAllowed -= 1;
   const healthPercent = Math.floor(
     (oppPokemon.pkmState.health_active / oppPokemon.pkmState.health_total) * 100
   );
@@ -938,6 +943,7 @@ const pokemonCaught = (caught) => {
   iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
   dialogue.textContent = "'Go pokeball!'";
   setTimeout(() => {
+    sound.catch.play();
     iframeDocument
       .querySelector(".opponent__img")
       .classList.remove("pokeBallHit");
@@ -948,6 +954,8 @@ const pokemonCaught = (caught) => {
     state.captured = true;
     setTimeout(() => {
       //If fail, release pokemon
+      sound.fail.play();
+      sound.fail.volume = .3;
       if (caught === "fail") {
         state.captured = false;
         dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
@@ -988,8 +996,8 @@ class Pokemon {
   }
   damage(attack) {
     let defensePt = this.defense * 0.025;
-    // let damage = attack - defensePt;
-    let damage = 5; //temp damage test
+    let damage = attack - defensePt;
+    // let damage = 100; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
@@ -1005,13 +1013,15 @@ class Pokemon {
     //Determines which potion to use
     let healPoints = potion === "Potion" ? 15 : 25;
     let currHealth = Math.floor(this.pkmState.health_active + healPoints);
-    state.itemUsed = 0;
+    state.itemsAllowed -= 1;
     if (currHealth >= this.pkmState.health_total) {
       currHealth = this.pkmState.health_total;
     }
     this.value = currHealth;
     dialogue.textContent = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
+    sound.heal.play();
+    sound.heal.volume = .1;
   }
   delayLoadingScreen(screen, screenFunc) {
     state.switchPkmn = 1;
@@ -1045,6 +1055,7 @@ class Pokemon {
     }
   }
   win() {
+    sound.winGame.play();
     state.wins += 1;
     //Receive an extra item randomly
     const ranNum = Math.floor(Math.random() * 3);
@@ -1069,6 +1080,7 @@ class Pokemon {
     }
   }
   lose() {
+    sound.lostGame.play();
     dialogue.textContent = "You lost!";
     state.screen = "gameover-screen";
     this.delayLoadingScreen("gameover-screen", gameoverScreen);
@@ -1078,13 +1090,13 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    // state.screen = "battle-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
+  // displayScreen("intro-screen", introScreen);
+  // setTimeout(() => {
+  //   state.screen = "intro-screen";
+  //   // state.screen = "battle-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  // }, 1500);
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1097,24 +1109,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2[0];
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2[0];
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
-  // // // //==Temp load a pokemon team==//
-  // //Grab from state 3 pokemon
-  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data = await response3.json().catch((err) => console.log(err));
-  // for (let i = 7; i < 9; i++) {
-  //   state.yourPkmn.push(data[i]);
-  // }
+  //==Temp load a pokemon team==//
+  //Grab from state 3 pokemon
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response3.json().catch((err) => console.log(err));
+  for (let i = 7; i < 9; i++) {
+    state.yourPkmn.push(data[i]);
+  }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
