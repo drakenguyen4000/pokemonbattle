@@ -76,11 +76,11 @@ const sound = {
 /*Displays*/
 //Function to load different Screens
 const displayScreen = (screenUpdate, screenFunc) => {
-  count = 0;
   state.screen = screenUpdate;
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
   setTimeout(() => {
     screenFunc();
+    count = 0;
   }, 2000);
 };
 
@@ -100,6 +100,8 @@ const selectionScreen = () => {
   state.pokemonList = pokemonList;
   //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
   state.curSelectPokemon = pokemonList[0];
+  sound.gameOver.pause();
+  sound.gameOver.currentTime = 0;
   sound.intro.play();
   sound.intro.volume = .1;
   sound.intro.loop = true;
@@ -137,6 +139,8 @@ async function oppSelectionScreen() {
   yourTeam.forEach((el) => {
     el.health_active = el.health_total;
     sound.click.play();
+    sound.gameOver.pause();
+    sound.gameOver.currentTime = 0;
   });
 
   //Wait for content to load
@@ -167,12 +171,14 @@ const battleScreen = () => {
 
 const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
-  if (state.wins === 3) {
+  if (state.wins === 2) {
     iframeDocument.querySelector(".lost").classList.add("lost--hide");
     iframeDocument.querySelector(".win").classList.add("win--show");
   }
   playagainList = iframeDocument.querySelector(".playagain").children;
   numItems = playagainList.length - 1;
+  sound.battle.pause();
+  sound.battle.currentTime = 0;
   sound.gameOver.play();
   sound.gameOver.volume = .1;
   sound.gameOver.loop = true;
@@ -231,7 +237,6 @@ pauseButton.addEventListener("click", () => {
   console.log("numItems:", numItems);
   console.log("numItems2:", numItems2);
   console.log("numItems3:", numItems3);
-  console.log(state);
 });
 
 selectButton.addEventListener("click", () => {
@@ -989,9 +994,9 @@ const pokemonCaught = (caught) => {
     state.captured = true;
     setTimeout(() => {
       //If fail, release pokemon
-      sound.fail.play();
-      sound.fail.volume = .3;
       if (caught === "fail") {
+        sound.fail.play();
+        sound.fail.volume = .3;
         state.captured = false;
         dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
         iframeDocument
@@ -1125,13 +1130,13 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
-  // setTimeout(() => {
-  //   state.screen = "intro-screen";
-  //   // state.screen = "battle-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
-  // }, 1500);
+  displayScreen("intro-screen", introScreen);
+  setTimeout(() => {
+    state.screen = "intro-screen";
+    // state.screen = "battle-screen";
+    document.getElementsByName("screen-display")[0].src =
+      state.screen + ".html";
+  }, 1500);
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1144,24 +1149,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
-  //==Temp load a pokemon team==//
-  //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 7; i < 9; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // //==Temp load a pokemon team==//
+  // //Grab from state 3 pokemon
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 7; i < 9; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
