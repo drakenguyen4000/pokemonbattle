@@ -59,9 +59,13 @@ var state = {
 
 const sound = {
   click: new Audio("./src/sounds/splits.mp3"),
-  click2: new Audio("./src/sounds/608432__plasterbrain__pokemon-ui-select-enter.flac"),
+  click2: new Audio(
+    "./src/sounds/608432__plasterbrain__pokemon-ui-select-enter.flac"
+  ),
   intro: new Audio("./src/sounds/514155__edwardszakal__game-music.mp3"),
-  attack: new Audio("./src/sounds/213149__complex-waveform__8bit-style-bonus-effect.wav"),
+  attack: new Audio(
+    "./src/sounds/213149__complex-waveform__8bit-style-bonus-effect.wav"
+  ),
   heal: new Audio("./src/sounds/562292__colorscrimsontears__heal-rpg.wav"),
   smash: new Audio("./src/sounds/323417__sethroph__glass-slide-7.wav"),
   catch: new Audio("./src/sounds/464904__plasterbrain__8bit-beam.flac"),
@@ -70,7 +74,18 @@ const sound = {
   lostGame: new Audio("./src/sounds/538151__fupicat__8bit-fall.wav"),
   gameOver: new Audio("./src/sounds/617466__cwright13__pokemoncenter.mp3"),
   battle: new Audio("./src/sounds/338817__sirkoto51__rpg-battle-loop-1.wav"),
-  switch: new Audio("./src/sounds/274180__littlerobotsoundfactory__jingle-win-synth-00.wav"),
+  switch: new Audio(
+    "./src/sounds/274180__littlerobotsoundfactory__jingle-win-synth-00.wav"
+  ),
+};
+
+//Timer to slow effect
+const delay = (time) => {
+  return new Promise((resolve) => {
+    return setTimeout(() => {
+      resolve();
+    }, time);
+  });
 };
 
 /*Displays*/
@@ -78,10 +93,10 @@ const sound = {
 const displayScreen = (screenUpdate, screenFunc) => {
   state.screen = screenUpdate;
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  setTimeout(() => {
+  delay(2000).then(() => {
     screenFunc();
     count = 0;
-  }, 2000);
+  });
 };
 
 const introScreen = () => {
@@ -101,7 +116,7 @@ const selectionScreen = () => {
   //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
   state.curSelectPokemon = pokemonList[0];
   sound.intro.play();
-  sound.intro.volume = .1;
+  sound.intro.volume = 0.1;
   sound.intro.loop = true;
 };
 
@@ -178,7 +193,7 @@ const gameoverScreen = () => {
   sound.battle.pause();
   sound.battle.currentTime = 0;
   sound.gameOver.play();
-  sound.gameOver.volume = .1;
+  sound.gameOver.volume = 0.1;
   sound.gameOver.loop = true;
 };
 
@@ -240,10 +255,7 @@ pauseButton.addEventListener("click", () => {
 selectButton.addEventListener("click", () => {
   sound.click2.play();
   //Selects Pokemon in Selection Screen
-  if (
-    state.screen === "selected-mode" &&
-    state.selectedAnswer === "yes"
-  ) {
+  if (state.screen === "selected-mode" && state.selectedAnswer === "yes") {
     //Pokemon team selection. Player cannot select same Pokemon on team.
     if (state.yourPkmn.find((e) => e.name === state.curSelectPokemon.name)) {
       backToSelection();
@@ -326,7 +338,7 @@ rightButton.addEventListener("click", () => {
     count > numItems ? (count = numItems) : switchDirection2("right");
   } else if (state.screen === "yourPkmn") {
     count3 += 1;
-  //Set equal to # of selections available, if count exceeds it, before changing direction
+    //Set equal to # of selections available, if count exceeds it, before changing direction
     count3 > numItems3 ? (count3 = numItems3) : switchDirection5("right");
   }
 });
@@ -365,7 +377,7 @@ downButton.addEventListener("click", () => {
     //Reverse count by -2, if count exceeds # of selections available, before changing direction
     count > numItems ? (count -= 2) : switchDirection2("down");
   } else if (state.screen === "attack-mode") {
-    count += 1; 
+    count += 1;
     count > 2 ? (count = 2) : switchDirection6("down");
   } else if (state.screen === "gameover-screen") {
     count += 1;
@@ -580,7 +592,9 @@ const switchDirection6 = (direction) => {
 
 const attackOption = () => {
   //Set Attack Option Grid layout as list
-  iframeDocument.querySelector(".option-grid").classList.add("option-grid--list");
+  iframeDocument
+    .querySelector(".option-grid")
+    .classList.add("option-grid--list");
   if (state.optionSelected === "attack") {
     state.screen = "attack-mode";
     state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
@@ -591,7 +605,8 @@ const attackOption = () => {
       state.yourPkmn[state.curPkmIndex].attack_1;
     optionsListItems[1].lastChild.data =
       state.yourPkmn[state.curPkmIndex].attack_2;
-    optionsListItems[2].lastChild.data = state.yourPkmn[state.curPkmIndex].attack_3;
+    optionsListItems[2].lastChild.data =
+      state.yourPkmn[state.curPkmIndex].attack_3;
     optionsListItems[3].lastChild.data = "";
   } else if (state.screen === "attack-mode" && state.screen !== "hold-mode") {
     //Displays user command in infobox yellow
@@ -602,93 +617,111 @@ const attackOption = () => {
     state.screen = "hold-mode";
     if (state.attackSelected === "attack_1") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_1;
-      setTimeout(() => {
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("player-attack");
-        sound.attack.play();
-        iframeDocument
-          .querySelector(".player-energy")
-          .classList.add(`player-energy--show`, `player-${energy}--animate`);
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.add("opponent--stagger");
-        setTimeout(() => {
+      delay(1000)
+        .then(() => {
+          sound.attack.play();
           iframeDocument
             .querySelector(".player__img")
-            .classList.remove("player-attack");
+            .classList.add("player-attack");
           iframeDocument
             .querySelector(".player-energy")
-            .classList.remove(`player-energy--show`, `player-${energy}--animate`);
+            .classList.add(`player-energy--show`, `player-${energy}--animate`);
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("opponent--stagger");
-          let attack = Math.floor(playerPokemon.attackPower("attack_1"));
-          oppPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
-          oppTurn();
-        }, 4000);
-      }, 1000);
+            .classList.add("opponent--stagger");
+        })
+        .then(() => {
+          delay(4000).then(() => {
+            iframeDocument
+              .querySelector(".player__img")
+              .classList.remove("player-attack");
+            iframeDocument
+              .querySelector(".player-energy")
+              .classList.remove(
+                `player-energy--show`,
+                `player-${energy}--animate`
+              );
+            iframeDocument
+              .querySelector(".opponent__img")
+              .classList.remove("opponent--stagger");
+            let attack = Math.floor(playerPokemon.attackPower("attack_1"));
+            oppPokemon.damage(attack);
+            iframe.contentWindow.updateValues();
+            oppTurn();
+          });
+        });
     }
     if (state.attackSelected === "attack_2") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_2;
-      sound.attack.play();
-      setTimeout(() => {
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("player-attack_2");
-        iframeDocument
-          .querySelector(".player-energy")
-          .classList.add(`player-energy--show`, `player-${energy}--animate`);
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.add("opponent--stagger");
-        setTimeout(() => {
+      delay(1000)
+        .then(() => {
+          sound.attack.play();
           iframeDocument
             .querySelector(".player__img")
-            .classList.remove("player-attack_2");
+            .classList.add("player-attack_2");
           iframeDocument
             .querySelector(".player-energy")
-            .classList.remove(`player-energy--show`, `player-${energy}--animate`);
+            .classList.add(`player-energy--show`, `player-${energy}--animate`);
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("opponent--stagger");
-          let attack = Math.floor(playerPokemon.attackPower("attack_2"));
-          oppPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
-          oppTurn();
-        }, 4000);
-      }, 1000);
+            .classList.add("opponent--stagger");
+        })
+        .then(() => {
+          delay(4000).then(() => {
+            iframeDocument
+              .querySelector(".player__img")
+              .classList.remove("player-attack_2");
+            iframeDocument
+              .querySelector(".player-energy")
+              .classList.remove(
+                `player-energy--show`,
+                `player-${energy}--animate`
+              );
+            iframeDocument
+              .querySelector(".opponent__img")
+              .classList.remove("opponent--stagger");
+            let attack = Math.floor(playerPokemon.attackPower("attack_2"));
+            oppPokemon.damage(attack);
+            iframe.contentWindow.updateValues();
+            oppTurn();
+          });
+        });
     }
     if (state.attackSelected === "attack_3") {
       const energy = state.yourPkmn[state.curPkmIndex].attack_3;
-      sound.smash.play();
-      setTimeout(() => {
-        iframeDocument
-          .querySelector(".player__img")
-          .classList.add("player-attack_3");
-        iframeDocument
-          .querySelector(".player-energy")
-          .classList.add(`player-energy--show`, `player-${energy}--animate`);
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.add("opponent--stagger");
-        setTimeout(() => {
+      delay(1000)
+        .then(() => {
+          sound.smash.play();
           iframeDocument
             .querySelector(".player__img")
-            .classList.remove("player-attack_3");
+            .classList.add("player-attack_3");
           iframeDocument
             .querySelector(".player-energy")
-            .classList.remove(`player-energy--show`, `player-${energy}--animate`);
+            .classList.add(`player-energy--show`, `player-${energy}--animate`);
           iframeDocument
             .querySelector(".opponent__img")
-            .classList.remove("opponent--stagger");
-          let attack = Math.floor(playerPokemon.attackPower("attack_3"));
-          oppPokemon.damage(attack);
-          iframe.contentWindow.updateValues();
-          oppTurn();
-        }, 4000);
-      }, 1000);
+            .classList.add("opponent--stagger");
+        })
+        .then(() => {
+          delay(4000).then(() => {
+            iframeDocument
+              .querySelector(".player__img")
+              .classList.remove("player-attack_3");
+            iframeDocument
+              .querySelector(".player-energy")
+              .classList.remove(
+                `player-energy--show`,
+                `player-${energy}--animate`
+              );
+            iframeDocument
+              .querySelector(".opponent__img")
+              .classList.remove("opponent--stagger");
+            let attack = Math.floor(playerPokemon.attackPower("attack_3"));
+            oppPokemon.damage(attack);
+            iframe.contentWindow.updateValues();
+            oppTurn();
+          });
+        });
     }
   }
 };
@@ -726,7 +759,7 @@ const bagOption = () => {
 
 const runOption = () => {
   sound.fail.play();
-  sound.fail.volume = .1;
+  sound.fail.volume = 0.1;
   dialogue.textContent = `You can't run! Keep fighting!`;
 };
 
@@ -775,11 +808,11 @@ const pkmonOption = () => {
     }!`;
     loadPokemon();
     sound.switch.play();
-    sound.switch.volume = .4;
+    sound.switch.volume = 0.4;
     playerPokemon.switchPkmnHeatlh();
-    setTimeout(() => {
+    delay(3000).then(() => {
       oppTurn();
-    }, 3000);
+    });
   } else if (state.switchPkmn === 0) {
     dialogue.textContent = `You already switched out a Pokemon this battle. Pick another option.`;
   }
@@ -847,7 +880,9 @@ const resetOptions = () => {
     optionsListItems[3].lastChild.data = "run";
     //Reset count and arrow icon
     optionsListItems[count].children[0].classList.remove("arrow--selected");
-    iframeDocument.querySelector(".option-grid").classList.remove("option-grid--list");
+    iframeDocument
+      .querySelector(".option-grid")
+      .classList.remove("option-grid--list");
     count = 0;
     count2 = 0;
     count3 = 0;
@@ -864,10 +899,10 @@ const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
     dialogue.textContent = `It's your opponent, ${state.opponentPokemon.name}'s, move.`;
   }
-  setTimeout(() => {
+  delay(2000).then(() => {
     if (state.screen !== "gameover-screen") {
       const ranNum = Math.floor(Math.random() * 3) + 1;
-      state.attackSelected =  `attack_${ranNum}`;
+      state.attackSelected = `attack_${ranNum}`;
       if (state.attackSelected === "attack_1") {
         const energy = state.opponentPokemon.attack_1;
         sound.attack.play();
@@ -876,22 +911,30 @@ const oppTurn = () => {
           .classList.add("opponent-attack");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
-        iframeDocument.querySelector(".player__img").classList.add("player--stagger");
-        setTimeout(() => {
+          .classList.add(
+            `opponent-energy--show`,
+            `opponent-${energy}--animate`
+          );
+        iframeDocument
+          .querySelector(".player__img")
+          .classList.add("player--stagger");
+        delay(4000).then(() => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("opponent-attack");
           iframeDocument
             .querySelector(".opponent-energy")
-            .classList.remove(`opponent-energy--show`, `opponent-${energy}--animate`);
+            .classList.remove(
+              `opponent-energy--show`,
+              `opponent-${energy}--animate`
+            );
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("player--stagger");
           let attack = Math.floor(oppPokemon.attackPower("attack_1"));
           playerPokemon.damage(attack);
           resetOptions();
-        }, 4000);
+        });
       }
       if (state.attackSelected === "attack_2") {
         const energy = state.opponentPokemon.attack_2;
@@ -901,24 +944,30 @@ const oppTurn = () => {
           .classList.add("opponent-attack_2");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
+          .classList.add(
+            `opponent-energy--show`,
+            `opponent-${energy}--animate`
+          );
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player--stagger");
-        setTimeout(() => {
+        delay(4000).then(() => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("opponent-attack_2");
           iframeDocument
             .querySelector(".opponent-energy")
-            .classList.remove(`opponent-energy--show`, `opponent-${energy}--animate`);
+            .classList.remove(
+              `opponent-energy--show`,
+              `opponent-${energy}--animate`
+            );
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("player--stagger");
           let attack = Math.floor(oppPokemon.attackPower("attack_2"));
           playerPokemon.damage(attack);
           resetOptions();
-        }, 4000);
+        });
       }
       if (state.attackSelected === "attack_3") {
         const energy = state.opponentPokemon.attack_3;
@@ -928,27 +977,33 @@ const oppTurn = () => {
           .classList.add("opponent-attack_3");
         iframeDocument
           .querySelector(".opponent-energy")
-          .classList.add(`opponent-energy--show`, `opponent-${energy}--animate`);
+          .classList.add(
+            `opponent-energy--show`,
+            `opponent-${energy}--animate`
+          );
         iframeDocument
           .querySelector(".player__img")
           .classList.add("player--stagger");
-        setTimeout(() => {
+        delay(4000).then(() => {
           iframeDocument
             .querySelector(".opponent__img")
             .classList.remove("opponent-attack_3");
           iframeDocument
             .querySelector(".opponent-energy")
-            .classList.remove(`opponent-energy--show`, `opponent-${energy}--animate`);
+            .classList.remove(
+              `opponent-energy--show`,
+              `opponent-${energy}--animate`
+            );
           iframeDocument
             .querySelector(".player__img")
             .classList.remove("player--stagger");
           let attack = Math.floor(oppPokemon.attackPower("attack_3"));
           playerPokemon.damage(attack);
           resetOptions();
-        }, 4000);
+        });
       }
     }
-  }, 2000);
+  });
 };
 
 //Determines catch success rate probability based on health of opponent
@@ -985,37 +1040,40 @@ const catchSuccess = (n) => {
 const pokemonCaught = (caught) => {
   iframeDocument.querySelector(".opponent__img").classList.add("pokeBallHit");
   dialogue.textContent = "'Go pokeball!'";
-  setTimeout(() => {
-    sound.catch.play();
-    iframeDocument
-      .querySelector(".opponent__img")
-      .classList.remove("pokeBallHit");
-    iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
-    iframeDocument.querySelector(".opponent__img").src =
-      "https://www.serebii.net/itemdex/sprites/pgl/pokeball.png";
-    dialogue.textContent = `You caught ${oppPokemon.pkmState.name}...`;
-    state.captured = true;
-    setTimeout(() => {
-      //If fail, release pokemon
-      if (caught === "fail") {
-        sound.fail.play();
-        sound.fail.volume = .3;
-        state.captured = false;
-        dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
-        iframeDocument
-          .querySelector(".opponent__img")
-          .classList.remove("pokeBall");
-        iframeDocument.querySelector(".opponent__img").src =
-          state.opponentPokemon.oppSprite;
-        state.screen = "battle-screen";
-      } else if (caught === "success") {
-        //Reduce Opponent Pokemon if caught success during battle.
-        oppPokemon.damage(90000);
-      } else {
-        playerPokemon.win();
-      }
-    }, 3500);
-  }, 2000);
+  delay(2000)
+    .then(() => {
+      sound.catch.play();
+      iframeDocument
+        .querySelector(".opponent__img")
+        .classList.remove("pokeBallHit");
+      iframeDocument.querySelector(".opponent__img").classList.add("pokeBall");
+      iframeDocument.querySelector(".opponent__img").src =
+        "https://www.serebii.net/itemdex/sprites/pgl/pokeball.png";
+      dialogue.textContent = `You caught ${oppPokemon.pkmState.name}...`;
+      state.captured = true;
+    })
+    .then(() => {
+      delay(3500).then(() => {
+        //If fail, release pokemon
+        if (caught === "fail") {
+          sound.fail.play();
+          sound.fail.volume = 0.3;
+          state.captured = false;
+          dialogue.textContent = `${oppPokemon.pkmState.name} broke free! It's too strong! What's your next move?`;
+          iframeDocument
+            .querySelector(".opponent__img")
+            .classList.remove("pokeBall");
+          iframeDocument.querySelector(".opponent__img").src =
+            state.opponentPokemon.oppSprite;
+          state.screen = "battle-screen";
+        } else if (caught === "success") {
+          //Reduce Opponent Pokemon if caught success during battle.
+          oppPokemon.damage(90000);
+        } else {
+          playerPokemon.win();
+        }
+      });
+    });
 };
 
 //Pokemon status
@@ -1064,13 +1122,13 @@ class Pokemon {
     dialogue.textContent = `Your ${potion} restored ${this.pkmState.name}'s health to ${currHealth}.`;
     this.update();
     sound.heal.play();
-    sound.heal.volume = .1;
+    sound.heal.volume = 0.1;
   }
   delayLoadingScreen(screen, screenFunc) {
     state.switchPkmn = 1;
-    setTimeout(() => {
+    delay(4000).then(()=>{
       displayScreen(screen, screenFunc);
-    }, 4000);
+    })
   }
   switchPkmnHeatlh() {
     //Updates health bar to switched in Pokemon
@@ -1089,10 +1147,10 @@ class Pokemon {
       //You win
       state.screen = "gameover-screen";
       dialogue.textContent = `It's health is 0.`;
-      setTimeout(() => {
+      delay(1500).then(()=>{
         //If Pokemon has not been captured, use Pokeball.
         state.captured === false ? pokemonCaught(null) : this.win();
-      }, 1500);
+      })
     } else if (this.pkmState.health_active === 0) {
       this.lose();
     }
@@ -1134,13 +1192,12 @@ async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
   displayScreen("intro-screen", introScreen);
-  setTimeout(() => {
-    state.screen = "intro-screen";
-    // state.screen = "battle-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }, 1500);
-
+  // delay(1500).then(()=>{
+  //   state.screen = "intro-screen";
+  //   document.getElementsByName("screen-display")[0].src =
+  //     state.screen + ".html";
+  // })
+  
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
 
