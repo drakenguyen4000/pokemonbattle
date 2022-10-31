@@ -4,6 +4,7 @@ let playerPokemon;
 
 const battleGround = () => {
   console.log("battle screen started...");
+  
   curPkmIndex = window.parent.state.curPkmIndex;
   playerPokemon = window.parent.state.yourPkmn[curPkmIndex];
   document.querySelector(".loading-screen__image").src = `${opponentPokemon.image}`

@@ -4,11 +4,18 @@ var selectionState = {
 
 //Displays List of Pokemons
 async function selectionScreenLoad() {
-  //Fetches Pokemon JSON file
-  const response = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
+  let data;
+  console.log("selection-screen started...");
+  if(window.parent.state.optionSelected === "pkmon") {
+   data = window.parent.state.yourPokemon;
+  } else {
+    //Fetches Pokemon JSON file
+  let response = await fetch("./src/pokemonList.json").catch((err) =>
+  console.log(err)
   );
-  const data = await response.json().catch((err) => console.log(err));
+   data = await response.json().catch((err) => console.log(err));
+  }
+  
   selectionState.pokemonList = data;
   //Takes JSON data and displays on selection screen
   let selectionList = "";
@@ -19,7 +26,7 @@ async function selectionScreenLoad() {
     data-summary=${item.summary}
     data-type=${item.type}
     data-weakness=${item.weakness}
-    data-health=${item.health}
+    data-health=${item.health_total}
     data-attack=${item.attack}
     data-defense=${item.defense}
     data-evolve=${item.evolve}

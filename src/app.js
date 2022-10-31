@@ -100,8 +100,6 @@ const selectionScreen = () => {
   state.pokemonList = pokemonList;
   //Set default pokemon //Need Update to yourPokemon with 3 Pokemon
   state.curSelectPokemon = pokemonList[0];
-  sound.gameOver.pause();
-  sound.gameOver.currentTime = 0;
   sound.intro.play();
   sound.intro.volume = .1;
   sound.intro.loop = true;
@@ -273,12 +271,16 @@ selectButton.addEventListener("click", () => {
     state.screen === "gameover-screen" &&
     state.selectedAnswer === "yes"
   ) {
+    sound.gameOver.pause();
+    sound.gameOver.currentTime = 0;
     resetOptions();
     displayScreen("selection-screen", selectionScreen);
   } else if (
     state.screen === "gameover-screen" &&
     state.selectedAnswer === "no"
   ) {
+    sound.gameOver.pause();
+    sound.gameOver.currentTime = 0;
     resetOptions();
     displayScreen("intro-screen", introScreen);
   }
@@ -831,6 +833,7 @@ const getDataSet = (count) => {
 const resetOptions = () => {
   if (state.screen === "gameover-screen") {
     state.yourPkmn = [];
+    state.curPkmIndex = 0;
     numItems = 0;
     numItems2 = 0;
     numItems3 = 0;
@@ -1037,7 +1040,7 @@ class Pokemon {
   damage(attack) {
     let defensePt = this.defense * 0.025;
     let damage = attack - defensePt;
-    // let damage = 100; //temp damage test
+    // let damage = 20; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;

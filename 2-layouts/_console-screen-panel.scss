@@ -68,7 +68,7 @@ iframe {
 //Loading screen
 .loading-screen {
   @include absolute-position;
-  z-index: 100;
+  z-index: 500;
   background-color: #99d4ff;
   @include dimension(100%, 100%);
   padding-top: 20%;

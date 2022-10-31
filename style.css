@@ -368,9 +368,9 @@ iframe {
 
 .grid-container {
   display: grid;
-  grid-template-rows: 80% 20%;
+  grid-template-rows: 75% 25%;
   height: 100%;
-  padding: 4% 1% 0 1%;
+  padding: 1% 1% 0 1%;
   border-radius: 0 0 10px 10px;
 }
 
@@ -518,12 +518,6 @@ iframe {
 }
 
 /*======Battle Screen======*/
-#myCanvas {
-  border: solid 5px blue;
-  width: 100%;
-  height: 100vh;
-}
-
 .battle-container {
   position: absolute;
   top: 0;
@@ -607,7 +601,7 @@ iframe {
 }
 
 /*Opponent Pokemon*/
-.opponent-group {
+.opponent {
   position: relative;
 }
 
@@ -718,6 +712,12 @@ iframe {
   font-size: 0.65rem;
 }
 
+.option-grid--list {
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 1fr;
+  justify-items: left;
+}
+
 .arrow {
   visibility: hidden;
 }
@@ -727,88 +727,25 @@ iframe {
 }
 
 .player-attack {
-  -webkit-animation: attacker-animate 4s;
-          animation: attacker-animate 4s;
-}
-
-.player-attack_2 {
-  border-radius: 200px;
-  -webkit-animation: attacker-animate_2 4s;
-          animation: attacker-animate_2 4s;
+  -webkit-animation: attacker-animate 2s;
+          animation: attacker-animate 2s;
 }
 
 .player-energy {
   visibility: hidden;
 }
 
-.player-Static--animate {
-  visibility: visible;
-  color: yellow;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 105;
-  -webkit-animation: player-energy 4s;
-          animation: player-energy 4s;
-}
-
-.player-Lightning--animate {
-  visibility: visible;
-  color: yellow;
-  position: absolute;
-  right: 40px;
-  top: -40px;
-  z-index: 105;
-  -webkit-animation: player-energy_2 4s;
-          animation: player-energy_2 4s;
-}
-
-.player-Static--animate:before,
-.player-Lightning--animate:before,
-.opponent-Static--animate:before,
-.opponent-Lightning--animate:before {
-  font-family: FontAwesome;
-  content: "\f0e7";
-}
-
-.player-Razor-Leaf--animate {
+.player-energy--show {
   visibility: visible;
   position: absolute;
+  bottom: 20px;
+  left: 70px;
   z-index: 95;
-  -webkit-animation: player-energy_3 4s;
-          animation: player-energy_3 4s;
-  border: 10px dotted green;
-  border-radius: 200px;
 }
 
-.player-Solar-Beam--animate {
-  transform: rotate(42deg);
-  width: 10px;
-  border: 1px white solid;
-  border-radius: 200;
-  background: white;
-  visibility: visible;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 105;
-  -webkit-animation: player-energy_4 4s;
-          animation: player-energy_4 4s;
-}
-
-.opponent--staggered {
-  -webkit-animation: stagger 4s;
-          animation: stagger 4s;
-}
-
-.opponent--staggered_2 {
-  -webkit-animation: stagger_2 4s;
-          animation: stagger_2 4s;
-}
-
-.opponent--staggered_3 {
-  -webkit-animation: stagger_3 4s;
-          animation: stagger_3 4s;
+.player-attack_3 {
+  -webkit-animation: player-tackle 1s;
+          animation: player-tackle 1s;
 }
 
 .opponent-attack {
@@ -816,86 +753,361 @@ iframe {
           animation: attacker-animate 4s;
 }
 
-.opponent-attack_2 {
-  border-radius: 200px;
-  -webkit-animation: attacker-animate_2 4s;
-          animation: attacker-animate_2 4s;
-}
-
 .opponent-energy {
   visibility: hidden;
 }
 
-.opponent-Static--animate {
+.opponent-energy--show {
   visibility: visible;
   position: absolute;
-  right: 210px;
-  top: 60px;
-  z-index: 90;
-  -webkit-animation: opponent-energy 4s;
-          animation: opponent-energy 4s;
+  top: -20px;
+  right: 80px;
+  z-index: 95;
 }
 
-.opponent-Lightning--animate {
-  visibility: visible;
+.opponent-attack_3 {
+  -webkit-animation: opponent-tackle 1s;
+          animation: opponent-tackle 1s;
+}
+
+/*Pikachu*/
+.player-Static--animate:before,
+.opponent-Static--animate:before {
+  font-family: FontAwesome;
+  content: "\f0e7";
+}
+
+.player-Static--animate {
+  -webkit-animation: player-energy 2s;
+          animation: player-energy 2s;
   color: yellow;
-  position: absolute;
-  left: 80px;
-  bottom: 30px;
-  z-index: 95;
-  -webkit-animation: opponent-energy_2 4s;
-          animation: opponent-energy_2 4s;
+  font-size: 0;
+  z-index: 105;
 }
 
-.opponent-energy--animate_3 {
-  visibility: visible;
-  position: absolute;
+.opponent-Static--animate {
+  -webkit-animation: opponent-energy 2s;
+          animation: opponent-energy 2s;
+  color: yellow;
+  font-size: 0;
+  z-index: 105;
+}
+
+/*Pikachu*/
+.player-Discharge--animate {
+  -webkit-animation: Discharge 3s;
+          animation: Discharge 3s;
+  background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
+  border: rgb(70, 128, 244) 4px dashed;
+  border-radius: 10px;
+  bottom: -10px;
+  left: 0px;
+}
+
+.opponent-Discharge--animate {
+  -webkit-animation: Discharge 3s;
+          animation: Discharge 3s;
+  background: radial-gradient(farthest-corner at 60% 50%, #fff0ff, #8dd3ff, #2f4dac);
+  border: rgb(70, 128, 244) 4px dashed;
+  border-radius: 10px;
+  top: -70px;
+  right: 0px;
+}
+
+/*Bulbasaur*/
+.player-Razor-Leaf--animate {
+  -webkit-animation: Razor-Leaf 4s;
+          animation: Razor-Leaf 4s;
   z-index: 95;
-  -webkit-animation: opponent-energy_3 4s;
-          animation: opponent-energy_3 4s;
-  border: 10px dotted green;
+  left: 40px;
+  height: 80px;
+  width: 80px;
+  border: 20px dotted green;
+  border-radius: 100px;
+}
+
+.opponent-Razor-Leaf--animate {
+  -webkit-animation: Razor-Leaf 4s;
+          animation: Razor-Leaf 4s;
+  z-index: 105;
+  top: -50px;
+  right: 15px;
+  height: 80px;
+  width: 80px;
+  border: 20px dotted green;
+  border-radius: 100px;
+}
+
+/*Bulbasaur*/
+.player-Solar-Beam--animate {
+  -webkit-animation: Solar-Beam 4s;
+          animation: Solar-Beam 4s;
+  bottom: -40px;
+  left: 0px;
+  height: 120px;
+  width: 120px;
+  background: white;
   border-radius: 200px;
 }
 
-.staggered {
-  -webkit-animation: stagger 4s;
-          animation: stagger 4s;
+.opponent-Solar-Beam--animate {
+  -webkit-animation: Solar-Beam 4s;
+          animation: Solar-Beam 4s;
+  z-index: 100;
+  top: -40px;
+  right: 20px;
+  height: 70px;
+  width: 70px;
+  background: white;
+  border-radius: 200px;
 }
 
-.staggered_2 {
-  -webkit-animation: stagger_2 4s;
-          animation: stagger_2 4s;
+/*Charmander*/
+.player-Ember--animate {
+  -webkit-animation: player-Ember 3s;
+          animation: player-Ember 3s;
+  border-radius: 100px;
 }
 
-.staggered_3 {
-  -webkit-animation: stagger_3 4s;
-          animation: stagger_3 4s;
+.opponent-Ember--animate {
+  -webkit-animation: opponent-Ember 3s;
+          animation: opponent-Ember 3s;
+  right: 50px;
+  border-radius: 100px;
+}
+
+/*Growlith, Charmander*/
+.player-Flamethrower--animate {
+  -webkit-animation: flamethrower 3s;
+          animation: flamethrower 3s;
+}
+
+.opponent-Flamethrower--animate {
+  -webkit-animation: flamethrower 3s;
+          animation: flamethrower 3s;
+  right: 50px;
+  transform: rotate(180deg);
+}
+
+/*Growlith*/
+.player-Flamewheel--animate {
+  -webkit-animation: Flamewheel 4s;
+          animation: Flamewheel 4s;
+  left: 40px;
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+  background: radial-gradient(closest-side, transparent, lightyellow, orange);
+}
+
+.opponent-Flamewheel--animate {
+  -webkit-animation: Flamewheel 4s;
+          animation: Flamewheel 4s;
+  top: -50px;
+  right: 15px;
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+  background: radial-gradient(closest-side, transparent, lightyellow, orange);
+}
+
+/*SandShrew, Onix*/
+.player-Sandstorm--animate {
+  -webkit-animation: Sandstorm 2s;
+          animation: Sandstorm 2s;
+  bottom: 10px;
+  border-radius: 200px;
+  background: radial-gradient(closest-side, transparent, #ebca97, #C5B59F);
+}
+
+.opponent-Sandstorm--animate {
+  -webkit-animation: Sandstorm 2s;
+          animation: Sandstorm 2s;
+  top: -50px;
+  right: 15px;
+  border-radius: 100px;
+  background: radial-gradient(closest-side, transparent, #ebca97, #C5B59F);
+}
+
+.player-Sand--animate {
+  -webkit-animation: player-Sand 2s;
+          animation: player-Sand 2s;
+}
+
+.opponent-Sand--animate {
+  -webkit-animation: opponent-Sand 2s;
+          animation: opponent-Sand 2s;
+}
+
+/*Squirtle*/
+.player-Water-Gun--animate:before, .opponent-Water-Gun--animate:before {
+  font-family: FontAwesome;
+  content: "\f76f";
+}
+
+.player-Water-Gun--animate {
+  -webkit-animation: player-energy 4s;
+          animation: player-energy 4s;
+  z-index: 105;
+  left: 190px;
+  bottom: 140px;
+  color: rgb(61, 194, 238);
+  font-size: 150%;
+  transform: rotate(45deg);
+}
+
+.opponent-Water-Gun--animate {
+  -webkit-animation: opponent-energy 4s;
+          animation: opponent-energy 4s;
+  z-index: 105;
+  top: 70px;
+  right: 150px;
+  color: rgb(61, 194, 238);
+  font-size: 150%;
+  transform: rotate(225deg);
+}
+
+.player-Bubble--animate {
+  -webkit-animation: player-bubble 1s;
+          animation: player-bubble 1s;
+  border-radius: 100px;
+}
+
+.opponent-Bubble--animate {
+  -webkit-animation: opponent-bubble 1s;
+          animation: opponent-bubble 1s;
+  border-radius: 100px;
+}
+
+/*Gyrados*/
+.player-Hurricane--animate:before, .opponent-Hurricane--animate:before {
+  font-family: "Material Icons";
+  content: "\f070";
+}
+
+.player-Hurricane--animate, .opponent-Hurricane--animate {
+  -webkit-animation: Hurricane 3s infinite linear;
+          animation: Hurricane 3s infinite linear;
+  color: white;
+  font-size: 150px;
+  opacity: 0.1;
+}
+
+/*Gyrados*/
+.player-Hyperbeam--animate {
+  -webkit-animation: Hyperbeam 3s;
+          animation: Hyperbeam 3s;
+}
+
+.opponent-Hyperbeam--animate {
+  -webkit-animation: Hyperbeam 3s;
+          animation: Hyperbeam 3s;
+  top: 5px;
+  right: 75px;
+}
+
+/*Scyther*/
+.player-Slash--animate {
+  -webkit-animation: player-Slash 2s;
+          animation: player-Slash 2s;
+  bottom: 0;
+  left: 40px;
+  transform: rotate(-70deg);
+  border-radius: 80%;
+  box-shadow: 25px 10px 0px 0px #fff;
+}
+
+.opponent-Slash--animate {
+  -webkit-animation: opponent-Slash 2s;
+          animation: opponent-Slash 2s;
+  top: -20px;
+  right: 65px;
+  transform: rotate(100deg);
+  border-radius: 80%;
+  box-shadow: 25px 10px 0px 0px #fff;
+}
+
+/*Scyther*/
+.player-Duplicate--animate {
+  -webkit-animation: player-Duplicate 2s;
+          animation: player-Duplicate 2s;
+  background-image: url("https://img.pokemondb.net/sprites/black-white/anim/back-normal/scyther.gif");
+  height: 170px;
+  width: 170px;
+  border-radius: 200px;
+  left: 100px;
+  bottom: 70px;
+  background-size: 130px 130px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.opponent-Duplicate--animate {
+  -webkit-animation: opponent-Duplicate 2s;
+          animation: opponent-Duplicate 2s;
+  background-image: url("https://img.pokemondb.net/sprites/black-white/anim/normal/scyther-f.gif");
+  height: 150px;
+  width: 150px;
+  border-radius: 200px;
+  bottom: 70px;
+  left: 100px;
+  background-size: 110px 110px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.player-Rockthrow--animate {
+  -webkit-animation: player-energy 2s;
+          animation: player-energy 2s;
+  bottom: 30px;
+  left: 85px;
+  height: 40px;
+  width: 30px;
+  border: 2px solid #757373;
+  border-radius: 10px 30px 20px 5px;
+  background: radial-gradient(closest-side, #b6b0b0, #a09898);
+  transform: rotate(225deg);
+}
+
+.opponent-Rockthrow--animate {
+  -webkit-animation: opponent-energy 2s;
+          animation: opponent-energy 2s;
+  height: 40px;
+  width: 30px;
+  border-radius: 10px 30px 20px 5px;
+  background: radial-gradient(closest-side, #b6b0b0, #a09898);
+  border: 2px solid #757373;
+  transform: rotate(225deg);
+}
+
+.player--stagger {
+  -webkit-animation: player-stagger 2s;
+          animation: player-stagger 2s;
+}
+
+.opponent--stagger {
+  -webkit-animation: opponent-stagger 2s;
+          animation: opponent-stagger 2s;
 }
 
 @-webkit-keyframes attacker-animate {
   0% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
-  10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-  }
   20% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
+  }
+  40% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
-  30% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-  }
-  50% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-  }
-  65% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+  60% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   80% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
   100% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
 }
 
@@ -903,530 +1115,344 @@ iframe {
   0% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
-  10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-  }
   20% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
+  }
+  40% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
-  30% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-  }
-  50% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-  }
-  65% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+  60% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   80% {
     filter: sepia(500%) hue-rotate(60deg) saturate(200%);
   }
   100% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
+  }
+}
+@-webkit-keyframes player-tackle {
+  from {
+    left: 30px;
+  }
+  to {
+    left: 0px;
+  }
+}
+@keyframes player-tackle {
+  from {
+    left: 30px;
+  }
+  to {
+    left: 0px;
+  }
+}
+@-webkit-keyframes opponent-tackle {
+  from {
+    top: -50px;
+    right: 20px;
+    height: 120px;
+  }
+  to {
+    right: 0;
+  }
+}
+@keyframes opponent-tackle {
+  from {
+    top: -50px;
+    right: 20px;
+    height: 120px;
+  }
+  to {
+    right: 0;
   }
 }
 @-webkit-keyframes attacker-animate_2 {
   0% {
-    border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   20% {
-    border: 0px yellow;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   40% {
-    border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   60% {
-    border: 0px yellow;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   80% {
-    border: 4px solid white;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   100% {
-    border: none;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
 }
 @keyframes attacker-animate_2 {
   0% {
-    border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   20% {
-    border: 0px yellow;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   40% {
-    border: 4px dotted yellow;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   60% {
-    border: 0px yellow;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
   80% {
-    border: 4px solid white;
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   }
   100% {
-    border: none;
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
 }
 @-webkit-keyframes player-energy {
   0% {
-    color: yellow;
     left: 85px;
-    bottom: -10px;
+    bottom: 30px;
     opacity: 0.3;
-    font-size: 200%;
-  }
-  10% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+    font-size: 250%;
   }
   20% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-  30% {
-    color: yellow;
-    left: 80px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    left: 190px;
+    bottom: 140px;
+    opacity: 1;
+    font-size: 270%;
   }
   40% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  50% {
-    left: 200px;
-    bottom: 100px;
+    left: 180px;
+    bottom: 130px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 290%;
   }
   60% {
-    color: yellow;
-    left: 90px;
-    bottom: -30px;
+    left: 80px;
+    bottom: 30px;
     opacity: 0.3;
-    font-size: 170%;
-  }
-  70% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+    font-size: 350%;
   }
   80% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-  90% {
-    color: yellow;
-    left: 95px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
-  }
-  95% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
+    left: 190px;
+    bottom: 140px;
     opacity: 1;
-    font-size: 125%;
+    font-size: 370%;
   }
   100% {
-    left: 200px;
-    bottom: 100px;
+    left: 190px;
+    bottom: 140px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 390%;
   }
 }
 @keyframes player-energy {
   0% {
-    color: yellow;
     left: 85px;
-    bottom: -10px;
+    bottom: 30px;
     opacity: 0.3;
-    font-size: 200%;
-  }
-  10% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+    font-size: 250%;
   }
   20% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-  30% {
-    color: yellow;
-    left: 80px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    left: 190px;
+    bottom: 140px;
+    opacity: 1;
+    font-size: 270%;
   }
   40% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  50% {
-    left: 200px;
-    bottom: 100px;
+    left: 180px;
+    bottom: 130px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 290%;
   }
   60% {
-    color: yellow;
-    left: 90px;
-    bottom: -30px;
+    left: 80px;
+    bottom: 30px;
     opacity: 0.3;
-    font-size: 170%;
-  }
-  70% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+    font-size: 350%;
   }
   80% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-  90% {
-    color: yellow;
-    left: 95px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
-  }
-  95% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
+    left: 190px;
+    bottom: 140px;
     opacity: 1;
-    font-size: 125%;
+    font-size: 370%;
   }
   100% {
-    left: 200px;
-    bottom: 100px;
+    left: 190px;
+    bottom: 140px;
     opacity: 0;
-    font-size: 90%;
+    font-size: 390%;
   }
 }
 @-webkit-keyframes opponent-energy {
   0% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
+    top: -20px;
+    right: 80px;
     opacity: 0.3;
-    font-size: 150%;
-  }
-  10% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
+    font-size: 250%;
   }
   20% {
-    right: 210px;
-    top: 60px;
-    opacity: 0;
-    font-size: 190%;
-  }
-  30% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
-    opacity: 0.3;
-    font-size: 150%;
+    right: 150px;
+    top: 70px;
+    opacity: 1;
+    font-size: 270%;
   }
   40% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
-  }
-  50% {
-    right: 200px;
+    right: 150px;
     top: 60px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 290%;
   }
   60% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
+    top: -20px;
+    right: 80px;
     opacity: 0.3;
-    font-size: 150%;
-  }
-  70% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
+    font-size: 350%;
   }
   80% {
-    right: 200px;
-    top: 60px;
-    opacity: 0;
-    font-size: 190%;
-  }
-  90% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
-    opacity: 0.3;
-    font-size: 150%;
-  }
-  95% {
-    color: yellow;
-    right: 210px;
+    right: 150px;
     top: 70px;
     opacity: 1;
-    font-size: 170%;
+    font-size: 370%;
   }
   100% {
-    right: 200px;
-    top: 60px;
+    right: 150px;
+    top: 70px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 390%;
   }
 }
 @keyframes opponent-energy {
   0% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
+    top: -20px;
+    right: 80px;
     opacity: 0.3;
-    font-size: 150%;
-  }
-  10% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
+    font-size: 250%;
   }
   20% {
-    right: 210px;
-    top: 60px;
-    opacity: 0;
-    font-size: 190%;
-  }
-  30% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
-    opacity: 0.3;
-    font-size: 150%;
+    right: 150px;
+    top: 70px;
+    opacity: 1;
+    font-size: 270%;
   }
   40% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
-  }
-  50% {
-    right: 200px;
+    right: 150px;
     top: 60px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 290%;
   }
   60% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
+    top: -20px;
+    right: 80px;
     opacity: 0.3;
-    font-size: 150%;
-  }
-  70% {
-    color: yellow;
-    right: 210px;
-    top: 70px;
-    opacity: 1;
-    font-size: 170%;
+    font-size: 350%;
   }
   80% {
-    right: 200px;
-    top: 60px;
-    opacity: 0;
-    font-size: 190%;
-  }
-  90% {
-    color: yellow;
-    right: 70px;
-    top: -100px;
-    opacity: 0.3;
-    font-size: 150%;
-  }
-  95% {
-    color: yellow;
-    right: 210px;
+    right: 150px;
     top: 70px;
     opacity: 1;
-    font-size: 170%;
+    font-size: 370%;
   }
   100% {
-    right: 200px;
-    top: 60px;
+    right: 150px;
+    top: 70px;
     opacity: 0;
-    font-size: 190%;
+    font-size: 390%;
   }
 }
-@-webkit-keyframes player-energy_2 {
+@-webkit-keyframes Discharge {
   0% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 10px;
-    top: -50px;
-    opacity: 1;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: 0.2;
+    border: rgb(70, 128, 244) 2px dashed;
+    height: 110px;
+    width: 110px;
   }
   10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    opacity: 0.4;
+    border: 4px dashed white;
   }
   20% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     opacity: 0;
+    border: rgb(70, 128, 244) 4px dashed;
+    height: 140px;
+    width: 140px;
   }
   30% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 70px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    opacity: 0;
+    border: none;
+    background-color: none;
   }
   40% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: 0.2;
+    border: rgb(70, 128, 244) 2px dashed;
+    height: 110px;
+    width: 110px;
   }
   50% {
-    opacity: 0;
+    opacity: 0.4;
+    border: 4px dashed white;
   }
   60% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 25px;
-    top: -50px;
-    opacity: 1;
-    transform: scaleX(1);
-  }
-  70% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  90% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 80px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    border: rgb(70, 128, 244) 4px dashed;
+    height: 140px;
+    width: 140px;
   }
   100% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
     opacity: 0;
+    border: none;
+    background-color: none;
   }
 }
-@keyframes player-energy_2 {
+@keyframes Discharge {
   0% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 10px;
-    top: -50px;
-    opacity: 1;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: 0.2;
+    border: rgb(70, 128, 244) 2px dashed;
+    height: 110px;
+    width: 110px;
   }
   10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    opacity: 0.4;
+    border: 4px dashed white;
   }
   20% {
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     opacity: 0;
+    border: rgb(70, 128, 244) 4px dashed;
+    height: 140px;
+    width: 140px;
   }
   30% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 70px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    opacity: 0;
+    border: none;
+    background-color: none;
   }
   40% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
-    opacity: 0;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+    opacity: 0.2;
+    border: rgb(70, 128, 244) 2px dashed;
+    height: 110px;
+    width: 110px;
   }
   50% {
-    opacity: 0;
+    opacity: 0.4;
+    border: 4px dashed white;
   }
   60% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 25px;
-    top: -50px;
-    opacity: 1;
-    transform: scaleX(1);
-  }
-  70% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  90% {
-    filter: sepia(500%) hue-rotate(60deg) saturate(200%);
-    right: 80px;
-    top: -45px;
-    opacity: 1;
-    transform: scaleX(-1);
+    border: rgb(70, 128, 244) 4px dashed;
+    height: 140px;
+    width: 140px;
   }
   100% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
-    right: 50px;
-    top: 0px;
     opacity: 0;
+    border: none;
+    background-color: none;
   }
 }
 @-webkit-keyframes opponent-energy_2 {
@@ -1438,7 +1464,7 @@ iframe {
     font-size: 200%;
   }
   10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 70px;
     bottom: 20px;
     opacity: 0.5;
@@ -1456,7 +1482,7 @@ iframe {
     transform: scaleX(-1);
   }
   40% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 60px;
     bottom: 20px;
     opacity: 0.5;
@@ -1474,7 +1500,7 @@ iframe {
     transform: scaleX(1);
   }
   70% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 70px;
     bottom: 20px;
     opacity: 0.5;
@@ -1492,7 +1518,7 @@ iframe {
     transform: scaleX(-1);
   }
   98% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 60px;
     bottom: 20px;
     opacity: 0.5;
@@ -1511,7 +1537,7 @@ iframe {
     font-size: 200%;
   }
   10% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 70px;
     bottom: 20px;
     opacity: 0.5;
@@ -1529,7 +1555,7 @@ iframe {
     transform: scaleX(-1);
   }
   40% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 60px;
     bottom: 20px;
     opacity: 0.5;
@@ -1547,7 +1573,7 @@ iframe {
     transform: scaleX(1);
   }
   70% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 70px;
     bottom: 20px;
     opacity: 0.5;
@@ -1565,7 +1591,7 @@ iframe {
     transform: scaleX(-1);
   }
   98% {
-    filter: sepia(0%) hue-rotate(0) saturate(0);
+    filter: sepia(0%) hue-rotate(0%) saturate(0%);
     left: 60px;
     bottom: 20px;
     opacity: 0.5;
@@ -1575,458 +1601,1188 @@ iframe {
     opacity: 0;
   }
 }
-@-webkit-keyframes player-energy_3 {
+@-webkit-keyframes Razor-Leaf {
   0% {
-    border: 10px dotted green;
-    height: 110px;
-    width: 110px;
-    left: 20px;
-    bottom: -80px;
     opacity: 0.5;
   }
-  25% {
-    border: 10px dotted green;
-    transform: rotate(360deg);
-    height: 110px;
-    width: 110px;
-    left: 20px;
-    bottom: -80px;
-    opacity: 0.8;
-  }
-  50% {
-    border: 8px dotted green;
-    transform: rotate(-90deg);
-    height: 90px;
-    width: 90px;
+  100% {
+    transform: rotate(1440deg);
+    border: 12px dotted green;
+    height: 100px;
+    width: 100px;
     opacity: 1;
   }
-  75% {
-    border: 6px dotted green;
-    transform: rotate(180deg);
-    height: 70px;
-    width: 70px;
-    opacity: 0.8;
+}
+@keyframes Razor-Leaf {
+  0% {
+    opacity: 0.5;
   }
   100% {
-    border: 4px dotted green;
-    transform: rotate(270deg);
+    transform: rotate(1440deg);
+    border: 12px dotted green;
+    height: 100px;
+    width: 100px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes Flamewheel {
+  0% {
+    opacity: 0.5;
+    border: 10px dashed orange;
+  }
+  100% {
+    transform: rotate(1440deg);
+    border: 15px solid orange;
+    height: 100px;
+    width: 100px;
+    opacity: 1;
+  }
+}
+@keyframes Flamewheel {
+  0% {
+    opacity: 0.5;
+    border: 10px dashed orange;
+  }
+  100% {
+    transform: rotate(1440deg);
+    border: 15px solid orange;
+    height: 100px;
+    width: 100px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes Sandstorm {
+  0% {
+    opacity: 0.5;
     height: 50px;
     width: 50px;
-    left: 190px;
-    bottom: 100px;
-    opacity: 0;
-  }
-}
-@keyframes player-energy_3 {
-  0% {
-    border: 10px dotted green;
-    height: 110px;
-    width: 110px;
-    left: 20px;
-    bottom: -80px;
-    opacity: 0.5;
-  }
-  25% {
-    border: 10px dotted green;
-    transform: rotate(360deg);
-    height: 110px;
-    width: 110px;
-    left: 20px;
-    bottom: -80px;
-    opacity: 0.8;
-  }
-  50% {
-    border: 8px dotted green;
-    transform: rotate(-90deg);
-    height: 90px;
-    width: 90px;
-    opacity: 1;
-  }
-  75% {
-    border: 6px dotted green;
-    transform: rotate(180deg);
-    height: 70px;
-    width: 70px;
-    opacity: 0.8;
   }
   100% {
-    border: 4px dotted green;
-    transform: rotate(270deg);
+    z-index: 200;
+    height: 2000px;
+    width: 2000px;
+    opacity: 0.5;
+  }
+}
+@keyframes Sandstorm {
+  0% {
+    opacity: 0.5;
     height: 50px;
     width: 50px;
-    left: 190px;
-    bottom: 100px;
-    opacity: 0;
+  }
+  100% {
+    z-index: 200;
+    height: 2000px;
+    width: 2000px;
+    opacity: 0.5;
   }
 }
-@-webkit-keyframes player-energy_4 {
+@-webkit-keyframes Hyperbeam {
   0% {
-    height: 80px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 0.5;
-    font-size: 200%;
+    height: 70px;
+    width: 70px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
-  10% {
-    height: 150px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  20% {
-    height: 150px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 0;
-    font-size: 90%;
+  15% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   30% {
-    color: yellow;
-    left: 80px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
-  40% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  50% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
+  45% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   60% {
-    color: yellow;
-    left: 90px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
-  70% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+  65% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   80% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-  90% {
-    color: yellow;
-    left: 95px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
   95% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   100% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
   }
 }
-@keyframes player-energy_4 {
+@keyframes Hyperbeam {
   0% {
-    height: 80px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 0.5;
-    font-size: 200%;
+    height: 70px;
+    width: 70px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
-  10% {
-    height: 150px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  20% {
-    height: 150px;
-    left: 85px;
-    bottom: -10px;
-    opacity: 0;
-    font-size: 90%;
+  15% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   30% {
-    color: yellow;
-    left: 80px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
   }
-  40% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  50% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
+  45% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
   }
   60% {
-    color: yellow;
-    left: 90px;
-    bottom: -30px;
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
+  }
+  65% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
+  }
+  80% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
+  }
+  95% {
+    height: 200px;
+    width: 200px;
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+    background: linear-gradient(white, rgb(70, 128, 244));
+  }
+  100% {
+    background: linear-gradient(0.4turn, rgb(155, 185, 247), rgb(122, 166, 254));
+    border-radius: 1000% 50% 1000% 50%;
+    opacity: 0.7;
+  }
+}
+@-webkit-keyframes Hurricane {
+  0% {
+    opacity: 0.5;
+    transform: rotate(-1440deg);
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
     opacity: 0.3;
-    font-size: 170%;
+  }
+  75% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+@keyframes Hurricane {
+  0% {
+    opacity: 0.5;
+    transform: rotate(-1440deg);
+  }
+  25% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+@-webkit-keyframes player-Slash {
+  0% {
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  40% {
+    bottom: 70px;
+    left: 150px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+  60% {
+    bottom: 0;
+    left: 40px;
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  100% {
+    bottom: 70px;
+    left: 150px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+}
+@keyframes player-Slash {
+  0% {
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  40% {
+    bottom: 70px;
+    left: 150px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+  60% {
+    bottom: 0;
+    left: 40px;
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  100% {
+    bottom: 70px;
+    left: 150px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+}
+@-webkit-keyframes opponent-Slash {
+  0% {
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  40% {
+    top: 50px;
+    right: 100px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+  60% {
+    top: -20px;
+    right: 65px;
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  100% {
+    top: 50px;
+    right: 100px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+}
+@keyframes opponent-Slash {
+  0% {
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  40% {
+    top: 50px;
+    right: 100px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+  60% {
+    top: -20px;
+    right: 65px;
+    opacity: 0;
+    height: 60px;
+    width: 60px;
+  }
+  100% {
+    top: 50px;
+    right: 100px;
+    opacity: 0.7;
+    height: 100px;
+    width: 100px;
+  }
+}
+@-webkit-keyframes player-Duplicate {
+  from {
+    bottom: 0px;
+    left: 40px;
+    opacity: 0.7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    border: none;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+}
+@keyframes player-Duplicate {
+  from {
+    bottom: 0px;
+    left: 40px;
+    opacity: 0.7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    border: none;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+}
+@-webkit-keyframes opponent-Duplicate {
+  from {
+    top: -20px;
+    right: 65px;
+    opacity: 0.7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+}
+@keyframes opponent-Duplicate {
+  from {
+    top: -20px;
+    right: 65px;
+    opacity: 0.7;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+  20% {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: transparent;
+    filter: sepia(0%) hue-rotate(0) saturate(0%);
+  }
+  to {
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    background-color: lightgreen;
+    filter: sepia(100%) hue-rotate(105deg) saturate(500%);
+  }
+}
+@-webkit-keyframes player-Sand {
+  0% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    border: 14px dotted #705a5a;
+    transform: rotate(1440deg);
+    height: 40px;
+    width: 40px;
+  }
+  25% {
+    bottom: 100px;
+    left: 120px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+@keyframes player-Sand {
+  0% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    border: 14px dotted #705a5a;
+    transform: rotate(1440deg);
+    height: 40px;
+    width: 40px;
+  }
+  25% {
+    bottom: 100px;
+    left: 120px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+@-webkit-keyframes opponent-Sand {
+  0% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    border: 8px dotted #ebca97;
+    transform: rotate(1440deg);
+    height: 40px;
+    width: 40px;
+  }
+  25% {
+    top: 50px;
+    right: 100px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+@keyframes opponent-Sand {
+  0% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    border: 8px dotted #ebca97;
+    transform: rotate(1440deg);
+    height: 40px;
+    width: 40px;
+  }
+  25% {
+    top: 50px;
+    right: 100px;
+    opacity: 1;
+  }
+  100% {
+    border: none;
+  }
+}
+@-webkit-keyframes Solar-Beam {
+  0% {
+    background: white;
+    height: 140px;
+    width: 140px;
+  }
+  25% {
+    background: none;
+  }
+  50% {
+    background: white;
+    height: 160px;
+    width: 160px;
+  }
+  75% {
+    background: none;
+  }
+  100% {
+    background: white;
+    height: 180px;
+    width: 180px;
+  }
+}
+@keyframes Solar-Beam {
+  0% {
+    background: white;
+    height: 140px;
+    width: 140px;
+  }
+  25% {
+    background: none;
+  }
+  50% {
+    background: white;
+    height: 160px;
+    width: 160px;
+  }
+  75% {
+    background: none;
+  }
+  100% {
+    background: white;
+    height: 180px;
+    width: 180px;
+  }
+}
+@-webkit-keyframes player-Ember {
+  0% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  10% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  20% {
+    border: none;
+  }
+  30% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  40% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
+  }
+  50% {
+    border: none;
+  }
+  60% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
   }
   70% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
     opacity: 1;
-    font-size: 125%;
   }
   80% {
-    left: 200px;
-    bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
+    border: none;
   }
   90% {
-    color: yellow;
-    left: 95px;
-    bottom: -30px;
-    opacity: 0.3;
-    font-size: 170%;
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
   }
   95% {
-    color: yellow;
-    left: 210px;
-    bottom: 110px;
-    opacity: 1;
-    font-size: 125%;
-  }
-  100% {
-    left: 200px;
     bottom: 100px;
-    opacity: 0;
-    font-size: 90%;
-  }
-}
-@-webkit-keyframes stagger {
-  0% {
-    filter: grayscale(0);
-  }
-  20% {
-    filter: grayscale(50%);
-    right: -5px;
-    transform: rotate(5deg);
-  }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
-  }
-  50% {
-    filter: grayscale(60%);
-    right: -6px;
-    transform: rotate(5deg);
-  }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
-  }
-  80% {
-    filter: grayscale(70%);
-    right: -7px;
-    transform: rotate(5deg);
-  }
-  90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
 }
-@keyframes stagger {
+@keyframes player-Ember {
   0% {
-    filter: grayscale(0);
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  10% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   20% {
-    filter: grayscale(50%);
-    right: -5px;
-    transform: rotate(5deg);
+    border: none;
   }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
+  30% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  40% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   50% {
-    filter: grayscale(60%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
+  60% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  70% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   80% {
-    filter: grayscale(70%);
-    right: -7px;
-    transform: rotate(5deg);
+    border: none;
   }
   90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  95% {
+    bottom: 100px;
+    left: 120px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
 }
-@-webkit-keyframes stagger_2 {
+@-webkit-keyframes opponent-Ember {
   0% {
-    filter: grayscale(0);
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  10% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   20% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+    border: none;
   }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
+  30% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  40% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   50% {
-    filter: grayscale(80%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
+  60% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  70% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   80% {
-    filter: grayscale(90%);
-    right: 7px;
-    transform: rotate(-5deg);
+    border: none;
   }
   90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  95% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
 }
-@keyframes stagger_2 {
+@keyframes opponent-Ember {
   0% {
-    filter: grayscale(0);
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  10% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   20% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+    border: none;
   }
-  35% {
-    filter: grayscale(15%);
-    right: 0;
-    transform: rotate(0);
+  30% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  40% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   50% {
-    filter: grayscale(80%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
-  65% {
-    filter: grayscale(20%);
-    right: 0px;
-    transform: rotate(0);
+  60% {
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  70% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   80% {
-    filter: grayscale(90%);
-    right: 7px;
-    transform: rotate(-5deg);
+    border: none;
   }
   90% {
-    filter: grayscale(25%);
-    right: 0px;
-    transform: rotate(0);
+    top: -20px;
+    right: 50px;
+    opacity: 0.5;
+    height: 20px;
+    width: 20px;
+  }
+  95% {
+    top: 50px;
+    right: 85px;
+    border: 18px dotted red;
+    height: 80px;
+    width: 80px;
+    opacity: 1;
   }
   100% {
-    filter: grayscale(100%);
-    right: -6px;
-    transform: rotate(5deg);
+    border: none;
   }
 }
-@-webkit-keyframes stagger_3 {
+@-webkit-keyframes flamethrower {
   0% {
-    filter: grayscale(0);
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  15% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  30% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  45% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  60% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  65% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  80% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  95% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  100% {
+    background: gold;
+    border: 10px solid orange;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+}
+@keyframes flamethrower {
+  0% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  15% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  30% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  45% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  60% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  65% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  80% {
+    height: 70px;
+    width: 70px;
+    background: yellow;
+    border: 10px solid orange;
+    border-radius: 70% 0% 70% 50%;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+  95% {
+    height: 90px;
+    width: 90px;
+    background: gold;
+    border: 16px solid orangered;
+    border-radius: 99% 0% 99% 50%;
+    box-shadow: 0px 0px 9px 4px orangered;
+  }
+  100% {
+    background: gold;
+    border: 10px solid orange;
+    box-shadow: 0px 0px 9px 4px orange;
+  }
+}
+@-webkit-keyframes player-bubble {
+  0% {
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
   }
   25% {
-    filter: grayscale(0);
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
   }
-  50% {
-    filter: grayscale(0);
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    bottom: 70px;
+    left: 100px;
   }
-  75% {
-    filter: grayscale(0);
-  }
-  95% {
-    filter: grayscale(0);
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+    bottom: 70px;
+    left: 100px;
   }
   100% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+    border: none;
+    bottom: 70px;
+    left: 100px;
   }
 }
-@keyframes stagger_3 {
+@keyframes player-bubble {
   0% {
-    filter: grayscale(0);
+    bottom: 20px;
+    left: 70px;
+    opacity: 0.5;
   }
   25% {
-    filter: grayscale(0);
+    bottom: 70px;
+    left: 100px;
+    opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
   }
-  50% {
-    filter: grayscale(0);
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    bottom: 70px;
+    left: 100px;
   }
-  75% {
-    filter: grayscale(0);
-  }
-  95% {
-    filter: grayscale(0);
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+    bottom: 70px;
+    left: 100px;
   }
   100% {
-    filter: grayscale(70%);
-    right: 5px;
-    transform: rotate(-5deg);
+    border: none;
+    bottom: 70px;
+    left: 100px;
+  }
+}
+@-webkit-keyframes opponent-bubble {
+  0% {
+    top: -20px;
+    right: 30px;
+    opacity: 0.5;
+  }
+  25% {
+    top: 30px;
+    right: 85px;
+    opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+  }
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    top: 30px;
+    right: 85px;
+  }
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+    top: 30px;
+    right: 85px;
+  }
+  100% {
+    border: none;
+    top: 30px;
+    right: 85px;
+  }
+}
+@keyframes opponent-bubble {
+  0% {
+    top: -20px;
+    right: 30px;
+    opacity: 0.5;
+  }
+  25% {
+    top: 30px;
+    right: 85px;
+    opacity: 1;
+    border: 50px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+  }
+  30% {
+    border: 30px dotted rgb(116, 209, 249);
+    top: 30px;
+    right: 85px;
+  }
+  40% {
+    border: 40px dotted rgb(116, 209, 249);
+    height: 160px;
+    width: 160px;
+    top: 30px;
+    right: 85px;
+  }
+  100% {
+    border: none;
+    top: 30px;
+    right: 85px;
+  }
+}
+@-webkit-keyframes player-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    bottom: -23px;
+    left: 0px;
+  }
+  20% {
+    filter: sepia(0) hue-rotate(0) saturate(0);
+  }
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+  }
+}
+@keyframes player-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    bottom: -23px;
+    left: 0px;
+  }
+  20% {
+    filter: sepia(0) hue-rotate(0) saturate(0);
+  }
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+  }
+}
+@-webkit-keyframes opponent-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    top: -62px;
+    right: -2px;
+  }
+  20% {
+    filter: sepia(0) hue-rotate(0) saturate(0);
+  }
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+  }
+}
+@keyframes opponent-stagger {
+  from {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
+    top: -62px;
+    right: -2px;
+  }
+  20% {
+    filter: sepia(0) hue-rotate(0) saturate(0);
+  }
+  to {
+    filter: sepia(100%) hue-rotate(-5deg) saturate(250%);
   }
 }
 /*--Backpack--*/
@@ -2116,7 +2872,7 @@ iframe {
 
 .pokeBall {
   filter: grayscale(0%);
-  height: 40%;
+  height: 60px;
   position: absolute;
   top: -30px;
   right: 30px;
@@ -2161,8 +2917,20 @@ iframe {
   border-radius: 0 0 5px 5px;
 }
 
-.gameover-gameover {
+.lost, .win {
   text-transform: uppercase;
+}
+
+.win {
+  display: none;
+}
+
+.win--show {
+  display: block;
+}
+
+.lost--hide {
+  display: none;
 }
 
 .playagain {

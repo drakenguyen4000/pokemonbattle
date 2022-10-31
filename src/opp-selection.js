@@ -20,9 +20,9 @@ const slowLoop = (time) => {
   });
 };
 
-async function aiScreenLoad() {
+async function oppScreenLoad(){
   //Displays List of Pokemons
-  console.log("ai-selection-screen started...");
+  console.log("opp-selection-screen started...");
   //Fetches Pokemon JSON file
   const response = await fetch("./src/pokemonList.json").catch((err) =>
     console.log(err)
