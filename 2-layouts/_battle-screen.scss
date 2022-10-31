@@ -198,8 +198,12 @@
 }
 
 //Player Attack animations
-.player-attack {
+.player-attack_1, .player-attack_2 {
   animation: attacker-animate 2s;
+}
+
+.player-attack_3 {
+  animation: player-tackle  1s;
 }
 
 .player-energy {
@@ -214,19 +218,14 @@
   z-index: 95;
 }
 
-.player-attack_3 {
-  animation: player-tackle  1s;
-}
-
 //Opponent Attack animations
-.opponent-attack {
+.opponent-attack_1, .opponent-attack_2 {
   animation: attacker-animate 4s;
 }
 
-// .opponent-attack_2 {
-//   border-radius: 200px;
-//   animation: attacker-animate_2 4s;
-// }
+.opponent-attack_3 {
+  animation: opponent-tackle  1s;
+}
 
 .opponent-energy {
   visibility: hidden;
@@ -238,10 +237,6 @@
   top: -20px;
   right: 80px;
   z-index: 95;
-}
-
-.opponent-attack_3 {
-  animation: opponent-tackle  1s;
 }
 
 /*Pikachu*/
@@ -563,27 +558,27 @@
     }
 }
 
-//Light and energy circle
-@keyframes attacker-animate_2 {
-  0% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  20% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  40% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  60% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  80% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  100% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-}
+//Light blue electric glow
+// @keyframes attacker-animate_2 {
+//   0% {
+//     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+//   }
+//   20% {
+//     filter: sepia(0%) hue-rotate(0%) saturate(0%);
+//   }
+//   40% {
+//     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+//   }
+//   60% {
+//     filter: sepia(0%) hue-rotate(0%) saturate(0%);
+//   }
+//   80% {
+//     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+//   }
+//   100% {
+//     filter: sepia(0%) hue-rotate(0%) saturate(0%);
+//   }
+// }
 
 //player energy projectile 
 @keyframes player-energy {

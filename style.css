@@ -726,9 +726,14 @@ iframe {
   visibility: visible;
 }
 
-.player-attack {
+.player-attack_1, .player-attack_2 {
   -webkit-animation: attacker-animate 2s;
           animation: attacker-animate 2s;
+}
+
+.player-attack_3 {
+  -webkit-animation: player-tackle 1s;
+          animation: player-tackle 1s;
 }
 
 .player-energy {
@@ -743,14 +748,14 @@ iframe {
   z-index: 95;
 }
 
-.player-attack_3 {
-  -webkit-animation: player-tackle 1s;
-          animation: player-tackle 1s;
-}
-
-.opponent-attack {
+.opponent-attack_1, .opponent-attack_2 {
   -webkit-animation: attacker-animate 4s;
           animation: attacker-animate 4s;
+}
+
+.opponent-attack_3 {
+  -webkit-animation: opponent-tackle 1s;
+          animation: opponent-tackle 1s;
 }
 
 .opponent-energy {
@@ -763,11 +768,6 @@ iframe {
   top: -20px;
   right: 80px;
   z-index: 95;
-}
-
-.opponent-attack_3 {
-  -webkit-animation: opponent-tackle 1s;
-          animation: opponent-tackle 1s;
 }
 
 /*Pikachu*/
@@ -1165,46 +1165,6 @@ iframe {
   }
   to {
     right: 0;
-  }
-}
-@-webkit-keyframes attacker-animate_2 {
-  0% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  20% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  40% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  60% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  80% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  100% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-}
-@keyframes attacker-animate_2 {
-  0% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  20% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  40% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  60% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
-  }
-  80% {
-    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
-  }
-  100% {
-    filter: sepia(0%) hue-rotate(0%) saturate(0%);
   }
 }
 @-webkit-keyframes player-energy {
