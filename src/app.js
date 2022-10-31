@@ -897,7 +897,7 @@ const resetOptions = () => {
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
-    dialogue.textContent = `It's your opponent, ${state.opponentPokemon.name}'s, move.`;
+    dialogue.textContent = `It's your opponent ${state.opponentPokemon.name}'s move.`;
   }
   delay(2000).then(() => {
     if (state.screen !== "gameover-screen") {
@@ -905,6 +905,7 @@ const oppTurn = () => {
       state.attackSelected = `attack_${ranNum}`;
       if (state.attackSelected === "attack_1") {
         const energy = state.opponentPokemon.attack_1;
+        dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         sound.attack.play();
         iframeDocument
           .querySelector(".opponent__img")
@@ -938,6 +939,7 @@ const oppTurn = () => {
       }
       if (state.attackSelected === "attack_2") {
         const energy = state.opponentPokemon.attack_2;
+        dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         sound.attack.play();
         iframeDocument
           .querySelector(".opponent__img")
@@ -971,6 +973,7 @@ const oppTurn = () => {
       }
       if (state.attackSelected === "attack_3") {
         const energy = state.opponentPokemon.attack_3;
+        dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         sound.smash.play();
         iframeDocument
           .querySelector(".opponent__img")
