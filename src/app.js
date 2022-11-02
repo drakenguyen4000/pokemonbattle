@@ -9,12 +9,12 @@ let iframe = document.getElementById("iframe");
 let iframeDocument;
 let selectionList;
 let selectionListItems;
-let numItems; //Number of Pokemon available to select
-let numItems2; //Number of Pokemon available to select
-let numItems3; //Number of Pokemon available to select
-let count = 0;
-let count2 = 0;
-let count3 = 0;
+let numItems; 
+let totalItems; 
+let totalPokemon; 
+let numClicks = 0;
+let b_numClicks = 0;
+let yP_numClicks = 0;
 let optionsList;
 let optionsListItems;
 let dialogue;
@@ -96,7 +96,7 @@ const displayScreen = (screenUpdate, screenFunc) => {
   document.getElementsByName("screen-display")[0].src = state.screen + ".html";
   delay(2000).then(() => {
     screenFunc();
-    count = 0;
+    numClicks = 0;
   });
 };
 
@@ -245,12 +245,12 @@ startButton.addEventListener("click", () => {
 pauseButton.addEventListener("click", () => {
   // oppTurn();
   console.log("state:", state);
-  console.log("count:", count);
-  console.log("count2:", count2);
-  console.log("count3:", count3);
+  console.log("numClicks:", numClicks);
+  console.log("b_numClicks:", b_numClicks);
+  console.log("yP_numClicks:", yP_numClicks);
   console.log("numItems:", numItems);
-  console.log("numItems2:", numItems2);
-  console.log("numItems3:", numItems3);
+  console.log("totalItems:", totalItems);
+  console.log("totalPokemon:", totalPokemon);
 });
 
 selectButton.addEventListener("click", () => {
@@ -273,7 +273,7 @@ selectButton.addEventListener("click", () => {
       iframeDocument.querySelector(
         ".infobox__text-choose"
       ).textContent = `Select ${remainingNum} more Pokemon for battle.`;
-      selectionListItems[count].classList.add("selection__card--unavaible");
+      selectionListItems[numClicks].classList.add("selection__card--unavaible");
       backToSelection();
     }
   } //Start Opponent Selection screen
@@ -330,19 +330,19 @@ rightButton.addEventListener("click", () => {
   sound.click.play();
   //Only works in selection screen, not selected-mode
   if (state.screen === "selection-screen") {
-    count += 1;
-    //Set equal to # of selections available, if count exceeds it, before changing direction
-    count > numItems ? (count = numItems) : selectPageController("right");
+    numClicks += 1;
+    //Set equal to # of selections available, if numClicks exceeds it, before changing direction
+    numClicks > numItems ? (numClicks = numItems) : selectPageController("right");
   }
   //Only works in battle screen
   else if (state.screen === "battle-screen") {
-    count += 1;
-    //Set equal to # of selections available, if count exceeds it, before changing direction
-    count > numItems ? (count = numItems) : battleOptionsController("right");
+    numClicks += 1;
+    //Set equal to # of selections available, if numClicks exceeds it, before changing direction
+    numClicks > numItems ? (numClicks = numItems) : battleOptionsController("right");
   } else if (state.screen === "yourPkmn") {
-    count3 += 1;
-    //Set equal to # of selections available, if count exceeds it, before changing direction
-    count3 > numItems3 ? (count3 = numItems3) : yourPkmnController("right");
+    yP_numClicks += 1;
+    //Set equal to # of selections available, if numClicks exceeds it, before changing direction
+    yP_numClicks > totalPokemon ? (yP_numClicks = totalPokemon) : yourPkmnController("right");
   }
 });
 
@@ -350,17 +350,17 @@ rightButton.addEventListener("click", () => {
 leftButton.addEventListener("click", () => {
   sound.click.play();
   if (state.screen === "selection-screen") {
-    count -= 1;
-    //Set count equal to zero, if count goes below zero, before changing direction
-    count < 0 ? (count = 0) : selectPageController("left");
+    numClicks -= 1;
+    //Set numClicks equal to zero, if numClicks goes below zero, before changing direction
+    numClicks < 0 ? (numClicks = 0) : selectPageController("left");
   }
   if (state.screen === "battle-screen") {
-    count -= 1;
-    //Set count equal to zero, if count goes below zero, before changing direction
-    count < 0 ? (count = 0) : battleOptionsController("left");
+    numClicks -= 1;
+    //Set numClicks equal to zero, if numClicks goes below zero, before changing direction
+    numClicks < 0 ? (numClicks = 0) : battleOptionsController("left");
   } else if (state.screen === "yourPkmn") {
-    count3 -= 1;
-    count3 < 0 ? (count3 = 0) : yourPkmnController("left");
+    yP_numClicks -= 1;
+    yP_numClicks < 0 ? (yP_numClicks = 0) : yourPkmnController("left");
   }
 });
 
@@ -368,29 +368,29 @@ leftButton.addEventListener("click", () => {
 downButton.addEventListener("click", () => {
   sound.click.play();
   if (state.screen === "selection-screen") {
-    count += 3;
-    //Reverse count by -3, if count exceeds # of selections available, before changing direction
-    count > numItems ? (count -= 3) : selectPageController("down");
+    numClicks += 3;
+    //Reverse numClicks by -3, if numClicks exceeds # of selections available, before changing direction
+    numClicks > numItems ? (numClicks -= 3) : selectPageController("down");
   } else if (state.screen === "selected-mode") {
     iframeDocument.querySelector(".option__yes-arrow").classList.add("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.remove("hide");
     state.selectedAnswer = "no";
   } else if (state.screen === "battle-screen") {
-    count += 2;
-    //Reverse count by -2, if count exceeds # of selections available, before changing direction
-    count > numItems ? (count -= 2) : battleOptionsController("down");
+    numClicks += 2;
+    //Reverse numClicks by -2, if numClicks exceeds # of selections available, before changing direction
+    numClicks > numItems ? (numClicks -= 2) : battleOptionsController("down");
   } else if (state.screen === "attack-mode") {
-    count += 1;
-    count > 2 ? (count = 2) : attackController("down");
+    numClicks += 1;
+    numClicks > 2 ? (numClicks = 2) : attackController("down");
   } else if (state.optionSelected === "bag-opened") {
-    count2 += 1;
-    count2 > numItems2 ? (count2 = numItems2) : bagController("down");
+    b_numClicks += 1;
+    b_numClicks > totalItems ? (b_numClicks = totalItems) : bagController("down");
   } else if (state.screen === "yourPkmn") {
-    count3 += 3;
-    count3 > numItems3 ? (count3 -= 3) : yourPkmnController("down");
+    yP_numClicks += 3;
+    yP_numClicks > totalPokemon ? (yP_numClicks -= 3) : yourPkmnController("down");
   } else if (state.screen === "gameover-screen") {
-    count += 1;
-    count > numItems ? (count = numItems) : gameOverController("down");
+    numClicks += 1;
+    numClicks > numItems ? (numClicks = numItems) : gameOverController("down");
   }
 });
 
@@ -398,29 +398,29 @@ downButton.addEventListener("click", () => {
 upButton.addEventListener("click", () => {
   sound.click.play();
   if (state.screen === "selection-screen") {
-    count -= 3;
-    //Reverse count by +3, if count goes below zero, before changing direction
-    count < 0 ? (count += 3) : selectPageController("up");
+    numClicks -= 3;
+    //Reverse numClicks by +3, if numClicks goes below zero, before changing direction
+    numClicks < 0 ? (numClicks += 3) : selectPageController("up");
   } else if (state.screen === "selected-mode") {
     iframeDocument.querySelector(".option__yes-arrow").classList.remove("hide");
     iframeDocument.querySelector(".option__no-arrow").classList.add("hide");
     state.selectedAnswer = "yes";
   } else if (state.screen === "battle-screen") {
-    count -= 2;
-    //Reverse count by +2, if count goes below zero, before changing direction
-    count < 0 ? (count += 2) : battleOptionsController("up");
+    numClicks -= 2;
+    //Reverse numClicks by +2, if numClicks goes below zero, before changing direction
+    numClicks < 0 ? (numClicks += 2) : battleOptionsController("up");
   } else if (state.screen === "attack-mode") {
-    count -= 1;
-    count < 0 ? (count = 0) : attackController("up");
+    numClicks -= 1;
+    numClicks < 0 ? (numClicks = 0) : attackController("up");
   } else if (state.optionSelected === "bag-opened") {
-    count2 -= 1;
-    count2 < 0 ? (count2 = 0) : bagController("up");
+    b_numClicks -= 1;
+    b_numClicks < 0 ? (b_numClicks = 0) : bagController("up");
   } else if (state.screen === "yourPkmn") {
-    count3 -= 3;
-    count3 < 0 ? (count3 += 3) : yourPkmnController("up");
+    yP_numClicks -= 3;
+    yP_numClicks < 0 ? (yP_numClicks += 3) : yourPkmnController("up");
   } else if (state.screen === "gameover-screen") {
-    count -= 1;
-    count < 0 ? (count = 0) : gameOverController("up");
+    numClicks -= 1;
+    numClicks < 0 ? (numClicks = 0) : gameOverController("up");
   }
 });
 
@@ -430,34 +430,34 @@ const selectPageController = (direction) => {
   switch (direction) {
     case "right":
       //removes selection border from previous selection
-      selectionListItems[count - 1].classList.remove(
+      selectionListItems[numClicks - 1].classList.remove(
         "selection__card--selected"
       );
       //adds selection border to current selection
-      selectionListItems[count].classList.add("selection__card--selected");
+      selectionListItems[numClicks].classList.add("selection__card--selected");
       //Switches infobox details based on pokemon selection
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
       break;
     case "left":
-      selectionListItems[count + 1].classList.remove(
+      selectionListItems[numClicks + 1].classList.remove(
         "selection__card--selected"
       );
-      selectionListItems[count].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      selectionListItems[numClicks].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
       break;
     case "down":
-      selectionListItems[count - 3].classList.remove(
+      selectionListItems[numClicks - 3].classList.remove(
         "selection__card--selected"
       );
-      selectionListItems[count].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      selectionListItems[numClicks].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
       break;
     case "up":
-      selectionListItems[count + 3].classList.remove(
+      selectionListItems[numClicks + 3].classList.remove(
         "selection__card--selected"
       );
-      selectionListItems[count].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(count);
+      selectionListItems[numClicks].classList.add("selection__card--selected");
+      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
       break;
   }
 };
@@ -469,34 +469,34 @@ const battleOptionsController = (direction) => {
   switch (direction) {
     case "right":
       //displays & removes arrow
-      optionsListItems[count - 1].children[0].classList.remove(
+      optionsListItems[numClicks - 1].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
 
       //Update state with player choice
-      state.optionSelected = optionsListItems[count].lastChild.data;
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
       break;
     case "left":
-      optionsListItems[count + 1].children[0].classList.remove(
+      optionsListItems[numClicks + 1].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
-      state.optionSelected = optionsListItems[count].lastChild.data;
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
       break;
     case "down":
-      optionsListItems[count - 2].children[0].classList.remove(
+      optionsListItems[numClicks - 2].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
-      state.optionSelected = optionsListItems[count].lastChild.data;
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
       break;
     case "up":
-      optionsListItems[count + 2].children[0].classList.remove(
+      optionsListItems[numClicks + 2].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
-      state.optionSelected = optionsListItems[count].lastChild.data;
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
       break;
   }
 };
@@ -506,21 +506,21 @@ const attackController = (direction) => {
   switch (direction) {
     case "down":
       //displays & removes arrow
-      optionsListItems[count - 1].children[0].classList.remove(
+      optionsListItems[numClicks - 1].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
       //Update state with player choice
-      state.optionSelected = optionsListItems[count].lastChild.data;
-      state.attackSelected = `attack_${count + 1}`;
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
+      state.attackSelected = `attack_${numClicks + 1}`;
       break;
     case "up":
-      optionsListItems[count + 1].children[0].classList.remove(
+      optionsListItems[numClicks + 1].children[0].classList.remove(
         "arrow--selected"
       );
-      optionsListItems[count].children[0].classList.add("arrow--selected");
-      state.optionSelected = optionsListItems[count].lastChild.data;
-      state.attackSelected = `attack_${count + 1}`;
+      optionsListItems[numClicks].children[0].classList.add("arrow--selected");
+      state.optionSelected = optionsListItems[numClicks].lastChild.data;
+      state.attackSelected = `attack_${numClicks + 1}`;
       break;
   }
 };
@@ -529,24 +529,24 @@ const attackController = (direction) => {
 const bagController = (direction) => {
   switch (direction) {
     case "down":
-      bagItems[count2 - 1].classList.remove("bag-item--selected");
-      bagItems[count2].classList.add("bag-item--selected");
-      bagItems[count2 - 1].children[1].classList.remove(
+      bagItems[b_numClicks - 1].classList.remove("bag-item--selected");
+      bagItems[b_numClicks].classList.add("bag-item--selected");
+      bagItems[b_numClicks - 1].children[1].classList.remove(
         "bag-item-img--selected"
       );
-      bagItems[count2].children[1].classList.add("bag-item-img--selected");
+      bagItems[b_numClicks].children[1].classList.add("bag-item-img--selected");
       state.selectedAnswer =
-        bagItems[count2].children[1].nextElementSibling.textContent;
+        bagItems[b_numClicks].children[1].nextElementSibling.textContent;
       break;
     case "up":
-      bagItems[count2 + 1].classList.remove("bag-item--selected");
-      bagItems[count2].classList.add("bag-item--selected");
-      bagItems[count2 + 1].children[1].classList.remove(
+      bagItems[b_numClicks + 1].classList.remove("bag-item--selected");
+      bagItems[b_numClicks].classList.add("bag-item--selected");
+      bagItems[b_numClicks + 1].children[1].classList.remove(
         "bag-item-img--selected"
       );
-      bagItems[count2].children[1].classList.add("bag-item-img--selected");
+      bagItems[b_numClicks].children[1].classList.add("bag-item-img--selected");
       state.selectedAnswer =
-        bagItems[count2].children[1].nextElementSibling.textContent;
+        bagItems[b_numClicks].children[1].nextElementSibling.textContent;
       break;
   }
 };
@@ -556,26 +556,26 @@ const yourPkmnController = (direction) => {
   switch (direction) {
     case "right":
       //removes selection border from previous selection
-      yourPkmn[count3 - 1].classList.remove("selection__card--selected");
+      yourPkmn[yP_numClicks - 1].classList.remove("selection__card--selected");
       //adds selection border to current selection
-      yourPkmn[count3].classList.add("selection__card--selected");
+      yourPkmn[yP_numClicks].classList.add("selection__card--selected");
       //Update state with currently highlighted pokemon
-      state.curPkmIndex = count3;
+      state.curPkmIndex = yP_numClicks;
       break;
     case "left":
-      yourPkmn[count3 + 1].classList.remove("selection__card--selected");
-      yourPkmn[count3].classList.add("selection__card--selected");
-      state.curPkmIndex = count3;
+      yourPkmn[yP_numClicks + 1].classList.remove("selection__card--selected");
+      yourPkmn[yP_numClicks].classList.add("selection__card--selected");
+      state.curPkmIndex = yP_numClicks;
       break;
     case "down":
-      yourPkmn[count3 - 3].classList.remove("selection__card--selected");
-      yourPkmn[count3].classList.add("selection__card--selected");
-      state.curPkmIndex = count3;
+      yourPkmn[yP_numClicks - 3].classList.remove("selection__card--selected");
+      yourPkmn[yP_numClicks].classList.add("selection__card--selected");
+      state.curPkmIndex = yP_numClicks;
       break;
     case "up":
-      yourPkmn[count3 + 3].classList.remove("selection__card--selected");
-      yourPkmn[count3].classList.add("selection__card--selected");
-      state.curPkmIndex = count3;
+      yourPkmn[yP_numClicks + 3].classList.remove("selection__card--selected");
+      yourPkmn[yP_numClicks].classList.add("selection__card--selected");
+      state.curPkmIndex = yP_numClicks;
       break;
   }
 };
@@ -584,14 +584,14 @@ const yourPkmnController = (direction) => {
 const gameOverController = (direction) => {
   switch (direction) {
     case "down":
-      playagainList[count - 1].children[0].classList.remove("arrow--selected");
-      playagainList[count].children[0].classList.add("arrow--selected");
-      state.selectedAnswer = playagainList[count].lastChild.data;
+      playagainList[numClicks - 1].children[0].classList.remove("arrow--selected");
+      playagainList[numClicks].children[0].classList.add("arrow--selected");
+      state.selectedAnswer = playagainList[numClicks].lastChild.data;
       break;
     case "up":
-      playagainList[count + 1].children[0].classList.remove("arrow--selected");
-      playagainList[count].children[0].classList.add("arrow--selected");
-      state.selectedAnswer = playagainList[count].lastChild.data;
+      playagainList[numClicks + 1].children[0].classList.remove("arrow--selected");
+      playagainList[numClicks].children[0].classList.add("arrow--selected");
+      state.selectedAnswer = playagainList[numClicks].lastChild.data;
       break;
   }
 };
@@ -663,7 +663,7 @@ const attackOption = () => {
 const bagOption = () => {
   if (state.optionSelected === "bag" && state.itemsAllowed !== 0) {
     bagItems = iframeDocument.querySelector(".bag-list").children;
-    numItems2 = bagItems.length - 1;
+    totalItems = bagItems.length - 1;
     //Display bag item quantity
     var bagItemElements = 0;
     var bagObject = state.bag;
@@ -727,7 +727,7 @@ const pkmonOption = () => {
       .querySelector(".yourPkmnList")
       .firstElementChild.classList.add("selection__card--selected");
     state.screen = "yourPkmn";
-    numItems3 = yourPkmn.length - 1;
+    totalPokemon = yourPkmn.length - 1;
     state.optionSelected = "pkmn-switch";
   } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
     //Load switched in Pokemon
@@ -776,12 +776,12 @@ const itemSelected = (item) => {
 const closeBag = () => {
   iframeDocument.querySelector(".backpack").classList.remove("backpack--show");
   iframeDocument.querySelector(".bag").classList.remove("bag--show");
-  bagItems[count2].classList.remove("bag-item--selected");
-  bagItems[count2].children[1].classList.remove("bag-item-img--selected");
+  bagItems[b_numClicks].classList.remove("bag-item--selected");
+  bagItems[b_numClicks].children[1].classList.remove("bag-item-img--selected");
   state.optionSelected = "bag";
-  count2 = 0;
-  bagItems[count2].classList.add("bag-item--selected");
-  bagItems[count2].children[1].classList.add("bag-item-img--selected");
+  b_numClicks = 0;
+  bagItems[b_numClicks].classList.add("bag-item--selected");
+  bagItems[b_numClicks].children[1].classList.add("bag-item-img--selected");
   //Keep in hold-mode if Pokeball is used
   if (state.selectedAnswer !== "Pokeball") {
     state.screen = "battle-screen";
@@ -789,15 +789,15 @@ const closeBag = () => {
 };
 
 //Display current pokemon data to infbox
-const getDataSet = (count) => {
+const getDataSet = (numClicks) => {
   //Update state with currently highlighted pokemon
-  state.curSelectPokemon = state.pokemonList[count];
+  state.curSelectPokemon = state.pokemonList[numClicks];
   //List info of current pokemon
-  return `<li>${selectionListItems[count].dataset.type}</li>
-      <li>${selectionListItems[count].dataset.health}</li>
-      <li>${selectionListItems[count].dataset.attack}</li>
-      <li>${selectionListItems[count].dataset.defense}</li>
-      <li>${selectionListItems[count].dataset.weakness}</li>`;
+  return `<li>${selectionListItems[numClicks].dataset.type}</li>
+      <li>${selectionListItems[numClicks].dataset.health}</li>
+      <li>${selectionListItems[numClicks].dataset.attack}</li>
+      <li>${selectionListItems[numClicks].dataset.defense}</li>
+      <li>${selectionListItems[numClicks].dataset.weakness}</li>`;
 };
 
 //Resets infobox Red options list
@@ -806,8 +806,8 @@ const resetOptions = () => {
     state.yourPkmn = [];
     state.curPkmIndex = 0;
     numItems = 0;
-    numItems2 = 0;
-    numItems3 = 0;
+    totalItems = 0;
+    totalPokemon = 0;
     state.wins = 0;
   } else {
     dialogue.textContent = `It's your move!`;
@@ -816,15 +816,15 @@ const resetOptions = () => {
     optionsListItems[1].lastChild.data = "bag";
     optionsListItems[2].lastChild.data = "pkmon";
     optionsListItems[3].lastChild.data = "run";
-    //Reset count and arrow icon
-    optionsListItems[count].children[0].classList.remove("arrow--selected");
+    //Reset numClicks and arrow icon
+    optionsListItems[numClicks].children[0].classList.remove("arrow--selected");
     iframeDocument
       .querySelector(".option-grid")
       .classList.remove("option-grid--list");
-    count = 0;
-    count2 = 0;
-    count3 = 0;
-    optionsListItems[count].children[0].classList.add("arrow--selected");
+    numClicks = 0;
+    b_numClicks = 0;
+    yP_numClicks = 0;
+    optionsListItems[numClicks].children[0].classList.add("arrow--selected");
     state.screen = "battle-screen";
     state.itemsAllowed = 5;
   }
@@ -974,7 +974,7 @@ class Pokemon {
     this.update();
   }
   recover(potion) {
-    //Determines which potion count to reduce
+    //Determines which potion numClicks to reduce
     potion === "Potion"
       ? (state.bag.Potion -= 1)
       : (state.bag["Super Potion"] -= 1);
