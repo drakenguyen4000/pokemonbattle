@@ -330,14 +330,27 @@ iframe {
 .display__intro-grass {
   background-color: #a7ff99;
   display: flex;
-  align-items: end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  text-align: center;
 }
 
 .pressstart-text {
   color: white;
   text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6), 0 -1px rgb(6, 6, 6);
   text-transform: uppercase;
+  z-index: 5;
+}
+
+.pressstart-text {
+  margin-bottom: 5%;
+}
+
+.copyright-text {
+  font-size: 0.6rem;
+  text-shadow: -1px 0 rgb(6, 6, 6), 0 1px rgb(6, 6, 6), 1px 0 rgb(6, 6, 6), 0 -1px rgb(6, 6, 6);
+  color: white;
 }
 
 .pressstart-text--blink {
