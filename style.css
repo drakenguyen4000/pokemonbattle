@@ -875,6 +875,29 @@ iframe {
   border-radius: 200px;
 }
 
+/*Mewtwo*/
+.opponent-Confusion--animate {
+  -webkit-animation: Confusion 4s;
+          animation: Confusion 4s;
+  top: -50px;
+  right: 15px;
+  height: 80px;
+  width: 80px;
+  border-radius: 100px;
+}
+
+.opponent-Aura-Sphere--animate {
+  -webkit-animation: Solar-Beam 4s;
+          animation: Solar-Beam 4s;
+  z-index: 100;
+  top: -40px;
+  right: 20px;
+  height: 70px;
+  width: 70px;
+  background: white;
+  border-radius: 200px;
+}
+
 /*Charmander*/
 .player-Ember--animate {
   -webkit-animation: player-Ember 3s;
@@ -1622,6 +1645,32 @@ iframe {
     height: 100px;
     width: 100px;
     opacity: 1;
+  }
+}
+@-webkit-keyframes Confusion {
+  0% {
+    opacity: 0.5;
+    border: 10px dashed rgb(126, 54, 213);
+  }
+  100% {
+    transform: rotate(1440deg);
+    border: 10px dashed rgb(126, 54, 213);
+    height: 200px;
+    width: 200px;
+    opacity: 0.9;
+  }
+}
+@keyframes Confusion {
+  0% {
+    opacity: 0.5;
+    border: 10px dashed rgb(126, 54, 213);
+  }
+  100% {
+    transform: rotate(1440deg);
+    border: 10px dashed rgb(126, 54, 213);
+    height: 200px;
+    width: 200px;
+    opacity: 0.9;
   }
 }
 @-webkit-keyframes Sandstorm {

@@ -9,9 +9,9 @@ let iframe = document.getElementById("iframe");
 let iframeDocument;
 let selectionList;
 let selectionListItems;
-let numItems; 
-let totalItems; 
-let totalPokemon; 
+let numItems;
+let totalItems;
+let totalPokemon;
 let numClicks = 0;
 let b_numClicks = 0;
 let yP_numClicks = 0;
@@ -243,14 +243,14 @@ startButton.addEventListener("click", () => {
 });
 
 pauseButton.addEventListener("click", () => {
-  // oppTurn();
-  console.log("state:", state);
-  console.log("numClicks:", numClicks);
-  console.log("b_numClicks:", b_numClicks);
-  console.log("yP_numClicks:", yP_numClicks);
-  console.log("numItems:", numItems);
-  console.log("totalItems:", totalItems);
-  console.log("totalPokemon:", totalPokemon);
+  oppTurn();
+  // console.log("state:", state);
+  // console.log("numClicks:", numClicks);
+  // console.log("b_numClicks:", b_numClicks);
+  // console.log("yP_numClicks:", yP_numClicks);
+  // console.log("numItems:", numItems);
+  // console.log("totalItems:", totalItems);
+  // console.log("totalPokemon:", totalPokemon);
 });
 
 selectButton.addEventListener("click", () => {
@@ -332,17 +332,23 @@ rightButton.addEventListener("click", () => {
   if (state.screen === "selection-screen") {
     numClicks += 1;
     //Set equal to # of selections available, if numClicks exceeds it, before changing direction
-    numClicks > numItems ? (numClicks = numItems) : selectPageController("right");
+    numClicks > numItems
+      ? (numClicks = numItems)
+      : selectPageController("right");
   }
   //Only works in battle screen
   else if (state.screen === "battle-screen") {
     numClicks += 1;
     //Set equal to # of selections available, if numClicks exceeds it, before changing direction
-    numClicks > numItems ? (numClicks = numItems) : battleOptionsController("right");
+    numClicks > numItems
+      ? (numClicks = numItems)
+      : battleOptionsController("right");
   } else if (state.screen === "yourPkmn") {
     yP_numClicks += 1;
     //Set equal to # of selections available, if numClicks exceeds it, before changing direction
-    yP_numClicks > totalPokemon ? (yP_numClicks = totalPokemon) : yourPkmnController("right");
+    yP_numClicks > totalPokemon
+      ? (yP_numClicks = totalPokemon)
+      : yourPkmnController("right");
   }
 });
 
@@ -384,10 +390,14 @@ downButton.addEventListener("click", () => {
     numClicks > 2 ? (numClicks = 2) : attackController("down");
   } else if (state.optionSelected === "bag-opened") {
     b_numClicks += 1;
-    b_numClicks > totalItems ? (b_numClicks = totalItems) : bagController("down");
+    b_numClicks > totalItems
+      ? (b_numClicks = totalItems)
+      : bagController("down");
   } else if (state.screen === "yourPkmn") {
     yP_numClicks += 3;
-    yP_numClicks > totalPokemon ? (yP_numClicks -= 3) : yourPkmnController("down");
+    yP_numClicks > totalPokemon
+      ? (yP_numClicks -= 3)
+      : yourPkmnController("down");
   } else if (state.screen === "gameover-screen") {
     numClicks += 1;
     numClicks > numItems ? (numClicks = numItems) : gameOverController("down");
@@ -436,28 +446,32 @@ const selectPageController = (direction) => {
       //adds selection border to current selection
       selectionListItems[numClicks].classList.add("selection__card--selected");
       //Switches infobox details based on pokemon selection
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
+      iframeDocument.querySelector(".info-list2").innerHTML =
+        getDataSet(numClicks);
       break;
     case "left":
       selectionListItems[numClicks + 1].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[numClicks].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
+      iframeDocument.querySelector(".info-list2").innerHTML =
+        getDataSet(numClicks);
       break;
     case "down":
       selectionListItems[numClicks - 3].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[numClicks].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
+      iframeDocument.querySelector(".info-list2").innerHTML =
+        getDataSet(numClicks);
       break;
     case "up":
       selectionListItems[numClicks + 3].classList.remove(
         "selection__card--selected"
       );
       selectionListItems[numClicks].classList.add("selection__card--selected");
-      iframeDocument.querySelector(".info-list2").innerHTML = getDataSet(numClicks);
+      iframeDocument.querySelector(".info-list2").innerHTML =
+        getDataSet(numClicks);
       break;
   }
 };
@@ -584,12 +598,16 @@ const yourPkmnController = (direction) => {
 const gameOverController = (direction) => {
   switch (direction) {
     case "down":
-      playagainList[numClicks - 1].children[0].classList.remove("arrow--selected");
+      playagainList[numClicks - 1].children[0].classList.remove(
+        "arrow--selected"
+      );
       playagainList[numClicks].children[0].classList.add("arrow--selected");
       state.selectedAnswer = playagainList[numClicks].lastChild.data;
       break;
     case "up":
-      playagainList[numClicks + 1].children[0].classList.remove("arrow--selected");
+      playagainList[numClicks + 1].children[0].classList.remove(
+        "arrow--selected"
+      );
       playagainList[numClicks].children[0].classList.add("arrow--selected");
       state.selectedAnswer = playagainList[numClicks].lastChild.data;
       break;
@@ -964,8 +982,8 @@ class Pokemon {
   }
   damage(attack) {
     let defensePt = this.defense * 0.025;
-    let damage = attack - defensePt;
-    // let damage = 20; //temp damage test
+    // let damage = attack - defensePt;
+    let damage = 1; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
@@ -1058,7 +1076,7 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
+  // displayScreen("intro-screen", introScreen);
   // delay(1500).then(()=>{
   //   state.screen = "intro-screen";
   //   document.getElementsByName("screen-display")[0].src =
@@ -1076,24 +1094,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2[0];
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2[0];
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
-  // //==Temp load a pokemon team==//
-  // //Grab from state 3 pokemon
-  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data = await response3.json().catch((err) => console.log(err));
-  // for (let i = 7; i < 9; i++) {
-  //   state.yourPkmn.push(data[i]);
-  // }
+  //==Temp load a pokemon team==//
+  //Grab from state 3 pokemon
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response3.json().catch((err) => console.log(err));
+  for (let i = 7; i < 9; i++) {
+    state.yourPkmn.push(data[i]);
+  }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);

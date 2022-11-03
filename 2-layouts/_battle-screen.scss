@@ -319,6 +319,26 @@
   border-radius: 200px;
 }
 
+/*Mewtwo*/
+.opponent-Confusion--animate {
+  animation: Confusion 4s;
+  top: -50px;
+  right: 15px;
+  @include dimension(80px, 80px);
+  border-radius: 100px;
+  // background: radial-gradient(closest-side, transparent, rgb(230, 224, 255), rgb(171, 95, 237));
+}
+
+.opponent-Aura-Sphere--animate {
+  animation: Solar-Beam 4s;
+  z-index: 100;
+  top: -40px;
+  right: 20px;
+  @include dimension(70px, 70px);
+  background: white;
+  border-radius: 200px;
+}
+
 /*Charmander*/
 .player-Ember--animate {
   animation: player-Ember 3s;
@@ -805,6 +825,21 @@
     opacity: 1;
   }
 }
+
+
+@keyframes Confusion {
+  0% {
+    opacity: 0.5;
+    border:  10px dashed rgb(126, 54, 213);
+  }
+  100% {
+    transform: rotate(1440deg);
+    border:  10px dashed rgb(126, 54, 213);
+    @include dimension(200px, 200px);
+    opacity: .9;
+  }
+}
+
 
 @keyframes Sandstorm {
   0% {
