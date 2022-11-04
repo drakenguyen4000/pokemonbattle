@@ -1,5 +1,7 @@
 var oppState = {
   opponentPokemon: {},
+  pkmnBoss: {},
+  wins: 0,
 };
 
 //Creates list of info details
@@ -23,13 +25,29 @@ const slowLoop = (time) => {
 async function oppScreenLoad(){
   //Displays List of Pokemons
   console.log("opp-selection-screen started...");
-  //Fetches Pokemon JSON file
-  const response = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
+  //Update wins
+  oppState.wins = window.parent.state.wins;
+
+  let response;
+  //Load Boss Pokemon only after 2 wins
+  if(oppState.wins === 2){
+      //Boss Pokemon
+      response = await fetch("./src/boss.json").catch((err)=>{
+      console.log(err)
+    });
+  } else {
+    //All Pokemon
+    response = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err));
+  }
+
   const data = await response.json().catch((err) => console.log(err));
+  oppState.opponentPokemon = data;
+
   //Randomly Picks Pokemon from JSON List
-  const randomPokemon = Math.floor(Math.random() * data.length);
+  let randomPokemon;
+  randomPokemon = Math.floor(Math.random() * data.length);
+  
   //Store picked Pokemon in state
   oppState.opponentPokemon = data[randomPokemon];
 
