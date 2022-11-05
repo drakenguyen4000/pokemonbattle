@@ -21,6 +21,11 @@
   list-style: none;
 }
 
+.selection__list--boss {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
 .selection__card {
   display: grid;
   grid-template-rows: 75% 25%;
@@ -65,6 +70,10 @@
   height: 90%;
   max-height: 90px;
   aspect-ratio: 1/1;
+}
+
+.selection__img--boss {
+  max-height: none;
 }
 
 .selection__name {

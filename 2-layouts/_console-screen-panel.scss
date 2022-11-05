@@ -80,6 +80,10 @@ iframe {
   width: 100%;
 }
 
+.loading-screen__image {
+  max-height: 90px;
+}
+
 .loading-screen--hide {
   display: none;
 }

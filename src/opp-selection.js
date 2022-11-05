@@ -68,6 +68,10 @@ async function oppScreenLoad(){
 
   //Load list
   document.querySelector(".selection__list").innerHTML = list;
+  //Resize selection grid for boss pokemon
+  if(oppState.wins === 2){
+    document.querySelector(".selection__list").classList.add("selection__list--boss");
+  }
   //Display Loading screen
   document
     .querySelector(".loading-screen")
@@ -116,6 +120,10 @@ async function oppScreenLoad(){
       opponentListItems[randomPosition].classList.add(
         "selection__mystery-card--hide"
       );
+      //Resize selection grid for boss pokemon
+      if(oppState.wins === 2){
+        document.querySelector(".selection__img").classList.add("selection__img--boss");
+      }
       //Update infobox with Opponent Pokemon's details
       document.querySelector(".info-list2").innerHTML = getDataSet();
       setTimeout(() => {
