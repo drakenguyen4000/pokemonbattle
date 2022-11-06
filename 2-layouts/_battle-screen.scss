@@ -1364,7 +1364,7 @@
 }
 
 /*--Backpack--*/
-.backpack {
+.backpack, .panel {
   display:none;
   @include dimension(60%, 96%);
   background: white;
@@ -1378,18 +1378,18 @@
   padding: 2%;
 }
 
-.backpack--show {
+.backpack--show, .panel--show {
   display: grid;
 }
 
 .bag {
   display: none;
-  grid-template-rows: 1fr fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .bag--show {
   display: grid;
-  grid-template-rows: 1fr fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .bag > h3 {

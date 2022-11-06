@@ -13,7 +13,7 @@
     aspect-ratio: 1 / 1;
   }
   
-  //start button, pause button, green screen display 
+  //start button, info button, green screen display 
   .console-bottom__center {
     @include dimension(80%, 100%);
     display: grid;
@@ -42,7 +42,7 @@
     text-align: center;
   }
   
-  .btn-start-pause-wrapper {
+  .btn-start-info-wrapper {
     display: flex;
   }
 
@@ -50,13 +50,13 @@
     margin-right: 2%;
   }
 
-  .btn-start, .btn-pause {
+  .btn-start, .btn-info {
     @include dimension(9px, 100%);
     border-radius: 5px;
     box-shadow: 1px 2px 2px #000000;
   }
   
-  .btn-pause--red {
+  .btn-info--red {
     background-color: #fc2458;
     border: 1px solid #6d0d23;
   }
