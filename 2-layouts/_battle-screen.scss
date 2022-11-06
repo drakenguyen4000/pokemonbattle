@@ -1366,7 +1366,7 @@
 /*--Backpack--*/
 .backpack, .panel {
   display:none;
-  @include dimension(60%, 96%);
+  @include dimension(70%, 96%);
   background: white;
   position: absolute;
   top: 4%;

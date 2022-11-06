@@ -4,7 +4,7 @@ const leftButton = document.querySelector(".d-pad__btn--left");
 const downButton = document.querySelector(".d-pad__btn--down");
 const upButton = document.querySelector(".d-pad__btn--up");
 const selectButton = document.querySelector(".btn-select");
-const infoButton = document.querySelector(".btn-info");
+const guideButton = document.querySelector(".btn-guide");
 let iframe = document.getElementById("iframe");
 let iframeDocument;
 let selectionList;
@@ -243,13 +243,16 @@ startButton.addEventListener("click", () => {
 });
 
 const guideText = () => {
-  const general = `<h1>Poke Dex Guide</h1><p>A player will select 3 Pokemon to bring into battle.</p>
+  const general = `<h1>Poke Dex</h1>
+  <h4>Note: Click Info button to scroll through.</h4>
+  <p>A player will select 3 Pokemon to bring into battle.</p>
   <p>To win, you will need fight 3 opponents.</p>
   <p>You have 1 chance to switch Pokemon per battle.</p>
   <p>Items are avaible to use for healing.</p>
   <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p>`;
   const oppPkmn = state.opponentPokemon;
-  const oppInfo = `<h1>Poke Dex</h1>
+  const oppGuide = `<h1>Poke Dex</h1>
+  <h4>Note: Click Info button to scroll through.</h4>
   <img style="border:1px solid gray; border-radius: 5px; padding 20%; background-color:rgb(155, 253, 155);" src="${oppPkmn.image}"/>
   <p>Pokemon: ${oppPkmn.name}</p>
   <p>Type: ${oppPkmn.type}</p>
@@ -258,29 +261,48 @@ const guideText = () => {
   <p>Defense: ${oppPkmn.defense}</p>
   <p>Health: ${oppPkmn.health_total}</p>
   <p>Summary: ${oppPkmn.summary}</p>`;
-  return state.screen === "oppInfo" ? oppInfo : general;
+  return state.screen === "oppGuide" ? oppGuide : general;
 };
-
-infoButton.addEventListener("click", () => {
-  console.log(state.opponentPokemon);
-  iframeDocument = iframe.contentWindow.document;
+const battleGuide = () => {
   if (state.screen === "battle-screen") {
-    state.screen = "oppInfo";
+    state.screen = "oppGuide";
     let elemDiv = iframeDocument.createElement("div");
     elemDiv.classList.add("panel", "panel--show");
     elemDiv.innerHTML = guideText();
     iframeDocument.body.appendChild(elemDiv);
-  } else if (state.screen === "oppInfo") {
+  } else if (state.screen === "oppGuide") {
     iframeDocument.querySelector(".panel").remove();
-    state.screen = "generalInfo";
+    state.screen = "generalGuide";
     let elemDiv = iframeDocument.createElement("div");
     elemDiv.classList.add("panel", "panel--show");
     elemDiv.innerHTML = guideText();
     iframeDocument.body.appendChild(elemDiv);
   } else {
+    state.screen = "battle-screen";
     iframeDocument.querySelector(".panel").remove();
   }
+}
 
+const generalGuide = () => {
+  const panel_active = iframeDocument.querySelector(".panel");
+  if (panel_active) {
+    iframeDocument.querySelector(".panel").remove();
+  } else {
+    var elemDiv = iframeDocument.createElement("div");
+    elemDiv.classList.add("panel", "panel--show");
+    elemDiv.innerHTML = guideText();
+    iframeDocument.body.appendChild(elemDiv);
+  }
+}
+
+guideButton.addEventListener("click", () => {
+  iframeDocument = iframe.contentWindow.document;
+  if(state.screen === "intro-screen" || state.screen === "selection-screen") {
+    generalGuide();
+  }
+  if(state.screen === "battle-screen" || state.screen === "oppGuide" || state.screen === "generalGuide") {
+    battleGuide();
+  }
   // oppTurn();
   // console.log("state:", state);
   // console.log("numClicks:", numClicks);

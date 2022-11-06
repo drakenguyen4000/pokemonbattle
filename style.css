@@ -195,7 +195,7 @@ iframe {
   box-shadow: 1px 2px 2px #000000;
 }
 
-.btn-text {
+.btn-text-select, .btn-text-guide, .btn-text-start {
   margin-top: 5%;
   color: #2e2626;
   text-transform: uppercase;
@@ -204,7 +204,11 @@ iframe {
   text-align: center;
 }
 
-.btn-start-info-wrapper {
+.btn-text-guide {
+  letter-spacing: 0.05rem;
+}
+
+.btn-start-guide-wrapper {
   display: flex;
 }
 
@@ -212,14 +216,14 @@ iframe {
   margin-right: 2%;
 }
 
-.btn-start, .btn-info {
+.btn-start, .btn-guide {
   height: 9px;
   width: 100%;
   border-radius: 5px;
   box-shadow: 1px 2px 2px #000000;
 }
 
-.btn-info--red {
+.btn-guide--red {
   background-color: #fc2458;
   border: 1px solid #6d0d23;
 }
@@ -2823,7 +2827,7 @@ iframe {
 /*--Backpack--*/
 .backpack, .panel {
   display: none;
-  height: 60%;
+  height: 70%;
   width: 96%;
   background: white;
   position: absolute;

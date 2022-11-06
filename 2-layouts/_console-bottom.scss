@@ -13,7 +13,7 @@
     aspect-ratio: 1 / 1;
   }
   
-  //start button, info button, green screen display 
+  //start button, guide button, green screen display 
   .console-bottom__center {
     @include dimension(80%, 100%);
     display: grid;
@@ -33,7 +33,7 @@
     box-shadow: 1px 2px 2px #000000;
   }
 
-  .btn-text{
+  .btn-text-select, .btn-text-guide, .btn-text-start {
     margin-top: 5%;
     color: #2e2626;
     text-transform: uppercase;
@@ -41,8 +41,12 @@
     font-family: "Goldman";
     text-align: center;
   }
-  
-  .btn-start-info-wrapper {
+
+  .btn-text-guide {
+    letter-spacing: .05rem;
+  }
+
+  .btn-start-guide-wrapper {
     display: flex;
   }
 
@@ -50,13 +54,13 @@
     margin-right: 2%;
   }
 
-  .btn-start, .btn-info {
+  .btn-start, .btn-guide {
     @include dimension(9px, 100%);
     border-radius: 5px;
     box-shadow: 1px 2px 2px #000000;
   }
   
-  .btn-info--red {
+  .btn-guide--red {
     background-color: #fc2458;
     border: 1px solid #6d0d23;
   }
