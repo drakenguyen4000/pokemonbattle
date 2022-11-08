@@ -4,10 +4,12 @@ let playerPokemon;
 
 const battleGround = () => {
   console.log("battle screen started...");
-  
+
   curPkmIndex = window.parent.state.curPkmIndex;
   playerPokemon = window.parent.state.yourPkmn[curPkmIndex];
-  document.querySelector(".loading-screen__image").src = `${opponentPokemon.image}`
+  document.querySelector(
+    ".loading-screen__image"
+  ).src = `${opponentPokemon.image}`;
   // Load screen for 2 seconds
   setTimeout(() => {
     //Hide loading screen
