@@ -55,6 +55,7 @@ var state = {
   captured: false,
   switchPkmn: 1,
   wins: 0,
+  typeChart: {},
 };
 
 const sound = {
@@ -169,7 +170,7 @@ async function oppSelectionScreen() {
 }
 
 //Loads iframe of Battle Screen
-const battleScreen = () => {
+async function battleScreen() {
   state.optionSelected = "attack";
   iframeDocument = iframe.contentWindow.document;
   dialogue = iframeDocument.querySelector(".infobox__text");
@@ -183,7 +184,12 @@ const battleScreen = () => {
   sound.battle.play();
   sound.battle.volume = 0.1;
   sound.battle.loop = true;
-};
+  const response = await fetch("./src/typechart.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response.json().catch((err) => console.log(err));
+  state.typeChart = data[0];
+}
 
 const gameoverScreen = () => {
   iframeDocument = iframe.contentWindow.document;
@@ -215,13 +221,17 @@ const loadPokemon = () => {
   playerTotalHealth = state.yourPkmn[state.curPkmIndex].health_total;
   oppHealthFill = iframeDocument.querySelector(".opponent-health__bar--fill");
   playerHealthFill = iframeDocument.querySelector(".player-health__bar--fill");
+  oppType = state.opponentPokemon.type;
+  playerType = state.yourPkmn[state.curPkmIndex].type;
   oppPokemon = new Pokemon(
     opponent,
     oppAttack,
     oppDefense,
     oppTotalHealth,
     oppState,
-    oppHealthFill
+    oppHealthFill,
+    oppType,
+    playerType
   );
   playerPokemon = new Pokemon(
     player,
@@ -229,7 +239,9 @@ const loadPokemon = () => {
     playerDefense,
     playerTotalHealth,
     playerState,
-    playerHealthFill
+    playerHealthFill,
+    playerType,
+    oppType
   );
 };
 
@@ -309,14 +321,6 @@ guideButton.addEventListener("click", () => {
   ) {
     battleGuide();
   }
-  // oppTurn();
-  // console.log("state:", state);
-  // console.log("numClicks:", numClicks);
-  // console.log("b_numClicks:", b_numClicks);
-  // console.log("yP_numClicks:", yP_numClicks);
-  // console.log("numItems:", numItems);
-  // console.log("totalItems:", totalItems);
-  // console.log("totalPokemon:", totalPokemon);
 });
 
 selectButton.addEventListener("click", () => {
@@ -708,6 +712,7 @@ const attackOption = () => {
     state.screen = "hold-mode";
     const energy = state.yourPkmn[state.curPkmIndex][`${state.attackSelected}`];
     const attack_num = state.attackSelected;
+
     delay(1000)
       .then(() => {
         attack_num === "attack_3" ? sound.smash.play() : sound.attack.play();
@@ -1044,27 +1049,44 @@ const pokemonCaught = (caught) => {
 
 //Pokemon status
 class Pokemon {
-  constructor(side, attack, defense, totalHealth, state, healthFill) {
+  constructor(
+    side,
+    attack,
+    defense,
+    totalHealth,
+    state,
+    healthFill,
+    attacker,
+    defender
+  ) {
     this.side = side;
     this.attackpt = attack;
     this.defense = defense;
     this.totHealth = totalHealth;
     this.pkmState = state;
     this.healthFillEl = healthFill;
+    this.attacker = attacker;
+    this.defender = defender;
   }
-  attackPower(attacktype) {
-    let accuracy = Math.random() * (1 - 0.5) + 0.5;
-    if (attacktype === "attack_1" || attacktype === "attack_3") {
-      return (
-        this.pkmState.health_active * 0.05 + this.attackpt * 0.22 * accuracy
-      );
+
+  attackPower(attackNum) {
+    //Type Factor - How effect one Pokemon type is against another type of Pokemon.
+    const typeFactor = state.typeChart[`${this.attacker}`][`${this.defender}`];
+    const accuracy = Math.random() * (1 - 0.5) + 0.5;
+
+    if (attackNum === "attack_1") {
+      return Math.floor(this.attackpt * 0.2 * typeFactor * accuracy * 1);
+    } else if (attackNum === "attack_2") {
+      return Math.floor(this.attackpt * 0.2 * typeFactor * accuracy * 1.03);
+    } else {
+      //Else is attack 3 (tackle) will be considered as normal attack
+      return Math.floor(this.attackpt * 0.2 * 1 * accuracy * 1.03);
     }
-    return this.pkmState.health_active * 0.05 + this.attackpt * 0.25 * accuracy;
   }
   damage(attack) {
     let defensePt = this.defense * 0.025;
-    // let damage = attack - defensePt;
-    let damage = 106; //temp damage test
+    let damage = attack - defensePt;
+    // let damage = 106; //temp damage test
     let currHealth = Math.floor(this.pkmState.health_active - damage);
     if (currHealth <= 0) {
       currHealth = 0;
