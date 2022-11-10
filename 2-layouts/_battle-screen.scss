@@ -465,16 +465,16 @@
 }
 
 /*Scyther*/
-.player-Slash--animate {
-  animation: player-Slash 2s;
+.player-Air-Slash--animate {
+  animation: player-Air-Slash 2s;
   bottom: 0;
   left: 40px;
   transform: rotate(-70deg);
 	border-radius: 80%;
 	box-shadow: 25px 10px 0px 0px #fff; 
 }
-.opponent-Slash--animate {
-  animation: opponent-Slash 2s;
+.opponent-Air-Slash--animate {
+  animation: opponent-Air-Slash 2s;
   top: -20px;
   right: 65px;
   transform: rotate(100deg);
@@ -483,8 +483,8 @@
 }
 
 /*Scyther*/
-.player-Duplicate--animate {
-  animation: player-Duplicate 2s;
+.player-Double-Team--animate {
+  animation: player-Double-Team 2s;
   background-image: url("https://img.pokemondb.net/sprites/black-white/anim/back-normal/scyther.gif");
   @include dimension(170px, 170px);
   border-radius: 200px;
@@ -495,8 +495,8 @@
   background-repeat: no-repeat;
 }
 
-.opponent-Duplicate--animate {
-  animation: opponent-Duplicate 2s;
+.opponent-Double-Team--animate {
+  animation: opponent-Double-Team 2s;
   background-image: url("https://img.pokemondb.net/sprites/black-white/anim/normal/scyther-f.gif");
   @include dimension(150px, 150px);
   border-radius: 200px;
@@ -928,7 +928,7 @@
   }
 }
 
-@keyframes player-Slash {
+@keyframes player-Air-Slash {
   0% {
     opacity: 0;
     @include dimension(60px, 60px);
@@ -953,7 +953,7 @@
   } 
 }
 
-@keyframes opponent-Slash {
+@keyframes opponent-Air-Slash {
   0% {
     opacity: 0;
     @include dimension(60px, 60px);
@@ -978,7 +978,7 @@
   } 
 }
 
-@keyframes player-Duplicate {
+@keyframes player-Double-Team {
   from {
     bottom: 0px;
     left: 40px;
@@ -1003,7 +1003,7 @@
   }
 }
 
-@keyframes opponent-Duplicate {
+@keyframes opponent-Double-Team {
   from {
     top: -20px;
     right: 65px;

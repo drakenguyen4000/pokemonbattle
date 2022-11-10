@@ -1060,9 +1060,9 @@ iframe {
 }
 
 /*Scyther*/
-.player-Slash--animate {
-  -webkit-animation: player-Slash 2s;
-          animation: player-Slash 2s;
+.player-Air-Slash--animate {
+  -webkit-animation: player-Air-Slash 2s;
+          animation: player-Air-Slash 2s;
   bottom: 0;
   left: 40px;
   transform: rotate(-70deg);
@@ -1070,9 +1070,9 @@ iframe {
   box-shadow: 25px 10px 0px 0px #fff;
 }
 
-.opponent-Slash--animate {
-  -webkit-animation: opponent-Slash 2s;
-          animation: opponent-Slash 2s;
+.opponent-Air-Slash--animate {
+  -webkit-animation: opponent-Air-Slash 2s;
+          animation: opponent-Air-Slash 2s;
   top: -20px;
   right: 65px;
   transform: rotate(100deg);
@@ -1081,9 +1081,9 @@ iframe {
 }
 
 /*Scyther*/
-.player-Duplicate--animate {
-  -webkit-animation: player-Duplicate 2s;
-          animation: player-Duplicate 2s;
+.player-Double-Team--animate {
+  -webkit-animation: player-Double-Team 2s;
+          animation: player-Double-Team 2s;
   background-image: url("https://img.pokemondb.net/sprites/black-white/anim/back-normal/scyther.gif");
   height: 170px;
   width: 170px;
@@ -1095,9 +1095,9 @@ iframe {
   background-repeat: no-repeat;
 }
 
-.opponent-Duplicate--animate {
-  -webkit-animation: opponent-Duplicate 2s;
-          animation: opponent-Duplicate 2s;
+.opponent-Double-Team--animate {
+  -webkit-animation: opponent-Double-Team 2s;
+          animation: opponent-Double-Team 2s;
   background-image: url("https://img.pokemondb.net/sprites/black-white/anim/normal/scyther-f.gif");
   height: 150px;
   width: 150px;
@@ -1878,7 +1878,7 @@ iframe {
     opacity: 0.1;
   }
 }
-@-webkit-keyframes player-Slash {
+@-webkit-keyframes player-Air-Slash {
   0% {
     opacity: 0;
     height: 60px;
@@ -1906,7 +1906,7 @@ iframe {
     width: 100px;
   }
 }
-@keyframes player-Slash {
+@keyframes player-Air-Slash {
   0% {
     opacity: 0;
     height: 60px;
@@ -1934,7 +1934,7 @@ iframe {
     width: 100px;
   }
 }
-@-webkit-keyframes opponent-Slash {
+@-webkit-keyframes opponent-Air-Slash {
   0% {
     opacity: 0;
     height: 60px;
@@ -1962,7 +1962,7 @@ iframe {
     width: 100px;
   }
 }
-@keyframes opponent-Slash {
+@keyframes opponent-Air-Slash {
   0% {
     opacity: 0;
     height: 60px;
@@ -1990,7 +1990,7 @@ iframe {
     width: 100px;
   }
 }
-@-webkit-keyframes player-Duplicate {
+@-webkit-keyframes player-Double-Team {
   from {
     bottom: 0px;
     left: 40px;
@@ -2014,7 +2014,7 @@ iframe {
     filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
 }
-@keyframes player-Duplicate {
+@keyframes player-Double-Team {
   from {
     bottom: 0px;
     left: 40px;
@@ -2038,7 +2038,7 @@ iframe {
     filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
 }
-@-webkit-keyframes opponent-Duplicate {
+@-webkit-keyframes opponent-Double-Team {
   from {
     top: -20px;
     right: 65px;
@@ -2061,7 +2061,7 @@ iframe {
     filter: sepia(100%) hue-rotate(105deg) saturate(500%);
   }
 }
-@keyframes opponent-Duplicate {
+@keyframes opponent-Double-Team {
   from {
     top: -20px;
     right: 65px;

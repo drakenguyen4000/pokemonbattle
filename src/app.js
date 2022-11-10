@@ -56,6 +56,7 @@ var state = {
   switchPkmn: 1,
   wins: 0,
   typeChart: {},
+  attackTypes: {}
 };
 
 const sound = {
@@ -189,6 +190,10 @@ async function battleScreen() {
   );
   const data = await response.json().catch((err) => console.log(err));
   state.typeChart = data[0];
+
+  const response2 = await fetch("./src/attackTypes.json").catch(err=> console.log(err));
+  const data2  = await response2.json().catch((err) => console.log(err));
+  state.attackTypes = data2[0];
 }
 
 const gameoverScreen = () => {
@@ -230,7 +235,6 @@ const loadPokemon = () => {
     oppTotalHealth,
     oppState,
     oppHealthFill,
-    oppType,
     playerType
   );
   playerPokemon = new Pokemon(
@@ -240,7 +244,6 @@ const loadPokemon = () => {
     playerTotalHealth,
     playerState,
     playerHealthFill,
-    playerType,
     oppType
   );
 };
@@ -310,17 +313,18 @@ const generalGuide = () => {
 };
 
 guideButton.addEventListener("click", () => {
-  iframeDocument = iframe.contentWindow.document;
-  if (state.screen === "intro-screen" || state.screen === "selection-screen") {
-    generalGuide();
-  }
-  if (
-    state.screen === "battle-screen" ||
-    state.screen === "oppGuide" ||
-    state.screen === "generalGuide"
-  ) {
-    battleGuide();
-  }
+  console.log(state)
+  // iframeDocument = iframe.contentWindow.document;
+  // if (state.screen === "intro-screen" || state.screen === "selection-screen") {
+  //   generalGuide();
+  // }
+  // if (
+  //   state.screen === "battle-screen" ||
+  //   state.screen === "oppGuide" ||
+  //   state.screen === "generalGuide"
+  // ) {
+  //   battleGuide();
+  // }
 });
 
 selectButton.addEventListener("click", () => {
@@ -741,7 +745,7 @@ const attackOption = () => {
             iframeDocument
               .querySelector(".opponent__img")
               .classList.remove("opponent--stagger");
-            let attack = Math.floor(playerPokemon.attackPower(`${attack_num}`));
+            let attack = Math.floor(playerPokemon.attackPower(`${attack_num}`, `${energy}`));
             oppPokemon.damage(attack);
             iframe.contentWindow.updateValues();
             oppTurn();
@@ -964,7 +968,7 @@ const oppTurn = () => {
             iframeDocument
               .querySelector(".player__img")
               .classList.remove("player--stagger");
-            let attack = Math.floor(oppPokemon.attackPower(`${attack_num}`));
+            let attack = Math.floor(oppPokemon.attackPower(`${attack_num}`, `${energy}`));
             playerPokemon.damage(attack);
             resetOptions();
           })
@@ -1056,7 +1060,6 @@ class Pokemon {
     totalHealth,
     state,
     healthFill,
-    attacker,
     defender
   ) {
     this.side = side;
@@ -1065,15 +1068,25 @@ class Pokemon {
     this.totHealth = totalHealth;
     this.pkmState = state;
     this.healthFillEl = healthFill;
-    this.attacker = attacker;
-    this.defender = defender;
+    this.defenderType = defender;
   }
 
-  attackPower(attackNum) {
+  attackPower(attackNum, attack) {
+    //Gets attack type
+    const attackType = state.attackTypes[`${attack}`]
     //Type Factor - How effect one Pokemon type is against another type of Pokemon.
-    const typeFactor = state.typeChart[`${this.attacker}`][`${this.defender}`];
+    const typeFactor = state.typeChart[`${attackType}`][`${this.defenderType}`];
+    // let effect;
+    // if(typeFactor === 2){
+    //   effect = "It's super effective!";
+    // } else if (typeFactor === 0.5) {
+    //   effect = "It's not very effective!";
+    // } else {
+    //   effect = null;
+    // }
+    // dialogue.textContent = `${this.pkmState.name} uses ${attack} attack. ${effect}`;
+    
     const accuracy = Math.random() * (1 - 0.5) + 0.5;
-
     if (attackNum === "attack_1") {
       return Math.floor(this.attackpt * 0.2 * typeFactor * accuracy * 1);
     } else if (attackNum === "attack_2") {
