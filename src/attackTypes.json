@@ -1,9 +1,11 @@
 [
     {
         "Air-Slash": "Flying",
+        "Aura-Sphere": "Fighting",
         "Bubble": "Water",
+        "Confusion": "Psychic",
         "Discharge": "Electric",
-        "Duplicate": "Normal",
+        "Double-Team": "Normal",
         "Ember": "Fire",
         "Flamewheel": "Fire",
         "Flamethrower": "Fire",
