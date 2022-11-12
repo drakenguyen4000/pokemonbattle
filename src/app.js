@@ -57,6 +57,7 @@ var state = {
   wins: 0,
   typeChart: {},
   attackTypes: {},
+  uiSkin: "",
 };
 
 const sound = {
@@ -185,7 +186,7 @@ async function battleScreen() {
   sound.battle.play();
   sound.battle.volume = 0.1;
   sound.battle.loop = true;
-  const response = await fetch("./src/typeChart.json").catch((err) =>
+  const response = await fetch("./src/typechart.json").catch((err) =>
     console.log(err)
   );
   const data = await response.json().catch((err) => console.log(err));
@@ -254,10 +255,27 @@ const loadPokemon = () => {
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
   sound.click2.play();
-  //Only enable start selection screen page if is not the current page loaded
-  if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
-    //set screen in state to equal selection-screen
-    displayScreen("selection-screen", selectionScreen);
+  // //Only enable start selection screen page if is not the current page loaded
+  // if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
+  //   //set screen in state to equal selection-screen
+  //   displayScreen("selection-screen", selectionScreen);
+  // }
+  
+  //----Game Skin----//
+  if (state.uiSkin !== "gameboy") {
+    const gbskin = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
+    let gbskin_active = document.getElementById("gb");
+    if (gbskin_active) {
+      gbskin_active.remove();
+      // console.log(gbskin_active);
+      state.uiSkin = "gameboy"
+    } else {
+      document
+        .getElementsByTagName("title")[0]
+        .insertAdjacentHTML("beforebegin", gbskin);
+    }
+  } else {
+    state.uiSkin = "";
   }
 });
 
@@ -1210,12 +1228,12 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
-  // delay(1500).then(() => {
-  //   state.screen = "intro-screen";
-  //   document.getElementsByName("screen-display")[0].src =
-  //     state.screen + ".html";
-  // }).catch((err) => console.log(err));
+  displayScreen("intro-screen", introScreen);
+  delay(1500).then(() => {
+    state.screen = "intro-screen";
+    document.getElementsByName("screen-display")[0].src =
+      state.screen + ".html";
+  }).catch((err) => console.log(err));
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1228,24 +1246,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
   //==Temp load a pokemon team==//
   //Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 7; i < 9; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 7; i < 9; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
