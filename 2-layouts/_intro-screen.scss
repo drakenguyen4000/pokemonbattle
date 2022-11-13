@@ -50,15 +50,22 @@
   text-align: center;
 }
 
-.pressstart-text {
+.press-start, .press-start-title {
   color: white;
   text-shadow: -1px 0 rgb(6, 6, 6), 0 2px rgb(6, 6, 6), 2px 0 rgb(6, 6, 6),
     0 -1px rgb(6, 6, 6);
   text-transform: uppercase;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
-.pressstart-text {
+.press-start-title {
+  font-size: 1.2rem;
+}
+
+.press-start {
   margin-bottom: 5%;
 }
 
@@ -69,7 +76,7 @@
   color: white;
 }
 
-.pressstart-text--blink {
+.arrow--blink {
   animation: blinker 1s step-start infinite;
 }
 

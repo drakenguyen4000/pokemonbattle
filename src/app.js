@@ -58,6 +58,7 @@ var state = {
   typeChart: {},
   attackTypes: {},
   uiSkin: "",
+  introSelection: "play",
 };
 
 const sound = {
@@ -107,6 +108,9 @@ const displayScreen = (screenUpdate, screenFunc) => {
 
 const introScreen = () => {
   console.log("Intro screen started...");
+  iframeDocument = iframe.contentWindow.document;
+  pressStartList = iframeDocument.querySelector(".press-start").children;
+  numItems = pressStartList.length - 1;
 };
 
 //Loads iframe of player Selection Screen
@@ -255,28 +259,31 @@ const loadPokemon = () => {
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
   sound.click2.play();
-  // //Only enable start selection screen page if is not the current page loaded
-  // if (state.screen === "intro-screen" && state.screen !== "selection-screen") {
-  //   //set screen in state to equal selection-screen
-  //   displayScreen("selection-screen", selectionScreen);
-  // }
-  
-  //----Game Skin----//
-  if (state.uiSkin !== "gameboy") {
-    const gbskin = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
-    let gbskin_active = document.getElementById("gb");
-    if (gbskin_active) {
-      gbskin_active.remove();
-      // console.log(gbskin_active);
-      state.uiSkin = "gameboy"
-    } else {
-      document
-        .getElementsByTagName("title")[0]
-        .insertAdjacentHTML("beforebegin", gbskin);
+  if (state.introSelection === "play") {
+    //Only enable start selection screen page if is not the current page loaded
+    if (state.screen === "intro-screen") {
+      //set screen in state to equal selection-screen
+      displayScreen("selection-screen", selectionScreen);
     }
-  } else {
-    state.uiSkin = "";
+  } else if (state.introSelection === "menu") {
+     console.log("hello menu")
   }
+
+  // //----Game Skin----//
+  // if (state.uiSkin !== "gameboy") {
+  //   const gbskin = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
+  //   let gbskin_active = document.getElementById("gb");
+  //   if (gbskin_active) {
+  //     gbskin_active.remove();
+  //     state.uiSkin = "gameboy";
+  //   } else {
+  //     document
+  //       .getElementsByTagName("title")[0]
+  //       .insertAdjacentHTML("beforebegin", gbskin);
+  //   }
+  // } else {
+  //   state.uiSkin = "";
+  // }
 });
 
 const guideText = () => {
@@ -333,18 +340,17 @@ const generalGuide = () => {
 };
 
 guideButton.addEventListener("click", () => {
-  console.log(state);
-  // iframeDocument = iframe.contentWindow.document;
-  // if (state.screen === "intro-screen" || state.screen === "selection-screen") {
-  //   generalGuide();
-  // }
-  // if (
-  //   state.screen === "battle-screen" ||
-  //   state.screen === "oppGuide" ||
-  //   state.screen === "generalGuide"
-  // ) {
-  //   battleGuide();
-  // }
+  iframeDocument = iframe.contentWindow.document;
+  if (state.screen === "intro-screen" || state.screen === "selection-screen") {
+    generalGuide();
+  }
+  if (
+    state.screen === "battle-screen" ||
+    state.screen === "oppGuide" ||
+    state.screen === "generalGuide"
+  ) {
+    battleGuide();
+  }
 });
 
 selectButton.addEventListener("click", () => {
@@ -495,6 +501,9 @@ downButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     numClicks += 1;
     numClicks > numItems ? (numClicks = numItems) : gameOverController("down");
+  } else if (state.screen === "intro-screen") {
+    numClicks += 1;
+    numClicks > numItems ? (numClicks = numItems) : introController("down");
   }
 });
 
@@ -525,6 +534,9 @@ upButton.addEventListener("click", () => {
   } else if (state.screen === "gameover-screen") {
     numClicks -= 1;
     numClicks < 0 ? (numClicks = 0) : gameOverController("up");
+  } else if (state.screen === "intro-screen") {
+    numClicks -= 1;
+    numClicks < 0 ? (numClicks = 0) : introController("up");
   }
 });
 
@@ -704,6 +716,28 @@ const gameOverController = (direction) => {
       );
       playagainList[numClicks].children[0].classList.add("arrow--selected");
       state.selectedAnswer = playagainList[numClicks].lastChild.data;
+      break;
+  }
+};
+
+//Intro Controller
+const introController = (direction) => {
+  switch (direction) {
+    case "down":
+      pressStartList[numClicks - 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      pressStartList[numClicks].children[0].classList.add("arrow--selected");
+      state.introSelection = pressStartList[numClicks].lastChild.data;
+      console.log(state.introSelection)
+      break;
+    case "up":
+      pressStartList[numClicks + 1].children[0].classList.remove(
+        "arrow--selected"
+      );
+      pressStartList[numClicks].children[0].classList.add("arrow--selected");
+      state.introSelection = pressStartList[numClicks].lastChild.data;
+      console.log(state.introSelection)
       break;
   }
 };
@@ -1102,7 +1136,7 @@ class Pokemon {
       }
     });
 
-    // effectiveness(hitFactor, this.pkmState.name, attack);
+    //Effectiveness
     let effect;
     if (hitFactor === 2) {
       effect = "It's super effective!";
@@ -1229,11 +1263,13 @@ async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
   displayScreen("intro-screen", introScreen);
-  delay(1500).then(() => {
-    state.screen = "intro-screen";
-    document.getElementsByName("screen-display")[0].src =
-      state.screen + ".html";
-  }).catch((err) => console.log(err));
+  delay(1500)
+    .then(() => {
+      state.screen = "intro-screen";
+      document.getElementsByName("screen-display")[0].src =
+        state.screen + ".html";
+    })
+    .catch((err) => console.log(err));
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
