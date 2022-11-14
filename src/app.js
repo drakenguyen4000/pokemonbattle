@@ -9,10 +9,13 @@ let iframe = document.getElementById("iframe");
 let iframeDocument;
 let selectionList;
 let selectionListItems;
+let menuList;
 let numItems;
+let menuItems;
 let totalItems;
 let totalPokemon;
 let numClicks = 0;
+let m_numClicks = 0;
 let b_numClicks = 0;
 let yP_numClicks = 0;
 let optionsList;
@@ -59,6 +62,7 @@ var state = {
   attackTypes: {},
   uiSkin: "",
   introSelection: "play",
+  menuSelection: "",
 };
 
 const sound = {
@@ -259,31 +263,43 @@ const loadPokemon = () => {
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
   sound.click2.play();
+  let color = "";
   if (state.introSelection === "play") {
     //Only enable start selection screen page if is not the current page loaded
     if (state.screen === "intro-screen") {
       //set screen in state to equal selection-screen
       displayScreen("selection-screen", selectionScreen);
     }
-  } else if (state.introSelection === "menu") {
-     console.log("hello menu")
+  } else if (state.introSelection === "menu" && state.menuSelection === "") {
+    state.screen = "menu-panel";
+    let elemDiv = iframeDocument.createElement("div");
+    elemDiv.classList.add("menu-panel", "menu-panel--show");
+    elemDiv.innerHTML = `<h2>Select Color</h2>
+      <div class="menu">
+            <p class=""><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
+            <p class=""><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
+            <p class=""><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
+          </div>
+      `;
+    iframeDocument.body.appendChild(elemDiv);
+    menuList = iframeDocument.querySelector(".menu").children;
+    menuItems = menuList.length - 1;
+  } else if (state.menuSelection === "Gameboy Color") {
+    color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
+    document
+      .getElementsByTagName("title")[0]
+      .insertAdjacentHTML("beforebegin", color);
+  } else if (state.menuSelection === "Iron Man Color") {
+    color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
+    document
+      .getElementsByTagName("title")[0]
+      .insertAdjacentHTML("beforebegin", color);
+  } else if (state.menuSelection === "Default Color") {
+    let gb_active = document.getElementById("gb");
+    let im_active = document.getElementById("im");
+    gb_active.remove();
+    im_active.remove();
   }
-
-  // //----Game Skin----//
-  // if (state.uiSkin !== "gameboy") {
-  //   const gbskin = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
-  //   let gbskin_active = document.getElementById("gb");
-  //   if (gbskin_active) {
-  //     gbskin_active.remove();
-  //     state.uiSkin = "gameboy";
-  //   } else {
-  //     document
-  //       .getElementsByTagName("title")[0]
-  //       .insertAdjacentHTML("beforebegin", gbskin);
-  //   }
-  // } else {
-  //   state.uiSkin = "";
-  // }
 });
 
 const guideText = () => {
@@ -504,6 +520,11 @@ downButton.addEventListener("click", () => {
   } else if (state.screen === "intro-screen") {
     numClicks += 1;
     numClicks > numItems ? (numClicks = numItems) : introController("down");
+  } else if (state.screen === "menu-panel") {
+    m_numClicks += 1;
+    m_numClicks > menuItems
+      ? (m_numClicks = menuItems)
+      : menuController("down");
   }
 });
 
@@ -537,6 +558,9 @@ upButton.addEventListener("click", () => {
   } else if (state.screen === "intro-screen") {
     numClicks -= 1;
     numClicks < 0 ? (numClicks = 0) : introController("up");
+  } else if (state.screen === "menu-panel") {
+    m_numClicks -= 1;
+    m_numClicks < 0 ? (m_numClicks = 0) : menuController("up");
   }
 });
 
@@ -729,7 +753,6 @@ const introController = (direction) => {
       );
       pressStartList[numClicks].children[0].classList.add("arrow--selected");
       state.introSelection = pressStartList[numClicks].lastChild.data;
-      console.log(state.introSelection)
       break;
     case "up":
       pressStartList[numClicks + 1].children[0].classList.remove(
@@ -737,7 +760,25 @@ const introController = (direction) => {
       );
       pressStartList[numClicks].children[0].classList.add("arrow--selected");
       state.introSelection = pressStartList[numClicks].lastChild.data;
-      console.log(state.introSelection)
+      break;
+  }
+};
+
+//Menu Controller
+const menuController = (direction) => {
+  switch (direction) {
+    case "down":
+      menuList[m_numClicks - 1].children[0].classList.remove("arrow--selected");
+      menuList[m_numClicks].children[0].classList.add("arrow--selected");
+      state.menuSelection = menuList[m_numClicks].lastChild.data;
+      console.log(state.menuSelection);
+      break;
+    case "up":
+      menuList[m_numClicks + 1].children[0].classList.remove("arrow--selected");
+      menuList[m_numClicks].children[0].classList.add("arrow--selected");
+      state.menuSelection = menuList[m_numClicks].lastChild.data;
+      console.log(state.menuSelection);
+
       break;
   }
 };

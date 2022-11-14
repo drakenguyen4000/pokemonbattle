@@ -2832,21 +2832,34 @@ iframe {
   }
 }
 /*--Backpack--*/
-.backpack, .panel {
+.backpack, .panel, .menu-panel {
   display: none;
   height: 70%;
   width: 96%;
   background: white;
   position: absolute;
-  top: 4%;
-  left: 2%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   z-index: 200;
   border: 5px solid rgb(169, 168, 168);
   font-size: 0.7rem;
   padding: 2%;
 }
 
-.backpack--show, .panel--show {
+.menu-panel {
+  height: 30%;
+  width: 80%;
+  font-size: 1rem;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0 5%;
+}
+
+.backpack--show, .panel--show, .menu-panel--show {
   display: grid;
 }
 
