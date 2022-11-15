@@ -56,7 +56,7 @@ var state = {
   yourPkmn: [],
   itemsAllowed: 5,
   captured: false,
-  switchPkmn: 1,
+  switchPkmn: 10,
   wins: 0,
   typeChart: {},
   attackTypes: {},
@@ -264,6 +264,8 @@ const loadPokemon = () => {
 startButton.addEventListener("click", () => {
   sound.click2.play();
   let color = "";
+  let gb_active = document.getElementById("gb");
+  let im_active = document.getElementById("im");
   if (state.introSelection === "play") {
     //Only enable start selection screen page if is not the current page loaded
     if (state.screen === "intro-screen") {
@@ -271,34 +273,47 @@ startButton.addEventListener("click", () => {
       displayScreen("selection-screen", selectionScreen);
     }
   } else if (state.introSelection === "menu" && state.menuSelection === "") {
+    //Start Menu Panel
     state.screen = "menu-panel";
     let elemDiv = iframeDocument.createElement("div");
     elemDiv.classList.add("menu-panel", "menu-panel--show");
-    elemDiv.innerHTML = `<h2>Select Color</h2>
+    elemDiv.innerHTML = `<h2>Press Start</h2>
       <div class="menu">
             <p class=""><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
             <p class=""><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
             <p class=""><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
+            <p class=""><span class="arrow arrow--blink">&#9658;</span>Exit</p>
           </div>
       `;
     iframeDocument.body.appendChild(elemDiv);
     menuList = iframeDocument.querySelector(".menu").children;
     menuItems = menuList.length - 1;
   } else if (state.menuSelection === "Gameboy Color") {
+    gb_active === null ? null : gb_active.remove();
+    im_active === null ? null : im_active.remove();
+    //Gameboy Color skin
     color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
     document
       .getElementsByTagName("title")[0]
       .insertAdjacentHTML("beforebegin", color);
   } else if (state.menuSelection === "Iron Man Color") {
+    gb_active === null ? null : gb_active.remove();
+    im_active === null ? null : im_active.remove();
+    //iron Man skin
     color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
     document
       .getElementsByTagName("title")[0]
       .insertAdjacentHTML("beforebegin", color);
   } else if (state.menuSelection === "Default Color") {
-    let gb_active = document.getElementById("gb");
-    let im_active = document.getElementById("im");
-    gb_active.remove();
-    im_active.remove();
+    //Default PokeDex Color skin
+    gb_active === null ? null : gb_active.remove();
+    im_active === null ? null : im_active.remove();
+  } else if (state.menuSelection === "Exit") {
+    //Exit panel
+    iframeDocument.querySelector(".menu-panel").remove();
+    state.menuSelection = "";
+    state.screen = "intro-screen";
+    m_numClicks = 0;
   }
 });
 
@@ -307,7 +322,7 @@ const guideText = () => {
   <h4>Note: Click Info button to scroll through.</h4>
   <p>A player will select 3 Pokemon to bring into battle.</p>
   <p>To win, you will need fight 3 opponents.</p>
-  <p>You have 1 chance to switch Pokemon per battle.</p>
+  <p>You have 10 chance to switch Pokemon per battle.</p>
   <p>Items are avaible to use for healing.</p>
   <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p>`;
   const oppPkmn = state.opponentPokemon;
@@ -771,14 +786,11 @@ const menuController = (direction) => {
       menuList[m_numClicks - 1].children[0].classList.remove("arrow--selected");
       menuList[m_numClicks].children[0].classList.add("arrow--selected");
       state.menuSelection = menuList[m_numClicks].lastChild.data;
-      console.log(state.menuSelection);
       break;
     case "up":
       menuList[m_numClicks + 1].children[0].classList.remove("arrow--selected");
       menuList[m_numClicks].children[0].classList.add("arrow--selected");
       state.menuSelection = menuList[m_numClicks].lastChild.data;
-      console.log(state.menuSelection);
-
       break;
   }
 };
