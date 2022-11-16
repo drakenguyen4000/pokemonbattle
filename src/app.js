@@ -134,7 +134,7 @@ const selectionScreen = () => {
   sound.intro.loop = true;
 };
 
-//In Selected Mode, if user chooses no to the picked pokemon, revert infobox, allow user to pick another pokemon
+//In Selected Mode, if user chooses no to the selected pokemon, revert infobox, allow user to select another pokemon
 const backToSelection = () => {
   state.screen = "selection-screen";
   state.selectedAnswer = "yes";
@@ -262,10 +262,15 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
+  console.log(state)
   sound.click2.play();
   let color = "";
-  let gb_active = document.getElementById("gb");
-  let im_active = document.getElementById("im");
+  const removeAllSkin =()=>{
+    const gb_active = document.getElementById("gb");
+    const im_active = document.getElementById("im");
+    gb_active === null ? null : gb_active.remove();
+    im_active === null ? null : im_active.remove();
+  }
   if (state.introSelection === "play") {
     //Only enable start selection screen page if is not the current page loaded
     if (state.screen === "intro-screen") {
@@ -275,7 +280,7 @@ startButton.addEventListener("click", () => {
   } else if (state.introSelection === "menu" && state.menuSelection === "") {
     //Start Menu Panel
     state.screen = "menu-panel";
-    let elemDiv = iframeDocument.createElement("div");
+    const elemDiv = iframeDocument.createElement("div");
     elemDiv.classList.add("menu-panel", "menu-panel--show");
     elemDiv.innerHTML = `<h2>Press Start</h2>
       <div class="menu">
@@ -289,16 +294,14 @@ startButton.addEventListener("click", () => {
     menuList = iframeDocument.querySelector(".menu").children;
     menuItems = menuList.length - 1;
   } else if (state.menuSelection === "Gameboy Color") {
-    gb_active === null ? null : gb_active.remove();
-    im_active === null ? null : im_active.remove();
+    removeAllSkin();
     //Gameboy Color skin
     color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
     document
       .getElementsByTagName("title")[0]
       .insertAdjacentHTML("beforebegin", color);
   } else if (state.menuSelection === "Iron Man Color") {
-    gb_active === null ? null : gb_active.remove();
-    im_active === null ? null : im_active.remove();
+    removeAllSkin();
     //iron Man skin
     color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
     document
@@ -306,8 +309,7 @@ startButton.addEventListener("click", () => {
       .insertAdjacentHTML("beforebegin", color);
   } else if (state.menuSelection === "Default Color") {
     //Default PokeDex Color skin
-    gb_active === null ? null : gb_active.remove();
-    im_active === null ? null : im_active.remove();
+    removeAllSkin();
   } else if (state.menuSelection === "Exit") {
     //Exit panel
     iframeDocument.querySelector(".menu-panel").remove();
@@ -392,7 +394,7 @@ selectButton.addEventListener("click", () => {
     if (state.yourPkmn.find((e) => e.name === state.curSelectPokemon.name)) {
       backToSelection();
       iframeDocument.querySelector(".infobox__text-choose").textContent =
-        "You already picked this Pokemon. Select another.";
+        "You already selected this Pokemon. Select another.";
       sound.error.play();
       sound.error.volume = 0.4;
     } else {
@@ -805,7 +807,7 @@ const attackOption = () => {
     state.screen = "attack-mode";
     state.optionSelected = state.yourPkmn[state.curPkmIndex].attack_1;
     state.attackSelected = "attack_1";
-    dialogue.textContent = "Pick an attack!";
+    dialogue.textContent = "Select an attack!";
     //Display attacks in infobox red
     optionsListItems[0].lastChild.data =
       state.yourPkmn[state.curPkmIndex].attack_1;
@@ -884,7 +886,7 @@ const bagOption = () => {
     iframeDocument.querySelector(".backpack").classList.add("backpack--show");
     iframeDocument.querySelector(".bag").classList.add("bag--show");
   } else if (state.optionSelected === "bag-opened") {
-    //Execute item picked
+    //Execute item selected
     let item = state.selectedAnswer;
     //Only call itemSelected function if item quantity is not zero.
     state.bag[item] > 0 || state.selectedAnswer === "Exit"
@@ -905,7 +907,7 @@ const runOption = () => {
 };
 
 const pkmonOption = () => {
-  if (state.optionSelected === "pkmon" && state.switchPkmn === 1) {
+  if (state.optionSelected === "pkmon" && state.switchPkmn > 0) {
     //Always default your Pokemon to first on list
     state.curPkmIndex = 0;
     iframeDocument.querySelector(".backpack").classList.add("backpack--show");
@@ -934,7 +936,7 @@ const pkmonOption = () => {
     state.screen = "yourPkmn";
     totalPokemon = yourPkmn.length - 1;
     state.optionSelected = "pkmn-switch";
-  } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn === 1) {
+  } else if (state.optionSelected === "pkmn-switch" && state.switchPkmn > 0) {
     //Load switched in Pokemon
     iframeDocument
       .querySelector(".backpack")
@@ -943,7 +945,7 @@ const pkmonOption = () => {
       .querySelector(".yourPkmnList")
       .classList.remove("yourPkmnList--show");
     iframe.contentWindow.switchPokemon();
-    state.switchPkmn = 0;
+    state.switchPkmn -= 1;
     dialogue.textContent = `I choose, ${
       state.yourPkmn[state.curPkmIndex].name
     }!`;
@@ -956,8 +958,8 @@ const pkmonOption = () => {
         oppTurn();
       })
       .catch((err) => console.log(err));
-  } else if (state.switchPkmn === 0) {
-    dialogue.textContent = `You already switched out a Pokemon this battle. Pick another option.`;
+  } else {
+    dialogue.textContent = `You already switched out a Pokemon this battle. Select another option.`;
     sound.error.play();
     sound.error.volume = 0.4;
   }
@@ -1245,7 +1247,7 @@ class Pokemon {
     sound.heal.volume = 0.1;
   }
   delayLoadingScreen(screen, screenFunc) {
-    state.switchPkmn = 1;
+    state.switchPkmn = 10;
     delay(4000)
       .then(() => {
         displayScreen(screen, screenFunc);

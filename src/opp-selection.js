@@ -7,7 +7,7 @@ var oppState = {
 //Creates list of info details
 const getDataSet = () => {
   return `<li>${oppState.opponentPokemon.type}</li>
-<li>${oppState.opponentPokemon.health}</li>
+<li>${oppState.opponentPokemon.health_total}</li>
 <li>${oppState.opponentPokemon.attack}</li>
 <li>${oppState.opponentPokemon.defense}</li>
 <li>${oppState.opponentPokemon.weakness}</li>`;
@@ -102,7 +102,7 @@ async function oppScreenLoad(){
   data-summary=${oppState.opponentPokemon.summary}
   data-type=${oppState.opponentPokemon.type}
   data-weakness=${oppState.opponentPokemon.weakness}
-  data-health=${oppState.opponentPokemon.health}
+  data-health=${oppState.opponentPokemon.health_total}
   data-attack=${oppState.opponentPokemon.attack}
   data-defense=${oppState.opponentPokemon.defense}
   data-evolve=${oppState.opponentPokemon.evolve}
