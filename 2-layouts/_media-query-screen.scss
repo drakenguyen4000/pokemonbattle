@@ -10,9 +10,12 @@
   .infobox__details {
     font-size: .68rem;
   }
+  .backpack, .panel, .menu-panel {
+    font-size: .83rem;
+  }
 }
 
-/*Actual screen height 926px -- iphone 13 Max Pro*/
+/*Actual screen height 926px -- iphone 13 Pro Max*/
 // @media screen and (min-height: 519px) {
 @media screen and (min-height: 592px) {
   .display__intro-title {
@@ -27,6 +30,12 @@
   }
   .infobox__details {
     font-size: .72rem;
+  }
+  .backpack, .panel, .menu-panel {
+    font-size: 1.1rem;
+  }
+  .btn-text-select, .btn-text-guide, .btn-text-start {
+    font-size: .8rem;
   }
 }
 
@@ -53,6 +62,12 @@
   }
   .gameover-playagain {
     font-size: 3.5rem;
+  }
+  .backpack, .panel, .menu-panel {
+    font-size: 1.3rem;
+  }
+  .btn-text-select, .btn-text-guide, .btn-text-start {
+    font-size: 1rem;
   }
 }
 
@@ -83,6 +98,12 @@
   }
   .gameover-playagain {
     font-size: 4rem;
+  }
+  .backpack, .panel, .menu-panel {
+    font-size: 1.6rem;
+  }
+  .btn-text-select, .btn-text-guide, .btn-text-start {
+    font-size: 1.2rem;
   }
 }
 
