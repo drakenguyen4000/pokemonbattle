@@ -284,10 +284,11 @@ startButton.addEventListener("click", () => {
     elemDiv.classList.add("menu-panel", "menu-panel--show");
     elemDiv.innerHTML = `<h2>Press Start</h2>
       <div class="menu">
-            <p class=""><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
-            <p class=""><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
-            <p class=""><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
-            <p class=""><span class="arrow arrow--blink">&#9658;</span>Exit</p>
+            <p class="menu-item"><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Fight Boss</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Exit</p>
           </div>
       `;
     iframeDocument.body.appendChild(elemDiv);
@@ -310,6 +311,8 @@ startButton.addEventListener("click", () => {
   } else if (state.menuSelection === "Default Color") {
     //Default PokeDex Color skin
     removeAllSkin();
+  } else if (state.menuSelection === "Fight Boss") {
+    state.wins = 2;
   } else if (state.menuSelection === "Exit") {
     //Exit panel
     iframeDocument.querySelector(".menu-panel").remove();
@@ -321,15 +324,16 @@ startButton.addEventListener("click", () => {
 
 const guideText = () => {
   const general = `<h1>Poke Dex</h1>
-  <h4>Note: Click Info button to scroll through.</h4>
+  <h4>Note: Click Guide button to scroll through.</h4>
   <p>A player will select 3 Pokemon to bring into battle.</p>
-  <p>To win, you will need fight 3 opponents.</p>
+  <p>You will need fight 3 opponents become Pokemon Master.</p>
+  <p>Each Pokemon is weak against certain types of attacks.</p>
   <p>You have 10 chance to switch Pokemon per battle.</p>
   <p>Items are avaible to use for healing.</p>
   <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p>`;
   const oppPkmn = state.opponentPokemon;
   const oppGuide = `<h1>Poke Dex</h1>
-  <h4>Note: Click Info button to scroll through.</h4>
+  <h4>Note: Click Guide button to scroll through.</h4>
   <img style="border:1px solid gray; border-radius: 5px; padding 20%; background-color:rgb(155, 253, 155);" src="${oppPkmn.image}"/>
   <p>Pokemon: ${oppPkmn.name}</p>
   <p>Type: ${oppPkmn.type}</p>

@@ -2834,7 +2834,7 @@ iframe {
 /*--Backpack--*/
 .backpack, .panel, .menu-panel {
   display: none;
-  height: 70%;
+  height: 80%;
   width: 96%;
   background: white;
   position: absolute;
