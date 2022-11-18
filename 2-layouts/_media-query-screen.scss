@@ -2,10 +2,8 @@
 
 /*Actual screen height 667px -- iPhone SE 2nd Gen*/
 @media screen and (min-height: 425px) { 
-// @media screen and (min-height: 470px) { 
   .infobox {
     font-size: .9rem;
-    // color: purple;
   }
   .infobox__details {
     font-size: .68rem;
@@ -16,7 +14,6 @@
 }
 
 /*Actual screen height 926px -- iphone 13 Pro Max*/
-// @media screen and (min-height: 519px) {
 @media screen and (min-height: 592px) {
   .display__intro-title {
     font-size: 2.2rem;
@@ -33,9 +30,6 @@
   }
   .backpack, .panel, .menu-panel {
     font-size: 1.1rem;
-  }
-  .btn-text-select, .btn-text-guide, .btn-text-start {
-    font-size: .8rem;
   }
 }
 
@@ -67,7 +61,7 @@
     font-size: 1.3rem;
   }
   .btn-text-select, .btn-text-guide, .btn-text-start {
-    font-size: 1rem;
+    font-size: .8rem;
   }
 }
 
@@ -91,7 +85,6 @@
   }
   .infobox__container {
     font-size: 1.5rem;
-    // color: green;
   }
   .display__gameover {
     font-size: 4.5rem;
@@ -102,6 +95,12 @@
   .backpack, .panel, .menu-panel {
     font-size: 1.6rem;
   }
+  .btn-text-select, .btn-text-guide, .btn-text-start {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-height: 1000px) {
   .btn-text-select, .btn-text-guide, .btn-text-start {
     font-size: 1.2rem;
   }

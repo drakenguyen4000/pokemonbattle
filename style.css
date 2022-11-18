@@ -314,6 +314,7 @@ iframe {
   text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
   -webkit-text-stroke: 2px rgb(5, 5, 151);
   text-align: center;
+  z-index: 100;
 }
 
 .display__intro-pokeball {
@@ -3069,9 +3070,6 @@ iframe {
   .backpack, .panel, .menu-panel {
     font-size: 1.1rem;
   }
-  .btn-text-select, .btn-text-guide, .btn-text-start {
-    font-size: 0.8rem;
-  }
 }
 /*Actual screen height 1024px -- iPad Mini*/
 @media screen and (min-height: 656px) {
@@ -3101,7 +3099,7 @@ iframe {
     font-size: 1.3rem;
   }
   .btn-text-select, .btn-text-guide, .btn-text-start {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 /*Actual screen height 1280px -- Kindle Fire HD*/
@@ -3134,6 +3132,11 @@ iframe {
   .backpack, .panel, .menu-panel {
     font-size: 1.6rem;
   }
+  .btn-text-select, .btn-text-guide, .btn-text-start {
+    font-size: 1rem;
+  }
+}
+@media screen and (min-height: 1000px) {
   .btn-text-select, .btn-text-guide, .btn-text-start {
     font-size: 1.2rem;
   }
