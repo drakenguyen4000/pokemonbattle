@@ -1321,14 +1321,14 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  displayScreen("intro-screen", introScreen);
-  delay(1500)
-    .then(() => {
-      state.screen = "intro-screen";
-      document.getElementsByName("screen-display")[0].src =
-        state.screen + ".html";
-    })
-    .catch((err) => console.log(err));
+  // displayScreen("intro-screen", introScreen);
+  // delay(1500)
+  //   .then(() => {
+  //     state.screen = "intro-screen";
+  //     document.getElementsByName("screen-display")[0].src =
+  //       state.screen + ".html";
+  //   })
+  //   .catch((err) => console.log(err));
 
   //--Opponent Screen--//
   // displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1341,24 +1341,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  // const response2 = await fetch("./src/opponent.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data2 = await response2.json().catch((err) => console.log(err));
-  // state.opponentPokemon = data2[0];
-  // state.screen = "battle-screen";
-  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  // displayScreen("battle-screen", battleScreen);
+  const response2 = await fetch("./src/opponent.json").catch((err) =>
+    console.log(err)
+  );
+  const data2 = await response2.json().catch((err) => console.log(err));
+  state.opponentPokemon = data2[0];
+  state.screen = "battle-screen";
+  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  displayScreen("battle-screen", battleScreen);
 
-  //==Temp load a pokemon team==//
-  //Grab from state 3 pokemon
-  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-  //   console.log(err)
-  // );
-  // const data = await response3.json().catch((err) => console.log(err));
-  // for (let i = 7; i < 9; i++) {
-  //   state.yourPkmn.push(data[i]);
-  // }
+  // ==Temp load a pokemon team==//
+  // Grab from state 3 pokemon
+  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+    console.log(err)
+  );
+  const data = await response3.json().catch((err) => console.log(err));
+  for (let i = 7; i < 9; i++) {
+    state.yourPkmn.push(data[i]);
+  }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);

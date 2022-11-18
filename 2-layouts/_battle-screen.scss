@@ -2,7 +2,8 @@
 .battle-container {
   @include absolute-position;
   display: grid;
-  grid-template-rows: 18% 1fr 22%;
+  // grid-template-rows: 18% 1fr 22%;
+  grid-template-rows: 18% 37% 22%;
   @include dimension(100%, 100%);
   background-color: $battle-ground;
   border-radius: 10px;

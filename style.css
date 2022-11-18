@@ -561,7 +561,7 @@ iframe {
   top: 0;
   left: 0;
   display: grid;
-  grid-template-rows: 18% 1fr 22%;
+  grid-template-rows: 18% 37% 22%;
   height: 100%;
   width: 100%;
   background-color: #AFE4B6;
