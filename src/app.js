@@ -262,64 +262,63 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
-  console.log(state)
-  sound.click2.play();
-  let color = "";
-  const removeAllSkin =()=>{
-    const gb_active = document.getElementById("gb");
-    const im_active = document.getElementById("im");
-    gb_active === null ? null : gb_active.remove();
-    im_active === null ? null : im_active.remove();
-  }
-  if (state.introSelection === "play") {
-    //Only enable start selection screen page if is not the current page loaded
-    if (state.screen === "intro-screen") {
-      //set screen in state to equal selection-screen
-      displayScreen("selection-screen", selectionScreen);
-    }
-  } else if (state.introSelection === "menu" && state.menuSelection === "") {
-    //Start Menu Panel
-    state.screen = "menu-panel";
-    const elemDiv = iframeDocument.createElement("div");
-    elemDiv.classList.add("menu-panel", "menu-panel--show");
-    elemDiv.innerHTML = `<h2>Press Start</h2>
-      <div class="menu">
-            <p class="menu-item"><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
-            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
-            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
-            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Fight Boss</p>
-            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Exit</p>
-          </div>
-      `;
-    iframeDocument.body.appendChild(elemDiv);
-    menuList = iframeDocument.querySelector(".menu").children;
-    menuItems = menuList.length - 1;
-  } else if (state.menuSelection === "Gameboy Color") {
-    removeAllSkin();
-    //Gameboy Color skin
-    color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
-    document
-      .getElementsByTagName("title")[0]
-      .insertAdjacentHTML("beforebegin", color);
-  } else if (state.menuSelection === "Iron Man Color") {
-    removeAllSkin();
-    //iron Man skin
-    color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
-    document
-      .getElementsByTagName("title")[0]
-      .insertAdjacentHTML("beforebegin", color);
-  } else if (state.menuSelection === "Default Color") {
-    //Default PokeDex Color skin
-    removeAllSkin();
-  } else if (state.menuSelection === "Fight Boss") {
-    state.wins = 2;
-  } else if (state.menuSelection === "Exit") {
-    //Exit panel
-    iframeDocument.querySelector(".menu-panel").remove();
-    state.menuSelection = "";
-    state.screen = "intro-screen";
-    m_numClicks = 0;
-  }
+   // sound.click2.play();
+  // let color = "";
+  // const removeAllSkin =()=>{
+  //   const gb_active = document.getElementById("gb");
+  //   const im_active = document.getElementById("im");
+  //   gb_active === null ? null : gb_active.remove();
+  //   im_active === null ? null : im_active.remove();
+  // }
+  // if (state.introSelection === "play") {
+  //   //Only enable start selection screen page if is not the current page loaded
+  //   if (state.screen === "intro-screen") {
+  //     //set screen in state to equal selection-screen
+  //     displayScreen("selection-screen", selectionScreen);
+  //   }
+  // } else if (state.introSelection === "menu" && state.menuSelection === "") {
+  //   //Start Menu Panel
+  //   state.screen = "menu-panel";
+  //   const elemDiv = iframeDocument.createElement("div");
+  //   elemDiv.classList.add("menu-panel", "menu-panel--show");
+  //   elemDiv.innerHTML = `<h2>Press Start</h2>
+  //     <div class="menu">
+  //           <p class="menu-item"><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
+  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
+  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
+  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Fight Boss</p>
+  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Exit</p>
+  //         </div>
+  //     `;
+  //   iframeDocument.body.appendChild(elemDiv);
+  //   menuList = iframeDocument.querySelector(".menu").children;
+  //   menuItems = menuList.length - 1;
+  // } else if (state.menuSelection === "Gameboy Color") {
+  //   removeAllSkin();
+  //   //Gameboy Color skin
+  //   color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
+  //   document
+  //     .getElementsByTagName("title")[0]
+  //     .insertAdjacentHTML("beforebegin", color);
+  // } else if (state.menuSelection === "Iron Man Color") {
+  //   removeAllSkin();
+  //   //iron Man skin
+  //   color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
+  //   document
+  //     .getElementsByTagName("title")[0]
+  //     .insertAdjacentHTML("beforebegin", color);
+  // } else if (state.menuSelection === "Default Color") {
+  //   //Default PokeDex Color skin
+  //   removeAllSkin();
+  // } else if (state.menuSelection === "Fight Boss") {
+  //   state.wins = 2;
+  // } else if (state.menuSelection === "Exit") {
+  //   //Exit panel
+  //   iframeDocument.querySelector(".menu-panel").remove();
+  //   state.menuSelection = "";
+  //   state.screen = "intro-screen";
+  //   m_numClicks = 0;
+  // }
 });
 
 const guideText = () => {
@@ -1050,11 +1049,18 @@ const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
     delay(2000)
       .then(() => {
+        let energy;
         const ranNum = Math.floor(Math.random() * 3) + 1;
         state.attackSelected = `attack_${ranNum}`;
-        const energy = state.opponentPokemon[`${state.attackSelected}`];
+        //MewTwo Attack 3 is Power steal
+        if(state.opponentPokemon.name === "Mewtwo (Boss)" && ranNum === 3) {
+          energy = "Water-Gun";
+        } else {
+          energy = state.opponentPokemon[`${state.attackSelected}`];
+        }
         dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         const attack_num = state.attackSelected;
+        console.log(attack_num)
         attack_num === "attack_3" ? sound.smash.play() : sound.attack.play();
         iframeDocument
           .querySelector(".opponent__img")
