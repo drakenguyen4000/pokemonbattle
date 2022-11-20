@@ -262,63 +262,63 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
-   // sound.click2.play();
-  // let color = "";
-  // const removeAllSkin =()=>{
-  //   const gb_active = document.getElementById("gb");
-  //   const im_active = document.getElementById("im");
-  //   gb_active === null ? null : gb_active.remove();
-  //   im_active === null ? null : im_active.remove();
-  // }
-  // if (state.introSelection === "play") {
-  //   //Only enable start selection screen page if is not the current page loaded
-  //   if (state.screen === "intro-screen") {
-  //     //set screen in state to equal selection-screen
-  //     displayScreen("selection-screen", selectionScreen);
-  //   }
-  // } else if (state.introSelection === "menu" && state.menuSelection === "") {
-  //   //Start Menu Panel
-  //   state.screen = "menu-panel";
-  //   const elemDiv = iframeDocument.createElement("div");
-  //   elemDiv.classList.add("menu-panel", "menu-panel--show");
-  //   elemDiv.innerHTML = `<h2>Press Start</h2>
-  //     <div class="menu">
-  //           <p class="menu-item"><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
-  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
-  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
-  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Fight Boss</p>
-  //           <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Exit</p>
-  //         </div>
-  //     `;
-  //   iframeDocument.body.appendChild(elemDiv);
-  //   menuList = iframeDocument.querySelector(".menu").children;
-  //   menuItems = menuList.length - 1;
-  // } else if (state.menuSelection === "Gameboy Color") {
-  //   removeAllSkin();
-  //   //Gameboy Color skin
-  //   color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
-  //   document
-  //     .getElementsByTagName("title")[0]
-  //     .insertAdjacentHTML("beforebegin", color);
-  // } else if (state.menuSelection === "Iron Man Color") {
-  //   removeAllSkin();
-  //   //iron Man skin
-  //   color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
-  //   document
-  //     .getElementsByTagName("title")[0]
-  //     .insertAdjacentHTML("beforebegin", color);
-  // } else if (state.menuSelection === "Default Color") {
-  //   //Default PokeDex Color skin
-  //   removeAllSkin();
-  // } else if (state.menuSelection === "Fight Boss") {
-  //   state.wins = 2;
-  // } else if (state.menuSelection === "Exit") {
-  //   //Exit panel
-  //   iframeDocument.querySelector(".menu-panel").remove();
-  //   state.menuSelection = "";
-  //   state.screen = "intro-screen";
-  //   m_numClicks = 0;
-  // }
+  // sound.click2.play();
+  let color = "";
+  const removeAllSkin =()=>{
+    const gb_active = document.getElementById("gb");
+    const im_active = document.getElementById("im");
+    gb_active === null ? null : gb_active.remove();
+    im_active === null ? null : im_active.remove();
+  }
+  if (state.introSelection === "play") {
+    //Only enable start selection screen page if is not the current page loaded
+    if (state.screen === "intro-screen") {
+      //set screen in state to equal selection-screen
+      displayScreen("selection-screen", selectionScreen);
+    }
+  } else if (state.introSelection === "menu" && state.menuSelection === "") {
+    //Start Menu Panel
+    state.screen = "menu-panel";
+    const elemDiv = iframeDocument.createElement("div");
+    elemDiv.classList.add("menu-panel", "menu-panel--show");
+    elemDiv.innerHTML = `<h2>Press Start</h2>
+      <div class="menu">
+            <p class="menu-item"><span class="arrow arrow--blink arrow--selected">&#9658;</span>Default Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Gameboy Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Iron Man Color</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Fight Boss</p>
+            <p class="menu-item"><span class="arrow arrow--blink">&#9658;</span>Exit</p>
+          </div>
+      `;
+    iframeDocument.body.appendChild(elemDiv);
+    menuList = iframeDocument.querySelector(".menu").children;
+    menuItems = menuList.length - 1;
+  } else if (state.menuSelection === "Gameboy Color") {
+    removeAllSkin();
+    //Gameboy Color skin
+    color = `<link rel="stylesheet" id="gb" type="text/css" href="gameboyskin.css" />`;
+    document
+      .getElementsByTagName("title")[0]
+      .insertAdjacentHTML("beforebegin", color);
+  } else if (state.menuSelection === "Iron Man Color") {
+    removeAllSkin();
+    //iron Man skin
+    color = `<link rel="stylesheet" id="im" type="text/css" href="ironmanskin.css" />`;
+    document
+      .getElementsByTagName("title")[0]
+      .insertAdjacentHTML("beforebegin", color);
+  } else if (state.menuSelection === "Default Color") {
+    //Default PokeDex Color skin
+    removeAllSkin();
+  } else if (state.menuSelection === "Fight Boss") {
+    state.wins = 2;
+  } else if (state.menuSelection === "Exit") {
+    //Exit panel
+    iframeDocument.querySelector(".menu-panel").remove();
+    state.menuSelection = "";
+    state.screen = "intro-screen";
+    m_numClicks = 0;
+  }
 });
 
 const guideText = () => {
@@ -1045,22 +1045,67 @@ const resetOptions = () => {
   state.selectedAnswer = "yes";
 };
 
+const powerSteal = () => {
+  //Find current player pokemon Type
+  const playerType = state.yourPkmn[state.curPkmIndex].type;
+  const list = state.yourPkmn;
+  const allAttacks = [];
+  console.log("attackAttacks:", allAttacks)
+  for (let i = 0; i < list.length; i++) {
+    for (let j = 0; j < 3; j++) {
+      const attack = list[i][`attack_${j + 1}`];
+      allAttacks.push(attack);
+    }
+  }
+  console.log(allAttacks);
+  const attackRank = {
+    highest: [],
+    medium: [],
+    low: [],
+    nodamage: [],
+  };
+  //Take Attack Type and compare with Type Chart - Pushed based on rank
+  allAttacks.forEach((attack) => {
+    const attackType = state.attackTypes[attack];
+    const rank = state.typeChart[`${attackType}`][`${playerType}`];
+    if (rank === 2) {
+      attackRank.highest.push(attack);
+    } else if (rank === 1) {
+      attackRank.medium.push(attack);
+    } else if (rank === 0.5) {
+      attackRank.low.push(attack);
+    } else {
+      attackRank.nodamage.push(attack);
+    }
+  });
+  if (attackRank.highest.length !== 0) {
+    return attackRank.highest[0];
+  } else if (attackRank.medium.length !== 0) {
+    return attackRank.medium[0];
+  } else if (attackRank.low.length !== 0) {
+    return attackRank.low[0];
+  } else {
+    return attackRank.nodamage[0];
+  }
+};
+
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
     delay(2000)
       .then(() => {
         let energy;
-        const ranNum = Math.floor(Math.random() * 3) + 1;
+        // const ranNum = Math.floor(Math.random() * 3) + 1;
+        const ranNum = 3;
         state.attackSelected = `attack_${ranNum}`;
         //MewTwo Attack 3 is Power steal
-        if(state.opponentPokemon.name === "Mewtwo (Boss)" && ranNum === 3) {
-          energy = "Water-Gun";
+        if (state.opponentPokemon.name === "Mewtwo (Boss)" && ranNum === 3) {
+         energy = powerSteal();
         } else {
           energy = state.opponentPokemon[`${state.attackSelected}`];
         }
         dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         const attack_num = state.attackSelected;
-        console.log(attack_num)
+        console.log(attack_num);
         attack_num === "attack_3" ? sound.smash.play() : sound.attack.play();
         iframeDocument
           .querySelector(".opponent__img")
@@ -1362,7 +1407,7 @@ async function init() {
     console.log(err)
   );
   const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 7; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     state.yourPkmn.push(data[i]);
   }
 
