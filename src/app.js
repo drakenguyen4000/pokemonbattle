@@ -262,7 +262,8 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
-  // sound.click2.play();
+  // oppTurn();
+  sound.click2.play();
   let color = "";
   const removeAllSkin =()=>{
     const gb_active = document.getElementById("gb");
@@ -1045,24 +1046,27 @@ const resetOptions = () => {
   state.selectedAnswer = "yes";
 };
 
-const powerSteal = () => {
+//Duplicate Power allows Mewtwo to copy all Opponents attacks & determine which attack is most potent to the players current Pokemon in use
+const duplicatePower = () => {
   //Find current player pokemon Type
   const playerType = state.yourPkmn[state.curPkmIndex].type;
   const list = state.yourPkmn;
   const allAttacks = [];
-  console.log("attackAttacks:", allAttacks)
+  
   for (let i = 0; i < list.length; i++) {
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 2; j++) {
       const attack = list[i][`attack_${j + 1}`];
       allAttacks.push(attack);
     }
   }
-  console.log(allAttacks);
   const attackRank = {
     highest: [],
     medium: [],
     low: [],
     nodamage: [],
+  };
+  const randomNum = (attackList) => {
+    return Math.floor(Math.random() * attackList.length);
   };
   //Take Attack Type and compare with Type Chart - Pushed based on rank
   allAttacks.forEach((attack) => {
@@ -1078,34 +1082,44 @@ const powerSteal = () => {
       attackRank.nodamage.push(attack);
     }
   });
+  let num;
   if (attackRank.highest.length !== 0) {
-    return attackRank.highest[0];
+    num = randomNum(attackRank.highest);
+    return attackRank.highest[num];
   } else if (attackRank.medium.length !== 0) {
-    return attackRank.medium[0];
+    num = randomNum(attackRank.medium);
+    return attackRank.medium[num];
   } else if (attackRank.low.length !== 0) {
-    return attackRank.low[0];
+    num = randomNum(attackRank.low);
+    return attackRank.low[num];
   } else {
-    return attackRank.nodamage[0];
+    //Mewtwo will use Tackle in place of no damage attacks.  
+    return "Tackle";
   }
 };
+
+const ranAttack = (num) =>{
+ return Math.floor(Math.random() * num) + 1;
+}
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
     delay(2000)
       .then(() => {
         let energy;
-        // const ranNum = Math.floor(Math.random() * 3) + 1;
-        const ranNum = 3;
+        //If Mewtwo is the boss, there are 4 attacks to pick from, all other Pokemon have only 3 attacks to randomly pick from.
+        const ranNum = state.opponentPokemon.name === "Mewtwo (Boss)" ? ranAttack(4) : ranAttack(3); 
+        // const ranNum = 4;
         state.attackSelected = `attack_${ranNum}`;
-        //MewTwo Attack 3 is Power steal
-        if (state.opponentPokemon.name === "Mewtwo (Boss)" && ranNum === 3) {
-         energy = powerSteal();
+        //MewTwo Attack 4 is Duplicate Power (Copies all opponents attack)
+        if (state.opponentPokemon.name === "Mewtwo (Boss)" && ranNum === 4) {
+          energy = duplicatePower();
+          dialogue.textContent = `${state.opponentPokemon.name} duplicated ${energy} attack.`;
         } else {
           energy = state.opponentPokemon[`${state.attackSelected}`];
+          dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         }
-        dialogue.textContent = `${state.opponentPokemon.name} uses ${energy} attack.`;
         const attack_num = state.attackSelected;
-        console.log(attack_num);
         attack_num === "attack_3" ? sound.smash.play() : sound.attack.play();
         iframeDocument
           .querySelector(".opponent__img")
@@ -1236,7 +1250,6 @@ class Pokemon {
     //Gets attack type
     const attackType = state.attackTypes[`${attack}`];
     const defenderTypeList = this.defenderType.split("/");
-
     //Check all opponent's type.  Store highest hit factor (damage rating).
     let hitFactor = 0;
     defenderTypeList.forEach((type) => {
@@ -1264,6 +1277,8 @@ class Pokemon {
       return Math.floor(this.attackpt * 0.2 * hitFactor * accuracy * 1);
     } else if (attackNum === "attack_2") {
       return Math.floor(this.attackpt * 0.2 * hitFactor * accuracy * 1.03);
+    } else if (attackNum === "attack_4") {
+      return Math.floor(this.attackpt * 0.1 * hitFactor * accuracy * .8);
     } else {
       //Else is attack 3 (tackle) will be considered as normal attack
       return Math.floor(this.attackpt * 0.2 * hitFactor * accuracy * 1.03);
