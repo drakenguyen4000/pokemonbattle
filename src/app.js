@@ -262,7 +262,6 @@ const loadPokemon = () => {
 //*Buttons*//
 //------------------------Control Buttons------------------------//
 startButton.addEventListener("click", () => {
-  // oppTurn();
   sound.click2.play();
   let color = "";
   const removeAllSkin =()=>{
@@ -1048,40 +1047,53 @@ const resetOptions = () => {
 
 //Duplicate Power allows Mewtwo to copy all Opponents attacks & determine which attack is most potent to the players current Pokemon in use
 const duplicatePower = () => {
-  //Find current player pokemon Type
-  const playerType = state.yourPkmn[state.curPkmIndex].type;
+  //Find current player pokemon types
+  const playerPkmnTypes = state.yourPkmn[state.curPkmIndex].type.split("/");
   const list = state.yourPkmn;
+  //Get all player's pokemon attacks
   const allAttacks = [];
-  
   for (let i = 0; i < list.length; i++) {
     for (let j = 0; j < 2; j++) {
       const attack = list[i][`attack_${j + 1}`];
       allAttacks.push(attack);
     }
   }
+  //Stores all attacks in rank of damage to player's current Pokemon (attack vs current Pokemon types)
   const attackRank = {
-    highest: [],
-    medium: [],
-    low: [],
-    nodamage: [],
+    highest: {},
+    medium: {},
+    low: {},
+    nodamage: {},
   };
+  //Randomly pick from an attack from attackRank
   const randomNum = (attackList) => {
     return Math.floor(Math.random() * attackList.length);
   };
-  //Take Attack Type and compare with Type Chart - Pushed based on rank
+  //Takes all attacks stored and compares against player's pokemon Types.  Then ranks and stores them in their rank tier.
   allAttacks.forEach((attack) => {
     const attackType = state.attackTypes[attack];
-    const rank = state.typeChart[`${attackType}`][`${playerType}`];
-    if (rank === 2) {
-      attackRank.highest.push(attack);
-    } else if (rank === 1) {
-      attackRank.medium.push(attack);
-    } else if (rank === 0.5) {
-      attackRank.low.push(attack);
-    } else {
-      attackRank.nodamage.push(attack);
-    }
+    playerPkmnTypes.forEach((playerPkmnType) => {
+      const rank = state.typeChart[`${attackType}`][`${playerPkmnType}`];
+      if (rank === 2) {
+        attackRank.highest[attack] = "";
+      } else if (rank === 1) {
+        attackRank.medium[attack] = "";
+      } else if (rank === 0.5) {
+        attackRank.low[attack] = "";
+      } else {
+        attackRank.nodamage[attack] = "";
+      }
+    });
   });
+  //Converts attackRank tier objects into array
+  for (const rank in attackRank) { 
+    let attackList = [];
+    for(const attack in attackRank[rank]) {
+      attackList.push(attack)
+    }
+    attackRank[rank] = attackList;
+  }
+  //Return a randomly picked attack from highest attack rank tier that exist
   let num;
   if (attackRank.highest.length !== 0) {
     num = randomNum(attackRank.highest);
@@ -1093,22 +1105,25 @@ const duplicatePower = () => {
     num = randomNum(attackRank.low);
     return attackRank.low[num];
   } else {
-    //Mewtwo will use Tackle in place of no damage attacks.  
+    //Mewtwo will use Tackle in place of no damage attacks.
     return "Tackle";
   }
 };
 
-const ranAttack = (num) =>{
- return Math.floor(Math.random() * num) + 1;
-}
+const ranAttack = (num) => {
+  return Math.floor(Math.random() * num) + 1;
+};
 
 const oppTurn = () => {
   if (state.screen !== "gameover-screen") {
     delay(2000)
       .then(() => {
         let energy;
-        //If Mewtwo is the boss, there are 4 attacks to pick from, all other Pokemon have only 3 attacks to randomly pick from.
-        const ranNum = state.opponentPokemon.name === "Mewtwo (Boss)" ? ranAttack(4) : ranAttack(3); 
+        // If Mewtwo is the boss, there are 4 attacks to pick from, all other Pokemon have only 3 attacks to randomly pick from.
+        const ranNum =
+          state.opponentPokemon.name === "Mewtwo (Boss)"
+            ? ranAttack(4)
+            : ranAttack(3);
         // const ranNum = 4;
         state.attackSelected = `attack_${ranNum}`;
         //MewTwo Attack 4 is Duplicate Power (Copies all opponents attack)
@@ -1278,7 +1293,7 @@ class Pokemon {
     } else if (attackNum === "attack_2") {
       return Math.floor(this.attackpt * 0.2 * hitFactor * accuracy * 1.03);
     } else if (attackNum === "attack_4") {
-      return Math.floor(this.attackpt * 0.1 * hitFactor * accuracy * .8);
+      return Math.floor(this.attackpt * 0.1 * hitFactor * accuracy * 0.8);
     } else {
       //Else is attack 3 (tackle) will be considered as normal attack
       return Math.floor(this.attackpt * 0.2 * hitFactor * accuracy * 1.03);
@@ -1422,7 +1437,7 @@ async function init() {
     console.log(err)
   );
   const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 0; i < 9; i++) {
+  for (let i = 6; i < 9; i++) {
     state.yourPkmn.push(data[i]);
   }
 
