@@ -896,7 +896,8 @@ const attackOption = () => {
 };
 
 const bagOption = () => {
-  if (state.optionSelected === "bag" && state.itemsAllowed !== 0) {
+  //Open bag
+  if (state.optionSelected === "bag" && state.itemsAllowed !== 0 && state.menuSelection === "") {
     bagItems = iframeDocument.querySelector(".bag-list").children;
     totalItems = bagItems.length - 1;
     //Display bag item quantity
