@@ -1397,12 +1397,12 @@
 
 .bag {
   display: none;
-  grid-template-rows: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
 }
 
 .bag--show {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
 }
 
 .bag > h3 {
@@ -1411,7 +1411,8 @@
 
 .bag-list__item, .bag-title__item {
   display: grid;
-  grid-template-columns: 5% 10% 30% 55%;
+  // grid-template-columns: 5% 10% 30% 55%;
+  grid-template-columns: 8% 12% 23% 55%;
   grid-gap: 1%;
   margin: 1%;
   font-weight: 800;

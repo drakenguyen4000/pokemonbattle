@@ -786,7 +786,7 @@ iframe {
   z-index: 95;
 }
 
-.opponent-attack_1, .opponent-attack_2 {
+.opponent-attack_1, .opponent-attack_2, .opponent-attack_4 {
   -webkit-animation: attacker-animate 4s;
           animation: attacker-animate 4s;
 }
@@ -2866,12 +2866,10 @@ iframe {
 
 .bag {
   display: none;
-  grid-template-rows: 1fr 1fr;
 }
 
 .bag--show {
   display: grid;
-  grid-template-rows: 1fr 1fr;
 }
 
 .bag > h3 {
@@ -2880,7 +2878,7 @@ iframe {
 
 .bag-list__item, .bag-title__item {
   display: grid;
-  grid-template-columns: 5% 10% 30% 55%;
+  grid-template-columns: 8% 12% 23% 55%;
   grid-gap: 1%;
   margin: 1%;
   font-weight: 800;
