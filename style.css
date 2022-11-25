@@ -2848,6 +2848,10 @@ iframe {
   font-size: 0.7rem;
   padding: 2%;
 }
+.backpack h1, .panel h1, .menu-panel h1 {
+  background-color: #c14030;
+  color: white;
+}
 
 .menu-panel {
   height: 40%;

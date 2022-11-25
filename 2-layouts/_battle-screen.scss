@@ -1379,7 +1379,13 @@
   font-size: 0.7rem;
   // border-radius:  20px;
   padding: 2%;
+  h1 {
+    background-color: #c14030;
+    color: white;
+  }
 }
+
+
 
 .menu-panel {
   @include dimension(40%, 80%);
