@@ -1368,7 +1368,8 @@
 .backpack, .panel, .menu-panel {
   display:none;
   @include dimension(80%, 96%);
-  background: white;
+  // background: white;
+  background: #eaeaea;
   position: absolute;
   left: 0;
   right: 0;
@@ -1380,8 +1381,14 @@
   // border-radius:  20px;
   padding: 2%;
   h1 {
-    background-color: #c14030;
+    border: 3px solid #fc8785;
+    background-color: #df3d3a;
     color: white;
+    padding: 1%;
+  }
+  div {
+    background-color: white;
+    padding: 1%;
   }
 }
 

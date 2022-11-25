@@ -2837,7 +2837,7 @@ iframe {
   display: none;
   height: 80%;
   width: 96%;
-  background: white;
+  background: #eaeaea;
   position: absolute;
   left: 0;
   right: 0;
@@ -2849,8 +2849,14 @@ iframe {
   padding: 2%;
 }
 .backpack h1, .panel h1, .menu-panel h1 {
-  background-color: #c14030;
+  border: 3px solid #fc8785;
+  background-color: #df3d3a;
   color: white;
+  padding: 1%;
+}
+.backpack div, .panel div, .menu-panel div {
+  background-color: white;
+  padding: 1%;
 }
 
 .menu-panel {

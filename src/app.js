@@ -348,15 +348,17 @@ startButton.addEventListener("click", () => {
 
 const guideText = () => {
   const general = `<h1>Poke Dex</h1>
+  <div>
   <h4>Note: Click Guide button to scroll through.</h4>
   <p>A player will select 3 Pokemon to bring into battle.</p>
   <p>You will need fight 3 opponents become Pokemon Master.</p>
   <p>Each Pokemon is weak against certain types of attacks.</p>
   <p>You have 10 chance to switch Pokemon per battle.</p>
   <p>Items are avaible to use for healing.</p>
-  <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p>`;
+  <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p></div>`;
   const oppPkmn = state.opponentPokemon;
   const oppGuide = `<h1>Poke Dex</h1>
+  <div>
   <h4>Note: Click Guide button to scroll through.</h4>
   <img style="border:1px solid gray; border-radius: 5px; padding 20%; background-color:rgb(155, 253, 155); height: 100%;max-height:62px;" src="${oppPkmn.image}"/>
   <p>Pokemon: ${oppPkmn.name}</p>
@@ -365,7 +367,7 @@ const guideText = () => {
   <p>Attack: ${oppPkmn.attack}</p>
   <p>Defense: ${oppPkmn.defense}</p>
   <p>Health: ${oppPkmn.health_total}</p>
-  <p>Summary: ${oppPkmn.summary}</p>`;
+  <p>Summary: ${oppPkmn.summary}</p></div>`;
   return state.screen === "oppGuide" ? oppGuide : general;
 };
 const battleGuide = () => {
