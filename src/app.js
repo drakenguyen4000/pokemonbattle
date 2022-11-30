@@ -350,12 +350,14 @@ const guideText = () => {
   const general = `<h1>Poke Dex</h1>
   <div>
   <h4>Note: Click Guide button to scroll through.</h4>
-  <p>A player will select 3 Pokemon to bring into battle.</p>
-  <p>You will need fight 3 opponents become Pokemon Master.</p>
-  <p>Each Pokemon is weak against certain types of attacks.</p>
-  <p>You have 10 chance to switch Pokemon per battle.</p>
-  <p>Items are avaible to use for healing.</p>
-  <p>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</p></div>`;
+  <ol>
+  <li>In Selection Screen, a player will select 3 Pokemon to bring into battle. Use direction pad to move about screen.  Use Select button to choose Pokemon.  Selection button to confirm choice.</li>
+  <li>You will need fight 3 opponents become Pokemon Master.</li>
+  <li>Each Pokemon is weak against certain types of attacks.</li>
+  <li>You have 10 chance to switch Pokemon per battle.</li>
+  <li>Items are avaible to use for healing.</li>
+  <li>Pokeball can be thrown to catch Pokemon and end a battle.  The lower the Pokemon's health the higher chance of capture.</li></div>
+  </ol>`;
   const oppPkmn = state.opponentPokemon;
   const oppGuide = `<h1>Poke Dex</h1>
   <div>
@@ -1430,14 +1432,14 @@ class Pokemon {
 async function init() {
   console.log("starting up app...");
   //--------Load Intro Screen--------//
-  // displayScreen("intro-screen", introScreen);
-  // delay(1500)
-  //   .then(() => {
-  //     state.screen = "intro-screen";
-  //     document.getElementsByName("screen-display")[0].src =
-  //       state.screen + ".html";
-  //   })
-  //   .catch((err) => console.log(err));
+  displayScreen("intro-screen", introScreen);
+  delay(1500)
+    .then(() => {
+      state.screen = "intro-screen";
+      document.getElementsByName("screen-display")[0].src =
+        state.screen + ".html";
+    })
+    .catch((err) => console.log(err));
 
   // --Opponent Screen--//
   displayScreen("opp-selection-screen", oppSelectionScreen);
@@ -1450,24 +1452,24 @@ async function init() {
   // state.curSelectPokemon = data1[0];
   // console.log(data1)
 
-  const response2 = await fetch("./src/opponent.json").catch((err) =>
-    console.log(err)
-  );
-  const data2 = await response2.json().catch((err) => console.log(err));
-  state.opponentPokemon = data2[0];
-  state.screen = "battle-screen";
-  document.getElementsByName("screen-display")[0].src = state.screen + ".html";
-  displayScreen("battle-screen", battleScreen);
+  // const response2 = await fetch("./src/opponent.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data2 = await response2.json().catch((err) => console.log(err));
+  // state.opponentPokemon = data2[0];
+  // state.screen = "battle-screen";
+  // document.getElementsByName("screen-display")[0].src = state.screen + ".html";
+  // displayScreen("battle-screen", battleScreen);
 
-  // ==Temp load a pokemon team==//
-  // Grab from state 3 pokemon
-  const response3 = await fetch("./src/pokemonList.json").catch((err) =>
-    console.log(err)
-  );
-  const data = await response3.json().catch((err) => console.log(err));
-  for (let i = 6; i < 9; i++) {
-    state.yourPkmn.push(data[i]);
-  }
+  // // ==Temp load a pokemon team==//
+  // // Grab from state 3 pokemon
+  // const response3 = await fetch("./src/pokemonList.json").catch((err) =>
+  //   console.log(err)
+  // );
+  // const data = await response3.json().catch((err) => console.log(err));
+  // for (let i = 6; i < 9; i++) {
+  //   state.yourPkmn.push(data[i]);
+  // }
 
   //---Gameover Test Load---//
   // displayScreen("gameover-screen", gameoverScreen);
