@@ -16,7 +16,7 @@ Example:  Fire attacks are strong against grass and bug type Pokemon.
 
 ### Main Code
 - https://github.com/drakenguyen4000/pokemon_battles/blob/main/client/src/app.js
-- In it, look for the Duplicate Power section.  This is the most complex of my code.  
+- Highlight: The most complex of my code is the Duplicate Power section in the link above.
 
 ### My motivation for this app?
 - My motivation is to wow recruiters with my creativity, coding skills, and design.  I wanted a big project where they can see my abilities with DOM manipulation, mobile first design, and BEM CSS style. 
