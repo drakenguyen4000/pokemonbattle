@@ -1,13 +1,26 @@
 # Pokemon Battle Console - Javascript
+### Copyright
+- This is a game created by me based on Pokemon games.  All sprites are properties of Pokemon and Nintendo.  This app is to show my coding skills and not for monetary gains.
 
 ### Project Description
-- This is a game created by me based on Pokemon games.  All sprites are properties of Pokemon and Nintendo.  This app is to show my coding skills and not for monetary gains.   
-- This app is single player vs computer battle.  Players select 3 Pokemon for battle to face off a randomly Pokemon.  Currently, it takes two battle wins to complete the game.  
-- Players can switch Pokemon during battle.  Helper items like potion and Pokeball can be used up to 5 per battle.  
-- The app is written with mobile first and BEM CSS style based off of wireframes I designed in Figma.  
-- The app uses Javascript, CSS and HTML.  
+- This is NOT another simple Pokemon card game. I set out to make a complex Pokemon Battle game where a player selects a Pokemon team to battle 3 rounds of different Pokemon. 
+- The attack damage system is based on attacker and defender types pulled from online Pokemon resources.  Pokemon attacks are of different types ex: fire, water, rock, sand, etc.
+Example:  Water attacks are strong against fire and ground type Pokemon.
+Example:  Fire attacks are strong against grass and bug type Pokemon.  
+- Players can swap Pokemon mid-battle, use potions to heal their health bar, throw Pokeballs to catch the opponent, add the defeated Pokemon to their team to fight the next round, and pull up a guide on the opponent Pokemon. 
+- Best of all I added an algorithm that allows, Mewtwo the final boss, to duplicate all attacks of the player's team & determine which attack is the most damaging to player's in-battle Pokemon.  The code runs every time the attack is used. A player can switch to a different type of Pokemon, but Mewtwo will always use the most damaging duplicated attack.
+
+- This is a mobile-first Pokemon Battle game designed based on a Pokedex and Gameboy look. Launch the app on a mobile device, using the buttons as controls for the best effect.
+- The app is written with mobile-first and BEM CSS style based on wireframes I designed in Figma.  
+- The app uses Javascript, CSS and HTML.
+
+### Main Code
+- https://github.com/drakenguyen4000/pokemon_battles/blob/main/client/src/app.js
+- In it, look for the Duplicate Power section.  This is the most complex of my code.  
+
 ### My motivation for this app?
 - My motivation is to wow recruiters with my creativity, coding skills, and design.  I wanted a big project where they can see my abilities with DOM manipulation, mobile first design, and BEM CSS style. 
+
 ### Why build this project?
 -  I wanted a project that is unique compared to what is usually built.  I liked the concept of Pokemon battles and wanted to challenge myself to see if I could build it similar to a Gameboy console but designed based off of a PokeDex (Pokemon catalogue device).
 
