@@ -1410,7 +1410,7 @@ class Pokemon {
     const itemWon = bagItemsArr[ranNum];
     state.bag[itemWon] += 1;
     //display winning item infobox red
-    dialogue.textContent = `You win ${state.wins} round.`;
+    dialogue.textContent = `You win ${state.wins} round and an extra ${itemWon}.`;
     sound.winGame.play();
     //Add Caught Pokemon to your team
     state.yourPkmn.push(state.opponentPokemon);
